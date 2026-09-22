@@ -1,0 +1,16 @@
+# build scratch and screenshots, not part of the site
+node_modules/
+__pycache__/
+*.pyc
+*.png
+*.bak
+bundle.js
+vendor_bundle.js
+vendor_entry.js
+logos_raw.json
+logos_png.json
+logos_webp.json
+logos48.json
+logos_lum.json
+changed.txt
+x/
