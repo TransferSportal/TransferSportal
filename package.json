@@ -1,0 +1,19 @@
+{
+  "name": "work",
+  "version": "1.0.0",
+  "description": "A self-updating website that ranks the best anytime-touchdown bets each week, with team offense/defense stats and an odds-vs-model edge finder.",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/standalone": "^8.0.5",
+    "jsdom": "^30.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sucrase": "^3.35.1"
+  }
+}
