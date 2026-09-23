@@ -1,0 +1,134 @@
+name: Daily board
+
+# Rescrape nflverse, rebuild the board, publish it.
+#
+# GitHub cron is UTC only and Indiana is Eastern, so the clock shifts twice a
+# year: 9am Eastern is 13:00 UTC in summer (EDT) and 14:00 UTC in winter (EST).
+# Firing on BOTH and then checking the real Eastern hour is the only way to land
+# on 9am all year without editing this file every March and November.
+on:
+  schedule:
+    - cron: "0 13 * * *"   # 9am EDT (summer)
+    - cron: "0 14 * * *"   # 9am EST (winter)
+  workflow_dispatch:       # "Run workflow" button, for when you can't wait
+
+concurrency:
+  group: daily-board
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.clock.outputs.go }}
+    steps:
+      - name: Is it actually 9am in Indiana?
+        id: clock
+        run: |
+          H=$(TZ=America/New_York date +%H)
+          echo "Eastern hour is $H"
+          # A manual run always proceeds. A scheduled run only proceeds at 9am
+          # Eastern, so exactly one of the two DST crons does the work each day.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$H" = "09" ]; then
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=no"  >> "$GITHUB_OUTPUT"
+            echo "Not 9am Eastern. This is the other DST cron. Skipping."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.clock.outputs.go == 'yes'
+
+      - uses: actions/setup-python@v5
+        if: steps.clock.outputs.go == 'yes'
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        if: steps.clock.outputs.go == 'yes'
+        run: pip install --quiet numpy pandas
+
+      - name: Rescrape and rebuild
+        if: steps.clock.outputs.go == 'yes'
+        run: |
+          python update.py 2026
+          python build.py
+          python build_record.py
+
+      - name: Commit only if something real changed
+        if: steps.clock.outputs.go == 'yes'
+        run: |
+          python - <<'PY'
+          import json, subprocess
+
+          def norm(txt):
+              d = json.loads(txt)
+              d.pop("generated", None)
+              if isinstance(d.get("meta"), dict):
+                  d["meta"].pop("generated", None)
+              return d
+
+          def unchanged(f):
+              old = subprocess.run(["git", "show", f"HEAD:{f}"],
+                                   capture_output=True, text=True)
+              if old.returncode:
+                  return False
+              try:
+                  return norm(old.stdout) == norm(open(f, encoding="utf-8").read())
+              except Exception:
+                  return False
+
+          tracked = subprocess.run(["git", "diff", "--name-only"],
+                                   capture_output=True, text=True).stdout.split()
+          real = set(subprocess.run(["git", "ls-files", "-o", "--exclude-standard"],
+                                    capture_output=True, text=True).stdout.split())
+
+          quiet = {"data.json":   unchanged("data.json")   if "data.json"   in tracked else True,
+                   "record.json": unchanged("record.json") if "record.json" in tracked else True}
+          skip_if_quiet = {"data.json": "data.json", "index.html": "data.json",
+                           "record.json": "record.json", "record.html": "record.json"}
+          for f in tracked:
+              src = skip_if_quiet.get(f)
+              if src and quiet[src]:
+                  continue
+              real.add(f)
+
+          open("changed.txt", "w").write("\n".join(sorted(real)))
+          print("meaningful changes:", sorted(real) or "none")
+          PY
+          if [ ! -s changed.txt ]; then
+            echo "Nothing but the clock moved. Not committing."
+            rm -f changed.txt
+            exit 0
+          fi
+          rm -f changed.txt
+          WEEK=$(python -c "import json;print(json.load(open('data.json'))['meta']['predict_week'])")
+          git config user.name  "TransferSportal Bot"
+          git config user.email "bot@transfersportal.invalid"
+          git add -A
+          git commit -m "Board update: $WEEK ($(TZ=America/New_York date '+%Y-%m-%d %H:%M %Z'))"
+          git push
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.go == 'yes'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+      - id: pages
+        uses: actions/deploy-pages@v4
