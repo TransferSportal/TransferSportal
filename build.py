@@ -12,6 +12,7 @@ of shipping a half-branded file.
 import json, pathlib, sys
 
 HERE = pathlib.Path(__file__).parent
+BS = chr(92)          # a single backslash, without writing one
 
 
 def sub(text, old, new, label, count=1):
@@ -118,7 +119,10 @@ nearbi = (
     "const EMBED = " + embed + ";\n"
     + team_nearbi + "\n"
     + logo_nearbi + "\n"
-    + "const APP_CSS = `" + css.replace("\\\\", "\\\\\\\\").replace("`", "\\\\`").replace("${", "\\\\${") + "`;\n\n"
+    # BS is a single backslash. Spelled with chr() rather than as a literal so
+    # this line survives being transmitted through JSON-escaped tooling, where
+    # a miscounted backslash silently breaks the offline build's CSS escaping.
+    + "const APP_CSS = `" + css.replace(BS, BS * 2).replace("`", BS + "`").replace("${", BS + "${") + "`;\n\n"
     + n
     + "\n\nexport default App;\n"
 )
