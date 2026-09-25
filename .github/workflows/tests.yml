@@ -1,0 +1,83 @@
+name: Tests
+
+# Runs on every push. Its first job is unglamorous and important: prove that
+# every Python file in the repo actually parses.
+#
+# The files in this repo are written here and pushed through an API one at a
+# time, which means a truncated or mangled upload is a real failure mode. A
+# half-written update.py would sit in the repo looking fine and then take the
+# 9am build down, and the first anyone would know is an empty board. This
+# catches that within a minute of the push instead.
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Every Python file parses
+        run: |
+          python - <<'PY'
+          import ast, pathlib, sys
+          bad = []
+          files = sorted(pathlib.Path(".").glob("*.py"))
+          for p in files:
+              src = p.read_bytes()
+              try:
+                  ast.parse(src.decode("utf-8"))
+              except (SyntaxError, UnicodeDecodeError) as e:
+                  bad.append(f"{p}: {e}")
+              else:
+                  print(f"  ok  {p}  ({len(src):,} bytes)")
+          if bad:
+              print("\nfiles that do not parse:")
+              for b in bad:
+                  print("  " + b)
+              sys.exit(1)
+          print(f"\n{len(files)} Python files parse")
+          PY
+
+      - name: Files the daily build imports are all present
+        run: |
+          python - <<'PY'
+          import os, sys
+          # build.py reads these by name; a missing one is a silent 9am failure
+          needed = {
+              "update.py": "builds the player board",
+              "games.py": "game projections",
+              "team_metrics.py": "imported by games.py",
+              "picks.py": "locks and grades the card",
+              "odds.py": "prices the board",
+              "dk.py": "DraftKings source, imported by odds.py",
+              "build.py": "renders index.html",
+              "build_record.py": "renders record.html",
+              "App.jsx": "the site",
+              "theme.css": "the site's styles",
+              "team.js": "team colours",
+              "mount.js": "React mount",
+              "logos.js": "inlined team crests",
+              "logo_b64.txt": "the wordmark",
+          }
+          missing = {f: why for f, why in needed.items() if not os.path.exists(f)}
+          for f, why in sorted(needed.items()):
+              mark = "MISSING" if f in missing else "ok     "
+              size = f"{os.path.getsize(f):,}" if f not in missing else "-"
+              print(f"  {mark}  {f:<18}{size:>10}   {why}")
+          if missing:
+              print(f"\n{len(missing)} file(s) the build needs are not in the repo")
+              sys.exit(1)
+          print("\nevery file the daily build reads is present")
+          PY
+
+      - name: Self-tests that need no network or data
+        run: |
+          python dk.py --selftest
+          python odds.py --selftest
