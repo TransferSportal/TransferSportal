@@ -63,7 +63,7 @@ jobs:
               "theme.css": "the site's styles",
               "team.js": "team colours",
               "mount.js": "React mount",
-              "logos.js": "inlined team crests",
+              "make_logos.py": "generates the crests",
               "logo_b64.txt": "the wordmark",
           }
           missing = {f: why for f, why in needed.items() if not os.path.exists(f)}
@@ -81,3 +81,12 @@ jobs:
         run: |
           python dk.py --selftest
           python odds.py --selftest
+
+      - name: Crests build and verify
+        run: |
+          pip install --quiet pillow
+          # logos.js is generated, not committed. Building it here is the only
+          # place the logo hosts are actually reachable, so this is where a
+          # broken source shows up rather than at 9am tomorrow.
+          python make_logos.py
+          python make_logos.py --check
