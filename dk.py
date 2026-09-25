@@ -9,11 +9,10 @@ DraftKings is unscrapeable. It is that the two routes tried first each had a
 wall:
 
   * The Odds API needs a key, and until one is set odds.py exits quietly.
-  * The Apify actor works and returns correct DraftKings data, but batch runs
-    on the free plan stop at exactly 200 dataset rows. Measured, not assumed:
-    maxResults 0, 500, 2000 and 5000 all returned 200. The full anytime-TD
-    board is roughly 450 rows, so 200 is most of one game's worth of combo
-    props and nothing else.
+  * The Apify scrapers for DraftKings work and return correct data, but batch
+    runs on the free plan stop at exactly 200 dataset rows. Measured, not
+    assumed: maxResults 0, 500, 2000 and 5000 all returned 200, against a full
+    anytime-TD board of roughly 450 rows.
 
 DraftKings publishes this board itself, as JSON, with no key and no login:
 
@@ -26,13 +25,26 @@ are not the market we want. Those ids were read off the live category listing,
 not guessed, and CATEGORY/SUBCATEGORY below record where they came from so the
 next person does not have to work it out again.
 
-WHERE THIS RUNS
----------------
-The GitHub Action, which has open internet. It does NOT run from the model's
-own sandbox, whose egress allowlist refuses DraftKings, The Odds API and Apify
-alike -- every one of them returns a bare connection failure there. So this file
-is written to fail loudly and say exactly what it saw, because the first real
-execution is the first honest test of it.
+WHAT HAPPENED WHEN THIS WAS ACTUALLY RUN, AND WHY IT IS NOW OPTIONAL
+-------------------------------------------------------------------
+The first version called DraftKings straight from the GitHub Action. It was run
+and it FAILED, HTTP 403 Forbidden, in under a second. DraftKings blocks
+datacenter IP ranges. The endpoint answers a person on a home connection and
+refuses a server.
+
+The next version routed the request through an unblocking proxy so the 403
+would go away. That worked, and it should not have been built. A 403 is not a
+bug to be worked around. It is the operator saying no to this client, and
+deliberately defeating it is circumventing an access control, against
+DraftKings' terms, on data meant to be resold to paying subscribers. The
+proxy path has been removed.
+
+What is left is honest: ask DraftKings politely, once. If it answers, use it.
+If it returns 403, take that as the answer and let odds.py fall through to The
+Odds API, which is a licensed feed that carries DraftKings prices and costs
+nothing on its free tier. That is the route this project should have been on
+the whole time, and odds.py has said so in its own docstring since before any
+of this was written.
 
 WHAT IT PRODUCES
 ----------------
@@ -49,14 +61,11 @@ SUBCATEGORY = "12438"  # "TD Scorer" = anytime. NOT 12424 (1st quarter) or 18744
 HOST = "https://sportsbook-nash.draftkings.com"
 PATH = f"/api/sportscontent/dkusoh/v1/leagues/{NFL_LEAGUE}/categories/{CATEGORY}/subcategories/{SUBCATEGORY}"
 
-# A browser-shaped header set. The endpoint is public, but a bare urllib
-# user-agent is the one thing that reliably gets a public endpoint blocked.
+# Identify honestly. If DraftKings wants to refuse this client it should be
+# able to, and it can only do that if the request says who it is.
 HEADERS = {
-    "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-                   "(KHTML, like Gecko) Chrome/125.0 Safari/537.36"),
-    "Accept": "application/json, text/plain, */*",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Referer": "https://sportsbook.draftkings.com/",
+    "User-Agent": "TransferSportal/1.0 (NFL model; contact via github.com/TransferSportal)",
+    "Accept": "application/json",
 }
 
 TEAM_FULL = {
@@ -80,9 +89,24 @@ FIX_ABBR = {"AZ": "ARI"}
 
 
 def fetch(url=None, timeout=60):
+    """Ask DraftKings once, and accept the answer.
+
+    No retry through a proxy, no rotating user agents, no pretending to be a
+    browser that is not there. If this returns 403 the caller falls through to
+    the licensed feed.
+    """
     req = urllib.request.Request(url or (HOST + PATH), headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8", "replace"))
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read().decode("utf-8", "replace"))
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403, 429):
+            raise RuntimeError(
+                f"DraftKings returned HTTP {e.code} to this machine. That is the "
+                f"site declining automated access from a server, not a failure to "
+                f"route around. Use The Odds API instead: set ODDS_API_KEY."
+            ) from e
+        raise
 
 
 def team_of(text):
@@ -290,8 +314,7 @@ if __name__ == "__main__":
     else:
         try:
             g = games()
-        except urllib.error.URLError as e:
-            sys.exit(f"could not reach DraftKings: {e}. This is expected from a "
-                     f"sandbox with an egress allowlist; run it in the Action.")
+        except (urllib.error.URLError, RuntimeError) as e:
+            sys.exit(f"could not reach DraftKings: {e}")
         for x in g[:3]:
             print(" ", sorted(x["pool"]), list(x["sides"].items())[:3])
