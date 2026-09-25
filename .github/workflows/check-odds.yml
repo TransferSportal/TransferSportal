@@ -1,0 +1,61 @@
+name: Check the odds feed
+
+# Run this by hand from the Actions tab whenever the odds column looks empty or
+# wrong. It touches nothing: no rebuild, no commit, no deploy. It only asks
+# DraftKings for the anytime-touchdown board and prints what came back.
+#
+# It exists because the model's own sandbox cannot reach DraftKings at all --
+# its egress allowlist refuses the request before it leaves the machine -- so
+# this runner is the only place the feed can actually be tested. If DraftKings
+# moves the endpoint one day, this is what tells you, in one click, instead of
+# the board quietly showing no prices for a week.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Parser self-test, before touching the network
+        run: python dk.py --selftest
+
+      - name: Ask DraftKings for the anytime-touchdown board
+        run: |
+          python - <<'PY'
+          import dk, statistics as st
+
+          games = dk.games()
+          if not games:
+              raise SystemExit("DraftKings answered but the board was empty")
+
+          players = sum(len(g["sides"]) for g in games)
+          two_way = sum(1 for g in games for v in g["sides"].values()
+                        if "yes" in v and "no" in v)
+          print(f"\n{len(games)} games, {players} priced players, "
+                f"{two_way} with both sides (those devig exactly)")
+
+          for g in sorted(games, key=lambda x: sorted(x["pool"]))[:3]:
+              print(f"\n  {' vs '.join(sorted(g['pool']))}")
+              top = sorted(g["sides"].items(), key=lambda kv: kv[1].get("yes", 9999))
+              for who, v in top[:5]:
+                  y = v.get("yes")
+                  print(f"    {who:<26}{('+' if y and y > 0 else '')}{y}")
+
+          # The checks worth failing on. A board that parses but is nonsense is
+          # worse than one that fails outright, because it ships.
+          if len(games) < 8:
+              raise SystemExit(f"only {len(games)} games -- expected a full slate")
+          if players < 150:
+              raise SystemExit(f"only {players} priced players -- expected 300+")
+          thin = [g for g in games if len(g["pool"]) < 2]
+          if thin:
+              raise SystemExit(f"{len(thin)} games where both teams could not be identified")
+          print("\nfeed is healthy")
+          PY
