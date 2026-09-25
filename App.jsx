@@ -116,9 +116,9 @@ function withHelpers(data) {
 // ---- paste-odds parser (DraftKings board -> name/price map) ----
 const SUFFIX = new Set(['jr','sr','ii','iii','iv','v']);
 function pnorm(s) {
-  s = String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-  s = s.replace(/[.'’]/g,'').replace(/-/g,' ');
-  return s.split(/\s+/).filter(w=>w && !SUFFIX.has(w)).join(' ');
+  s = String(s).normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();
+  s = s.replace(/[.'\\u2019]/g,'').replace(/-/g,' ');
+  return s.split(/\\s+/).filter(w=>w && !SUFFIX.has(w)).join(' ');
 }
 const ptight = s => pnorm(s).replace(/ /g,'');
 function pinit(s) { const p=pnorm(s).split(' '); return p.length>1 ? p[0][0]+' '+p[p.length-1] : pnorm(s); }
@@ -131,23 +131,23 @@ function buildIdx(players) {
 function parseOdds(text, players) {
   const idx = buildIdx(players);
   const applied = { first_td:{}, two_plus:{}, anytime:{} }, unmatched=[], ambiguous=[];
-  const priceRe = /^[+−-]\d{2,4}$/;
-  const lines = String(text).split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  const priceRe = /^[+\\u2212-]\\d{2,4}$/;
+  const lines = String(text).split(/\\r?\\n/).map(s=>s.trim()).filter(Boolean);
   const pairs = []; let pending=null, bucket=[];
   const flush = () => { if (pending && bucket.length) pairs.push([pending, bucket.slice()]); pending=null; bucket=[]; };
   lines.forEach(line => {
-    const clean = line.replace(/−/g,'-');
-    const inline = clean.match(/^(.*?[A-Za-z].*?)[\s\t|,]+([+-]\d{2,4})\s*$/);
+    const clean = line.replace(/\\u2212/g,'-');
+    const inline = clean.match(/^(.*?[A-Za-z].*?)[\\s\\t|,]+([+-]\\d{2,4})\\s*$/);
     if (inline) { flush(); pairs.push([inline[1],[inline[2]]]); return; }
-    if (priceRe.test(clean)) { if (pending) bucket.push(clean.replace('−','-')); return; }
+    if (priceRe.test(clean)) { if (pending) bucket.push(clean.replace('\\u2212','-')); return; }
     if (/[A-Za-z]{2,}/.test(clean)) { flush(); pending = clean; }
   });
   flush();
   const ORDER = ['anytime','first_td','two_plus'];
   pairs.forEach(([rawName, prices]) => {
-    let nm = rawName.replace(/\b(anytime|atd|td|scorer|yes|no|first|2\+|tds)\b/gi,'')
-      .replace(/\([^)]*\)/g,'').replace(/[|,]/g,' ').replace(/\s{2,}/g,' ').trim();
-    const teamHit = nm.match(/\b([A-Z]{2,3})\b\s*$/); let team=null;
+    let nm = rawName.replace(/\\b(anytime|atd|td|scorer|yes|no|first|2\\+|tds)\\b/gi,'')
+      .replace(/\\([^)]*\\)/g,'').replace(/[|,]/g,' ').replace(/\\s{2,}/g,' ').trim();
+    const teamHit = nm.match(/\\b([A-Z]{2,3})\\b\\s*$/); let team=null;
     if (teamHit && teamHit[1]!==nm.trim()) { team=teamHit[1]; nm=nm.slice(0,teamHit.index).trim(); }
     if (nm.length<3) return;
     let hit=null;
@@ -195,7 +195,7 @@ function Header({ meta }) {
         </div>
         <div className="meta">
           {wp > 0 && <>2026 week {wp} in &nbsp;&middot;&nbsp; </>}
-          predicting <b>{meta.predict_week || '—'}</b> &nbsp;&middot;&nbsp; backtest{' '}
+          predicting <b>{meta.predict_week || '\\u2014'}</b> &nbsp;&middot;&nbsp; backtest{' '}
           <b>{Math.round((bt.top12_hit||0)*100)}%</b> top 12
           {live && <> &nbsp;&middot;&nbsp; <a className="recLink" href="./record.html">live <b className={liveTone}>{live.hit}/{live.of}</b> ({live.pct}%)</a></>}
           &nbsp;&middot;&nbsp;{' '}
@@ -238,7 +238,7 @@ function Ticker({ DATA, CURVE, CALP, CAL, CALPP, CALP2 }) {
           <span className={'tick ' + (t.value >= 0 ? 'up' : 'down')} key={t.name}>
             <span className="tickNm">{last(t.name)}</span>
             <span className="tickVal">
-              <span className="tickArrow">{t.value >= 0 ? '▲' : '▼'}</span>
+              <span className="tickArrow">{t.value >= 0 ? '\\u25b2' : '\\u25bc'}</span>
               {t.value >= 0 ? '+' : ''}{t.value.toFixed(1)}%
             </span>
           </span>
@@ -462,7 +462,7 @@ function CalibrationNote({ DATA, CURVE, CALP, CAL, CALPP, CALP2 }) {
     <div className="calNote">
       <button className="noteHead" onClick={()=>setOpen(v=>!v)}>
         <span><b>Read the edge with care on favourites</b> — the model sits {Math.abs(gap).toFixed(0)} pts under the book on short prices</span>
-        <span className="noteChev">{open ? '−' : '+'}</span>
+        <span className="noteChev">{open ? '\\u2212' : '+'}</span>
       </button>
       {open && (
         <div className="noteBody">
