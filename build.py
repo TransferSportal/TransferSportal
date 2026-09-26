@@ -23,12 +23,21 @@ def sub(text, old, new, label, count=1):
 
 
 css = (HERE / "theme.css").read_text()
-app = (HERE / "App.jsx").read_text()
+# The dashboard is two files. They are concatenated in order into one
+# <script type="text/babel"> block, so they behave exactly as the single
+# file they used to be: App.jsx has the helpers and shared pieces,
+# App.tabs.jsx has the tabs and the root component.
+app = (HERE / "App.jsx").read_text() + "\n" + (HERE / "App.tabs.jsx").read_text()
 team_line = (HERE / "team.js").read_text().strip()
 logo_line = (HERE / "logos.js").read_text().strip()
 mount = (HERE / "mount.js").read_text().strip()
 logo = (HERE / "logo_b64.txt").read_text().strip()
 data = json.loads((HERE / "data.json").read_text())
+# The game model is built separately by games.py and folded in here, so a build
+# still succeeds on a machine that has not run it yet -- the Games tab just says
+# so instead of the page failing to render.
+gm = HERE / "games.json"
+data["games_model"] = json.loads(gm.read_text()) if gm.exists() else None
 embed = json.dumps(data, separators=(",", ":"))
 
 app = sub(app, "__LOGO_DATA_URI__", logo, "logo data URI")

@@ -49,18 +49,45 @@ jobs:
 
       - name: Install dependencies
         if: steps.clock.outputs.go == 'yes'
-        run: pip install --quiet numpy pandas
+        run: pip install --quiet numpy pandas pillow
 
       - name: Rescrape and rebuild
         if: steps.clock.outputs.go == 'yes'
+        env:
+          # This is the one that matters. The Odds API is a licensed feed that
+          # carries DraftKings prices; the free tier covers this comfortably at
+          # roughly 16 credits a slate against 500 a month. Get a key at
+          # the-odds-api.com and add it under
+          # Settings -> Secrets and variables -> Actions as ODDS_API_KEY.
+          #
+          # Without it the board still builds, just with an empty odds column.
+          # DraftKings' own endpoint is tried as a courtesy and returns 403 to
+          # datacenter IPs, which is the site's call and is left alone.
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
+          # The crests are generated rather than stored: 123KB of base64 PNG
+          # does not compress and is not something anyone can audit in a diff.
+          # Regenerated only when absent, so a normal day costs nothing.
+          test -f logos.js || python make_logos.py
+          python make_logos.py --check
           python update.py 2026
+          python odds.py
+          python games.py 2026
+          # picks.py runs AFTER games.py because the per-team cap on touchdown
+          # picks comes from that game's projected points. It locks this week's
+          # picks write-once and grades every week that has finished.
+          python picks.py
           python build.py
           python build_record.py
 
       - name: Commit only if something real changed
         if: steps.clock.outputs.go == 'yes'
         run: |
+          # Every build stamps a fresh "generated" time, so a quiet day still
+          # looks like a diff. Committing those would bury the real picks under
+          # no-op commits, and this repo's commit history is the public proof
+          # that the picks were posted before kickoff. A moved clock alone is
+          # not a change.
           python - <<'PY'
           import json, subprocess
 
@@ -75,17 +102,18 @@ jobs:
               old = subprocess.run(["git", "show", f"HEAD:{f}"],
                                    capture_output=True, text=True)
               if old.returncode:
-                  return False
+                  return False                      # brand new file is a change
               try:
                   return norm(old.stdout) == norm(open(f, encoding="utf-8").read())
               except Exception:
-                  return False
+                  return False                      # can't tell, so commit it
 
           tracked = subprocess.run(["git", "diff", "--name-only"],
                                    capture_output=True, text=True).stdout.split()
           real = set(subprocess.run(["git", "ls-files", "-o", "--exclude-standard"],
                                     capture_output=True, text=True).stdout.split())
 
+          # The HTML just embeds its JSON, so it is judged by that JSON.
           quiet = {"data.json":   unchanged("data.json")   if "data.json"   in tracked else True,
                    "record.json": unchanged("record.json") if "record.json" in tracked else True}
           skip_if_quiet = {"data.json": "data.json", "index.html": "data.json",
@@ -125,6 +153,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # Re-resolve the default branch so this picks up the commit the build
+          # job just pushed. Named explicitly rather than hardcoding "main",
+          # because a repo whose default branch is called anything else would
+          # fail here every single morning.
           ref: ${{ github.event.repository.default_branch }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

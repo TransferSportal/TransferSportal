@@ -4,11 +4,12 @@ name: Check the odds feed
 # wrong. It touches nothing: no rebuild, no commit, no deploy. It only asks
 # DraftKings for the anytime-touchdown board and prints what came back.
 #
-# It exists because the model's own sandbox cannot reach DraftKings at all --
-# its egress allowlist refuses the request before it leaves the machine -- so
-# this runner is the only place the feed can actually be tested. If DraftKings
-# moves the endpoint one day, this is what tells you, in one click, instead of
-# the board quietly showing no prices for a week.
+# Expect this to report 403 from a GitHub runner: DraftKings declines automated
+# access from datacenter IPs, and that is its call to make. The supported source
+# is The Odds API, a licensed feed carrying DraftKings prices, free at this
+# volume. This check is still useful, because it tells you in one click which
+# source is actually answering instead of leaving you guessing at an empty
+# odds column.
 
 on:
   workflow_dispatch:
