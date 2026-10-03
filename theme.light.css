@@ -41,3 +41,7 @@ td.mu.bad{border-left-color:var(--neg)}
 .muKey{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin:0 0 10px}
 .muKey i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle;background:#c9cbcf}
 .muKey i.g{background:var(--pos)}.muKey i.r{background:var(--neg)}
+
+/* the locked-card notice is information, not a warning: no red */
+.calNote{background:var(--sunk);border-color:var(--line);border-left:3px solid var(--ink)}
+.calNote b{color:var(--ink)}
