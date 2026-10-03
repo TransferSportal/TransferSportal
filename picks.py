@@ -55,8 +55,9 @@ TEAM_FIX = {"AZ": "ARI"}
 # backtest_teamnorm.py. Same constants the probability normalisation uses, so
 # the pick count and the quoted probabilities cannot drift apart.
 SCORERS_A, SCORERS_B = -0.02, 0.0902
-MAX_PER_TEAM = 3          # Ryan's cap, and the projection never asks for more
+MAX_PER_TEAM = 3          # the per-team cap, and the projection never asks for more
 MIN_PER_TEAM = 1
+TOP_N = 15                # the card is the 15 highest-probability scorers, not 65
 
 
 def load(path):
@@ -102,7 +103,10 @@ def select_td_picks(players, games):
                 "prob": p.get("prob"), "score": p.get("score"),
                 "opp": p.get("next_opp"),
             })
-    picks.sort(key=lambda x: (-(x["score"] or 0), -(x["prob"] or 0)))
+    # the card is cut by probability, highest first; lock() keeps the top TOP_N
+    picks.sort(key=lambda x: (-(x["prob"] or 0), -(x["score"] or 0)))
+    for i, x in enumerate(picks, 1):
+        x["rank"] = i
     return picks
 
 
@@ -138,7 +142,7 @@ def kicked_off(sched, week):
     return out
 
 
-def lock(season, week, td_picks, game_picks, amend=None, started=frozenset()):
+def lock(season, week, td_picks, game_picks, amend=None, started=frozenset(), td_only=False):
     """Write this week's picks once and never again.
 
     The one exception is an AMENDMENT, and it is deliberately hard to trigger.
@@ -166,13 +170,19 @@ def lock(season, week, td_picks, game_picks, amend=None, started=frozenset()):
             return path, old
         keep_td = [p for p in old.get("td_picks", []) if p["team"] in started]
         keep_gp = [g for g in old.get("game_picks", [])
-                   if g["home"] in started or g["away"] in started]
+                   if td_only or g["home"] in started or g["away"] in started]
         frozen_teams = {p["team"] for p in keep_td} | {g["home"] for g in keep_gp} | \
                        {g["away"] for g in keep_gp}
-        new_td = [p for p in td_picks if p["team"] not in frozen_teams]
-        new_gp = [g for g in game_picks
+        if td_only:
+            # a touchdown-card amendment must not touch the game picks at all
+            frozen_teams = {p["team"] for p in keep_td}
+        new_td = [p for p in td_picks if p["team"] not in frozen_teams][:TOP_N]
+        new_gp = [] if td_only else [g for g in game_picks
                   if g["home"] not in frozen_teams and g["away"] not in frozen_teams]
         old["td_picks"] = keep_td + new_td
+        old["cap_rule"] = (f"the {TOP_N} highest-probability scorers on the slate, "
+                           f"at most {MAX_PER_TEAM} per team")
+        old["top_n"] = TOP_N
         old["game_picks"] = keep_gp + new_gp
         old.setdefault("amendments", []).append({
             "at": pd.Timestamp.now("UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -192,10 +202,10 @@ def lock(season, week, td_picks, game_picks, amend=None, started=frozenset()):
         "season": season, "week": week,
         "locked": pd.Timestamp.now("UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
         "note": ("locked on the first build of this slate and never rewritten; "
-                 "touchdown picks are capped per team by that team's projected points"),
-        "cap_rule": (f"picks per team = round({SCORERS_A} + {SCORERS_B} x projected points), "
-                     f"clamped to {MIN_PER_TEAM}..{MAX_PER_TEAM}"),
-        "td_picks": td_picks, "game_picks": game_picks,
+                 "touchdown picks are the top 15 by probability"),
+        "cap_rule": (f"the {TOP_N} highest-probability scorers on the slate, "
+                     f"at most {MAX_PER_TEAM} per team"),
+        "td_picks": td_picks[:TOP_N], "game_picks": game_picks, "top_n": TOP_N,
     }
     json.dump(doc, open(path, "w"), separators=(",", ":"))
     print(f"{path} locked -- {len(td_picks)} touchdown picks, {len(game_picks)} game picks")
@@ -293,7 +303,7 @@ def complete_weeks(sched):
     return {int(w) for w, frac in done.items() if frac >= 0.75}
 
 
-def build(season=None, amend=None):
+def build(season=None, amend=None, td_only=False):
     data = json.load(open("data.json"))
     gm = data.get("games_model") or json.load(open("games.json"))
     season = season or int(gm["meta"]["season"])
@@ -305,7 +315,7 @@ def build(season=None, amend=None):
     td_picks = select_td_picks(data["players"], gm["games"])
     game_picks = select_game_picks(gm["games"])
     path, doc = lock(season, week, td_picks, game_picks,
-                     amend=amend, started=kicked_off(sched, week))
+                     amend=amend, started=kicked_off(sched, week), td_only=td_only)
 
     # mark the live board so the site can show which players are the picks
     chosen = {(p["name"], p["team"]): p for p in doc["td_picks"]}
@@ -359,13 +369,15 @@ def build(season=None, amend=None):
     json.dump(record, open("picks_record.json", "w"), separators=(",", ":"))
 
     data["picks"] = {"week": week, "season": season, "locked": doc.get("locked"),
-                     "cap_rule": doc.get("cap_rule"),
+                     "cap_rule": doc.get("cap_rule"), "top_n": doc.get("top_n", TOP_N),
+                     "amendments": doc.get("amendments", []),
                      "td_picks": doc["td_picks"], "game_picks": doc["game_picks"]}
     data["picks_record"] = record
     json.dump(data, open("data.json", "w"), separators=(",", ":"))
 
-    print(f"\n{season} week {week}: {len(td_picks)} touchdown picks across "
-          f"{len({p['team'] for p in td_picks})} teams, {len(game_picks)} game picks")
+    shown = doc["td_picks"]
+    print(f"\n{season} week {week}: {len(shown)} touchdown picks on the card "
+          f"(top {TOP_N} by probability plus any already-played), {len(doc['game_picks'])} game picks")
     if graded:
         print(f"graded record through week {record['through_week']}: "
               f"TD {tw}/{tn}, ATS {aw}-{al}, O/U {ow}-{ol}")
@@ -378,11 +390,12 @@ if __name__ == "__main__":
     # python picks.py                      normal daily run, never amends
     # python picks.py --amend "reason"     hand-run amendment, started games frozen
     amend = None
-    args = sys.argv[1:]
+    td_only = "--td-only" in sys.argv
+    args = [a for a in sys.argv[1:] if a != "--td-only"]
     if "--amend" in args:
         i = args.index("--amend")
         amend = args[i + 1] if len(args) > i + 1 else None
         if not amend:
             sys.exit("--amend needs a reason in quotes; an unexplained rewrite is not allowed")
         args = args[:i]
-    build(int(args[0]) if args else None, amend=amend)
+    build(int(args[0]) if args else None, amend=amend, td_only=td_only)
