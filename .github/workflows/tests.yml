@@ -60,7 +60,9 @@ jobs:
               "build.py": "renders index.html",
               "build_record.py": "renders record.html",
               "App.jsx": "the site, first half",
-              "App.tabs.jsx": "the site, second half -- build.py concatenates both",
+              "App.props.jsx": "the prop tabs -- build.py concatenates all three",
+              "App.tabs.jsx": "the site, last part -- build.py concatenates all three",
+              "props.py": "prop cheatsheet data, run by the daily build",
               "theme.css": "the site's styles",
               "team.js": "team colours",
               "mount.js": "React mount",
@@ -82,6 +84,8 @@ jobs:
         run: |
           python dk.py --selftest
           python odds.py --selftest
+          pip install --quiet numpy pandas
+          python props.py --selftest
 
       - name: Crests build and verify
         run: |

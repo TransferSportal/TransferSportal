@@ -73,6 +73,10 @@ jobs:
           python update.py 2026
           python odds.py
           python games.py 2026
+          # Game logs for the prop tabs. These must never block the board: if the
+          # download fails or comes back thin, props.py writes nothing, the prop
+          # tabs say they are waiting for data, and the rest of the site builds.
+          python props.py 2026 || echo "props.py failed; building without prop tabs today"
           # picks.py runs AFTER games.py because the per-team cap on touchdown
           # picks comes from that game's projected points. It locks this week's
           # picks write-once and grades every week that has finished.
