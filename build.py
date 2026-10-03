@@ -23,11 +23,34 @@ def sub(text, old, new, label, count=1):
 
 
 css = (HERE / "theme.css").read_text()
-# The dashboard is two files. They are concatenated in order into one
+# The dashboard is three files (App.jsx, App.props.jsx, App.tabs.jsx). They are concatenated in order into one
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = (HERE / "App.jsx").read_text() + "\n" + (HERE / "App.tabs.jsx").read_text()
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.tabs.jsx"))
+
+# The prop tabs (Cheatsheets, Parlay Builder, Injuries) live in App.props.jsx.
+# They are wired into the shell here rather than by editing App.jsx and
+# App.tabs.jsx, so those two stay exactly as they were. Each substitution is
+# asserted: if either file changes shape, the build fails loudly instead of
+# shipping tabs that do not appear.
+app = sub(app, "['pstats','Player Stats']];",
+          "['pstats','Player Stats'],['sheets','Cheatsheets'],['pairs','Parlay Builder'],['inj','Injuries']];",
+          "prop tab buttons")
+app = sub(app, "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n",
+          "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n"
+          "        {tab === 'sheets' && <CheatsheetsTab DATA={DATA} />}\n"
+          "        {tab === 'pairs' && <ParlayTab DATA={DATA} />}\n"
+          "        {tab === 'inj' && <InjuriesTab DATA={DATA} />}\n",
+          "prop tab views")
+# Nine tabs do not fit a phone: let the bar scroll sideways instead of widening
+# the page, and keep each label on one line. Plus the win/loss colours the prop
+# tabs use inside bold text.
+css += (
+    "\n.tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}"
+    "\n.tab{white-space:nowrap;flex:none}"
+    "\nb.up{color:var(--pos)}b.down{color:var(--neg)}\n"
+)
 team_line = (HERE / "team.js").read_text().strip()
 logo_line = (HERE / "logos.js").read_text().strip()
 mount = (HERE / "mount.js").read_text().strip()
