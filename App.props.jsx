@@ -59,6 +59,12 @@ function pmSets(p, formN) {
   };
 }
 const PM_MIN = { form: 5, opp: 2, venue: 3 };
+// Matchup colour for a row: how the player did at this number against this week's opponent.
+function muClass(o) {
+  if (!o || o[1] < 2) return '';
+  const r = o[0] / o[1];
+  return r >= 0.8 ? 'good' : r < 0.5 ? 'bad' : '';
+}
 
 function pmBest(p, m, sets, mode, minRate) {
   const need = mode === 'all' ? ['form', 'opp', 'venue'] : [mode];
@@ -98,7 +104,6 @@ function Bars({ games, ix, line, opp }) {
         );
       })}
       <line x1={pad - 4} x2={W} y1={y(line)} y2={y(line)} stroke="var(--gold)" strokeWidth="1.5" strokeDasharray="4 3" />
-      <text x={W} y={y(line) - 4} fontSize="10" textAnchor="end" fill="var(--gold)">line {line}</text>
     </svg>
   );
 }
@@ -220,6 +225,11 @@ function CheatsheetsTab({ DATA }) {
         No lines are loaded. Tap a row, type the DraftKings number, and the chart and hit rates redraw against it.
         A perfect record at a number far below the player&rsquo;s average is real but useless, because books do not post those numbers at a price worth taking, so the line-to-average filter hides them by default.
       </div>
+      <div className="muKey">
+        <span><i className="g" />Good matchup: cleared this number in 80%+ of games against this opponent</span>
+        <span><i className="r" />Bad matchup: under 50%</span>
+        <span><i />Neutral, or too few games against them</span>
+      </div>
       {open && <PropDetail key={open.n + mk} p={open} m={m} T0={open.T0} onClose={() => setOpen(null)} />}
       <div className="tbl">
         <table>
@@ -230,7 +240,7 @@ function CheatsheetsTab({ DATA }) {
           <tbody>
             {rows.map(r => (
               <tr key={r.p.n + r.p.tm} onClick={() => setOpen({ ...r.p, T0: r.T })} style={{ cursor: 'pointer' }}>
-                <td className="l"><b>{r.p.n}</b> <span className="sub">{r.p.pos}</span>{r.p.st ? <span className="sub"> &middot; {r.p.st}</span> : null}</td>
+                <td className={'l mu ' + muClass(r.o)}><b>{r.p.n}</b> <span className="sub">{r.p.pos}</span>{r.p.st ? <span className="sub"> &middot; {r.p.st}</span> : null}</td>
                 <td className="l">{r.p.tm} {r.p.h ? 'vs' : '@'} {r.p.opp}</td>
                 <td className="l"><b>{m.k === 'td' ? 'Anytime TD' : r.T + '+ ' + m.unit}</b></td>
                 <td>{r.f[0]}/{r.f[1]}</td>

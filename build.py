@@ -51,6 +51,8 @@ css += (
     "\n.tab{white-space:nowrap;flex:none}"
     "\nb.up{color:var(--pos)}b.down{color:var(--neg)}\n"
 )
+# White and black theme with red / green / grey for matchups, layered over the base styles.
+css += (HERE / "theme.light.css").read_text()
 team_line = (HERE / "team.js").read_text().strip()
 logo_line = (HERE / "logos.js").read_text().strip()
 mount = (HERE / "mount.js").read_text().strip()
