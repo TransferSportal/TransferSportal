@@ -43,6 +43,15 @@ app = sub(app, "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n",
           "        {tab === 'pairs' && <ParlayTab DATA={DATA} />}\n"
           "        {tab === 'inj' && <InjuriesTab DATA={DATA} />}\n",
           "prop tab views")
+# The Card's touchdown list is the top 15 by probability: a flat ranked list instead of
+# the old per-team grid. The old view is left in place behind a key that is never set.
+app = sub(app, "{view === 'td' && (",
+          "{view === 'td' && <TopPicksView P={P} />}\n      {view === 'tdOld' && (", "card td view")
+app = sub(app, "['td', `Touchdown picks (${td.length})`]", "['td', `Touchdown picks (${tdCount(P)})`]", "card td label")
+app = sub(app, """            <> Touchdown picks are capped per team by that team's projected points: <b>{P.cap_rule}</b>.
+            A team projected for 22 points gets two picks, not five, so the scorer board and the
+            game projection cannot contradict each other.</>""",
+          """            <> Touchdown card: <b>{P.cap_rule}</b>. Fewer picks, higher conviction.</>""", "card cap note")
 # Nine tabs do not fit a phone: let the bar scroll sideways instead of widening
 # the page, and keep each label on one line. Plus the win/loss colours the prop
 # tabs use inside bold text.
