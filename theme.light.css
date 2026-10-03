@@ -1,0 +1,43 @@
+
+/* Light theme: white page, black type, grey for neutral. Green means good,
+   red means bad, grey means neutral, and nothing else carries colour.
+   Loaded after theme.css by build.py, so these only override the dark values. */
+:root{
+  --paper:#ffffff; --card:#ffffff; --sunk:#f6f6f7; --raise:#f1f1f2;
+  --ink:#0b0b0c; --ink2:#55585e; --ink3:#8a8d93;
+  --line:#e3e4e6; --line2:#eeeff0;
+  --pos:#12a150; --neg:#dc2626; --warn:#6b6f76; --accent:#0b0b0c; --accent2:#55585e;
+  --posBg:rgba(18,161,80,.09); --negBg:rgba(220,38,38,.08);
+  --posLine:#9bd8b4; --negLine:#f0aaaa;
+  --gold:#0b0b0c;
+  color-scheme:light;
+}
+:root{color-scheme:light}
+select option{background-color:#fff;color:var(--ink)}
+select{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%238a8d93' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")}
+::selection{background:rgba(0,0,0,.14);color:var(--ink)}
+input:-webkit-autofill,input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px #fff inset}
+input:focus,select:focus,.find:focus,.odds:focus{border-color:var(--ink)}
+.tab.on{color:var(--ink);border-bottom-color:var(--ink)}
+.seg button.on{background:var(--ink);color:#fff;box-shadow:none}
+.wordmark b{color:var(--ink)}
+.crestWrap{background:#eceef0}
+.g.hit{color:#fff}
+.primary{color:#fff;background:var(--ink);border-color:var(--ink)}
+.rchip.warn{background:var(--sunk);border-color:var(--line);color:var(--ink2)}
+.posPill{color:var(--ink);border-color:var(--ink)}
+.msPanel{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.mxEven{background:#b4b7bc}
+tbody tr:hover td{background:var(--sunk)}
+.pcardTop:hover{background:var(--sunk)}
+.badge{color:var(--pos)}
+.tickLabel{color:var(--ink3)}
+.dk{color:var(--ink2)}
+
+/* matchup line on a cheatsheet row: green good, red bad, grey neutral */
+td.mu{border-left:4px solid #c9cbcf}
+td.mu.good{border-left-color:var(--pos)}
+td.mu.bad{border-left-color:var(--neg)}
+.muKey{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin:0 0 10px}
+.muKey i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle;background:#c9cbcf}
+.muKey i.g{background:var(--pos)}.muKey i.r{background:var(--neg)}
