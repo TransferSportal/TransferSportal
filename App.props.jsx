@@ -456,3 +456,48 @@ function InjuriesTab({ DATA }) {
     </section>
   );
 }
+
+// ---------------------------------------------------------------- the card's touchdown list
+// The card is the 15 highest-probability scorers on the slate. Picks for games that
+// had already kicked off when the card was cut down stay on the record untouched, and
+// are listed apart from the live 15.
+function tdSplit(P) {
+  const frozen = new Set(((P.amendments) || []).flatMap(a => a.frozen_teams || []));
+  const all = P.td_picks || [];
+  const byProb = (a, b) => (b.prob || 0) - (a.prob || 0);
+  return {
+    live: all.filter(p => !frozen.has(p.team)).sort(byProb),
+    played: all.filter(p => frozen.has(p.team)).sort(byProb),
+  };
+}
+function tdCount(P) { return tdSplit(P).live.length; }
+
+function TopPicksView({ P }) {
+  const { live, played } = tdSplit(P);
+  const row = (p, i, n) => (
+    <tr key={p.name + p.team}>
+      <td className="l">{n}</td>
+      <td className="l"><b>{p.name}</b></td>
+      <td className="l">{p.pos}</td>
+      <td className="l">{p.team}{p.opp ? ' vs ' + p.opp : ''}</td>
+      <td><b>{Math.round((p.prob || 0) * 100)}%</b></td>
+    </tr>
+  );
+  const head = (
+    <thead><tr><th className="l">#</th><th className="l">Player</th><th className="l">Pos</th>
+      <th className="l">Game</th><th>Model chance</th></tr></thead>
+  );
+  return (
+    <>
+      <div className="tbl"><table>{head}<tbody>{live.map((p, i) => row(p, i, i + 1))}</tbody></table></div>
+      {played.length > 0 && (
+        <>
+          <div className="dk" style={{ margin: '16px 0 8px' }}>
+            Already played when the card was cut to 15. These stay on the record exactly as first locked.
+          </div>
+          <div className="tbl"><table>{head}<tbody>{played.map((p, i) => row(p, i, '-'))}</tbody></table></div>
+        </>
+      )}
+    </>
+  );
+}
