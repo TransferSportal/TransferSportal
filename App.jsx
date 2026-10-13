@@ -363,8 +363,19 @@ function CardTab({ DATA }) {
           ) : (
             <>
               <div className="recTotals">
+                {tot.td15 && (
+                  <div className="recBox">
+                    <div className="recLbl">Touchdown picks · top {tot.td15.n}</div>
+                    <div className="recNum">{tot.td15.hit}/{tot.td15.graded}</div>
+                    <div className="recSub">
+                      {pct(tot.td15.rate)} hit · {pct(tot.td15.projected)} projected
+                    </div>
+                  </div>
+                )}
                 <div className="recBox">
-                  <div className="recLbl">Touchdown picks</div>
+                  <div className="recLbl">
+                    {tot.td15 ? 'Touchdown picks · as locked' : 'Touchdown picks'}
+                  </div>
                   <div className="recNum">{tot.td && tot.td.hit}/{tot.td && tot.td.graded}</div>
                   <div className="recSub">{tot.td && pct(tot.td.rate)} hit</div>
                 </div>
@@ -383,12 +394,29 @@ function CardTab({ DATA }) {
                   </div>
                 </div>
               </div>
+              {tot.td15 && tot.td15.backfilled_weeks && tot.td15.backfilled_weeks.length > 0 && (
+                <div className="dk" style={{marginBottom: 12}}>
+                  The headline is the 15 highest-probability picks, the card the model
+                  posts today. Week{tot.td15.backfilled_weeks.length > 1 ? 's' : ''}{' '}
+                  {tot.td15.backfilled_weeks.join(' and ')} locked before the card was
+                  cut to 15, so {tot.td15.backfilled_weeks.length > 1 ? 'they are' : 'it is'}{' '}
+                  graded on {tot.td15.backfilled_weeks.length > 1 ? 'their' : 'its'} own top 15
+                  using the probabilities written into the locked file before kickoff. The
+                  wider as-locked total sits beside it and nothing was recomputed after the fact.
+                </div>
+              )}
               {R.weeks.slice().reverse().map(w => (
                 <div className="recWeek" key={w.week}>
                   <div className="recWeekHead">
                     <b>Week {w.week}</b>
                     <span>
-                      TD {w.td.hit}/{w.td.graded} · ATS {w.ats.w}-{w.ats.l} · O/U {w.ou.w}-{w.ou.l}
+                      {w.td15 ? (
+                        <>TD {w.td15.hit}/{w.td15.graded} ({pct(w.td15.rate)} vs {pct(w.td15.projected)} proj)
+                        {w.td15.backfilled ? ' · ' + w.td.hit + '/' + w.td.graded + ' as locked' : ''} · </>
+                      ) : (
+                        <>TD {w.td.hit}/{w.td.graded} · </>
+                      )}
+                      ATS {w.ats.w}-{w.ats.l} · O/U {w.ou.w}-{w.ou.l}
                     </span>
                   </div>
                   <div className="recWeekBody">

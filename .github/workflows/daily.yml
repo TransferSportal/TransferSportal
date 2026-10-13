@@ -25,22 +25,53 @@ jobs:
     outputs:
       go: ${{ steps.clock.outputs.go }}
     steps:
-      - name: Is it actually 9am in Indiana?
+      # Checkout comes BEFORE the gate because the gate needs the commit history
+      # to know whether today's build already happened.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Has today's build already run?
         id: clock
         run: |
           H=$(TZ=America/New_York date +%H)
-          echo "Eastern hour is $H"
-          # A manual run always proceeds. A scheduled run only proceeds at 9am
-          # Eastern, so exactly one of the two DST crons does the work each day.
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$H" = "09" ]; then
+          TODAY=$(TZ=America/New_York date +%F)
+          echo "Eastern hour is $H, Eastern date is $TODAY"
+
+          # Why this is not an equality check on the hour any more:
+          #
+          # GitHub queues scheduled runs and delivers them late under load,
+          # routinely by minutes and sometimes by over an hour. The old gate
+          # required the Eastern hour to be exactly 09, so a run delayed past
+          # 14:00 UTC arrived at 10am Eastern and skipped -- and the 14:00 cron
+          # is ALREADY 10am Eastern in summer, so it skipped too. Both runs went
+          # green, nothing was built, and no failure was reported anywhere. That
+          # is how four days went by with a stale board and no red X.
+          #
+          # So: accept a window instead of an instant, and use the last bot
+          # commit's Eastern date to keep it to one build a day. Whichever cron
+          # arrives first does the work; the other finds today already done.
+          LAST=$(git log -1 --format=%cI --author="TransferSportal Bot" || true)
+          if [ -n "$LAST" ]; then
+            LAST_DAY=$(TZ=America/New_York date -d "$LAST" +%F)
+          else
+            LAST_DAY="never"
+          fi
+          echo "Last bot build was $LAST_DAY"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run. Proceeding."
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          elif [ "$LAST_DAY" = "$TODAY" ]; then
+            echo "Already built today. Skipping."
+            echo "go=no" >> "$GITHUB_OUTPUT"
+          elif [ "$H" -ge 9 ] && [ "$H" -le 13 ]; then
+            echo "Inside the 9am-1pm Eastern window and today is not built yet. Proceeding."
             echo "go=yes" >> "$GITHUB_OUTPUT"
           else
-            echo "go=no"  >> "$GITHUB_OUTPUT"
-            echo "Not 9am Eastern. This is the other DST cron. Skipping."
+            echo "Outside the build window. Skipping."
+            echo "go=no" >> "$GITHUB_OUTPUT"
           fi
-
-      - uses: actions/checkout@v4
-        if: steps.clock.outputs.go == 'yes'
 
       - uses: actions/setup-python@v5
         if: steps.clock.outputs.go == 'yes'

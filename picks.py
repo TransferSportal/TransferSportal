@@ -208,8 +208,22 @@ def lock(season, week, td_picks, game_picks, amend=None, started=frozenset(), td
         "td_picks": td_picks[:TOP_N], "game_picks": game_picks, "top_n": TOP_N,
     }
     json.dump(doc, open(path, "w"), separators=(",", ":"))
-    print(f"{path} locked -- {len(td_picks)} touchdown picks, {len(game_picks)} game picks")
+    print(f"{path} locked -- {len(doc['td_picks'])} touchdown picks, "
+          f"{len(game_picks)} game picks")
     return path, doc
+
+
+def top_n_by_prob(picks, n=TOP_N):
+    """The n highest-probability picks in a locked card, highest first.
+
+    Weeks 3 and 4 locked before the card was cut to 15, so they hold 60-odd
+    picks each. Grading those as locked measures a card the model no longer
+    posts. This re-reads the SAME probabilities that were already written into
+    the locked file before kickoff and takes the top n of them, so a backfilled
+    week is graded on the card the model would post today without any number
+    being recomputed after the fact.
+    """
+    return sorted(picks, key=lambda p: p.get("prob") or 0, reverse=True)[:n]
 
 
 def grade_week(doc, stats, sched):
@@ -280,8 +294,22 @@ def grade_week(doc, stats, sched):
                 ou_w += won; ou_l += not won
         game_rows.append(row)
 
+    # The headline record is the top 15 by probability. The as-locked total is
+    # kept beside it so a wider card is never quietly dropped from the history.
+    top = top_n_by_prob(td_rows)
+    t_graded = sum(r["result"] != "dnp" for r in top)
+    t_hit = sum(r["result"] == "hit" for r in top)
+    t_proj = sum(r["prob"] for r in top) / len(top) if top else None
+
     return {
         "season": doc["season"], "week": wk, "locked": doc.get("locked"),
+        "td15": {"n": TOP_N, "hit": t_hit, "graded": t_graded,
+                 "rate": round(t_hit / t_graded, 4) if t_graded else None,
+                 "dnp": len(top) - t_graded,
+                 "projected": round(t_proj, 4) if t_proj is not None else None,
+                 "as_locked": len(doc["td_picks"]),
+                 "backfilled": len(doc["td_picks"]) > TOP_N,
+                 "picks": top},
         "td": {"hit": hit, "graded": graded,
                "rate": round(hit / graded, 4) if graded else None,
                "dnp": len(doc["td_picks"]) - graded, "picks": td_rows},
@@ -354,10 +382,20 @@ def build(season=None, amend=None, td_only=False):
     tw = sum(g["td"]["hit"] for g in graded); tn = sum(g["td"]["graded"] for g in graded)
     aw = sum(g["ats"]["w"] for g in graded);  al = sum(g["ats"]["l"] for g in graded)
     ow = sum(g["ou"]["w"] for g in graded);   ol = sum(g["ou"]["l"] for g in graded)
+
+    # top-15 season series: the headline number
+    fw = sum(g["td15"]["hit"] for g in graded)
+    fn = sum(g["td15"]["graded"] for g in graded)
+    fp = [p["prob"] for g in graded for p in g["td15"]["picks"]]
     record = {
         "season": season, "through_week": max((g["week"] for g in graded), default=None),
         "weeks": graded,
         "totals": {
+            "td15": {"n": TOP_N, "hit": fw, "graded": fn,
+                     "rate": round(fw / fn, 4) if fn else None,
+                     "projected": round(sum(fp) / len(fp), 4) if fp else None,
+                     "backfilled_weeks": [g["week"] for g in graded
+                                          if g["td15"]["backfilled"]]},
             "td": {"hit": tw, "graded": tn, "rate": round(tw / tn, 4) if tn else None},
             "ats": {"w": aw, "l": al, "rate": round(aw / (aw + al), 4) if aw + al else None},
             "ou": {"w": ow, "l": ol, "rate": round(ow / (ow + ol), 4) if ow + ol else None},
