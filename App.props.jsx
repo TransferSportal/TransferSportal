@@ -472,22 +472,37 @@ function tdSplit(P) {
 }
 function tdCount(P) { return tdSplit(P).live.length; }
 
-function TopPicksView({ P }) {
+function TopPicksView({ P, players }) {
   const { live, played } = tdSplit(P);
   // Every pick on an early-season card rests on a handful of games, and a bare
   // percentage hides that. The sample column is not decoration: a 54% built on
   // 3 games and a 54% built on 12 are not the same bet.
+  //
+  // Sample size is read off the live board, not out of the locked file. A card
+  // locked before this column existed carries no games count, and a locked file
+  // is never rewritten to add one -- that is the whole basis of the record. The
+  // games played is a fact about the player today either way, so looking it up
+  // costs nothing and keeps the lock untouched.
+  const live_by = {};
+  (players || []).forEach(x => { live_by[x.name + '|' + x.team] = x; });
+  const sampleOf = p => {
+    if (p.games != null) return { games: p.games, conf: p.conf, note: p.conf_note };
+    const x = live_by[p.name + '|' + p.team];
+    return x ? { games: x.games, conf: x.conf, note: x.conf_note } : {};
+  };
   const anyPriced = [...live, ...played].some(p => p.edge != null);
-  const row = (p, i, n) => (
+  const row = (p, i, n) => {
+   const s = sampleOf(p);
+   return (
     <tr key={p.name + p.team}>
       <td className="l">{n}</td>
       <td className="l"><b>{p.name}</b></td>
       <td className="l">{p.pos}</td>
       <td className="l">{p.team}{p.opp ? ' vs ' + p.opp : ''}</td>
       <td><b>{Math.round((p.prob || 0) * 100)}%</b></td>
-      <td className={p.conf === 'Low' ? 'down' : ''} title={p.conf_note || ''}>
-        {p.games != null ? p.games + 'g' : '—'}
-        {p.conf === 'Low' ? ' thin' : ''}
+      <td className={s.conf === 'Low' ? 'down' : ''} title={s.note || ''}>
+        {s.games != null ? s.games + 'g' : '—'}
+        {s.conf === 'Low' ? ' thin' : ''}
       </td>
       {anyPriced && (
         <td className={p.edge == null ? '' : p.edge > 0 ? 'up' : 'down'}>
@@ -501,7 +516,8 @@ function TopPicksView({ P }) {
         </td>
       )}
     </tr>
-  );
+   );
+  };
   const head = (
     <thead><tr><th className="l">#</th><th className="l">Player</th><th className="l">Pos</th>
       <th className="l">Game</th><th>Model chance</th><th>Sample</th>
