@@ -44,7 +44,7 @@ is stamped inside it, so the commit history is the public timestamp.
 
     python picks.py            # lock this week, grade the finished ones
 """
-import io, json, os, sys, urllib.request
+import io, json, math, os, sys, urllib.request
 import pandas as pd
 
 PICK_DIR = "picks"
@@ -94,7 +94,14 @@ def select_td_picks(players, games):
     picks = []
     for tm, grp in by_team.items():
         cap, exp = team_cap(pts[tm])
-        grp.sort(key=lambda x: (-x.get("score", 0), -x.get("prob", 0)))
+        # Rank inside a team by PROBABILITY, the same quantity the card is cut
+        # by and the same quantity cap_rule promises. It used to rank by score,
+        # and score is position-blind while prob is position-calibrated, so the
+        # two disagreed on 15 of 32 teams: a tight end at 27.8% could lose a
+        # slot to a running back at 15.7% and never reach the card. Ranking a
+        # team's slots on one number and the card on another is not a tie-break,
+        # it is two different boards.
+        grp.sort(key=lambda x: (-(x.get("prob") or 0), -x.get("score", 0)))
         for i, p in enumerate(grp[:cap], 1):
             picks.append({
                 "name": p["name"], "pos": p.get("pos"), "team": tm,
@@ -102,6 +109,17 @@ def select_td_picks(players, games):
                 "team_proj_pts": pts[tm], "team_exp_scorers": exp,
                 "prob": p.get("prob"), "score": p.get("score"),
                 "opp": p.get("next_opp"),
+                # Sample size travels with the pick. Every pick on an early-season
+                # card is a small sample, and a card that hides that is selling
+                # a 5-game average as a settled fact.
+                "games": p.get("games"), "conf": p.get("conf"),
+                "conf_note": p.get("conf_note") or "",
+                # The price AS IT STOOD AT LOCK. Grading edge after the fact
+                # against a price that has since moved would prove nothing, so
+                # whatever the book was offering when the card locked is written
+                # into the locked file alongside the pick.
+                "dk_odds": p.get("dk_odds"), "fair_prob": p.get("fair_prob"),
+                "edge": p.get("edge"),
             })
     # the card is cut by probability, highest first; lock() keeps the top TOP_N
     picks.sort(key=lambda x: (-(x["prob"] or 0), -(x["score"] or 0)))
@@ -226,6 +244,81 @@ def top_n_by_prob(picks, n=TOP_N):
     return sorted(picks, key=lambda p: p.get("prob") or 0, reverse=True)[:n]
 
 
+# Calibration bands. The card lives at 45% and up, so that stretch is cut
+# finer: it is the only part of the curve where being 5 points wrong changes a
+# bet. The 2026 backtest says the model runs 4 to 7 points hot in exactly this
+# stretch while the live weeks so far say the opposite, and 54 graded picks
+# cannot settle it. So nothing is shifted. This table is how the season earns
+# the right to decide, instead of either number being guessed at now.
+CALIB_BANDS = [(0, .15), (.15, .25), (.25, .35), (.35, .45),
+               (.45, .55), (.55, .65), (.65, 1.01)]
+
+# Edge buckets, model probability minus the book's devigged price. A hit rate
+# with no price beside it cannot tell you whether the card made money: 60% on a
+# field priced at -200 is a losing week.
+EDGE_BUCKETS = [(-1.01, -.05), (-.05, 0), (0, .05), (.05, .10), (.10, 1.01)]
+
+
+def band_label(lo, hi):
+    return f"{int(round(lo*100))}-{int(round(min(hi,1.0)*100))}"
+
+
+def wilson(hits, n, z=1.96):
+    """95% interval on a hit rate, Wilson rather than normal-approximation.
+
+    At these sample sizes the plain interval runs off the end of the scale and
+    reports things like a 104% upper bound. Wilson stays inside 0 and 1 and is
+    honest about small n, which is the whole point of printing it: 9 of 15 looks
+    like 60% and is really anywhere from 36% to 80%.
+    """
+    if not n:
+        return (0.0, 0.0)
+    p = hits / n
+    den = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / den
+    half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den
+    return (round(max(0.0, centre - half), 4), round(min(1.0, centre + half), 4))
+
+
+def tally_calibration(rows):
+    """Predicted vs actual by probability band, for one graded week.
+
+    Stored as counts rather than rates so the season totals are a sum and never
+    an average of averages.
+    """
+    out = []
+    for lo, hi in CALIB_BANDS:
+        sub = [r for r in rows if r["result"] != "dnp" and lo <= (r.get("prob") or 0) < hi]
+        if not sub:
+            continue
+        out.append({"band": band_label(lo, hi), "n": len(sub),
+                    "pred_sum": round(sum(r["prob"] for r in sub), 4),
+                    "hits": sum(1 for r in sub if r["result"] == "hit")})
+    return out
+
+
+def tally_edge(rows):
+    """Record by edge bucket, using the price written in at lock time.
+
+    Picks that carried no price are counted separately rather than folded in at
+    zero edge, because "no line was available" is not the same as "no edge".
+    """
+    priced = [r for r in rows if r["result"] != "dnp" and r.get("edge") is not None]
+    out = []
+    for lo, hi in EDGE_BUCKETS:
+        sub = [r for r in priced if lo <= r["edge"] < hi]
+        if not sub:
+            continue
+        out.append({"bucket": f"{lo:+.0%} to {hi:+.0%}", "lo": lo, "hi": hi,
+                    "n": len(sub), "hits": sum(1 for r in sub if r["result"] == "hit"),
+                    "pred_sum": round(sum(r["prob"] for r in sub), 4),
+                    "book_sum": round(sum(r["fair_prob"] for r in sub
+                                          if r.get("fair_prob") is not None), 4)})
+    return {"buckets": out, "priced": len(priced),
+            "unpriced": sum(1 for r in rows
+                            if r["result"] != "dnp" and r.get("edge") is None)}
+
+
 def grade_week(doc, stats, sched):
     """Grade one locked week against what actually happened.
 
@@ -252,7 +345,10 @@ def grade_week(doc, stats, sched):
             graded += 1
             hit += res == "hit"
         td_rows.append({**{k: p[k] for k in ("name", "pos", "team", "team_rank", "prob")},
-                        "result": res, "tds": int(td_by.get(p["name"], 0))})
+                        "result": res, "tds": int(td_by.get(p["name"], 0)),
+                        "games": p.get("games"), "conf": p.get("conf"),
+                        "dk_odds": p.get("dk_odds"), "fair_prob": p.get("fair_prob"),
+                        "edge": p.get("edge")})
 
     finals = {}
     for x in gw.itertuples():
@@ -310,6 +406,8 @@ def grade_week(doc, stats, sched):
                  "as_locked": len(doc["td_picks"]),
                  "backfilled": len(doc["td_picks"]) > TOP_N,
                  "picks": top},
+        "calib": tally_calibration(top),
+        "edge": tally_edge(top),
         "td": {"hit": hit, "graded": graded,
                "rate": round(hit / graded, 4) if graded else None,
                "dnp": len(doc["td_picks"]) - graded, "picks": td_rows},
@@ -387,6 +485,46 @@ def build(season=None, amend=None, td_only=False):
     fw = sum(g["td15"]["hit"] for g in graded)
     fn = sum(g["td15"]["graded"] for g in graded)
     fp = [p["prob"] for g in graded for p in g["td15"]["picks"]]
+
+    # Pool the per-week calibration counts into one season table. Summing
+    # counts, not averaging rates, so a 15-pick week does not weigh the same as
+    # a 60-pick one.
+    cal = {}
+    for g in graded:
+        for b in g.get("calib", []):
+            c = cal.setdefault(b["band"], {"band": b["band"], "n": 0,
+                                           "pred_sum": 0.0, "hits": 0})
+            c["n"] += b["n"]
+            c["pred_sum"] += b["pred_sum"]
+            c["hits"] += b["hits"]
+    cal_rows = []
+    for b in sorted(cal.values(), key=lambda x: int(x["band"].split("-")[0])):
+        n = b["n"]
+        cal_rows.append({"band": b["band"], "n": n, "hits": b["hits"],
+                         "predicted": round(b["pred_sum"] / n, 4),
+                         "actual": round(b["hits"] / n, 4),
+                         # Wilson interval, so the page can show how much of the
+                         # gap is signal and how much is four weeks of football.
+                         **dict(zip(("ci_lo", "ci_hi"), wilson(b["hits"], n)))})
+
+    eb = {}
+    for g in graded:
+        for b in (g.get("edge") or {}).get("buckets", []):
+            c = eb.setdefault(b["bucket"], {"bucket": b["bucket"], "lo": b["lo"],
+                                            "hi": b["hi"], "n": 0, "hits": 0,
+                                            "pred_sum": 0.0, "book_sum": 0.0})
+            for k in ("n", "hits", "pred_sum", "book_sum"):
+                c[k] += b.get(k, 0)
+    edge_rows = []
+    for b in sorted(eb.values(), key=lambda x: x["lo"]):
+        n = b["n"]
+        edge_rows.append({"bucket": b["bucket"], "n": n, "hits": b["hits"],
+                          "rate": round(b["hits"] / n, 4),
+                          "predicted": round(b["pred_sum"] / n, 4),
+                          "book": round(b["book_sum"] / n, 4) if b["book_sum"] else None})
+    priced = sum((g.get("edge") or {}).get("priced", 0) for g in graded)
+    unpriced = sum((g.get("edge") or {}).get("unpriced", 0) for g in graded)
+
     record = {
         "season": season, "through_week": max((g["week"] for g in graded), default=None),
         "weeks": graded,
@@ -400,6 +538,12 @@ def build(season=None, amend=None, td_only=False):
             "ats": {"w": aw, "l": al, "rate": round(aw / (aw + al), 4) if aw + al else None},
             "ou": {"w": ow, "l": ol, "rate": round(ow / (ow + ol), 4) if ow + ol else None},
             "breakeven": 0.5238,
+            # Is a quoted 62% really 62%? This is the only way to find out, and
+            # it needs a season of picks before it can answer.
+            "calibration": cal_rows,
+            # Empty until a price feed is attached. Without it the record says
+            # how often the card hit and nothing about whether it beat the book.
+            "edge": {"buckets": edge_rows, "priced": priced, "unpriced": unpriced},
         },
         "note": ("every pick here was locked before its games kicked off; the lock "
                  "time is inside each file in picks/ and in the commit history"),

@@ -474,6 +474,10 @@ function tdCount(P) { return tdSplit(P).live.length; }
 
 function TopPicksView({ P }) {
   const { live, played } = tdSplit(P);
+  // Every pick on an early-season card rests on a handful of games, and a bare
+  // percentage hides that. The sample column is not decoration: a 54% built on
+  // 3 games and a 54% built on 12 are not the same bet.
+  const anyPriced = [...live, ...played].some(p => p.edge != null);
   const row = (p, i, n) => (
     <tr key={p.name + p.team}>
       <td className="l">{n}</td>
@@ -481,15 +485,43 @@ function TopPicksView({ P }) {
       <td className="l">{p.pos}</td>
       <td className="l">{p.team}{p.opp ? ' vs ' + p.opp : ''}</td>
       <td><b>{Math.round((p.prob || 0) * 100)}%</b></td>
+      <td className={p.conf === 'Low' ? 'down' : ''} title={p.conf_note || ''}>
+        {p.games != null ? p.games + 'g' : '—'}
+        {p.conf === 'Low' ? ' thin' : ''}
+      </td>
+      {anyPriced && (
+        <td className={p.edge == null ? '' : p.edge > 0 ? 'up' : 'down'}>
+          {p.dk_odds == null ? '—' : (p.dk_odds > 0 ? '+' : '') + p.dk_odds}
+        </td>
+      )}
+      {anyPriced && (
+        <td className={p.edge == null ? '' : p.edge > 0 ? 'up' : 'down'}>
+          {p.edge == null ? '—'
+            : (p.edge > 0 ? '+' : '') + (p.edge * 100).toFixed(1) + 'pp'}
+        </td>
+      )}
     </tr>
   );
   const head = (
     <thead><tr><th className="l">#</th><th className="l">Player</th><th className="l">Pos</th>
-      <th className="l">Game</th><th>Model chance</th></tr></thead>
+      <th className="l">Game</th><th>Model chance</th><th>Sample</th>
+      {anyPriced && <th>Price at lock</th>}
+      {anyPriced && <th>Edge</th>}</tr></thead>
   );
   return (
     <>
       <div className="tbl"><table>{head}<tbody>{live.map((p, i) => row(p, i, i + 1))}</tbody></table></div>
+      <div className="dk" style={{ margin: '8px 0 0' }}>
+        {anyPriced
+          ? <>Edge is the model chance minus the book's devigged price at the moment the
+              card locked, so it is checkable against the locked file rather than against
+              a line that has since moved.</>
+          : <>No prices attached to this build, so there is no edge column. A model chance
+              on its own does not say whether a pick is worth betting: 60% against a price
+              that implies 67% is a bad bet the model likes.</>}
+        {' '}Sample is games played this season. Everything on an early card is a short
+        sample, and <b>thin</b> marks the ones the model itself flags as low confidence.
+      </div>
       {played.length > 0 && (
         <>
           <div className="dk" style={{ margin: '16px 0 8px' }}>

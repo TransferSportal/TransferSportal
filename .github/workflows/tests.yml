@@ -87,6 +87,35 @@ jobs:
           pip install --quiet numpy pandas
           python props.py --selftest
 
+      - name: Every JSX file compiles, and the build's substitutions still match
+        run: |
+          # Babel compiles the JSX in the browser, so a syntax error in a .jsx
+          # file does not fail any build step -- it ships a blank page. This is
+          # the only place it gets caught before a reader sees it.
+          npm install --silent --no-audit --no-fund @babel/standalone@7.24.7
+          node -e "
+          const fs=require('fs'), babel=require('@babel/standalone');
+          let bad=0;
+          for (const f of ['App.jsx','App.props.jsx','App.tabs.jsx']) {
+            try { babel.transform(fs.readFileSync(f,'utf8'),{presets:['react'],filename:f}); console.log('ok   '+f); }
+            catch(e){ bad++; console.log('FAIL '+f+' -> '+e.message.split('\n')[0]); }
+          }
+          process.exit(bad?1:0);
+          "
+          # build.py rewires the Card's touchdown view to TopPicksView and
+          # retires the old per-team grid behind a key nothing sets. Editing the
+          # retired branch looks like it works and changes nothing on the page,
+          # so assert here which one is live.
+          python - <<'PY'
+          src = open("build.py", encoding="utf-8").read()
+          assert '"{view === \'td\' && ("' in src or "{view === 'td' && (" in src, \
+              "build.py no longer substitutes the card td view"
+          props = open("App.props.jsx", encoding="utf-8").read()
+          assert "function TopPicksView" in props, \
+              "TopPicksView is gone; the card's live view would fall back to dead code"
+          print("card view wiring: TopPicksView is the live touchdown view")
+          PY
+
       - name: Crests build and verify
         run: |
           pip install --quiet pillow

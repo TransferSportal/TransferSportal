@@ -405,6 +405,93 @@ function CardTab({ DATA }) {
                   wider as-locked total sits beside it and nothing was recomputed after the fact.
                 </div>
               )}
+              {tot.calibration && tot.calibration.length > 0 && (
+                <div className="calTable">
+                  <div className="calHead">
+                    Is a quoted probability honest?
+                    <span>
+                      every graded pick, grouped by what the model said beforehand
+                    </span>
+                  </div>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th className="l">model said</th><th>picks</th>
+                        <th>predicted</th><th>actual</th><th>95% range</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tot.calibration.map(b => {
+                        const off = b.actual - b.predicted;
+                        const inside = b.predicted >= b.ci_lo && b.predicted <= b.ci_hi;
+                        return (
+                          <tr key={b.band}>
+                            <td className="l">{b.band}%</td>
+                            <td>{b.n}</td>
+                            <td>{pct(b.predicted)}</td>
+                            <td className={off > 0 ? 'up' : off < 0 ? 'down' : ''}>
+                              {pct(b.actual)} <i className="calOff">
+                                {off > 0 ? '+' : ''}{(off * 100).toFixed(0)}pp
+                              </i>
+                            </td>
+                            <td className={inside ? '' : 'down'}>
+                              {pct(b.ci_lo)} to {pct(b.ci_hi)}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div className="dk" style={{ margin: '8px 14px 2px' }}>
+                    The 95% range is how much of any gap is real and how much is a
+                    short season. While the predicted number sits inside that range,
+                    the band is doing its job and nothing needs tuning. Nothing here
+                    is adjusted after the fact, so the gaps are whatever they are.
+                  </div>
+                </div>
+              )}
+
+              {tot.edge && (
+                <div className="calTable">
+                  <div className="calHead">
+                    Did the card beat the price?
+                    <span>model probability against the book's devigged line at lock</span>
+                  </div>
+                  {tot.edge.buckets && tot.edge.buckets.length > 0 ? (
+                    <table>
+                      <thead>
+                        <tr>
+                          <th className="l">edge at lock</th><th>picks</th>
+                          <th>hit</th><th>model</th><th>book</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tot.edge.buckets.map(b => (
+                          <tr key={b.bucket}>
+                            <td className="l">{b.bucket}</td>
+                            <td>{b.n}</td>
+                            <td className={b.book != null && b.rate > b.book ? 'up' : 'down'}>
+                              {b.hits}/{b.n} · {pct(b.rate)}
+                            </td>
+                            <td>{pct(b.predicted)}</td>
+                            <td>{b.book != null ? pct(b.book) : '—'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <div className="dk" style={{ margin: '10px 14px' }}>
+                      No prices on file yet, so {tot.edge.unpriced} graded pick
+                      {tot.edge.unpriced === 1 ? '' : 's'} cannot be scored against a
+                      line. A hit rate on its own does not say whether the card made
+                      money: 60% on a field priced around -200 loses. This table fills
+                      in once an odds feed is attached, and from then on every pick
+                      carries the price it was locked at.
+                    </div>
+                  )}
+                </div>
+              )}
+
               {R.weeks.slice().reverse().map(w => (
                 <div className="recWeek" key={w.week}>
                   <div className="recWeekHead">

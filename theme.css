@@ -411,3 +411,31 @@ tr.prow.dim{opacity:.45}
   .recGame{grid-template-columns:1fr auto}
   .recGame span:last-child{display:none}
 }
+
+/* ---- sample size and edge, carried on each card pick ---- */
+/* A 5-game average quoted as a flat percentage reads like a settled fact. The
+   game count sits next to the name so it cannot be read without it. */
+.cardConf{font-style:normal;font-family:var(--num);font-size:9.5px;color:var(--ink3);
+  margin-left:6px;padding:1px 4px;border:1px solid var(--line);border-radius:3px;
+  vertical-align:middle;white-space:nowrap}
+.cardConf.thin{color:var(--warn);border-color:var(--warn)}
+.cardEdge{font-style:normal;font-family:var(--num);font-size:9.5px;margin-left:5px;
+  padding:1px 4px;border-radius:3px;vertical-align:middle}
+.cardEdge.p{color:var(--pos);border:1px solid var(--posLine);background:var(--posBg)}
+.cardEdge.n{color:var(--neg);border:1px solid var(--negLine);background:var(--negBg)}
+
+/* ---- calibration and edge tables on the Record tab ---- */
+.calTable{border:1px solid var(--line);border-radius:10px;background:var(--card);
+  margin-bottom:12px;overflow:hidden}
+.calHead{display:flex;flex-direction:column;gap:3px;padding:11px 14px;
+  border-bottom:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink)}
+.calHead span{font-weight:400;font-size:11.5px;color:var(--ink3)}
+.calTable table{width:100%;border-collapse:collapse}
+.calTable th{position:static;background:var(--sunk);font-size:10px;font-weight:500;
+  color:var(--ink3);text-align:right;padding:7px 14px;border-bottom:1px solid var(--line);
+  white-space:nowrap;cursor:default}
+.calTable th.l,.calTable td.l{text-align:left}
+.calTable td{font-family:var(--num);font-size:12px;padding:8px 14px;text-align:right;
+  border-bottom:1px solid var(--line2);color:var(--ink2)}
+.calTable tbody tr:last-child td{border-bottom:none}
+.calOff{font-style:normal;font-size:10px;color:var(--ink3);margin-left:3px}
