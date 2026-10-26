@@ -394,15 +394,15 @@ function MatchupsTab({ DATA, CALP, CAL, CALPP, CALP2 }) {
 // identical number twice. Filtered by position the two differ (a QB's passing
 // TDs against his receiving TDs), so it comes back.
 const OCOLS_ALL = [['ruY','Rush yds'],['ruT','Rush TD'],['reY','Rec yds'],['reT','Rec TD']];
-const DCOLS_ALL = [['ruY','Rush yds all.'],['ruT','Rush TD all.'],['reY','Rec yds all.'],['reT','Rec TD all.']];
+const DCOLS_ALL = [['ruY','Rush yds all.'],['ruT','Rush TD all.'],['paY','Pass yds all.'],['reT','Rec TD all.']];
 const OCOLS = [...OCOLS_ALL, ['paT','Pass TD']];
-const DCOLS = [...DCOLS_ALL, ['paT','Pass TD all.']];
+const DCOLS = [...DCOLS_ALL, ['reY','Rec yds all.']];
 function TeamStatsTab({ DATA }) {
   const [q, setQ] = useState('');
   const [side, setSide] = useState('both');
   const [posf, setPosf] = useState('ALL');
   const src = 'cur'; // pinned: see the note in the control bar below
-  const [pg, setPg] = useState(false);
+  const [pg, setPg] = useState(true);
 
   const rows = useMemo(() => {
     const oKey = src==='cur' ? 'cur_off' : 'off', dKey = src==='cur' ? 'cur_def' : 'def';
@@ -439,7 +439,7 @@ function TeamStatsTab({ DATA }) {
     list.forEach(r => { r._heat = heat; });
 
     if (q) list = list.filter(r => r.team.includes(q.toUpperCase()));
-    const sortCol = side==='pd' ? 'd_ruT' : 'o_ruT';
+    const sortCol = side==='pd' ? 'd_ruY' : 'o_ruY';
     list.sort((a,b) => (b[sortCol]||0) - (a[sortCol]||0));
     return list;
   }, [DATA, q, side, posf, src, pg]);
@@ -461,7 +461,7 @@ function TeamStatsTab({ DATA }) {
             carries the same numbers as the current table, so a toggle between the
             two only offered a misleading label. Pinned to the current season. */}
         <span className="grow" />
-        <button className={'link'+(pg?' on':'')} onClick={()=>setPg(v=>!v)}>Per game</button>
+        <button className={'link'+(pg?' on':'')} onClick={()=>setPg(v=>!v)}>{pg?'Per game':'Season totals'}</button>
       </div>
       <div className="heatKey">
         Top and bottom five in each column. <span className="up">Green</span> is good for that team,{' '}
@@ -471,6 +471,7 @@ function TeamStatsTab({ DATA }) {
         <table>
           <thead><tr>
             <th className="l">Team</th>
+            <th>G</th>
             {showO && ocols.map(([k,l])=><th key={k}>{l}</th>)}
             {showD && dcols.map(([k,l])=><th key={k}>{l}</th>)}
           </tr></thead>
@@ -478,6 +479,7 @@ function TeamStatsTab({ DATA }) {
             {rows.map(r => (
               <tr key={r.team}>
                 <td className="l"><div className="tc">{DATA._crest(r.team)}<span style={{color:DATA._tc(r.team)}}>{r.team}</span></div></td>
+                <td>{(side==='pd'?r.dG:r.oG)||'—'}</td>
                 {showO && ocols.map(([k])=><td key={k} className={r._heat[r.team+'o_'+k]||''}>{r['o_'+k]!=null?r['o_'+k]:'—'}</td>)}
                 {showD && dcols.map(([k])=><td key={k} className={r._heat[r.team+'d_'+k]||''}>{r['d_'+k]!=null?r['d_'+k]:'—'}</td>)}
               </tr>
