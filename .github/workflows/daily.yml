@@ -112,6 +112,9 @@ jobs:
           # picks comes from that game's projected points. It locks this week's
           # picks write-once and grades every week that has finished.
           python picks.py
+          # NBA projections from public ESPN data. Never blocks the board: on any failure
+          # it keeps the last nba.json and the NFL side builds as normal.
+          python nba.py || echo "nba.py failed; keeping the last NBA build"
           python build.py
           python build_record.py
 
