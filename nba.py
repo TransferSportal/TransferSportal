@@ -325,6 +325,8 @@ def build():
                 xs = [r[s] for r in last10]
                 mu = mean(xs)
                 rec.setdefault("sd10", {})[s] = round((sum((x - mu) ** 2 for x in xs) / max(len(xs) - 1, 1)) ** 0.5, 1)
+        rec["log20"] = [{"date": r["date"], "pts": r["pts"], "reb": r["reb"], "ast": r["ast"], "fg3": r["fg3"], "pra": r["pra"]} for r in rows[-20:]]
+        rec["avg60"] = {s: round(mean([r[s] for r in rows[-60:]]), 2) for s in STATS}
         rec["last5"] = [{"date": r["date"][5:], "opp": r["opp"], "home": r["home"], "pts": r["pts"], "reb": r["reb"], "ast": r["ast"], "fg3": r["fg3"]} for r in rows[-5:]]
         players.append(rec)
 

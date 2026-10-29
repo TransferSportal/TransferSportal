@@ -47,6 +47,8 @@ function NbaTab({ DATA }) {
   const [sort, setSort] = useState('rank');
   const [open, setOpen] = useState(null);
   const [showTest, setShowTest] = useState(false);
+  const [view, setView] = useState('picks');
+  const P = DATA.nba_picks;
 
   const days = useMemo(() => {
     if (!N) return [];
@@ -81,6 +83,18 @@ function NbaTab({ DATA }) {
     );
   }
 
+  const viewBar = (
+    <div className="bar">
+      <div className="seg">
+        <button className={view === 'picks' ? 'on' : ''} onClick={() => setView('picks')}>Best 5 today</button>
+        <button className={view === 'record' ? 'on' : ''} onClick={() => setView('record')}>Pick record{P && P.record && (P.record.w + P.record.l) ? ' ' + P.record.w + '-' + P.record.l : ''}</button>
+        <button className={view === 'all' ? 'on' : ''} onClick={() => setView('all')}>All 100 players</button>
+      </div>
+    </div>
+  );
+  if (view === 'picks') return <section className="view on">{viewBar}<NbaPicks P={P} /></section>;
+  if (view === 'record') return <section className="view on">{viewBar}<NbaRecord P={P} /></section>;
+
   const fmt = v => (v == null ? '—' : v.toFixed(1));
   const injBadge = p => {
     if (!p.injury) return null;
@@ -90,6 +104,7 @@ function NbaTab({ DATA }) {
 
   return (
     <section className="view on">
+      {viewBar}
       <div className="bar">
         <input className="find" placeholder="Search player or team" value={q} onChange={e => setQ(e.target.value)} />
         <div className="seg">
@@ -220,5 +235,124 @@ function NbaDetail({ p, stat }) {
         )}
       </div>
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- Best 5 and record
+const NBA_PICK_STAT = { pts: 'pts', reb: 'reb', ast: 'ast', fg3: '3PM', pra: 'PRA' };
+function nbaPickText(c) { return (c.side === 'over' ? 'OVER ' : 'UNDER ') + c.line + ' ' + NBA_PICK_STAT[c.stat]; }
+function NbaResult({ c }) {
+  const base = { marginLeft: 8, whiteSpace: 'nowrap' };
+  if (c.result === 'win') return <span className="badge" style={base}>Win · {c.actual}</span>;
+  if (c.result === 'loss') return <span className="badge" style={{ ...base, color: 'var(--neg)', borderColor: 'var(--negLine)', background: 'var(--negBg)' }}>Loss · {c.actual}</span>;
+  if (c.result === 'void') return <span className="badge" style={{ ...base, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)' }}>Void · did not play</span>;
+  return <span className="badge" style={{ ...base, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)' }}>Pending</span>;
+}
+function NbaPickRow({ c, rank }) {
+  const [open, setOpen] = useState(false);
+  const need = c.side === 'over' ? c.line + ' or lower' : c.line + ' or higher';
+  const cell = { minWidth: 64 };
+  const f1 = v => (v == null ? '—' : Number(v).toFixed(1));
+  return (
+    <div style={{ border: '1px solid var(--line)', borderRadius: 'var(--r)', background: 'var(--card)', padding: '12px 14px', marginBottom: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }} onClick={() => setOpen(!open)}>
+        <span className="dk" style={{ margin: 0, width: 16 }}>{rank}</span>
+        <img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', background: 'var(--sunk)' }} onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
+        <div style={{ flex: '1 1 160px', minWidth: 150 }}>
+          <div style={{ color: 'var(--ink)', fontWeight: 600 }}>{c.name}{c.lean && <span className="badge" style={{ marginLeft: 8, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)' }}>Lean</span>}</div>
+          <div className="tc dk" style={{ margin: 0 }}>
+            <span>{c.team}</span><span>{c.home ? 'vs' : '@'}</span><NbaTeam t={c.opp} /><span>· {nbaDay(c.tip)}{c.b2b ? ' · back to back' : ''}</span>
+          </div>
+        </div>
+        <div style={{ fontFamily: 'var(--num)', fontWeight: 700, fontSize: 18, color: 'var(--ink)', whiteSpace: 'nowrap' }}>{nbaPickText(c)}</div>
+        <NbaResult c={c} />
+      </div>
+      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 10, paddingLeft: 28 }}>
+        <div style={cell}><div className="dk" style={{ margin: 0 }}>Model tonight</div><b>{c.proj}</b></div>
+        <div style={cell}><div className="dk" style={{ margin: 0 }}>Season avg</div><b>{c.avg}</b></div>
+        <div style={cell}><div className="dk" style={{ margin: 0 }}>Last 10 {c.side}</div><b>{Math.round(c.hit10 * 10)}/10</b></div>
+        <div style={cell}><div className="dk" style={{ margin: 0 }}>Last {c.n20} {c.side}</div><b>{Math.round(c.hit20 * c.n20)}/{c.n20}</b></div>
+        <div style={cell}><div className="dk" style={{ margin: 0 }}>L5 / L10 avg</div><b>{f1(c.l5)} / {f1(c.l10)}</b></div>
+      </div>
+      <div className="dk" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>
+      {open && (
+        <div className="dk" style={{ margin: '6px 0 0 28px', color: 'var(--ink2)' }}>
+          {c.why}
+          {c.opp_out && c.opp_out.length > 0 && <div style={{ marginTop: 4 }}>{c.opp} without: {c.opp_out.join(', ')}.</div>}
+        </div>
+      )}
+    </div>
+  );
+}
+function NbaPicks({ P }) {
+  const card = P && P.card;
+  if (!card || !card.picks || !card.picks.length) {
+    return (
+      <div className="calNote"><b>No card yet today.</b> The Best 5 locks once with the morning refresh, before the first tip. If
+        there is no game day or nothing clears the bar, it stays empty.</div>
+    );
+  }
+  const done = card.picks.filter(c => c.result === 'win' || c.result === 'loss');
+  return (
+    <>
+      <div className="muKey">
+        <span><b>{card.date}</b> · locked {card.made_at}</span>
+        {done.length > 0 && <span>{done.filter(c => c.result === 'win').length}-{done.filter(c => c.result === 'loss').length} so far</span>}
+        <span style={{ marginLeft: 'auto' }}>Model lines, not sportsbook lines.</span>
+      </div>
+      {card.picks.map((c, i) => <NbaPickRow key={c.pid + c.stat} c={c} rank={i + 1} />)}
+      <div className="calNote">
+        <b>How these are picked.</b> Each line is the player's season average rounded to a half point. A pick needs the model's
+        number for tonight to sit well off that line, and the player to have gone that way in at least 7 of his last 10. Last
+        season, that rule beat its line about 64% of the time on Overs and 70% on Unders. That finds real gaps but does not
+        beat a sportsbook by itself. Check the real number first. Leans have a smaller gap or a shakier last 10.
+      </div>
+    </>
+  );
+}
+function NbaRecord({ P }) {
+  const r = P && P.record;
+  if (!r || (!r.w && !r.l && !r.v)) {
+    return <div className="calNote"><b>No graded picks yet.</b> Each morning the refresh grades yesterday's card from the box scores and adds it here.</div>;
+  }
+  const label = { pts: 'Points', reb: 'Rebounds', ast: 'Assists', fg3: 'Threes', pra: 'PRA' };
+  return (
+    <>
+      <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', alignItems: 'baseline', margin: '4px 0 14px' }}>
+        <div><div className="dk" style={{ margin: 0 }}>Record</div><b style={{ fontSize: 26, fontFamily: 'var(--num)' }}>{r.w}-{r.l}{r.v ? '-' + r.v : ''}</b></div>
+        <div><div className="dk" style={{ margin: 0 }}>Hit rate</div><b style={{ fontSize: 26, fontFamily: 'var(--num)' }}>{r.pct != null ? r.pct + '%' : '—'}</b></div>
+        <div><div className="dk" style={{ margin: 0 }}>Streak</div><b style={{ fontSize: 26, fontFamily: 'var(--num)' }}>{r.streak || '—'}</b></div>
+      </div>
+      <div className="tbl" style={{ marginBottom: 14 }}>
+        <table>
+          <thead><tr><th className="l">By prop</th><th>W</th><th>L</th><th>Hit rate</th></tr></thead>
+          <tbody>
+            {Object.keys(r.by_stat).map(k => {
+              const b = r.by_stat[k];
+              return <tr key={k}><td className="l">{label[k] || k}</td><td>{b.w}</td><td>{b.l}</td><td>{Math.round(100 * b.w / (b.w + b.l))}%</td></tr>;
+            })}
+          </tbody>
+        </table>
+      </div>
+      {(P.history || []).map(day => (
+        <div key={day.date} style={{ marginBottom: 14 }}>
+          <div className="dk" style={{ margin: '0 0 6px' }}><b>{day.date}</b></div>
+          <div className="tbl">
+            <table>
+              <tbody>
+                {day.picks.map(c => (
+                  <tr key={c.pid + c.stat}>
+                    <td className="l">{c.name} <span className="dk" style={{ margin: 0 }}>{c.team} {c.home ? 'vs' : '@'} {c.opp}</span></td>
+                    <td>{nbaPickText(c)}</td>
+                    <td className="max"><NbaResult c={c} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+      <div className="calNote">{r.note}</div>
+    </>
   );
 }

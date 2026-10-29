@@ -115,6 +115,8 @@ jobs:
           # NBA projections from public ESPN data. Never blocks the board: on any failure
           # it keeps the last nba.json and the NFL side builds as normal.
           python nba.py || echo "nba.py failed; keeping the last NBA build"
+          # Locks today's best 5 NBA props once, then grades every finished day.
+          python nba_picks.py || echo "nba_picks.py failed; keeping the last NBA picks"
           python build.py
           python build_record.py
 

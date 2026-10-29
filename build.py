@@ -78,6 +78,12 @@ data["games_model"] = json.loads(gm.read_text()) if gm.exists() else None
 # leaves the NBA tab saying it is waiting for data.
 nb = HERE / "nba.json"
 data["nba"] = json.loads(nb.read_text()) if nb.exists() else None
+if data["nba"]:
+    for _p in data["nba"].get("players", []):
+        _p.pop("log20", None)          # raw logs are for nba_picks.py only
+# Daily best 5 props and the running record, built by nba_picks.py. Missing is fine.
+npk = HERE / "nba_picks.json"
+data["nba_picks"] = json.loads(npk.read_text()) if npk.exists() else None
 embed = json.dumps(data, separators=(",", ":"))
 
 app = sub(app, "__LOGO_DATA_URI__", logo, "logo data URI")
