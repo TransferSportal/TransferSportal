@@ -33,8 +33,8 @@
     "Paolo Banchero"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 9.0,
    "why": "Over 19.5 points. Went over in 8 of his last 10 and 14 of his last 20. Season average 19.4, model has him at 22.9 tonight. Teammates out: Kawhi Leonard, Brandon Ingram."
   },
   {
@@ -65,8 +65,8 @@
     "Kon Knueppel"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 3.0,
    "why": "Under 5.5 rebounds. Went under in 9 of his last 10 and 16 of his last 20. Season average 5.1, model has him at 4.2 tonight. Matchup helps this side."
   },
   {
@@ -95,8 +95,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 9.0,
    "why": "Under 16.5 points. Went under in 8 of his last 10 and 16 of his last 20. Season average 16.0, model has him at 13.4 tonight."
   },
   {
@@ -125,8 +125,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 7.0,
    "why": "Over 5.5 assists. Went over in 9 of his last 10 and 12 of his last 20. Season average 5.8, model has him at 6.7 tonight."
   },
   {
@@ -155,8 +155,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 8.0,
    "why": "Under 4.5 threes. Went under in 7 of his last 10 and 15 of his last 20. Season average 4.4, model has him at 3.8 tonight."
   }
  ]
