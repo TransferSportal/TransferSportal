@@ -92,7 +92,7 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
+   "result": "void",
    "actual": null,
    "why": "Over 1.5 threes. Went over in 7 of his last 10 and 13 of his last 20. Season average 2.0, model has him at 2.0 tonight. Matchup helps this side."
   },

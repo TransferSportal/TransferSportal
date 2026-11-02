@@ -30,8 +30,8 @@
     "Kawhi Leonard"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 15.0,
    "why": "Under 7.5 rebounds. Went under in 7 of his last 10 and 10 of his last 20. Season average 7.3, model has him at 6.5 tonight."
   },
   {
@@ -62,8 +62,8 @@
     "Paolo Banchero"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 7.0,
    "why": "Over 5.5 assists. Went over in 9 of his last 10 and 12 of his last 20. Season average 5.9, model has him at 6.5 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -92,8 +92,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 4.0,
    "why": "Over 1.5 threes. Went over in 6 of his last 10 and 12 of his last 20. Season average 1.9, model has him at 2.0 tonight. Matchup works against this side. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -124,8 +124,8 @@
     "Paolo Banchero"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 2.0,
    "why": "Under 2.5 threes. Went under in 6 of his last 10 and 13 of his last 20. Season average 2.5, model has him at 2.1 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -156,8 +156,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 40.0,
    "why": "Over 29.5 pts+reb+ast. Went over in 6 of his last 10 and 10 of his last 20. Season average 30.0, model has him at 34.7 tonight. Teammates out: Kawhi Leonard. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
