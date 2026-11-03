@@ -42,7 +42,8 @@ DIR = HERE / "nba_picks"
 OUT = HERE / "nba_picks.json"
 ET = nba.ET
 
-STATS = ["pts", "reb", "ast", "fg3", "pra"]
+# Assists are left out of the card by choice: they went 2-3 in the first picks. Still graded in history.
+STATS = ["pts", "reb", "fg3", "pra"]
 LABEL = {"pts": "points", "reb": "rebounds", "ast": "assists", "fg3": "threes", "pra": "pts+reb+ast"}
 MIN_LINE = {"pts": 12.5, "reb": 4.5, "ast": 3.5, "fg3": 1.5, "pra": 24.5}
 MIN_HIT10 = 0.7            # went the same way in at least 7 of the last 10
