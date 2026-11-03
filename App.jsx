@@ -271,6 +271,7 @@ function CardTab({ DATA }) {
     return <div className="empty">No locked card in this build. Run <code>picks.py</code>.</div>;
   }
   const td = P.td_picks || [], gp = P.game_picks || [];
+  const lw = lastWeekIndex(DATA.players);
   const byTeam = {};
   td.forEach(p => { (byTeam[p.team] = byTeam[p.team] || []).push(p); });
   const teams = Object.keys(byTeam).sort(
@@ -320,7 +321,7 @@ function CardTab({ DATA }) {
                 {g.map(p => (
                   <div className="cardPick" key={p.name}>
                     <span className="cardPickN">{p.team_rank}</span>
-                    <span className="cardPickName">{p.name}</span>
+                    <span className="cardPickName">{p.name}<LastWkBadge tag={lastWeekTag(lw, p)} /></span>
                     <span className="cardPickPos">{p.pos}</span>
                     <span className="cardPickProb">{Math.round((p.prob || 0) * 100)}%</span>
                   </div>

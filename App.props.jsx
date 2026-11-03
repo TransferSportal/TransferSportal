@@ -472,7 +472,31 @@ function tdSplit(P) {
 }
 function tdCount(P) { return tdSplit(P).live.length; }
 
+// Players on the card who did not score last week. Read off the live board (gw = weeks played,
+// gt = touchdowns by week), so the locked card file is never touched.
+function lastWeekIndex(players) {
+  const by = {};
+  let wk = 0;
+  (players || []).forEach(x => {
+    by[x.name + '|' + x.team] = x;
+    if (x.gw && x.gw.length) wk = Math.max(wk, x.gw[x.gw.length - 1]);
+  });
+  return { by, wk };
+}
+function lastWeekTag(idx, p) {
+  const x = idx.by[p.name + '|' + p.team];
+  if (!x || !x.gw || !idx.wk) return null;
+  const i = x.gw.indexOf(idx.wk);
+  if (i < 0) return 'No game wk ' + idx.wk;
+  return x.gt[i] === 0 ? 'No TD wk ' + idx.wk : null;
+}
+function LastWkBadge({ tag }) {
+  if (!tag) return null;
+  return <span className="badge" style={{ marginLeft: 8, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)', whiteSpace: 'nowrap' }}>{tag}</span>;
+}
+
 function TopPicksView({ P, players }) {
+  const lw = lastWeekIndex(players);
   const { live, played } = tdSplit(P);
   // Every pick on an early-season card rests on a handful of games, and a bare
   // percentage hides that. The sample column is not decoration: a 54% built on
@@ -496,7 +520,7 @@ function TopPicksView({ P, players }) {
    return (
     <tr key={p.name + p.team}>
       <td className="l">{n}</td>
-      <td className="l"><b>{p.name}</b></td>
+      <td className="l"><b>{p.name}</b><LastWkBadge tag={lastWeekTag(lw, p)} /></td>
       <td className="l">{p.pos}</td>
       <td className="l">{p.team}{p.opp ? ' vs ' + p.opp : ''}</td>
       <td><b>{Math.round((p.prob || 0) * 100)}%</b></td>
@@ -535,7 +559,7 @@ function TopPicksView({ P, players }) {
           : <>No prices attached to this build, so there is no edge column. A model chance
               on its own does not say whether a pick is worth betting: 60% against a price
               that implies 67% is a bad bet the model likes.</>}
-        {' '}Sample is games played this season. Everything on an early card is a short
+        {' '}A grey tag means he did not score last week, or had no game. Sample is games played this season. Everything on an early card is a short
         sample, and <b>thin</b> marks the ones the model itself flags as low confidence.
       </div>
       {played.length > 0 && (
