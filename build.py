@@ -27,7 +27,22 @@ css = (HERE / "theme.css").read_text()
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.board.jsx", "App.tabs.jsx"))
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.board.jsx", "App.shell.jsx", "App.tabs.jsx"))
+
+# The NBA tab can be driven from the Shell sidebar: pass view and noBar to use its own switch no more.
+app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
+app = sub(app, "  const [view, setView] = useState('picks');", "  const [iv, setView] = useState('picks');\n  const view = vProp || iv;", "nba view state")
+app = sub(app, "  const viewBar = (\n", "  const viewBar = noBar ? null : (\n", "nba view bar")
+# The Board is now just the content panel; the Shell supplies the sidebar and frame.
+_a = app.index("      <style>{BOARD_CSS}</style>\n      <div className=\"bd\">\n        <aside")
+_b = app.index("</aside>\n", _a) + len("</aside>\n")
+app = app[:_a] + app[_b:]
+app = sub(app, "        </div>\n      </div>\n    </section>\n  );\n}\n", "        </div>\n    </section>\n  );\n}\n", "board wrapper end")
+app = sub(app, "function BoardTab({ DATA, go }) {", "function BoardTab({ DATA }) {", "board props")
+# The root component renders the Shell (two main tabs, NFL and NBA) instead of the old tab bar.
+_i = app.index("  return (\n    <>\n      <Header meta={meta} />")
+_j = app.index("function Notes(")
+app = (app[:_i] + "  return (\n    <>\n      <Shell DATA={DATA} meta={meta} CURVE={CURVE} CALP={CALP} CAL={CAL} CALPP={CALPP} CALP2={CALP2} />\n    </>\n  );\n}\n" + app[_j:])
 
 # The prop tabs (Cheatsheets, Parlay Builder, Injuries) live in App.props.jsx.
 # They are wired into the shell here rather than by editing App.jsx and
@@ -37,14 +52,6 @@ app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "Ap
 app = sub(app, "['pstats','Player Stats']];",
           "['pstats','Player Stats'],['sheets','Cheatsheets'],['pairs','Parlay Builder'],['inj','Injuries'],['nba','NBA'],['board','Board']];",
           "prop tab buttons")
-app = sub(app, "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n",
-          "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n"
-          "        {tab === 'sheets' && <CheatsheetsTab DATA={DATA} />}\n"
-          "        {tab === 'pairs' && <ParlayTab DATA={DATA} />}\n"
-          "        {tab === 'inj' && <InjuriesTab DATA={DATA} />}\n"
-          "        {tab === 'nba' && <NbaTab DATA={DATA} />}\n"
-          "        {tab === 'board' && <BoardTab DATA={DATA} go={setTab} />}\n",
-          "prop tab views")
 # The Card's touchdown list is the top 15 by probability: a flat ranked list instead of
 # the old per-team grid. The old view is left in place behind a key that is never set.
 app = sub(app, "{view === 'td' && (",
@@ -64,7 +71,7 @@ css += (
     "\nb.up{color:var(--pos)}b.down{color:var(--neg)}\n"
 )
 # White and black theme with red / green / grey for matchups, layered over the base styles.
-css += (HERE / "theme.light.css").read_text()
+css += (HERE / "theme.board.css").read_text()
 team_line = (HERE / "team.js").read_text().strip()
 logo_line = (HERE / "logos.js").read_text().strip()
 mount = (HERE / "mount.js").read_text().strip()
@@ -153,8 +160,8 @@ n = sub(
     "nearbi App root",
 )
 
-n = sub(n, "    <>\n      <Header meta={meta} />",
-        "    <>\n      <style>{APP_CSS}</style>\n      <Header meta={meta} />",
+n = sub(n, "    <>\n      <Shell DATA={DATA}",
+        "    <>\n      <style>{APP_CSS}</style>\n      <Shell DATA={DATA}",
         "nearbi style injection")
 
 n = sub(n, "const { useState, useMemo, useEffect } = React;",
