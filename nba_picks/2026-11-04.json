@@ -28,8 +28,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 21.0,
    "why": "Over 12.5 points. Went over in 9 of his last 10 and 16 of his last 20. Season average 12.0, model has him at 15.2 tonight."
   },
   {
@@ -60,8 +60,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 14.0,
    "why": "Over 14.5 points. Went over in 7 of his last 10 and 13 of his last 20. Season average 14.9, model has him at 17.3 tonight. Teammates out: Anthony Edwards."
   },
   {
@@ -92,8 +92,8 @@
     "Anthony Edwards"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 39.0,
    "why": "Over 33.5 pts+reb+ast. Went over in 8 of his last 10 and 15 of his last 20. Season average 33.5, model has him at 37.0 tonight."
   },
   {
@@ -122,8 +122,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 6.0,
    "why": "Over 4.5 threes. Went over in 8 of his last 10 and 12 of his last 20. Season average 4.2, model has him at 5.0 tonight."
   },
   {
