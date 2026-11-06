@@ -27,7 +27,7 @@ css = (HERE / "theme.css").read_text()
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.tabs.jsx"))
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.board.jsx", "App.tabs.jsx"))
 
 # The prop tabs (Cheatsheets, Parlay Builder, Injuries) live in App.props.jsx.
 # They are wired into the shell here rather than by editing App.jsx and
@@ -35,14 +35,15 @@ app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "Ap
 # asserted: if either file changes shape, the build fails loudly instead of
 # shipping tabs that do not appear.
 app = sub(app, "['pstats','Player Stats']];",
-          "['pstats','Player Stats'],['sheets','Cheatsheets'],['pairs','Parlay Builder'],['inj','Injuries'],['nba','NBA']];",
+          "['pstats','Player Stats'],['sheets','Cheatsheets'],['pairs','Parlay Builder'],['inj','Injuries'],['nba','NBA'],['board','Board']];",
           "prop tab buttons")
 app = sub(app, "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n",
           "        {tab === 'pstats' && <PlayerStatsTab DATA={DATA} />}\n"
           "        {tab === 'sheets' && <CheatsheetsTab DATA={DATA} />}\n"
           "        {tab === 'pairs' && <ParlayTab DATA={DATA} />}\n"
           "        {tab === 'inj' && <InjuriesTab DATA={DATA} />}\n"
-          "        {tab === 'nba' && <NbaTab DATA={DATA} />}\n",
+          "        {tab === 'nba' && <NbaTab DATA={DATA} />}\n"
+          "        {tab === 'board' && <BoardTab DATA={DATA} go={setTab} />}\n",
           "prop tab views")
 # The Card's touchdown list is the top 15 by probability: a flat ranked list instead of
 # the old per-team grid. The old view is left in place behind a key that is never set.
