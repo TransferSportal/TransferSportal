@@ -1,4 +1,16 @@
-// ============ Played bets: saved to the page's private database, graded by the morning and afternoon runs ============
+// ============ Played bets ============
+// Singles and parlays are kept apart. Everything lives in the page's private database (collection "bets").
+//   type "single": one prop.     type "parlay": legs[] graded by the runs; the page works out win/loss from the legs.
+//   type "game": your own spread pick for an NFL game.
+// A leg: {key, sport, name, team, opp, gameDate, stat, line, side, verdict, proj, season?, week?}
+const STAT_NAME = { pts: 'pts', reb: 'reb', ast: 'ast', fg3: '3PM', pra: 'PRA', ry: 'rec yds', rc: 'rec', ruy: 'rush yds', py: 'pass yds', td: 'anytime TD' };
+const SLIP = { legs: [], subs: new Set() };
+function slipSet(legs) { SLIP.legs = legs; SLIP.subs.forEach(f => f()); }
+function useSlip() {
+  const [, f] = useState(0);
+  useEffect(() => { const fn = () => f(x => x + 1); SLIP.subs.add(fn); return () => { SLIP.subs.delete(fn); }; }, []);
+  return SLIP.legs;
+}
 function useBets() {
   const [st, setSt] = useState({ db: null, bets: [], ok: null });
   useEffect(() => {
@@ -18,51 +30,150 @@ function useBets() {
   }, []);
   return st;
 }
-function PlayedBtn({ p, stat, L, v, nx, proj }) {
+function legText(l) {
+  if (l.stat === 'td') return l.name + ' anytime TD' + (l.line ? ' (' + l.line + ')' : '');
+  return l.name + ' ' + (l.side === 'over' ? 'O' : 'U') + ' ' + l.line + ' ' + (STAT_NAME[l.stat] || l.stat);
+}
+function mkLeg(o) {
+  const slug = String(o.name).replace(/[^A-Za-z0-9]/g, '').slice(0, 24);
+  const key = [o.sport, o.gameDate, o.pid || slug, o.stat, o.side, o.line].join('_').replace(/[^A-Za-z0-9_.+-]/g, '');
+  return { key, ...o };
+}
+function parlayStatus(b) {
+  const s = (b.legs || []).map(l => l.status || 'pending');
+  if (s.includes('loss')) return 'loss';
+  if (s.includes('pending')) return 'pending';
+  if (s.every(x => x === 'push' || x === 'void')) return 'push';
+  return 'win';
+}
+function PlayControls({ leg }) {
   const { db, bets, ok } = useBets();
+  const slip = useSlip();
   const [busy, setBusy] = useState(false);
-  if (!v || v.blocked || v.word === 'Pass') return null;
-  const gd = rcEt(nx.date);
-  const id = [gd, p.id, stat, v.best.side, L].join('_').replace(/[^A-Za-z0-9_.-]/g, '');
-  const have = bets.find(b => b.id === id);
-  const click = async () => {
+  const sid = 'single_' + leg.key;
+  const have = bets.find(b => b.id === sid);
+  const onSlip = slip.some(l => l.key === leg.key);
+  if (ok === false) return <div className="rcSub" style={{ marginBottom: 12 }}>Played buttons save on your private link when you are signed in.</div>;
+  const single = async () => {
     if (!db || busy) return;
     setBusy(true);
     try {
-      const ref = db.collection('bets').doc(id);
+      const ref = db.collection('bets').doc(sid);
       if (have) { if (have.status === 'pending') await ref.delete(); }
-      else await ref.set({ pid: p.id, name: p.name, team: p.team, opp: nx.opp || '', home: !!nx.home, gameDate: gd, gameTime: nx.date || '', stat, line: L, side: v.best.side, verdict: v.word, proj: Math.round(proj * 100) / 100, h10: v.best.h10, n10: v.best.n10, z: Math.round(v.best.z * 100) / 100, status: 'pending', placedAt: new Date().toISOString() });
-    } catch (e) { /* write refused: stays unsaved */ }
+      else await ref.set({ type: 'single', ...leg, status: 'pending', placedAt: new Date().toISOString() });
+    } catch (e) { /* refused: stays unsaved */ }
     setBusy(false);
   };
-  if (ok === false) return <div className="rcSub" style={{ marginBottom: 12 }}>Played button saves on your private link when you are signed in.</div>;
+  const toggleSlip = () => slipSet(onSlip ? slip.filter(l => l.key !== leg.key) : slip.concat([leg]));
+  const b = (on, ac) => ({ appearance: 'none', cursor: 'pointer', borderRadius: 10, padding: '9px 14px', fontSize: 13, fontWeight: 700, border: '1px solid ' + (on ? 'var(--pos)' : 'var(--ink)'), background: on ? 'var(--posBg)' : ac ? 'var(--ink)' : 'transparent', color: on ? 'var(--pos)' : ac ? '#0d0f12' : 'var(--ink)' });
   return (
-    <div style={{ marginBottom: 12 }}>
-      <button onClick={click} disabled={!db || busy} style={{ appearance: 'none', cursor: 'pointer', borderRadius: 10, padding: '10px 18px', fontSize: 14, fontWeight: 700, border: '1px solid var(--ink)', background: have ? 'var(--posBg)' : 'var(--ink)', color: have ? 'var(--pos)' : '#0d0f12' }}>
-        {have ? 'Played · saved' + (have.status === 'pending' ? ' (tap to undo)' : '') : 'Played this bet'}
-      </button>
+    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+      <button style={b(!!have, true)} disabled={!db || busy} onClick={single}>{have ? 'Single saved' + (have.status === 'pending' ? ' (tap to undo)' : '') : 'Play as single'}</button>
+      <button style={b(onSlip, false)} onClick={toggleSlip}>{onSlip ? 'On parlay slip (tap to remove)' : 'Add to parlay slip'}</button>
     </div>
   );
 }
-function BetsPanel() {
-  const { bets, ok } = useBets();
-  if (ok === false || !bets.length) return ok === false ? null : <div className="rcSub" style={{ marginTop: 14 }}>Your record: no bets saved yet. Tap Played on a verdict after you place it.</div>;
-  const rows = bets.slice().sort((a, b) => (b.placedAt || '').localeCompare(a.placedAt || ''));
-  const w = rows.filter(b => b.status === 'win').length, l = rows.filter(b => b.status === 'loss').length, ps = rows.filter(b => b.status === 'push').length, pend = rows.filter(b => b.status === 'pending').length;
-  const names = { pts: 'pts', reb: 'reb', ast: 'ast', fg3: '3PM', pra: 'PRA' };
-  const by = {};
-  rows.forEach(b => { if (b.status === 'win' || b.status === 'loss') { const k = names[b.stat] || b.stat; by[k] = by[k] || [0, 0]; by[k][b.status === 'win' ? 0 : 1]++; } });
-  const col = s => (s === 'win' ? 'var(--pos)' : s === 'loss' ? 'var(--neg)' : 'var(--ink2)');
+// Called from the NBA verdict. Pass verdicts can be played too: you may be fading the model.
+function PlayedBtn({ p, stat, L, v, nx, proj }) {
+  if (!v || v.blocked) return null;
+  const leg = mkLeg({ sport: 'nba', pid: p.id, name: p.name, team: p.team, opp: nx.opp || '', gameDate: rcEt(nx.date), stat, line: L, side: v.best.side, verdict: v.word, proj: Math.round(proj * 100) / 100 });
+  return <PlayControls leg={leg} />;
+}
+function SlipBar() {
+  const slip = useSlip();
+  const { db, ok } = useBets();
+  const [busy, setBusy] = useState(false);
+  if (!slip.length || ok === false) return null;
+  const place = async () => {
+    if (!db || busy || slip.length < 2) return;
+    setBusy(true);
+    try {
+      await db.collection('bets').doc('parlay_' + Date.now()).set({ type: 'parlay', legs: slip.map(l => ({ ...l, status: 'pending' })), status: 'pending', placedAt: new Date().toISOString() });
+      slipSet([]);
+    } catch (e) { /* refused */ }
+    setBusy(false);
+  };
   return (
-    <div className="rcMain" style={{ marginTop: 14 }}>
-      <div className="rcName" style={{ fontSize: 17 }}>Your record <span style={{ color: 'var(--ink2)', fontWeight: 600 }}>{w}-{l}{ps ? '-' + ps : ''}{pend ? ' · ' + pend + ' pending' : ''}</span></div>
-      <div className="rcSub" style={{ margin: '4px 0 10px' }}>{Object.keys(by).map(k => k + ' ' + by[k][0] + '-' + by[k][1]).join(' · ') || 'Graded by the 9 a.m. and 4 p.m. runs after the game.'}</div>
-      {rows.slice(0, 30).map(b => (
-        <div key={b.id} className="rcP" style={{ cursor: 'default' }}>
-          <span><b>{b.name}</b> {b.side === 'over' ? 'O' : 'U'} {b.line} {names[b.stat] || b.stat} <span style={{ color: 'var(--ink2)' }}>({b.verdict}, {b.gameDate})</span></span>
-          <span style={{ color: col(b.status), fontWeight: 700 }}>{b.status === 'pending' ? 'Pending' : b.status.toUpperCase() + (b.actual != null ? ' · ' + b.actual : '')}</span>
+    <div className="rcMain" style={{ marginBottom: 14, borderColor: 'var(--ink)' }}>
+      <div className="rcName" style={{ fontSize: 16 }}>Parlay slip · {slip.length} leg{slip.length === 1 ? '' : 's'}</div>
+      {slip.map(l => (
+        <div key={l.key} className="rcP" style={{ cursor: 'default' }}>
+          <span><b>{legText(l)}</b> <span style={{ color: 'var(--ink2)' }}>({l.sport.toUpperCase()}, {l.verdict}, {l.gameDate})</span></span>
+          <span style={{ cursor: 'pointer', color: 'var(--neg)' }} onClick={() => slipSet(slip.filter(x => x.key !== l.key))}>remove</span>
         </div>
       ))}
+      <div style={{ display: 'flex', gap: 8, marginTop: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+        <button disabled={slip.length < 2 || busy} onClick={place} style={{ appearance: 'none', cursor: slip.length < 2 ? 'default' : 'pointer', opacity: slip.length < 2 ? 0.5 : 1, borderRadius: 10, padding: '9px 16px', fontSize: 13, fontWeight: 700, border: '1px solid var(--ink)', background: 'var(--ink)', color: '#0d0f12' }}>Place parlay</button>
+        <button onClick={() => slipSet([])} style={{ appearance: 'none', cursor: 'pointer', background: 'transparent', border: 'none', color: 'var(--ink2)', fontSize: 13 }}>Clear slip</button>
+        <span className="rcSub">{slip.length < 2 ? 'Add at least 2 legs.' : 'Hits only if every leg hits. A push drops that leg.'}</span>
+      </div>
     </div>
+  );
+}
+function resCol(s) { return s === 'win' ? 'var(--pos)' : s === 'loss' ? 'var(--neg)' : 'var(--ink2)'; }
+function tally(rows, f) {
+  const c = { w: 0, l: 0, p: 0, n: 0 };
+  rows.forEach(b => { const s = f(b); if (s === 'win') c.w++; else if (s === 'loss') c.l++; else if (s === 'push') c.p++; else if (s === 'pending') c.n++; });
+  return c;
+}
+const tstr = c => c.w + '-' + c.l + (c.p ? '-' + c.p : '') + (c.n ? ' · ' + c.n + ' pending' : '');
+function BetsPanel({ only }) {
+  const { bets, ok } = useBets();
+  if (ok === false) return null;
+  const all = bets.slice().sort((a, b) => (b.placedAt || '').localeCompare(a.placedAt || ''));
+  const singles = all.filter(b => (b.type || 'single') === 'single');
+  const parlays = all.filter(b => b.type === 'parlay');
+  const games = all.filter(b => b.type === 'game');
+  const box = { marginTop: 14 };
+  if (only === 'games') {
+    const sg = s => s.status;
+    const dis = games.filter(b => b.modelTeam && b.modelTeam !== b.pickTeam);
+    if (!games.length) return <div className="rcSub" style={box}>Your game picks record starts when a game you picked is graded.</div>;
+    return (
+      <div className="rcMain" style={box}>
+        <div className="rcName" style={{ fontSize: 17 }}>Your game picks <span style={{ color: 'var(--ink2)', fontWeight: 600 }}>{tstr(tally(games, sg))}</span></div>
+        <div className="rcSub" style={{ margin: '4px 0 10px' }}>When you disagreed with the model: {tstr(tally(dis, sg))}</div>
+        {games.slice(0, 40).map(b => (
+          <div key={b.id} className="rcP" style={{ cursor: 'default' }}>
+            <span><b>{b.pickTeam} {b.line > 0 ? '+' : ''}{b.line}</b> <span style={{ color: 'var(--ink2)' }}>({b.away} @ {b.home}, wk {b.week}; model {b.modelPick})</span></span>
+            <span style={{ color: resCol(b.status), fontWeight: 700 }}>{b.status === 'pending' ? 'Pending' : String(b.status).toUpperCase() + (b.final ? ' · ' + b.final : '')}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (!singles.length && !parlays.length) return <div className="rcSub" style={box}>Your record: nothing saved yet. Use Play as single or build a parlay slip.</div>;
+  const by = {};
+  singles.forEach(b => { if (b.status === 'win' || b.status === 'loss') { const k = (b.sport || 'nba').toUpperCase() + ' ' + (STAT_NAME[b.stat] || b.stat); by[k] = by[k] || [0, 0]; by[k][b.status === 'win' ? 0 : 1]++; } });
+  const pst = parlays.map(parlayStatus);
+  const pc = tally(parlays, b => parlayStatus(b));
+  const missed = parlays.filter(b => parlayStatus(b) === 'loss');
+  const legsHit = missed.reduce((s, b) => s + b.legs.filter(l => l.status === 'win').length, 0), legsAll = missed.reduce((s, b) => s + b.legs.length, 0);
+  return (
+    <>
+      <div className="rcMain" style={box}>
+        <div className="rcName" style={{ fontSize: 17 }}>Singles record <span style={{ color: 'var(--ink2)', fontWeight: 600 }}>{tstr(tally(singles, b => b.status))}</span></div>
+        <div className="rcSub" style={{ margin: '4px 0 10px' }}>{Object.keys(by).map(k => k + ' ' + by[k][0] + '-' + by[k][1]).join(' · ') || 'Graded by the 9 a.m. and 4 p.m. runs after the game.'}</div>
+        {singles.slice(0, 30).map(b => (
+          <div key={b.id} className="rcP" style={{ cursor: 'default' }}>
+            <span><b>{legText(b)}</b> <span style={{ color: 'var(--ink2)' }}>({(b.sport || 'nba').toUpperCase()}, {b.verdict}, {b.gameDate})</span></span>
+            <span style={{ color: resCol(b.status), fontWeight: 700 }}>{b.status === 'pending' ? 'Pending' : String(b.status).toUpperCase() + (b.actual != null ? ' · ' + b.actual : '')}</span>
+          </div>
+        ))}
+      </div>
+      <div className="rcMain" style={box}>
+        <div className="rcName" style={{ fontSize: 17 }}>Parlays record <span style={{ color: 'var(--ink2)', fontWeight: 600 }}>{tstr(pc)}</span></div>
+        <div className="rcSub" style={{ margin: '4px 0 10px' }}>{missed.length ? 'On missed parlays, ' + legsHit + ' of ' + legsAll + ' legs hit.' : 'Win only if every leg hits.'}</div>
+        {parlays.slice(0, 20).map((b, i) => (
+          <div key={b.id} style={{ borderTop: '1px solid var(--line2)', padding: '9px 0' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
+              <b>{b.legs.length}-leg parlay</b>
+              <span style={{ color: resCol(pst[parlays.indexOf(b)]), fontWeight: 700 }}>{pst[parlays.indexOf(b)] === 'pending' ? 'Pending' : pst[parlays.indexOf(b)].toUpperCase()}</span>
+            </div>
+            {b.legs.map(l => <div key={l.key} className="rcSub">{legText(l)} <span style={{ color: resCol(l.status) }}>{l.status && l.status !== 'pending' ? l.status + (l.actual != null ? ' · ' + l.actual : '') : 'pending'}</span></div>)}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
