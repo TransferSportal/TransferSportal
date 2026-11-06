@@ -41,6 +41,7 @@ function NflResearch({ DATA }) {
   const [stat, setStat] = useState('ry');
   const [line, setLine] = useState('');
   const today = nrToday();
+  const CTX = DATA.ctx || {};
   const DEF = useMemo(() => nrDefense(P, DATA.picks && DATA.picks.season), [P]);
   const list = useMemo(() => {
     let l = P.filter(p => p.opp && (pos === 'All' || p.pos === pos));
@@ -66,6 +67,11 @@ function NflResearch({ DATA }) {
     if (dp && dp.moved) notes.push('Changed teams from ' + dp.team_prev + '. Old numbers may not reflect his role.');
     if (mates.length) notes.push('Out on his team: ' + mates.slice(0, 5).map(m => m.n + ' (' + m.why + ')').join(', ') + '.');
     const m = PM_BY[st];
+    const wx = gm && CTX.weather && CTX.weather[gm.home];
+    const us = CTX.players && CTX.players[p.n];
+    const wxBad = !!(wx && !wx.roof && wx.flags && wx.flags.length && (st === 'py' || st === 'ry' || st === 'rc'));
+    if (wx && wx.roof) notes.push('Indoors, so weather does not matter.');
+    else if (wx && wx.temp != null) notes.push('Game day ' + wx.temp + 'F, wind ' + wx.wind + ' mph (gusts ' + wx.gust + '), rain chance ' + wx.rain + '%.' + (wxBad ? ' Weather risk for ' + (st === 'py' ? 'passing' : 'receiving') + ': an over is capped at Lean.' : ''));
     const g = p.g || [];
     let v = null, leg = null;
     const base = { sport: 'nfl', name: p.n, team: p.tm, opp: p.opp, gameDate: gm ? gm.day : '', stat: st, season: DATA.picks && DATA.picks.season, week: DATA.picks && DATA.picks.week };
@@ -98,6 +104,7 @@ function NflResearch({ DATA }) {
         let play = best.z >= 0.5 && best.h >= Math.ceil(0.75 * k), lean = !play && best.z >= 0.3 && best.h >= Math.ceil(0.625 * k);
         let cap = '';
         if (dm && ((best.side === 'over' && dm.rank >= (DEF[p.pos + '|' + st]._n - 7)) || (best.side === 'under' && dm.rank <= 8))) { if (play) { play = false; lean = true; cap = ' Matchup works against it, so it drops to a lean.'; } }
+        if (wxBad && best.side === 'over' && play) { play = false; lean = true; cap += ' Bad weather caps it at a lean.'; }
         const word = out || played ? 'Pass' : play ? 'Play' : lean ? 'Lean' : 'Pass';
         const sideTxt = best.side === 'over' ? 'Over' : 'Under';
         v = { word, cls: word === 'Play' ? 'p' : word === 'Lean' ? 'l' : 'x', best, o, u, k, why: out || played ? 'Not bettable right now.' : word === 'Pass' ? (best.z < 0.3 ? 'The line sits right where his recent games do. No edge.' : sideTxt + ' ' + L + ' hit only ' + best.h + ' of his last ' + k + '.') : sideTxt + ' ' + L + ': ' + best.h + ' of his last ' + k + ', ' + best.hall + ' of ' + vals.length + ' logged. Recent games weighted toward the latest point to ' + proj.toFixed(1) + ', ' + best.z.toFixed(2) + ' swings from the line.' + cap };
@@ -107,6 +114,11 @@ function NflResearch({ DATA }) {
       if (st === 'py' && dm) notes.push('Projection nudged ' + (proj >= proj0 ? 'up' : 'down') + ' for the matchup (half the gap to league average).');
       facts = [['Weighted recent avg', proj.toFixed(1)], ['Last 5 avg', vals.slice(-5).length ? (vals.slice(-5).reduce((s, x) => s + x, 0) / vals.slice(-5).length).toFixed(1) : '—'], ['Typical swing', '±' + sd.toFixed(1)], ['Home or away', p.h ? 'Home' : 'Away'], ['Vs ' + p.opp + ' history', (() => { const a = g.filter(r => r[2] === p.opp).map(r => r[m.ix]); return a.length ? a.join(', ') : 'none logged'; })()]];
       gamesView = <div className="rcGames">{g.slice(-12).map((r, i) => { const x = r[m.ix]; return <span key={i} className={'rcG ' + (has ? (x > L ? 'o' : x < L ? 'u' : '') : '')} title={(r[3] ? '' : '@') + r[2]}>{x}</span>; })}</div>;
+    }
+    if (us && (st === 'ry' || st === 'rc' || st === 'td')) {
+      if (us.snap != null) facts.push(['Offense snaps, last ' + us.n, us.snap + '%']);
+      if (us.tgt != null) facts.push(['Target share, last ' + us.n, us.tgt + '%' + (us.tpg != null ? ' (' + us.tpg + ' per game)' : '')]);
+      if (us.air != null && st === 'ry') facts.push(['Air yards share', us.air + '%']);
     }
     const dmap = st !== 'td' ? DEF[p.pos + '|' + st] : null;
     const dm2 = dmap && dmap[p.opp];
@@ -152,7 +164,7 @@ function NflResearch({ DATA }) {
         <div className="rcMain">{body}</div>
       </div>
       <BetsPanel only="props" />
-      <div className="rcSub" style={{ marginTop: 10 }}>Stats current as of {DATA.meta && DATA.meta.generated}. Verdict rule: his recent games, weighted toward the latest, have to sit at least half a typical swing from the line and he has to have gone that way in most of his last 8. A tough yards-allowed matchup caps a Play at Lean. Position yards allowed explained little week to week this season except for QB passing yards, so it only moves passing projections. Anytime TD compares the model's chance to the odds you type. Model estimates, not guarantees.</div>
+      <div className="rcSub" style={{ marginTop: 10 }}>Stats current as of {DATA.meta && DATA.meta.generated}. Verdict rule: his recent games, weighted toward the latest, have to sit at least half a typical swing from the line and he has to have gone that way in most of his last 8. A tough yards-allowed matchup caps a Play at Lean. Position yards allowed explained little week to week this season except for QB passing yards, so it only moves passing projections. Weather and snap share are shown as context. Weather only caps an over at Lean when wind, cold or rain is forecast. I could not backtest either one against past games. Anytime TD compares the model's chance to the odds you type. Model estimates, not guarantees.</div>
     </section>
   );
 }

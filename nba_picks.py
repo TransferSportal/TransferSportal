@@ -104,6 +104,13 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             if h10 < min_h:
                 continue
             score = z + 2.0 * (h10 - 0.7) + 1.5 * (h20 - 0.6)
+            spread = nx.get("spread")
+            blow = spread is not None and spread >= 10 and (p.get("min_l10") or 0) >= 26 and side == "over"
+            if blow:
+                # Big spread: starters can sit the fourth quarter. Overs lose score, and past 15 they are dropped.
+                if spread >= 15:
+                    continue
+                score -= 1.0
             f = (p.get("factors") or {}).get(s) or {}
             out.append({
                 "pid": p["id"], "name": p["name"], "team": p["team"], "pos": p["pos"],
@@ -112,7 +119,7 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 "hit10": round(h10, 2), "hit20": round(h20, 2), "n20": len(v20),
                 "proj": round(proj, 1), "avg": round(avg, 1), "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
                 "sd10": sd, "z": round(z, 2), "score": round(score, 3),
-                "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
+                "spread": nx.get("spread"), "fav": nx.get("fav"), "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
                 "opp_out": (n.get("injuries_out") or {}).get(nx["opp"], []),
                 "lean": not (z >= MIN_Z and h10 >= MIN_HIT10),
                 "result": None, "actual": None,
@@ -151,6 +158,7 @@ def why(c):
         bits.append(("Matchup helps this side." if good else "Matchup works against this side."))
     if c["teammates_out"]: bits.append("Teammates out: " + ", ".join(c["teammates_out"]) + ".")
     if c["b2b"]: bits.append("Back to back, so watch the minutes.")
+    if c.get("blowout"): bits.append(f"Spread is {c['spread']:g}, so blowout risk. Minutes could get cut late.")
     if c.get("lean"): bits.append("A lean: the gap or the recent run is smaller than on a full pick.")
     return " ".join(bits)
 

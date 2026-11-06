@@ -149,6 +149,29 @@ def blend(win, stat):
     return num_ / den if den else None
 
 
+def game_line(comp, h, a):
+    """Point spread size, total and favorite from the scoreboard's odds block, or Nones when no line is posted yet.
+    Nothing is guessed: with no odds the page shows no line and applies no blowout rule."""
+    try:
+        o = (comp.get("odds") or [None])[0]
+        if not o:
+            return None, None, None
+        det = str(o.get("details") or "").strip()          # e.g. "MEM -3.5"
+        fav, spread = None, None
+        parts = det.split()
+        if len(parts) == 2 and parts[0] in (h, a):
+            try:
+                spread = abs(float(parts[1])); fav = parts[0]
+            except ValueError:
+                pass
+        if spread is None and o.get("spread") is not None:
+            spread = abs(float(o["spread"]))
+        tot = o.get("overUnder")
+        return spread, (float(tot) if tot is not None else None), fav
+    except Exception:
+        return None, None, None
+
+
 def upcoming(days=3):
     """Next game per team over the next few days, from the public scoreboard."""
     nxt = {}
@@ -166,9 +189,11 @@ def upcoming(days=3):
             h = next(c for c in comp if c["homeAway"] == "home")["team"]["abbreviation"]
             a = next(c for c in comp if c["homeAway"] == "away")["team"]["abbreviation"]
             when = ev["date"]
+            spread, total, fav = game_line(ev["competitions"][0], h, a)
             for me, op, home in ((h, a, True), (a, h, False)):
                 if me not in nxt:
-                    nxt[me] = {"opp": op, "home": home, "date": when, "day": et_date(when)}
+                    nxt[me] = {"opp": op, "home": home, "date": when, "day": et_date(when),
+                               "spread": spread, "total": total, "fav": fav}
     return nxt
 
 
@@ -288,7 +313,8 @@ def build():
             rest = (gd - last).days - 1
             h2h = [r for r in rows if r["opp"] == opp]
             ha = [r for r in rows if r["home"] == home]
-            rec["next"] = {"opp": opp, "home": home, "date": nx["date"], "rest_days": rest, "b2b": rest == 0}
+            rec["next"] = {"opp": opp, "home": home, "date": nx["date"], "rest_days": rest, "b2b": rest == 0,
+                          "spread": nx.get("spread"), "total": nx.get("total"), "fav": nx.get("fav")}
             teammates_out = [t for t in out_by_team.get(team, []) if t != pid]
             proj, fac = {}, {}
             for s in STATS:

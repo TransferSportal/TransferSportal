@@ -157,10 +157,69 @@ def kicked_off(sched, week):
     for x in gw.itertuples():
         out.add(TEAM_FIX.get(x.home_team, x.home_team))
         out.add(TEAM_FIX.get(x.away_team, x.away_team))
+    # The score feed can lag the whiteboard by a while, so the scheduled kickoff counts too.
+    # gameday and gametime are Eastern. A game past its kickoff time is treated as started.
+    now = pd.Timestamp.now("UTC")
+    if {"gameday", "gametime"} <= set(sched.columns):
+        for x in sched[sched.week == week].itertuples():
+            try:
+                ko = pd.Timestamp(f"{x.gameday} {x.gametime}", tz="America/New_York")
+            except Exception:
+                continue
+            if ko <= now:
+                out.add(TEAM_FIX.get(x.home_team, x.home_team))
+                out.add(TEAM_FIX.get(x.away_team, x.away_team))
     return out
 
 
-def lock(season, week, td_picks, game_picks, amend=None, started=frozenset(), td_only=False):
+def final_lock_time(sched, week):
+    """Sunday 9:00 a.m. Eastern of this week. Updates run daily until then, and the first run at or after it is the last."""
+    gw = sched[sched.week == week]
+    days = pd.to_datetime(gw.gameday)
+    sun = days[days.dt.weekday == 6]
+    d = sun.min() if len(sun) else days.min()
+    return pd.Timestamp(f"{d.date().isoformat()} 09:00", tz="America/New_York")
+
+
+def refresh(path, old, td_picks, started, final_at):
+    """Daily update of the touchdown card before the final lock.
+
+    A pick whose game has started is frozen exactly as it was last written. Every other slot is refilled with
+    the current best picks from teams that have not played yet, so the card stays at TOP_N picks for the week.
+    Game picks are not touched. Every update is logged inside the file, and the commit history carries the timestamps.
+    """
+    now = pd.Timestamp.now("UTC")
+    stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    keep = [p for p in old.get("td_picks", []) if p["team"] in started]
+    fresh = sorted([p for p in td_picks if p["team"] not in started], key=lambda p: -(p.get("prob") or 0))
+    open_slots = max(TOP_N - len(keep), 0)
+    new_td = fresh[:open_slots]
+    before = {(p["name"], p["team"]) for p in old.get("td_picks", [])}
+    after = {(p["name"], p["team"]) for p in keep + new_td}
+    for p in new_td:
+        if (p["name"], p["team"]) not in before:
+            p["added"] = stamp
+    old_by = {(p["name"], p["team"]): p for p in old.get("td_picks", [])}
+    for p in new_td:                      # a pick that stayed keeps its first-listed time
+        o = old_by.get((p["name"], p["team"]))
+        if o and o.get("added"):
+            p["added"] = o["added"]
+    old["td_picks"] = keep + new_td
+    old["updated"] = stamp
+    is_final = now >= final_at
+    old.setdefault("updates", []).append({"at": stamp, "added": len(after - before), "dropped": len(before - after),
+                                          "frozen": len(keep), "final": bool(is_final)})
+    if is_final:
+        old["final"] = True
+        old["final_at"] = stamp
+    old["note"] = ("updated each morning until the final lock Sunday 9 a.m. Eastern. A pick is frozen the moment its game "
+                   "kicks off, and the card stays at 15 picks for the week. Updates are logged in this file and in the commit history")
+    json.dump(old, open(path, "w"), separators=(",", ":"))
+    print(f"{path} updated: {len(keep)} frozen, +{len(after - before)} -{len(before - after)}" + (" FINAL" if is_final else ""))
+    return path, old
+
+
+def lock(season, week, td_picks, game_picks, amend=None, started=frozenset(), td_only=False, final_at=None):
     """Write this week's picks once and never again.
 
     The one exception is an AMENDMENT, and it is deliberately hard to trigger.
@@ -184,8 +243,10 @@ def lock(season, week, td_picks, game_picks, amend=None, started=frozenset(), td
     if os.path.exists(path):
         old = json.load(open(path))
         if not amend:
-            print(f"{path} already locked at {old.get('locked')} -- leaving it alone")
-            return path, old
+            if final_at is None or old.get("final"):
+                print(f"{path} already locked at {old.get('locked')} -- leaving it alone")
+                return path, old
+            return refresh(path, old, td_picks, started, final_at)
         keep_td = [p for p in old.get("td_picks", []) if p["team"] in started]
         keep_gp = [g for g in old.get("game_picks", [])
                    if td_only or g["home"] in started or g["away"] in started]
@@ -441,7 +502,8 @@ def build(season=None, amend=None, td_only=False):
     td_picks = select_td_picks(data["players"], gm["games"])
     game_picks = select_game_picks(gm["games"])
     path, doc = lock(season, week, td_picks, game_picks,
-                     amend=amend, started=kicked_off(sched, week), td_only=td_only)
+                     amend=amend, started=kicked_off(sched, week), td_only=td_only,
+                     final_at=final_lock_time(sched, week))
 
     # mark the live board so the site can show which players are the picks
     chosen = {(p["name"], p["team"]): p for p in doc["td_picks"]}
@@ -550,7 +612,21 @@ def build(season=None, amend=None, td_only=False):
     }
     json.dump(record, open("picks_record.json", "w"), separators=(",", ":"))
 
+    # Picks whose game is already final get their result right away, not at the end of the week.
+    live = {}
+    if stats is not None:
+        fin = set()
+        for x in sched[(sched.week == week) & sched.home_score.notna()].itertuples():
+            fin.add(TEAM_FIX.get(x.home_team, x.home_team)); fin.add(TEAM_FIX.get(x.away_team, x.away_team))
+        sw = stats[stats.week == week]
+        played = set(sw.player_display_name)
+        scored = set(sw[sw.any_td > 0].player_display_name)
+        for p in doc["td_picks"]:
+            if p["team"] in fin and len(sw):
+                live[p["name"] + "|" + p["team"]] = "dnp" if p["name"] not in played else ("hit" if p["name"] in scored else "miss")
     data["picks"] = {"week": week, "season": season, "locked": doc.get("locked"),
+                     "updated": doc.get("updated"), "final": bool(doc.get("final")), "live": live,
+                     "started": sorted(kicked_off(sched, week)),
                      "cap_rule": doc.get("cap_rule"), "top_n": doc.get("top_n", TOP_N),
                      "amendments": doc.get("amendments", []),
                      "td_picks": doc["td_picks"], "game_picks": doc["game_picks"]}

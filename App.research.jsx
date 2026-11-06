@@ -94,9 +94,18 @@ function ResearchCenter({ DATA }) {
     if (has && proj != null && logs.length >= 10) {
       const o = rcJudge('over', L, proj, sd, logs), u = rcJudge('under', L, proj, sd, logs);
       const best = o.z >= u.z ? o : u;
-      const play = best.z >= 0.5 && best.h10 >= 7;
-      const lean = !play && best.z >= 0.3 && best.h10 >= 6;
+      let play = best.z >= 0.5 && best.h10 >= 7;
+      let lean = !play && best.z >= 0.3 && best.h10 >= 6;
       const notes = [];
+      // Blowout risk: a big spread means starters can sit the fourth quarter. Overs get capped, unders are left alone.
+      const sp = nx.spread, starter = (p.min_l10 || 0) >= 26;
+      if (sp != null && sp >= 10 && starter) {
+        if (best.side === 'over') {
+          if (sp >= 15) { play = false; lean = false; notes.push('Blowout risk: spread is ' + sp + '. Starters often sit late, so this over is a pass.'); }
+          else if (play) { play = false; lean = true; notes.push('Blowout risk: spread is ' + sp + '. Starters can sit the fourth quarter, so a Play is cut to a Lean.'); }
+          else notes.push('Blowout risk: spread is ' + sp + '. Minutes could get cut late.');
+        } else notes.push('Spread is ' + sp + '. A blowout helps this under.');
+      }
       if (p.avail < 0.9) notes.push('Injury status is not clean (' + (p.injury ? (p.injury.status || p.injury) : 'questionable') + '). Confirm he plays before betting.');
       if (p.min_l10 && p.min_l10 < 22) notes.push('Only ' + p.min_l10 + ' minutes a game lately, so the volume is shaky.');
       if (nx.b2b) notes.push('Back to back. Minutes can drop.');
@@ -160,6 +169,8 @@ function ResearchCenter({ DATA }) {
           <div className="rcF">Rest<b>{nx.b2b ? 'Back to back' : (nx.rest_days != null ? nx.rest_days + (nx.rest_days === 1 ? ' day' : ' days') : '—')}</b></div>
           <div className="rcF">Opp defense<b>{f.def ? (f.def >= 1.03 ? 'Soft' : f.def <= 0.97 ? 'Tough' : 'Average') + ' (' + f.def.toFixed(2) + ')' : '—'}</b></div>
           <div className="rcF">Minutes L10<b>{p.min_l10 != null ? Number(p.min_l10).toFixed(1) : '—'}</b></div>
+          <div className="rcF">Minutes trend<b>{(() => { const w = p.windows || {}, a = w['5'] && w['5'].min, c = w['10'] && w['10'].min, d = w['20'] && w['20'].min; if (a == null || c == null) return '—'; const pm = d != null ? 0.5 * a + 0.3 * c + 0.2 * d : 0.6 * a + 0.4 * c; return 'L5 ' + Number(a).toFixed(1) + ' · expect ' + pm.toFixed(0); })()}</b></div>
+          <div className="rcF">Game line<b>{nx.spread != null ? (nx.fav ? nx.fav + ' -' : 'Spread ') + nx.spread + (nx.total != null ? ' · total ' + nx.total : '') : 'No line posted yet'}</b></div>
           <div className="rcF">Status<b>{p.avail >= 0.9 ? 'Healthy' : 'Check injury'}</b></div>
         </div>
       </>

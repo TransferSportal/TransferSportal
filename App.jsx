@@ -282,12 +282,13 @@ function CardTab({ DATA }) {
   return (
     <>
       <div className="calNote" style={{ marginBottom: 12 }}>
-        <div className="noteHead"><b>This is the card, and it is locked</b></div>
+        <div className="noteHead"><b>{P.final ? 'This is the card, and it is locked' : 'This is the card. It updates each morning until Sunday 9 a.m. ET'}</b></div>
         <div className="noteBody" style={{ display: 'block' }}>
-          These picks were written on the first build of the slate and are never rewritten, so
-          every one of them was posted before its game kicked off. The lock time sits inside the
-          file and in the commit history, which is what makes the record below checkable rather
-          than claimed.
+          Each morning the card is refreshed with the latest injuries and data. A pick is frozen the
+          moment its game kicks off, so every pick was posted before its game, and it is graded right
+          after that game ends. At Sunday 9 a.m. ET the card locks for good. The card stays at 15 picks
+          for the week. Every update is time stamped inside the file and in the commit history, which
+          is what makes the record below checkable rather than claimed.{P.updated ? ' Last update: ' + P.updated.replace('T', ' ').replace('Z', ' UTC') + '.' : ''}
           {P.cap_rule && (
             <> Touchdown picks are capped per team by that team's projected points: <b>{P.cap_rule}</b>.
             A team projected for 22 points gets two picks, not five, so the scorer board and the

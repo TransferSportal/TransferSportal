@@ -33,10 +33,10 @@ app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "Ap
 app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
 app = sub(app, "  const [view, setView] = useState('picks');", "  const [iv, setView] = useState('picks');\n  const view = vProp || iv;", "nba view state")
 app = sub(app, "  const viewBar = (\n", "  const viewBar = noBar ? null : (\n", "nba view bar")
-app = sub(app, "const nbaSecs = [['picks', 'Best 5 today'], ", "const nbaSecs = [['picks', 'Best 5 today'], ['research', 'Player Research Center'], ['news', 'Injuries & news'], ", "nba sections")
-app = sub(app, "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ", "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ['research', 'Player Research Center'], ['mine', 'My game picks'], ['news', 'Injuries & news'], ", "nfl sections")
-app = sub(app, "{top === 'nba' && <NbaTab DATA={DATA} view={nsec} noBar />}", "{top === 'nba' && nsec === 'research' && <ResearchCenter DATA={DATA} />}\n            {top === 'nba' && nsec === 'news' && <NewsFlags DATA={DATA} sport=\"nba\" />}\n            {top === 'nba' && nsec !== 'research' && nsec !== 'news' && <NbaTab DATA={DATA} view={nsec} noBar />}", "nba research view")
-app = sub(app, "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}", "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}\n            {top === 'nfl' && sec === 'research' && <NflResearch DATA={DATA} />}\n            {top === 'nfl' && sec === 'mine' && <MyGames DATA={DATA} />}\n            {top === 'nfl' && sec === 'news' && <NewsFlags DATA={DATA} sport=\"nfl\" />}", "nfl new views")
+app = sub(app, "const nbaSecs = [['picks', 'Best 5 today'], ", "const nbaSecs = [['picks', 'Best 5 today'], ['research', 'Player Research Center'], ['news', 'Injuries & news'], ['bank', 'Bankroll'], ", "nba sections")
+app = sub(app, "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ", "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ['research', 'Player Research Center'], ['mine', 'My game picks'], ['news', 'Injuries & news'], ['bank', 'Bankroll'], ", "nfl sections")
+app = sub(app, "{top === 'nba' && <NbaTab DATA={DATA} view={nsec} noBar />}", "{top === 'nba' && nsec === 'research' && <ResearchCenter DATA={DATA} />}\n            {top === 'nba' && nsec === 'news' && <NewsFlags DATA={DATA} sport=\"nba\" />}\n            {top === 'nba' && nsec === 'bank' && <Bankroll />}\n            {top === 'nba' && nsec !== 'research' && nsec !== 'news' && nsec !== 'bank' && <NbaTab DATA={DATA} view={nsec} noBar />}", "nba research view")
+app = sub(app, "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}", "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}\n            {top === 'nfl' && sec === 'research' && <NflResearch DATA={DATA} />}\n            {top === 'nfl' && sec === 'mine' && <MyGames DATA={DATA} />}\n            {top === 'nfl' && sec === 'news' && <NewsFlags DATA={DATA} sport=\"nfl\" />}\n            {top === 'nfl' && sec === 'bank' && <Bankroll />}", "nfl new views")
 app = sub(app, "{players.length ? 'top ' + players.length + ' players' : ''}</span></h2>\n", "{players.length ? 'top ' + players.length + ' players' : ''}</span></h2>\n      <SlipBar />\n", "nba slip bar")
 app = sub(app, "              {v.notes.map((n, i) => <div className=\"rcWhy\" key={i}>{n}</div>)}\n            </div>\n", "              {v.notes.map((n, i) => <div className=\"rcWhy\" key={i}>{n}</div>)}\n            </div>\n            <PlayedBtn p={p} stat={stat} L={L} v={v} nx={nx} proj={proj} />\n", "played button")
 app = sub(app, "      <div className=\"rcSub\" style={{ marginTop: 10 }}>Verdict rule:", "      <BetsPanel only=\"props\" />\n      <div className=\"rcSub\" style={{ marginTop: 10 }}>Verdict rule:", "bets panel")
@@ -113,6 +113,9 @@ if data["nba_picks"] and (data["nba_picks"].get("card") or {}).get("picks"):
 # The daily board note (injury flags and notes), written each morning by the scheduled run.
 dj = HERE / "daily.json"
 data["daily"] = json.loads(dj.read_text()) if dj.exists() else None
+# Weather, snap share and target share for the NFL Research Center (context.py, optional).
+cj = HERE / "context.json"
+data["ctx"] = json.loads(cj.read_text()) if cj.exists() else None
 embed = json.dumps(data, separators=(",", ":"))
 
 app = sub(app, "__LOGO_DATA_URI__", logo, "logo data URI")

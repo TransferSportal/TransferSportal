@@ -462,7 +462,7 @@ function InjuriesTab({ DATA }) {
 // had already kicked off when the card was cut down stay on the record untouched, and
 // are listed apart from the live 15.
 function tdSplit(P) {
-  const frozen = new Set(((P.amendments) || []).flatMap(a => a.frozen_teams || []));
+  const frozen = new Set(((P.amendments) || []).flatMap(a => a.frozen_teams || []).concat(P.started || []));
   const all = P.td_picks || [];
   const byProb = (a, b) => (b.prob || 0) - (a.prob || 0);
   return {
@@ -588,7 +588,7 @@ function TopPicksView({ P, players }) {
    return (
     <tr key={p.name + p.team}>
       <td className="l">{n}</td>
-      <td className="l"><b>{p.name}</b><LastWkBadge tag={lastWeekTag(lw, p)} /></td>
+      <td className="l"><b>{p.name}</b><LastWkBadge tag={lastWeekTag(lw, p)} />{(() => { const r = P.live && P.live[p.name + '|' + p.team]; return r ? <span className="badge" style={{ marginLeft: 8, fontWeight: 700, color: r === 'hit' ? 'var(--pos)' : r === 'miss' ? 'var(--neg)' : 'var(--ink2)' }}>{r === 'hit' ? 'HIT' : r === 'miss' ? 'MISS' : 'DNP'}</span> : null; })()}</td>
       <td className="l">{p.pos}</td>
       <td className="l">{p.team}{p.opp ? ' vs ' + p.opp : ''}</td>
       <td className="l" style={{ minWidth: 110 }}><ProbBar v={p.prob} /></td>
