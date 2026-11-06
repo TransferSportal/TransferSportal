@@ -1,0 +1,29 @@
+/* Board palette over the dark base theme: one look for the whole site. */
+:root{
+  --paper:#0d0f12; --card:#14171c; --sunk:#0a0c0f; --raise:#1a1e24;
+  --ink:#eceef1; --ink2:#8a919c; --ink3:#5c646f;
+  --line:#242932; --line2:#171a20;
+  --pos:#22c55e; --neg:#ef4444; --accent:#22c55e;
+  --posBg:rgba(34,197,94,.12); --negBg:rgba(239,68,68,.12);
+  --posLine:#14532d; --negLine:#5b2121;
+  color-scheme:dark;
+}
+body{background:var(--paper)}
+.wrap{max-width:none;padding:0}
+.tsTop{position:sticky;top:0;z-index:20;background:#0a0c0f;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:10px 20px;flex-wrap:wrap}
+.tsTop .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.2px}
+.tsTop .brand img{width:30px;height:30px;border-radius:7px}
+.tsTop .main{display:inline-flex;gap:6px;margin-left:8px}
+.tsTop .main button{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink2);font-size:15px;font-weight:700;letter-spacing:.3px;padding:9px 34px;border-radius:10px;cursor:pointer}
+.tsTop .main button.on{background:var(--ink);color:#0d0f12;border-color:var(--ink)}
+.tsTop .stat{margin-left:auto;font-size:11px;color:var(--ink2)}
+.tsTop .stat b{color:var(--pos)}
+.tsFrame{max-width:1280px;margin:18px auto;padding:0 20px}
+.tsFrame .bd{display:grid;grid-template-columns:200px 1fr;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:640px}
+.tsFrame .mn{padding:18px 20px;min-width:0}
+.tsFrame .mn .seg{margin-bottom:14px}
+.tsFrame .mn h2.tsH{margin:0 0 12px;font-size:22px;letter-spacing:-.3px}
+.tsFoot{max-width:1280px;margin:0 auto 60px;padding:0 20px}
+@media(max-width:860px){.tsFrame{padding:0 10px}.tsFrame .bd{grid-template-columns:1fr}.tsTop .main button{padding:8px 22px}.tsTop .stat{display:none}}
+.calNote{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--pos);color:var(--ink2)}
+.calNote b{color:var(--ink)}
