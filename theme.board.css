@@ -42,3 +42,9 @@ body{background:var(--paper)}
 .tsFrame .pill{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink2);margin-left:8px;font-weight:500}
 .tsFrame .pill.on{color:var(--pos);border-color:var(--posLine)}
 @media(max-width:860px){.dbGrid{grid-template-columns:1fr}}
+.lcBox{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 0 28px;padding-top:10px;border-top:1px solid var(--line2);font-size:12px}
+.lcBox label{font-weight:600;color:var(--ink)}
+.lcBox input{width:80px;background:var(--sunk);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:6px 8px;font-size:13px}
+.lcOut{display:flex;gap:10px;align-items:center;flex-basis:100%;color:var(--ink2)}
+.lcTag{font-weight:700;font-size:11px;padding:3px 10px;border-radius:6px;background:var(--raise)}
+.lcTag.p{background:var(--posBg);color:var(--pos)}.lcTag.l{background:var(--raise);color:#fbbf24}.lcTag.x{background:var(--negBg);color:var(--neg)}

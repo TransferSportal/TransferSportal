@@ -6,6 +6,37 @@ function SegBar({ items, v, set }) {
     </div>
   );
 }
+function LineCheck({ c }) {
+  const [v, setV] = useState('');
+  if (!c.log || c.log.length < 10) return null;
+  const L = parseFloat(v);
+  const ok = !isNaN(L);
+  let out = null;
+  if (ok) {
+    const over = c.side === 'over';
+    const hit = a => a.filter(x => (over ? x > L : x < L)).length;
+    const l10 = c.log.slice(-10), l20 = c.log;
+    const h10 = hit(l10), h20 = hit(l20);
+    const sd = Math.max(c.sd10 || 1, 1);
+    const z = (over ? c.proj - L : L - c.proj) / sd;
+    const play = z >= 0.5 && h10 >= 7;
+    const lean = !play && z >= 0.3 && h10 >= 6;
+    out = (
+      <div className="lcOut">
+        <span className={'lcTag ' + (play ? 'p' : lean ? 'l' : 'x')}>{play ? 'Still a play' : lean ? 'Lean only' : 'Pass'}</span>
+        <span>At {L}: {c.side} in {h10}/10 and {h20}/{l20.length}. Model {c.proj}, gap {z.toFixed(2)} swings.</span>
+      </div>
+    );
+  }
+  return (
+    <div className="lcBox" onClick={e => e.stopPropagation()}>
+      <label>Your book line</label>
+      <input type="number" step="0.5" inputMode="decimal" placeholder={String(c.line)} value={v} onChange={e => setV(e.target.value)} />
+      <span className="dk" style={{ margin: 0 }}>Type the FanDuel number for {c.stat}. It re-checks this pick at that line.</span>
+      {out}
+    </div>
+  );
+}
 function DailyBoard({ DATA, meta, go }) {
   const D = DATA.daily || {};
   const nfl = D.nfl || {};
