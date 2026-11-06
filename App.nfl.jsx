@@ -8,6 +8,31 @@ function nrAmerican(s) {
   if (!isFinite(o) || o === 0 || Math.abs(o) < 100) return null;
   return o > 0 ? 100 / (o + 100) : -o / (-o + 100);
 }
+// Yards a defense allows per game to each position, from the logged player games of this season.
+// Only the logged players are counted, so totals run under the real ones, but every team is cut the same way.
+// Each team is pulled toward the league average (3 games' worth) because the samples are small.
+const NR_DEF_STATS = { ry: 4, rc: 5, ruy: 7, py: 9 };
+function nrDefense(P, season) {
+  const out = {};
+  Object.keys(NR_DEF_STATS).forEach(st => {
+    const ix = NR_DEF_STATS[st];
+    ['QB', 'RB', 'WR', 'TE'].forEach(pos => {
+      const tot = {}, wk = {};
+      P.forEach(p => { if (p.pos !== pos) return; (p.g || []).forEach(r => { if (r[0] !== season) return; tot[r[2]] = (tot[r[2]] || 0) + r[ix]; (wk[r[2]] = wk[r[2]] || new Set()).add(r[1]); }); });
+      const teams = Object.keys(tot).filter(t => wk[t].size);
+      if (teams.length < 8) return;
+      const pg = {}; teams.forEach(t => { pg[t] = tot[t] / wk[t].size; });
+      const lg = teams.reduce((s, t) => s + pg[t], 0) / teams.length;
+      if (!lg) return;
+      const m = {};
+      teams.forEach(t => { const n = wk[t].size; m[t] = { pg: pg[t], n, ratio: ((n * pg[t] + 3 * lg) / (n + 3)) / lg }; });
+      Object.keys(m).sort((a, b) => m[b].ratio - m[a].ratio).forEach((t, i) => { m[t].rank = i + 1; });
+      m._lg = lg; m._n = teams.length;
+      out[pos + '|' + st] = m;
+    });
+  });
+  return out;
+}
 function NflResearch({ DATA }) {
   const P = (DATA.props && DATA.props.players) || [];
   const [pos, setPos] = useState('All');
@@ -16,6 +41,7 @@ function NflResearch({ DATA }) {
   const [stat, setStat] = useState('ry');
   const [line, setLine] = useState('');
   const today = nrToday();
+  const DEF = useMemo(() => nrDefense(P, DATA.picks && DATA.picks.season), [P]);
   const list = useMemo(() => {
     let l = P.filter(p => p.opp && (pos === 'All' || p.pos === pos));
     if (q) { const ql = q.toLowerCase(); l = l.filter(p => (p.n + ' ' + p.tm).toLowerCase().includes(ql)); }
@@ -60,7 +86,9 @@ function NflResearch({ DATA }) {
       const vals = g.map(r => r[m.ix]);
       const rec = vals.slice(-8), k = rec.length;
       const wsum = rec.reduce((s, x, i) => s + x * (i + 1), 0), wt = (k * (k + 1)) / 2;
-      const proj = k ? wsum / wt : 0;
+      const proj0 = k ? wsum / wt : 0;
+      const dm = DEF[p.pos + '|' + st] && DEF[p.pos + '|' + st][p.opp];
+      const proj = st === 'py' && dm ? proj0 * (1 + 0.5 * (dm.ratio - 1)) : proj0;
       const mean = k ? rec.reduce((s, x) => s + x, 0) / k : 0;
       const sd = Math.max(Math.sqrt(k ? rec.reduce((s, x) => s + (x - mean) * (x - mean), 0) / k : 0), NR_FLOOR[st] || 1);
       const ok = (s, x) => (s === 'over' ? x > L : x < L);
@@ -69,17 +97,21 @@ function NflResearch({ DATA }) {
         const o = one('over'), u = one('under'), best = o.z >= u.z ? o : u;
         let play = best.z >= 0.5 && best.h >= Math.ceil(0.75 * k), lean = !play && best.z >= 0.3 && best.h >= Math.ceil(0.625 * k);
         let cap = '';
-        if (mu && ((best.side === 'over' && mu.soft_rank >= 25) || (best.side === 'under' && mu.soft_rank <= 8))) { if (play) { play = false; lean = true; cap = ' Matchup works against it, so it drops to a lean.'; } }
+        if (dm && ((best.side === 'over' && dm.rank >= (DEF[p.pos + '|' + st]._n - 7)) || (best.side === 'under' && dm.rank <= 8))) { if (play) { play = false; lean = true; cap = ' Matchup works against it, so it drops to a lean.'; } }
         const word = out || played ? 'Pass' : play ? 'Play' : lean ? 'Lean' : 'Pass';
         const sideTxt = best.side === 'over' ? 'Over' : 'Under';
         v = { word, cls: word === 'Play' ? 'p' : word === 'Lean' ? 'l' : 'x', best, o, u, k, why: out || played ? 'Not bettable right now.' : word === 'Pass' ? (best.z < 0.3 ? 'The line sits right where his recent games do. No edge.' : sideTxt + ' ' + L + ' hit only ' + best.h + ' of his last ' + k + '.') : sideTxt + ' ' + L + ': ' + best.h + ' of his last ' + k + ', ' + best.hall + ' of ' + vals.length + ' logged. Recent games weighted toward the latest point to ' + proj.toFixed(1) + ', ' + best.z.toFixed(2) + ' swings from the line.' + cap };
         leg = mkLeg({ ...base, side: best.side, line: L, verdict: word, proj: Math.round(proj * 100) / 100 });
       } else if (has) notes.push('Fewer than 5 logged games, so no verdict.');
       if (k && k < 8) notes.push('Only ' + k + ' recent games logged. Small sample, so lean on the caution.');
+      if (st === 'py' && dm) notes.push('Projection nudged ' + (proj >= proj0 ? 'up' : 'down') + ' for the matchup (half the gap to league average).');
       facts = [['Weighted recent avg', proj.toFixed(1)], ['Last 5 avg', vals.slice(-5).length ? (vals.slice(-5).reduce((s, x) => s + x, 0) / vals.slice(-5).length).toFixed(1) : '—'], ['Typical swing', '±' + sd.toFixed(1)], ['Home or away', p.h ? 'Home' : 'Away'], ['Vs ' + p.opp + ' history', (() => { const a = g.filter(r => r[2] === p.opp).map(r => r[m.ix]); return a.length ? a.join(', ') : 'none logged'; })()]];
       gamesView = <div className="rcGames">{g.slice(-12).map((r, i) => { const x = r[m.ix]; return <span key={i} className={'rcG ' + (has ? (x > L ? 'o' : x < L ? 'u' : '') : '')} title={(r[3] ? '' : '@') + r[2]}>{x}</span>; })}</div>;
     }
-    if (mu) facts.push(['Opp vs ' + p.pos + ' (TDs)', 'Soft rank ' + mu.soft_rank + ' of 32']);
+    const dmap = st !== 'td' ? DEF[p.pos + '|' + st] : null;
+    const dm2 = dmap && dmap[p.opp];
+    if (st === 'td' && mu) facts.push(['Opp vs ' + p.pos + ' (TDs)', 'Soft rank ' + mu.soft_rank + ' of 32']);
+    if (dm2) facts.push([p.opp + ' allows to ' + p.pos + 's', Math.round(dm2.pg * 10) / 10 + ' per game, ' + (dm2.ratio >= 1 ? '+' : '') + Math.round((dm2.ratio - 1) * 100) + '% vs avg, rank ' + dm2.rank + ' of ' + dmap._n + ' (1 = softest), ' + dm2.n + ' games']);
     body = (
       <>
         <div className="rcHead"><div><div className="rcName">{p.n}</div><div className="rcSub">{p.tm} · {p.pos} · {p.h ? 'vs ' : '@ '}{p.opp}{gm ? ' · ' + gm.wd : ''}</div></div></div>
@@ -94,6 +126,12 @@ function NflResearch({ DATA }) {
         <div className="rcSub" style={{ marginTop: 8 }}>Last {Math.min(g.length, 12)} games, oldest to newest{st !== 'td' && isFinite(parseFloat(line)) ? '. Green cleared ' + line + '.' : '.'}</div>
         {gamesView}
         <div className="rcFacts">{facts.map(([a, b]) => <div className="rcF" key={a}>{a}<b>{b}</b></div>)}</div>
+        {dmap && (
+          <>
+            <div className="rcSub" style={{ marginTop: 12 }}>Every defense against {p.pos}s, {(NR_STATS.find(x => x[0] === st) || [0, st])[1].toLowerCase()} allowed, softest first. Averages are pulled toward the league mean because the samples are small.</div>
+            <div className="rcGames">{Object.keys(dmap).filter(t => t[0] !== '_').sort((a, b) => dmap[a].rank - dmap[b].rank).map(t => <span key={t} className="rcG" style={t === p.opp ? { outline: '2px solid var(--ink)', color: 'var(--ink)' } : { color: dmap[t].ratio >= 1.05 ? 'var(--pos)' : dmap[t].ratio <= 0.95 ? 'var(--neg)' : undefined }}>{t} {Math.round(dmap[t].ratio * 100)}</span>)}</div>
+          </>
+        )}
       </>
     );
   }
@@ -114,7 +152,7 @@ function NflResearch({ DATA }) {
         <div className="rcMain">{body}</div>
       </div>
       <BetsPanel only="props" />
-      <div className="rcSub" style={{ marginTop: 10 }}>Stats current as of {DATA.meta && DATA.meta.generated}. Verdict rule: his recent games, weighted toward the latest, have to sit at least half a typical swing from the line and he has to have gone that way in most of his last 8. A tough matchup caps a Play at Lean. Anytime TD compares the model's chance to the odds you type. Model estimates, not guarantees.</div>
+      <div className="rcSub" style={{ marginTop: 10 }}>Stats current as of {DATA.meta && DATA.meta.generated}. Verdict rule: his recent games, weighted toward the latest, have to sit at least half a typical swing from the line and he has to have gone that way in most of his last 8. A tough yards-allowed matchup caps a Play at Lean. Position yards allowed explained little week to week this season except for QB passing yards, so it only moves passing projections. Anytime TD compares the model's chance to the odds you type. Model estimates, not guarantees.</div>
     </section>
   );
 }
