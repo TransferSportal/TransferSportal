@@ -37,7 +37,9 @@ app = sub(app, "  const viewBar = (\n", "  const viewBar = noBar ? null : (\n", 
 _a = app.index("      <style>{BOARD_CSS}</style>\n      <div className=\"bd\">\n        <aside")
 _b = app.index("</aside>\n", _a) + len("</aside>\n")
 app = app[:_a] + app[_b:]
-app = sub(app, "        </div>\n      </div>\n    </section>\n  );\n}\n", "        </div>\n    </section>\n  );\n}\n", "board wrapper end")
+_s = app.index("function BoardTab(")
+_e = app.index("// ============ Shell")
+app = app[:_s] + sub(app[_s:_e], "        </div>\n      </div>\n    </section>\n  );\n}\n", "        </div>\n    </section>\n  );\n}\n", "board wrapper end") + app[_e:]
 app = sub(app, "function BoardTab({ DATA, go }) {", "function BoardTab({ DATA }) {", "board props")
 # The root component renders the Shell (two main tabs, NFL and NBA) instead of the old tab bar.
 _i = app.index("  return (\n    <>\n      <Header meta={meta} />")
@@ -92,6 +94,9 @@ if data["nba"]:
 # Daily best 5 props and the running record, built by nba_picks.py. Missing is fine.
 npk = HERE / "nba_picks.json"
 data["nba_picks"] = json.loads(npk.read_text()) if npk.exists() else None
+# The daily board note (injury flags and notes), written each morning by the scheduled run.
+dj = HERE / "daily.json"
+data["daily"] = json.loads(dj.read_text()) if dj.exists() else None
 embed = json.dumps(data, separators=(",", ":"))
 
 app = sub(app, "__LOGO_DATA_URI__", logo, "logo data URI")

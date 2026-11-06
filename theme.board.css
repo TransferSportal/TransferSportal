@@ -27,3 +27,18 @@ body{background:var(--paper)}
 @media(max-width:860px){.tsFrame{padding:0 10px}.tsFrame .bd{grid-template-columns:1fr}.tsTop .main button{padding:8px 22px}.tsTop .stat{display:none}}
 .calNote{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--pos);color:var(--ink2)}
 .calNote b{color:var(--ink)}
+.dbGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dbCard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.dbCard h4{margin:0 0 10px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink2);font-weight:600}
+.dbRow{display:flex;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line2);font-size:13px;flex-wrap:wrap}
+.dbRow:first-of-type{border-top:none}
+.dbNote{font-size:12px;color:var(--ink2)}
+.dbPct{margin-left:auto;font-weight:700;color:var(--pos)}
+.dbRes{margin-left:auto;font-weight:700;font-size:12px;padding:2px 9px;border-radius:6px;background:var(--raise);color:var(--ink2)}
+.dbRes.win{background:var(--posBg);color:var(--pos)}.dbRes.loss{background:var(--negBg);color:var(--neg)}
+.dbLink{margin-top:10px;appearance:none;border:1px solid var(--line);background:var(--raise);color:var(--ink);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer}
+.tsFrame .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:5px;background:var(--raise);border:1px solid var(--line);color:#c8ccd2}
+.tsFrame .tag.r{color:#fca5a5;border-color:#5b2121}
+.tsFrame .pill{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink2);margin-left:8px;font-weight:500}
+.tsFrame .pill.on{color:var(--pos);border-color:var(--posLine)}
+@media(max-width:860px){.dbGrid{grid-template-columns:1fr}}
