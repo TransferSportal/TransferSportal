@@ -495,8 +495,76 @@ function LastWkBadge({ tag }) {
   return <span className="badge" style={{ marginLeft: 8, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)', whiteSpace: 'nowrap' }}>{tag}</span>;
 }
 
+function ProbBar({ v, hit }) {
+  const w = Math.max(0, Math.min(100, Math.round((v || 0) * 100)));
+  return (
+    <div style={{ height: 8, background: 'var(--sunk)', borderRadius: 4, minWidth: 90, overflow: 'hidden' }}>
+      <div style={{ width: w + '%', height: '100%', borderRadius: 4, background: hit === false ? 'var(--ink3)' : 'var(--pos)' }} />
+    </div>
+  );
+}
+
+// What the card said before kickoff, next to who scored. Read from the graded record, never recomputed.
+function ReceiptsView({ R }) {
+  const weeks = (R && R.weeks || []).filter(w => w.td15 && w.td15.picks && w.td15.picks.length);
+  const [wk, setWk] = useState(weeks.length ? weeks[weeks.length - 1].week : null);
+  const [pos, setPos] = useState('All');
+  if (!weeks.length) return <div className="empty">No graded weeks yet. Receipts appear once a locked card's games are final.</div>;
+  const cur = weeks.find(w => w.week === wk) || weeks[weeks.length - 1];
+  const t = cur.td15;
+  const tot = (R.totals && R.totals.td15) || {};
+  const rows = t.picks.filter(x => pos === 'All' || x.pos === pos);
+  const tag = x => x.result === 'hit' ? ['Scored', 'var(--pos)'] : x.result === 'miss' ? ['No TD', 'var(--ink3)'] : ['Did not play', 'var(--ink3)'];
+  const fmt = v => (v == null ? '—' : Math.round(v * 100) + '%');
+  return (
+    <>
+      <div className="dk" style={{ margin: '0 0 10px' }}>
+        What the locked card said before kickoff, next to who actually scored. Nothing here is edited after the games.
+      </div>
+      <div className="bar">
+        <div className="seg">
+          {weeks.map(w => (
+            <button key={w.week} className={w.week === cur.week ? 'on' : ''} onClick={() => setWk(w.week)}>
+              Wk {w.week} <span className="dk" style={{ margin: 0 }}>{w.td15.hit}/{w.td15.graded}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="recTotals">
+        <div className="recBox"><div className="recLbl">Week {cur.week}</div><div className="recNum">{t.hit}/{t.graded}</div><div className="recSub">{fmt(t.rate)} hit · model expected {fmt(t.projected)}</div></div>
+        <div className="recBox"><div className="recLbl">Season to date</div><div className="recNum">{tot.hit != null ? tot.hit + '/' + tot.graded : '—'}</div><div className="recSub">{fmt(tot.rate)} hit · model expected {fmt(tot.projected)}</div></div>
+      </div>
+      <div className="bar">
+        <div className="seg">
+          {['All', 'RB', 'WR', 'TE', 'QB'].map(x => <button key={x} className={pos === x ? 'on' : ''} onClick={() => setPos(x)}>{x}</button>)}
+        </div>
+      </div>
+      <div className="tbl"><table>
+        <thead><tr><th className="l">#</th><th className="l">Player</th><th className="l">Pos</th><th className="l">Team</th><th className="l">Model chance</th><th></th><th>Result</th></tr></thead>
+        <tbody>
+          {rows.map((x, i) => {
+            const [label, col] = tag(x);
+            return (
+              <tr key={x.name + x.team}>
+                <td className="l">{i + 1}</td>
+                <td className="l"><b>{x.name}</b></td>
+                <td className="l">{x.pos}</td>
+                <td className="l">{x.team}</td>
+                <td className="l" style={{ minWidth: 120 }}><ProbBar v={x.prob} hit={x.result === 'hit' ? true : x.result === 'miss' ? false : undefined} /></td>
+                <td><b>{fmt(x.prob)}</b></td>
+                <td><span className="badge" style={{ color: col, whiteSpace: 'nowrap' }}>{label}{x.result === 'hit' && x.tds > 1 ? ' · ' + x.tds + ' TD' : ''}</span></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table></div>
+    </>
+  );
+}
+
 function TopPicksView({ P, players }) {
   const lw = lastWeekIndex(players);
+  const [posF, setPosF] = useState('All');
   const { live, played } = tdSplit(P);
   // Every pick on an early-season card rests on a handful of games, and a bare
   // percentage hides that. The sample column is not decoration: a 54% built on
@@ -523,6 +591,7 @@ function TopPicksView({ P, players }) {
       <td className="l"><b>{p.name}</b><LastWkBadge tag={lastWeekTag(lw, p)} /></td>
       <td className="l">{p.pos}</td>
       <td className="l">{p.team}{p.opp ? ' vs ' + p.opp : ''}</td>
+      <td className="l" style={{ minWidth: 110 }}><ProbBar v={p.prob} /></td>
       <td><b>{Math.round((p.prob || 0) * 100)}%</b></td>
       <td className={s.conf === 'Low' ? 'down' : ''} title={s.note || ''}>
         {s.games != null ? s.games + 'g' : '—'}
@@ -544,13 +613,18 @@ function TopPicksView({ P, players }) {
   };
   const head = (
     <thead><tr><th className="l">#</th><th className="l">Player</th><th className="l">Pos</th>
-      <th className="l">Game</th><th>Model chance</th><th>Sample</th>
+      <th className="l">Game</th><th className="l">Chance to score</th><th>Model</th><th>Sample</th>
       {anyPriced && <th>Price at lock</th>}
       {anyPriced && <th>Edge</th>}</tr></thead>
   );
   return (
     <>
-      <div className="tbl"><table>{head}<tbody>{live.map((p, i) => row(p, i, i + 1))}</tbody></table></div>
+      <div className="bar">
+        <div className="seg">
+          {['All', 'RB', 'WR', 'TE', 'QB'].map(x => <button key={x} className={posF === x ? 'on' : ''} onClick={() => setPosF(x)}>{x}</button>)}
+        </div>
+      </div>
+      <div className="tbl"><table>{head}<tbody>{live.filter(p => posF === 'All' || p.pos === posF).map(p => row(p, 0, live.indexOf(p) + 1))}</tbody></table></div>
       <div className="dk" style={{ margin: '8px 0 0' }}>
         {anyPriced
           ? <>Edge is the model chance minus the book's devigged price at the moment the

@@ -299,6 +299,7 @@ function CardTab({ DATA }) {
       <nav className="tabs" style={{ marginBottom: 10 }}>
         {[['td', `Touchdown picks (${td.length})`],
           ['games', `Game picks (${gp.length})`],
+          ['receipts', 'Receipts'],
           ['record', 'Record']].map(([k, l]) => (
           <button key={k} className={'tab' + (view === k ? ' on' : '')}
                   onClick={() => setView(k)}>{l}</button>
@@ -331,6 +332,8 @@ function CardTab({ DATA }) {
           })}
         </div>
       )}
+
+      {view === 'receipts' && <ReceiptsView R={R} />}
 
       {view === 'games' && (
         <div className="cardGames">
