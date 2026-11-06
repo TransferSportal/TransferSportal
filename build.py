@@ -33,6 +33,8 @@ app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "Ap
 app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
 app = sub(app, "  const [view, setView] = useState('picks');", "  const [iv, setView] = useState('picks');\n  const view = vProp || iv;", "nba view state")
 app = sub(app, "  const viewBar = (\n", "  const viewBar = noBar ? null : (\n", "nba view bar")
+app = sub(app, "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n",
+          "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n      <LineCheck c={c} />\n", "line check hook")
 # The Board is now just the content panel; the Shell supplies the sidebar and frame.
 _a = app.index("      <style>{BOARD_CSS}</style>\n      <div className=\"bd\">\n        <aside")
 _b = app.index("</aside>\n", _a) + len("</aside>\n")
@@ -88,12 +90,18 @@ data["games_model"] = json.loads(gm.read_text()) if gm.exists() else None
 # leaves the NBA tab saying it is waiting for data.
 nb = HERE / "nba.json"
 data["nba"] = json.loads(nb.read_text()) if nb.exists() else None
+_logs = {}
 if data["nba"]:
     for _p in data["nba"].get("players", []):
+        _logs[_p.get("id")] = _p.get("log20") or []
         _p.pop("log20", None)          # raw logs are for nba_picks.py only
 # Daily best 5 props and the running record, built by nba_picks.py. Missing is fine.
 npk = HERE / "nba_picks.json"
 data["nba_picks"] = json.loads(npk.read_text()) if npk.exists() else None
+# Today's picks carry their last 20 raw values so the page can check a sportsbook line.
+if data["nba_picks"] and (data["nba_picks"].get("card") or {}).get("picks"):
+    for _c in data["nba_picks"]["card"]["picks"]:
+        _c["log"] = [g.get(_c["stat"]) for g in _logs.get(_c["pid"], []) if g.get(_c["stat"]) is not None]
 # The daily board note (injury flags and notes), written each morning by the scheduled run.
 dj = HERE / "daily.json"
 data["daily"] = json.loads(dj.read_text()) if dj.exists() else None
