@@ -27,14 +27,14 @@ css = (HERE / "theme.css").read_text()
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.board.jsx", "App.shell.jsx", "App.tabs.jsx"))
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.board.jsx", "App.research.jsx", "App.shell.jsx", "App.tabs.jsx"))
 
 # The NBA tab can be driven from the Shell sidebar: pass view and noBar to use its own switch no more.
 app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
 app = sub(app, "  const [view, setView] = useState('picks');", "  const [iv, setView] = useState('picks');\n  const view = vProp || iv;", "nba view state")
 app = sub(app, "  const viewBar = (\n", "  const viewBar = noBar ? null : (\n", "nba view bar")
-app = sub(app, "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n",
-          "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n      <LineCheck c={c} />\n", "line check hook")
+app = sub(app, "const nbaSecs = [['picks', 'Best 5 today'], ", "const nbaSecs = [['picks', 'Best 5 today'], ['research', 'Player Research Center'], ", "nba sections")
+app = sub(app, "{top === 'nba' && <NbaTab DATA={DATA} view={nsec} noBar />}", "{top === 'nba' && nsec === 'research' && <ResearchCenter DATA={DATA} />}\n            {top === 'nba' && nsec !== 'research' && <NbaTab DATA={DATA} view={nsec} noBar />}", "nba research view")
 # The Board is now just the content panel; the Shell supplies the sidebar and frame.
 _a = app.index("      <style>{BOARD_CSS}</style>\n      <div className=\"bd\">\n        <aside")
 _b = app.index("</aside>\n", _a) + len("</aside>\n")
@@ -43,6 +43,8 @@ _s = app.index("function BoardTab(")
 _e = app.index("// ============ Shell")
 app = app[:_s] + sub(app[_s:_e], "        </div>\n      </div>\n    </section>\n  );\n}\n", "        </div>\n    </section>\n  );\n}\n", "board wrapper end") + app[_e:]
 app = sub(app, "function BoardTab({ DATA, go }) {", "function BoardTab({ DATA }) {", "board props")
+app = sub(app, "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n",
+          "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n      <LineCheck c={c} />\n", "line check hook")
 # The root component renders the Shell (two main tabs, NFL and NBA) instead of the old tab bar.
 _i = app.index("  return (\n    <>\n      <Header meta={meta} />")
 _j = app.index("function Notes(")
@@ -56,8 +58,8 @@ app = (app[:_i] + "  return (\n    <>\n      <Shell DATA={DATA} meta={meta} CURV
 app = sub(app, "['pstats','Player Stats']];",
           "['pstats','Player Stats'],['sheets','Cheatsheets'],['pairs','Parlay Builder'],['inj','Injuries'],['nba','NBA'],['board','Board']];",
           "prop tab buttons")
-# The Card's touchdown list is the top 15 by probability: a flat ranked list instead of
-# the old per-team grid. The old view is left in place behind a key that is never set.
+# The Card's touchdown list is the top 15 by probability: a flat ranked list instead
+# of the old per-team grid. The old view is left in place behind a key that is never set.
 app = sub(app, "{view === 'td' && (",
           "{view === 'td' && <TopPicksView P={P} players={DATA.players} />}\n"
           "      {view === 'tdOld' && (", "card td view")
@@ -94,6 +96,7 @@ _logs = {}
 if data["nba"]:
     for _p in data["nba"].get("players", []):
         _logs[_p.get("id")] = _p.get("log20") or []
+        _p["logs"] = {s: [g[s] for g in (_p.get("log20") or []) if g.get(s) is not None] for s in ("pts", "reb", "ast", "fg3", "pra")}
         _p.pop("log20", None)          # raw logs are for nba_picks.py only
 # Daily best 5 props and the running record, built by nba_picks.py. Missing is fine.
 npk = HERE / "nba_picks.json"
