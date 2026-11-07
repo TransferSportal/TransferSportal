@@ -28,8 +28,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 19.0,
    "why": "Over 12.5 points. Went over in 9 of his last 10 and 17 of his last 20. Season average 12.3, model has him at 15.1 tonight."
   },
   {
@@ -58,8 +58,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 17.0,
    "why": "Under 21.5 points. Went under in 9 of his last 10 and 15 of his last 20. Season average 21.5, model has him at 19.2 tonight."
   },
   {
@@ -90,8 +90,8 @@
     "Chet Holmgren"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 2.0,
    "why": "Over 1.5 threes. Went over in 9 of his last 10 and 14 of his last 20. Season average 1.6, model has him at 2.1 tonight."
   },
   {
@@ -122,8 +122,8 @@
     "Kon Knueppel"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 4.0,
    "why": "Under 2.5 threes. Went under in 8 of his last 10 and 16 of his last 20. Season average 2.4, model has him at 2.0 tonight."
   },
   {
@@ -152,8 +152,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 11.0,
    "why": "Under 12.5 rebounds. Went under in 8 of his last 10 and 14 of his last 20. Season average 12.0, model has him at 10.7 tonight."
   }
  ]
