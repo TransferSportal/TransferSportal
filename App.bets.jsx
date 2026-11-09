@@ -66,6 +66,7 @@ function BetEdit({ b }) {
   const [open, setOpen] = useState(false);
   const [f, setF] = useState({ stake: b.stake || '', odds: b.odds || '', book: b.book || '', alt: !!b.alt });
   const [msg, setMsg] = useState('');
+  useEffect(() => { if (!open) setF({ stake: b.stake || '', odds: b.odds || '', book: b.book || '', alt: !!b.alt }); }, [b.stake, b.odds, b.book, b.alt, open]);
   const inp = { background: 'var(--bg2)', border: '1px solid var(--line2)', borderRadius: 8, padding: '6px 8px', color: 'var(--ink)', fontSize: 13, width: 84 };
   const sum = b.stake ? '$' + b.stake + (b.odds ? ' at ' + (Number(b.odds) > 0 ? '+' : '') + b.odds : ' (no odds yet)') + (b.book ? ' · ' + b.book : '') + (b.alt ? ' · alt line' : '') : 'Add stake and odds';
   const save = async () => {
@@ -77,7 +78,7 @@ function BetEdit({ b }) {
   };
   return (
     <div style={{ marginTop: 4 }}>
-      <span className="rcSub" style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setOpen(!open)}>{sum}</span>
+      <span className="rcSub" style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setOpen(!open)}>{sum}{' · edit'}</span>
       {open && (
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginTop: 6 }}>
           <input style={inp} inputMode="decimal" placeholder="Stake $" value={f.stake} onChange={e => setF({ ...f, stake: e.target.value })} />
@@ -155,7 +156,11 @@ function Bankroll() {
     </section>
   );
 }
-function PlayControls({ leg }) {
+function PlayControls({ leg: baseLeg }) {
+  const [ov, setOv] = useState({ k: null, s: null });
+  const canFlip = baseLeg.side === 'over' || baseLeg.side === 'under';
+  const side = canFlip && ov.k === baseLeg.key && ov.s ? ov.s : baseLeg.side;
+  const leg = side === baseLeg.side ? baseLeg : (() => { const { key: _k, ...rest } = baseLeg; return mkLeg({ ...rest, side, verdict: 'Fade' }); })();
   const { db, bets, ok } = useBets();
   const slip = useSlip();
   const [busy, setBusy] = useState(false);
@@ -175,8 +180,14 @@ function PlayControls({ leg }) {
   };
   const toggleSlip = () => slipSet(onSlip ? slip.filter(l => l.key !== leg.key) : slip.concat([leg]));
   const b = (on, ac) => ({ appearance: 'none', cursor: 'pointer', borderRadius: 10, padding: '9px 14px', fontSize: 13, fontWeight: 700, border: '1px solid ' + (on ? 'var(--pos)' : 'var(--ink)'), background: on ? 'var(--posBg)' : ac ? 'var(--ink)' : 'transparent', color: on ? 'var(--pos)' : ac ? '#0d0f12' : 'var(--ink)' });
+  const sideBtn = x => ({ appearance: 'none', cursor: 'pointer', borderRadius: 8, padding: '6px 12px', fontSize: 13, fontWeight: 700, border: '1px solid ' + (side === x ? 'var(--ink)' : 'var(--line2)'), background: side === x ? 'var(--ink)' : 'transparent', color: side === x ? '#0d0f12' : 'var(--ink2)' });
   return (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+      {canFlip && !have && <div style={{ flexBasis: '100%', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+        <span className="rcSub">Your side{side !== baseLeg.side ? ' (against the model)' : ''}:</span>
+        <button style={sideBtn('over')} onClick={() => setOv({ k: baseLeg.key, s: 'over' })}>Over {leg.line}</button>
+        <button style={sideBtn('under')} onClick={() => setOv({ k: baseLeg.key, s: 'under' })}>Under {leg.line}</button>
+      </div>}
       <button style={b(!!have, true)} disabled={!db || busy} onClick={single}>{have ? 'Single saved' + (have.status === 'pending' ? ' (tap to undo)' : '') : 'Play as single'}</button>
       <button style={b(onSlip, false)} onClick={toggleSlip}>{onSlip ? 'On parlay slip (tap to remove)' : 'Add to parlay slip'}</button>
       {have && <div style={{ flexBasis: '100%' }}><BetEdit b={have} /></div>}
@@ -270,9 +281,12 @@ function BetsPanel({ only }) {
         <div className="rcName" style={{ fontSize: 17 }}>Singles record <span style={{ color: 'var(--ink2)', fontWeight: 600 }}>{tstr(tally(singles, b => b.status))}</span></div>
         <div className="rcSub" style={{ margin: '4px 0 10px' }}>{Object.keys(by).map(k => k + ' ' + by[k][0] + '-' + by[k][1]).join(' · ') || 'Graded by the 9 a.m. and 4 p.m. runs after the game.'}</div>
         {singles.slice(0, 30).map(b => (
-          <div key={b.id} className="rcP" style={{ cursor: 'default' }}>
+          <div key={b.id}>
+          <div className="rcP" style={{ cursor: 'default' }}>
             <span><b>{legText(b)}</b> <span style={{ color: 'var(--ink2)' }}>({(b.sport || 'nba').toUpperCase()}, {b.verdict}, {b.gameDate})</span></span>
             <span style={{ color: resCol(b.status), fontWeight: 700 }}>{b.status === 'pending' ? 'Pending' : String(b.status).toUpperCase() + (b.actual != null ? ' · ' + b.actual : '')}{betPL(b) !== null && <span style={{ marginLeft: 6 }}>{money(betPL(b))}</span>}</span>
+          </div>
+          <BetEdit b={b} />
           </div>
         ))}
       </div>
