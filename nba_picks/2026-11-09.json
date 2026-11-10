@@ -31,8 +31,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 5.0,
    "why": "Over 1.5 threes. Went over in 9 of his last 10 and 18 of his last 20. Season average 1.9, model has him at 2.4 tonight."
   },
   {
@@ -64,8 +64,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 17.0,
    "why": "Over 12.5 points. Went over in 10 of his last 10 and 17 of his last 20. Season average 12.7, model has him at 14.7 tonight."
   },
   {
@@ -100,8 +100,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 19.0,
    "why": "Over 19.5 points. Went over in 9 of his last 10 and 15 of his last 20. Season average 19.6, model has him at 23.4 tonight. Teammates out: Kawhi Leonard, Brandon Ingram."
   },
   {
@@ -133,8 +133,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 1.0,
    "why": "Under 2.5 threes. Went under in 9 of his last 10 and 14 of his last 20. Season average 2.3, model has him at 1.8 tonight."
   },
   {
@@ -166,8 +166,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 5.0,
    "why": "Under 4.5 rebounds. Went under in 8 of his last 10 and 13 of his last 20. Season average 4.3, model has him at 3.5 tonight. Back to back, so watch the minutes."
   }
  ]
