@@ -27,7 +27,7 @@ css = (HERE / "theme.css").read_text()
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.matchups.jsx", "App.nflmatchups.jsx", "App.board.jsx", "App.research.jsx", "App.bets.jsx", "App.nfl.jsx", "App.shell.jsx", "App.tabs.jsx"))
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.matchups.jsx", "App.nflmatchups.jsx", "App.faces.jsx", "App.board.jsx", "App.research.jsx", "App.bets.jsx", "App.nfl.jsx", "App.shell.jsx", "App.tabs.jsx"))
 
 # The NBA tab can be driven from the Shell sidebar: pass view and noBar to use its own switch no more.
 app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
@@ -73,6 +73,21 @@ app = sub(app, """            <> Touchdown picks are capped per team by that tea
             A team projected for 22 points gets two picks, not five, so the scorer board and the
             game projection cannot contradict each other.</>""",
           """            <> Touchdown card: <b>{P.cap_rule}</b>. Fewer picks, higher conviction.</>""", "card cap note")
+# Headshots outside the Matchups tabs: Face (App.faces.jsx) reads the embedded images.
+# Patched in here, like the tabs above, so App.props.jsx and App.tabs.jsx stay as they were.
+app = sub(app, '<td className="l"><b>{p.name}</b><LastWkBadge',
+          '<td className="l"><span style={{ marginRight: 8 }}><Face name={p.name} team={p.team} size={26} /></span><b>{p.name}</b><LastWkBadge', "card td face")
+app = sub(app, "{DATA._crest(p.team)}\n                <div className=\"pcardMid\">",
+          "{DATA._crest(p.team)}\n                <Face name={p.name} team={p.team} size={40} />\n                <div className=\"pcardMid\">", "player stats face")
+app = sub(app, """<img src={p.headshot} alt="" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', background: 'var(--sunk)' }} onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
+          """<Face nba id={p.id} name={p.name} size={30} />""", "nba table face")
+app = sub(app, """<img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', background: 'var(--sunk)' }} onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
+          """<Face nba id={c.pid} name={c.name} size={48} />""", "nba best 5 face")
+app = sub(app, """<img src={p.headshot || ('https://a.espncdn.com/i/headshots/nba/players/full/' + p.id + '.png')} alt="" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
+          """<Face nba id={p.id} name={p.name} size={56} />""", "nba research face")
+app = sub(app, '<span className="av">{p.pos}</span>', '<Face name={p.name} team={p.team} size={36} round={false} />', "nfl board row face")
+app = sub(app, '<div className="tile">{p.pos}</div>',
+          '<div className="tile" style={{ padding: 0, overflow: \'hidden\' }}>{window.NFLIMG && window.NFLIMG.heads && window.NFLIMG.heads[p.name + \'|\' + p.team] ? <img src={window.NFLIMG.heads[p.name + \'|\' + p.team]} alt="" style={{ width: \'100%\', height: \'100%\', objectFit: \'cover\', objectPosition: \'top\' }} /> : p.pos}</div>', "nfl board hero face")
 # Nine tabs do not fit a phone: let the bar scroll sideways instead of widening
 # the page, and keep each label on one line. Plus the win/loss colours the prop
 # tabs use inside bold text.

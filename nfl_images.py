@@ -17,7 +17,7 @@ from pathlib import Path
 HERE = Path(__file__).parent
 SEASON = 2026
 BASE = "https://github.com/nflverse/nflverse-data/releases/download"
-PER_TEAM = 7
+PER_TEAM = 10
 FIX = {"AZ": "ARI"}
 
 
@@ -59,6 +59,12 @@ def main():
         ps = [p for p in data["players"] if p.get("team") == t and p.get("rostered", True) and p.get("prob") is not None]
         ps.sort(key=lambda p: -p["prob"])
         want += [(p["name"], t) for p in ps[:PER_TEAM]]
+    # the locked card's picks always get a face, even past the per team cut
+    seen = set(want)
+    for p in ((data.get("picks") or {}).get("td_picks") or []):
+        w = (p.get("name"), p.get("team"))
+        if w[0] and w[1] and w not in seen:
+            want.append(w); seen.add(w)
     out = HERE / "nfl_images.json"
     old = json.loads(out.read_text()) if out.exists() else {}
     heads = dict(old.get("heads") or {})
