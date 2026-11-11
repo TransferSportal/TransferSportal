@@ -31,8 +31,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 1.0,
    "why": "Under 1.5 threes. Went under in 8 of his last 10 and 12 of his last 20. Season average 1.2, model has him at 0.9 tonight. Matchup works against this side."
   },
   {
@@ -64,8 +64,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 1.0,
    "why": "Under 1.5 threes. Went under in 7 of his last 10 and 15 of his last 20. Season average 1.2, model has him at 1.0 tonight."
   },
   {
@@ -132,8 +132,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 21.0,
    "why": "Under 25.5 pts+reb+ast. Went under in 9 of his last 10 and 12 of his last 20. Season average 26.0, model has him at 23.1 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
