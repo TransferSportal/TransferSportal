@@ -288,7 +288,7 @@ function NbaPicks({ P }) {
   const card = P && P.card;
   if (!card || !card.picks || !card.picks.length) {
     return (
-      <div className="calNote"><b>No card yet today.</b> The Best 5 locks once with the morning refresh, before the first tip. If
+      <div className="calNote"><b>No card yet today.</b> The Best 5 locks once at the 4 PM Eastern refresh, after the injury check and before most tips. If
         there is no game day or nothing clears the bar, it stays empty.</div>
     );
   }
