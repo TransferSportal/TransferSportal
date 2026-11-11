@@ -99,8 +99,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 11.0,
    "why": "Over 7.5 rebounds. Went over in 7 of his last 10 and 10 of his last 20. Season average 7.7, model has him at 8.8 tonight. Teammates out: Paolo Banchero."
   },
   {
@@ -167,8 +167,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 8.0,
    "why": "Under 4.5 rebounds. Went under in 7 of his last 10 and 14 of his last 20. Season average 4.0, model has him at 4.0 tonight. Teammates out: Chet Holmgren. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
