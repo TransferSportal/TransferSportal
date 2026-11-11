@@ -1,0 +1,39 @@
+{
+ "generated": "2026-11-11 04:12 UTC",
+ "window": "2026-01-15 to 2026-04-15",
+ "days": 85,
+ "players": 88,
+ "variants": {
+  "base": {
+   "w": 270,
+   "l": 131,
+   "pct": 67.3
+  },
+  "blowout": {
+   "w": 267,
+   "l": 133,
+   "pct": 66.8,
+   "gain_pts": -0.47,
+   "paired_z": -1.42
+  },
+  "allowance": {
+   "w": 266,
+   "l": 135,
+   "pct": 66.3,
+   "gain_pts": -0.98,
+   "paired_z": -0.64
+  },
+  "both": {
+   "w": 265,
+   "l": 135,
+   "pct": 66.2,
+   "gain_pts": -0.98,
+   "paired_z": -0.64
+  }
+ },
+ "adopt": {
+  "blowout_model": false,
+  "allowance": false
+ },
+ "read": "Each version replays the Best 5 rule day by day with only past data. A version goes on the card only if it gains at least 1 point of hit rate and its day by day paired z is at least 1.0. Lines are the model's own, not sportsbook lines."
+}
