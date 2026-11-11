@@ -93,21 +93,119 @@ function BetEdit({ b }) {
     </div>
   );
 }
+// ---- Bankroll dashboard: weekly tiles, profit by day, goal ring, open and settled bets ----
+const BK_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+function bkDay(s) { return new Date(s + 'T12:00:00'); }
+function bkIso(d) { const p = n => String(n).padStart(2, '0'); return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()); }
+function bkMon(d) { const x = new Date(d); x.setHours(12, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
+function bkWhen(b) {
+  if (b.type === 'parlay') { const ds = (b.legs || []).map(l => l.gameDate).filter(Boolean).sort(); if (ds.length) return ds[ds.length - 1]; }
+  return b.gameDate || (b.placedAt || '').slice(0, 10);
+}
+function bkShort(n) { const a = Math.abs(n); return (n < 0 ? '-$' : '+$') + (a >= 100 ? Math.round(a) : a.toFixed(a % 1 ? 1 : 0)); }
+function BkChart({ vals }) {
+  const W = 440, H = 190, L = 40, B = 24, T = 18, R = 8;
+  const mx = Math.max(0, ...vals), mn = Math.min(0, ...vals);
+  const span = (mx - mn) || 1;
+  const y = v => T + (H - T - B) * (mx - v) / span;
+  const bw = (W - L - R) / 7;
+  const any = vals.some(v => v !== 0);
+  return (
+    <svg viewBox={'0 0 ' + W + ' ' + H} style={{ width: '100%', height: 'auto', display: 'block' }}>
+      <line x1={L} x2={W - R} y1={y(0)} y2={y(0)} stroke="rgba(255,255,255,.28)" strokeDasharray="3 4" />
+      <text x={L - 6} y={y(0) + 3} textAnchor="end" fontSize="9" fill="var(--ink3)">$0</text>
+      {mx > 0 && <text x={L - 6} y={y(mx) + 3} textAnchor="end" fontSize="9" fill="var(--ink3)">{bkShort(mx).replace('+', '')}</text>}
+      {mn < 0 && <text x={L - 6} y={y(mn) + 3} textAnchor="end" fontSize="9" fill="var(--ink3)">{bkShort(mn)}</text>}
+      {vals.map((v, i) => {
+        const x = L + i * bw + bw * 0.2, w = bw * 0.6;
+        const top = Math.min(y(v), y(0)), h = Math.max(Math.abs(y(v) - y(0)), v !== 0 ? 2 : 0);
+        return (
+          <g key={i}>
+            {v !== 0 && <rect x={x} y={top} width={w} height={h} rx="3" fill={v > 0 ? '#22c55e' : '#ef4444'} />}
+            {v !== 0 && <text x={x + w / 2} y={v > 0 ? top - 4 : top + h + 11} textAnchor="middle" fontSize="9.5" fontWeight="700" fill={v > 0 ? '#22c55e' : '#ef4444'}>{bkShort(v)}</text>}
+            <text x={x + w / 2} y={H - 8} textAnchor="middle" fontSize="10" fill="var(--ink3)">{BK_DAYS[i]}</text>
+          </g>
+        );
+      })}
+      {!any && <text x={(W + L) / 2} y={H / 2 - 4} textAnchor="middle" fontSize="12" fill="var(--ink3)">No graded bets this week</text>}
+    </svg>
+  );
+}
+function BkRing({ pct }) {
+  const r = 54, c = 2 * Math.PI * r, p = Math.max(0, Math.min(1, pct));
+  return (
+    <svg viewBox="0 0 140 140" style={{ width: 150, height: 150 }}>
+      <circle cx="70" cy="70" r={r} fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="12" />
+      <circle cx="70" cy="70" r={r} fill="none" stroke={pct >= 1 ? '#22c55e' : '#facc15'} strokeWidth="12" strokeLinecap="round" strokeDasharray={c * p + ' ' + c} transform="rotate(-90 70 70)" />
+      <text x="70" y="77" textAnchor="middle" fontSize="26" fontWeight="800" fill="var(--ink)">{Math.round(pct * 100)}%</text>
+    </svg>
+  );
+}
+const BK_CSS = `
+.bk .bkHead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.bk .bkKick{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.bk .bkTitle{margin:2px 0 0;font-size:26px;font-weight:800;letter-spacing:-.4px}
+.bk .bkNav{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+.bk .bkNav button{appearance:none;cursor:pointer;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--ink2);padding:5px 10px;font-size:12px}
+.bk .bkNav button:hover{color:var(--ink)}
+.bk .bkNav b{color:var(--ink);padding:0 6px}
+.bk .bkGrid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.bk .bkT{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.bk .bkT:nth-child(4n){border-right:none}.bk .bkT:nth-last-child(-n+4){border-bottom:none}
+.bk .bkL{font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--ink3);font-weight:700}
+.bk .bkV{font-size:25px;font-weight:800;letter-spacing:-.5px;margin-top:5px;line-height:1.1}
+.bk .bkS{font-size:11px;color:var(--ink3);margin-top:4px}
+.bk .bkTwo{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;margin-top:12px}
+.bk .bkCard{border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0}
+.bk .bkCardH{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-size:14px;font-weight:700}
+.bk .bkLink{appearance:none;cursor:pointer;background:none;border:none;color:var(--ink2);font-size:11.5px;font-weight:700;padding:0}
+.bk .bkLink:hover{color:var(--ink)}
+.bk .bkRing{display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:4px}
+.bk .bkRingT{font-size:12px;color:var(--ink2);text-align:center}
+.bk .bkRow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;border-top:1px solid var(--line2);font-size:13px}
+.bk .bkRow:first-of-type{border-top:none}
+.bk .bkRow .sub{font-size:11px;color:var(--ink3);margin-top:2px}
+.bk .bkIn{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px;padding:6px 8px;color:var(--ink);font-size:13px;width:110px}
+.bk .bkBtn{appearance:none;cursor:pointer;border-radius:8px;padding:6px 12px;font-size:12.5px;font-weight:700;border:1px solid var(--ink);background:transparent;color:var(--ink)}
+.bk details summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ink2);list-style:none}
+.bk details summary::-webkit-details-marker{display:none}
+.bk details summary:before{content:'+ ';color:var(--ink3)}.bk details[open] summary:before{content:'- '}
+@media(max-width:760px){.bk .bkGrid{grid-template-columns:repeat(2,1fr)}.bk .bkT:nth-child(4n){border-right:1px solid var(--line)}.bk .bkT:nth-child(2n){border-right:none}.bk .bkT:nth-last-child(-n+4){border-bottom:1px solid var(--line)}.bk .bkT:nth-last-child(-n+2){border-bottom:none}.bk .bkTwo{grid-template-columns:1fr}.bk .bkV{font-size:21px}}
+`;
 function Bankroll() {
   const { db, bets, ok } = useBets();
   const cfg = bets.find(b => b.id === 'config') || {};
+  const [off, setOff] = useState(0);
   const [sb, setSb] = useState('');
+  const [gv, setGv] = useState('');
+  const [editGoal, setEditGoal] = useState(false);
   if (ok === false) return <div className="rcMain"><div className="rcSub">Bankroll saves on your private link when you are signed in.</div></div>;
   const real = bets.filter(b => b.type === 'single' || b.type === 'parlay' || (!b.type && b.id !== 'config'));
   const staked = real.filter(b => Number(b.stake) > 0);
-  const graded = staked.filter(b => ['win', 'loss', 'push', 'void'].includes(betState(b)));
-  const noOdds = graded.filter(b => betState(b) === 'win' && !amDec(b.odds));
+  const isDone = b => ['win', 'loss', 'push', 'void'].includes(betState(b));
+  const graded = staked.filter(isDone);
   const priced = graded.filter(b => betPL(b) !== null);
-  const risk = staked.filter(b => betState(b) === 'pending').reduce((a, b) => a + Number(b.stake), 0);
+  const noOdds = graded.filter(b => betState(b) === 'win' && !amDec(b.odds));
+  const open = staked.filter(b => betState(b) === 'pending').sort((a, b) => bkWhen(a).localeCompare(bkWhen(b)));
+  const risk = open.reduce((a, b) => a + Number(b.stake), 0);
   const noStake = real.length - staked.length;
   const agg = rows => { const st = rows.reduce((a, b) => a + Number(b.stake), 0), pl = rows.reduce((a, b) => a + betPL(b), 0); return { n: rows.length, st, pl, roi: st ? pl / st * 100 : 0 }; };
   const tot = agg(priced);
-  const start = Number(cfg.start) || 0;
+  const start = Number(cfg.start) || 0, goal = Number(cfg.goal) || 0;
+  const mon = bkMon(new Date()); mon.setDate(mon.getDate() + off * 7);
+  const days = BK_DAYS.map((_, i) => { const d = new Date(mon); d.setDate(d.getDate() + i); return bkIso(d); });
+  const sun = bkDay(days[6]);
+  const fmt = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const wk = priced.filter(b => days.includes(bkWhen(b)));
+  const wkAll = graded.filter(b => days.includes(bkWhen(b)));
+  const w = agg(wk);
+  const byDay = days.map(d => wk.filter(b => bkWhen(b) === d).reduce((a, b) => a + betPL(b), 0));
+  const cw = wkAll.filter(b => betState(b) === 'win').length, cl = wkAll.filter(b => betState(b) === 'loss').length, cp = wkAll.length - cw - cl;
+  const hit = cw + cl ? Math.round(cw / (cw + cl) * 100) : null;
+  const avgStake = wkAll.length ? wkAll.reduce((a, b) => a + Number(b.stake), 0) / wkAll.length : null;
+  const col = n => n > 0 ? 'var(--pos)' : n < 0 ? 'var(--neg)' : 'var(--ink)';
+  const save = async patch => { if (!db) return; try { await db.collection('bets').doc('config').set({ type: 'config', start, goal, ...patch }); } catch (e) { /* refused */ } };
+  const tile = (label, val, sub, color) => <div className="bkT"><div className="bkL">{label}</div><div className="bkV" style={{ color: color || 'var(--ink)' }}>{val}</div><div className="bkS">{sub}</div></div>;
   const rowsDef = [
     ['Singles', priced.filter(b => b.type === 'single' || !b.type)],
     ['Parlays', priced.filter(b => b.type === 'parlay')],
@@ -117,42 +215,80 @@ function Bankroll() {
   ];
   const books = {};
   priced.forEach(b => { const k = b.book || 'No book'; (books[k] = books[k] || []).push(b); });
-  const saveStart = async () => {
-    if (!db) return;
-    try { await db.collection('bets').doc('config').set({ type: 'config', start: Number(sb) || 0 }); setSb(''); } catch (e) { /* refused */ }
-  };
-  const col = n => n > 0 ? 'var(--pos)' : n < 0 ? 'var(--neg)' : 'var(--ink2)';
   const cell = { padding: '6px 8px', fontSize: 13, textAlign: 'right' };
-  const inp = { background: 'var(--bg2)', border: '1px solid var(--line2)', borderRadius: 8, padding: '6px 8px', color: 'var(--ink)', fontSize: 13, width: 110 };
   const line = (label, a) => <tr key={label}><td style={{ ...cell, textAlign: 'left' }}>{label}</td><td style={cell}>{a.n}</td><td style={cell}>{money(a.st)}</td><td style={{ ...cell, color: col(a.pl), fontWeight: 700 }}>{money(a.pl)}</td><td style={{ ...cell, color: col(a.roi) }}>{a.n ? bkPct(a.roi) : '-'}</td></tr>;
+  const label = b => b.type === 'parlay' ? (b.legs || []).length + '-leg parlay' : legText(b);
+  const oddsTxt = b => b.odds ? (Number(b.odds) > 0 ? '+' : '') + b.odds : 'no odds';
+  const pct = goal ? w.pl / goal : 0;
   return (
-    <section>
-      <h2 style={{ margin: '0 0 12px', fontSize: 22 }}>Bankroll &amp; profit</h2>
-      <div className="rcMain">
-        <div className="rcFacts" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(120px,1fr))', gap: 8 }}>
-          <div className="rcF">Profit<b style={{ color: col(tot.pl) }}>{money(tot.pl)}</b></div>
-          <div className="rcF">ROI<b style={{ color: col(tot.roi) }}>{tot.n ? bkPct(tot.roi) : '-'}</b></div>
-          <div className="rcF">{start ? 'Balance' : 'Total staked'}<b>{start ? money(start + tot.pl) : money(tot.st)}</b></div>
-          <div className="rcF">At risk now<b>{money(risk)}</b></div>
+    <section className="bk">
+      <style>{BK_CSS}</style>
+      <div className="bkHead">
+        <div><div className="bkKick">Week of {fmt(bkDay(days[0]))}</div><h2 className="bkTitle">Bankroll</h2></div>
+        <div className="bkNav"><button onClick={() => setOff(off - 1)}>Prev</button><b>{fmt(bkDay(days[0]))} - {fmt(sun)}</b><button onClick={() => setOff(off + 1)} disabled={off >= 0} style={{ opacity: off >= 0 ? 0.4 : 1 }}>Next</button></div>
+      </div>
+      <div className="bkGrid">
+        {tile('Profit', money(w.pl), w.n + ' graded bet' + (w.n === 1 ? '' : 's') + ' this week', w.n ? col(w.pl) : null)}
+        {tile('ROI', w.n ? bkPct(w.roi) : '-', money(w.st) + ' staked', w.n ? col(w.roi) : null)}
+        {tile('Record', cw + '-' + cl + (cp ? '-' + cp : ''), hit == null ? 'no results yet' : hit + '% hit rate')}
+        {tile('At risk now', money(risk), open.length + ' open bet' + (open.length === 1 ? '' : 's'))}
+        {tile('All-time profit', money(tot.pl), tot.n + ' graded bets', tot.n ? col(tot.pl) : null)}
+        {tile('All-time ROI', tot.n ? bkPct(tot.roi) : '-', money(tot.st) + ' staked', tot.n ? col(tot.roi) : null)}
+        {tile('Avg stake', avgStake == null ? '-' : money(avgStake), 'this week')}
+        {tile(start ? 'Balance' : 'Starting bankroll', start ? money(start + tot.pl) : 'Not set', start ? 'start ' + money(start) : 'set it below')}
+      </div>
+      <div className="bkTwo">
+        <div className="bkCard">
+          <div className="bkCardH"><span>Profit by day</span><span className="bkS" style={{ margin: 0 }}>settled bets, by game date</span></div>
+          <BkChart vals={byDay} />
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginTop: 10 }}>
-          <input style={inp} inputMode="decimal" placeholder={start ? 'Start: $' + start : 'Starting bankroll $'} value={sb} onChange={e => setSb(e.target.value)} />
-          <button onClick={saveStart} style={{ appearance: 'none', cursor: 'pointer', borderRadius: 8, padding: '6px 12px', fontSize: 13, fontWeight: 700, border: '1px solid var(--ink)', background: 'transparent', color: 'var(--ink)' }}>Set</button>
-          <span className="rcSub">Balance = starting bankroll plus profit on graded bets.</span>
+        <div className="bkCard">
+          <div className="bkCardH"><span>Goal progress</span><button className="bkLink" onClick={() => { setEditGoal(!editGoal); setGv(''); }}>{goal ? 'Edit goal' : 'Set goal'}</button></div>
+          {editGoal && <div style={{ display: 'flex', gap: 8, marginBottom: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <input className="bkIn" inputMode="decimal" placeholder={goal ? 'Weekly $' + goal : 'Weekly profit $'} value={gv} onChange={e => setGv(e.target.value)} />
+            <button className="bkBtn" onClick={async () => { await save({ goal: Number(gv) || 0 }); setEditGoal(false); setGv(''); }}>Save</button>
+          </div>}
+          {goal ? (
+            <div className="bkRing"><BkRing pct={pct} /><div className="bkRingT"><b style={{ color: 'var(--ink)' }}>Weekly profit</b><br />{money(w.pl)} / {money(goal)}</div></div>
+          ) : <div className="bkS" style={{ padding: '30px 0', textAlign: 'center' }}>Set a weekly profit goal to track it here.</div>}
         </div>
       </div>
-      {!!(noStake || noOdds.length) && <div className="rcSub" style={{ marginTop: 10 }}>{noStake ? noStake + ' saved bet' + (noStake === 1 ? ' has' : 's have') + ' no stake yet, so ' + (noStake === 1 ? 'it is' : 'they are') + ' left out. Tap "Add stake and odds" on the bet in the Player Research Center. ' : ''}{noOdds.length ? noOdds.length + ' won bet' + (noOdds.length === 1 ? ' needs' : 's need') + ' odds before profit counts.' : ''}</div>}
-      <div className="rcMain" style={{ marginTop: 14, overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead><tr>{['', 'Bets', 'Staked', 'Profit', 'ROI'].map((h, i) => <th key={i} className="rcSub" style={{ ...cell, textAlign: i ? 'right' : 'left', fontWeight: 600 }}>{h}</th>)}</tr></thead>
-          <tbody>
-            {line('All graded', tot)}
-            {rowsDef.map(([l, r]) => r.length ? line(l, agg(r)) : null)}
-            {Object.keys(books).sort().map(k => line(k, agg(books[k])))}
-          </tbody>
-        </table>
+      <div className="bkTwo">
+        <div className="bkCard">
+          <div className="bkCardH"><span>Settled this week</span><span className="bkS" style={{ margin: 0 }}>{wkAll.length} bet{wkAll.length === 1 ? '' : 's'}</span></div>
+          {!wkAll.length && <div className="bkS">Nothing graded yet this week.</div>}
+          {wkAll.sort((a, b) => bkWhen(b).localeCompare(bkWhen(a))).map(b => { const pl = betPL(b), s = betState(b); return (
+            <div className="bkRow" key={b.id}><div><div>{label(b)}</div><div className="sub">{bkWhen(b)} · {money(Number(b.stake))} at {oddsTxt(b)}{b.book ? ' · ' + b.book : ''}</div></div>
+              <b style={{ color: pl == null ? 'var(--ink2)' : s === 'win' ? 'var(--pos)' : s === 'loss' ? 'var(--neg)' : 'var(--ink2)', whiteSpace: 'nowrap' }}>{pl == null ? 'needs odds' : money(pl)}</b></div>); })}
+        </div>
+        <div className="bkCard">
+          <div className="bkCardH"><span>Open bets</span><span className="bkS" style={{ margin: 0 }}>{money(risk)} at risk</span></div>
+          {!open.length && <div className="bkS">No open bets with a stake.</div>}
+          {open.map(b => <div className="bkRow" key={b.id}><div><div>{label(b)}</div><div className="sub">{bkWhen(b)} · {oddsTxt(b)}{b.book ? ' · ' + b.book : ''}</div></div><b style={{ whiteSpace: 'nowrap' }}>{money(Number(b.stake))}</b></div>)}
+        </div>
       </div>
-      <div className="rcSub" style={{ marginTop: 10 }}>Win profit = stake times the payout from the odds you typed. A loss is minus the stake. A push or void is zero. Pending bets count as money at risk.</div>
+      <div className="bkCard" style={{ marginTop: 12 }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+          <input className="bkIn" inputMode="decimal" placeholder={start ? 'Start: $' + start : 'Starting bankroll $'} value={sb} onChange={e => setSb(e.target.value)} />
+          <button className="bkBtn" onClick={async () => { await save({ start: Number(sb) || 0 }); setSb(''); }}>Set</button>
+          <span className="bkS" style={{ margin: 0 }}>Balance = starting bankroll plus profit on graded bets.</span>
+        </div>
+        {!!(noStake || noOdds.length) && <div className="bkS" style={{ marginTop: 10 }}>{noStake ? noStake + ' saved bet' + (noStake === 1 ? ' has' : 's have') + ' no stake yet, so ' + (noStake === 1 ? 'it is' : 'they are') + ' left out. Add a stake and odds on the bet in the Player Research Center. ' : ''}{noOdds.length ? noOdds.length + ' won bet' + (noOdds.length === 1 ? ' needs' : 's need') + ' odds before profit counts.' : ''}</div>}
+      </div>
+      <div className="bkCard" style={{ marginTop: 12, overflowX: 'auto' }}>
+        <details>
+          <summary>Breakdown by type and book</summary>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 8 }}>
+            <thead><tr>{['', 'Bets', 'Staked', 'Profit', 'ROI'].map((h, i) => <th key={i} className="rcSub" style={{ ...cell, textAlign: i ? 'right' : 'left', fontWeight: 600 }}>{h}</th>)}</tr></thead>
+            <tbody>
+              {line('All graded', tot)}
+              {rowsDef.map(([l, r]) => r.length ? line(l, agg(r)) : null)}
+              {Object.keys(books).sort().map(k => line(k, agg(books[k])))}
+            </tbody>
+          </table>
+          <div className="bkS" style={{ marginTop: 10 }}>Win profit = stake times the payout from the odds you typed. A loss is minus the stake. A push or void is zero. Pending bets count as money at risk.</div>
+        </details>
+      </div>
     </section>
   );
 }
