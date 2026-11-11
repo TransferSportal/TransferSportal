@@ -69,7 +69,7 @@ function DailyBoard({ DATA, meta, go }) {
           <h4>NBA today</h4>
           {card && card.picks && card.picks.length ? card.picks.map((c, i) => (
             <div className="dbRow" key={i}><b>{c.name}</b><span className="dbNote">{c.side} {c.line} {c.stat}</span><span className="dbNote">{c.team} vs {c.opp}</span></div>
-          )) : <div className="dbNote">No picks cleared the bar today.</div>}
+          )) : <div className="dbNote">The Best 5 locks at 4 PM Eastern, after the injury check. Nothing yet, or nothing cleared the bar.</div>}
           <button className="dbLink" onClick={() => go('nba')}>Open NBA</button>
         </div>
         <div className="dbCard">
