@@ -120,6 +120,8 @@ jobs:
           # Projected scores, win probabilities, per game allowances and embedded images for
           # the Matchups slides. Never blocks the board: each part is skipped on its own.
           python nba_model.py || echo "nba_model.py failed; keeping the last NBA game model"
+          # Embedded NFL headshots for the NFL Matchups slides. Optional, like the NBA model.
+          python nfl_images.py || echo "nfl_images.py failed; keeping the last NFL headshots"
           # Weather, snap share and target share for the Research Center. Optional: it writes an empty file on any failure.
           python context.py 2026 || echo "context.py failed; building without it"
           python build.py

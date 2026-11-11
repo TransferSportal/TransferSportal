@@ -27,16 +27,16 @@ css = (HERE / "theme.css").read_text()
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.matchups.jsx", "App.board.jsx", "App.research.jsx", "App.bets.jsx", "App.nfl.jsx", "App.shell.jsx", "App.tabs.jsx"))
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.matchups.jsx", "App.nflmatchups.jsx", "App.board.jsx", "App.research.jsx", "App.bets.jsx", "App.nfl.jsx", "App.shell.jsx", "App.tabs.jsx"))
 
 # The NBA tab can be driven from the Shell sidebar: pass view and noBar to use its own switch no more.
 app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
 app = sub(app, "  const [view, setView] = useState('picks');", "  const [iv, setView] = useState('picks');\n  const view = vProp || iv;", "nba view state")
 app = sub(app, "  const viewBar = (\n", "  const viewBar = noBar ? null : (\n", "nba view bar")
 app = sub(app, "const nbaSecs = [['picks', 'Best 5 today'], ", "const nbaSecs = [['picks', 'Best 5 today'], ['matchups', 'Matchups'], ['research', 'Player Research Center'], ['news', 'Injuries & news'], ['bank', 'Bankroll'], ", "nba sections")
-app = sub(app, "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ", "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ['research', 'Player Research Center'], ['mine', 'My game picks'], ['news', 'Injuries & news'], ['bank', 'Bankroll'], ", "nfl sections")
+app = sub(app, "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ", "const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ['slides', 'Matchups'], ['research', 'Player Research Center'], ['mine', 'My game picks'], ['news', 'Injuries & news'], ['bank', 'Bankroll'], ", "nfl sections")
 app = sub(app, "{top === 'nba' && <NbaTab DATA={DATA} view={nsec} noBar />}", "{top === 'nba' && nsec === 'matchups' && <NbaMatchups DATA={DATA} />}\n            {top === 'nba' && nsec === 'research' && <ResearchCenter DATA={DATA} />}\n            {top === 'nba' && nsec === 'news' && <NewsFlags DATA={DATA} sport=\"nba\" />}\n            {top === 'nba' && nsec === 'bank' && <Bankroll />}\n            {top === 'nba' && nsec !== 'matchups' && nsec !== 'research' && nsec !== 'news' && nsec !== 'bank' && <NbaTab DATA={DATA} view={nsec} noBar />}", "nba research view")
-app = sub(app, "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}", "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}\n            {top === 'nfl' && sec === 'research' && <NflResearch DATA={DATA} />}\n            {top === 'nfl' && sec === 'mine' && <MyGames DATA={DATA} />}\n            {top === 'nfl' && sec === 'news' && <NewsFlags DATA={DATA} sport=\"nfl\" />}\n            {top === 'nfl' && sec === 'bank' && <Bankroll />}", "nfl new views")
+app = sub(app, "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}", "{top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}\n            {top === 'nfl' && sec === 'slides' && <NflMatchups DATA={DATA} />}\n            {top === 'nfl' && sec === 'research' && <NflResearch DATA={DATA} />}\n            {top === 'nfl' && sec === 'mine' && <MyGames DATA={DATA} />}\n            {top === 'nfl' && sec === 'news' && <NewsFlags DATA={DATA} sport=\"nfl\" />}\n            {top === 'nfl' && sec === 'bank' && <Bankroll />}", "nfl new views")
 app = sub(app, "{players.length ? 'top ' + players.length + ' players' : ''}</span></h2>\n", "{players.length ? 'top ' + players.length + ' players' : ''}</span></h2>\n      <SlipBar />\n", "nba slip bar")
 app = sub(app, "              {v.notes.map((n, i) => <div className=\"rcWhy\" key={i}>{n}</div>)}\n            </div>\n", "              {v.notes.map((n, i) => <div className=\"rcWhy\" key={i}>{n}</div>)}\n            </div>\n            <PlayedBtn p={p} stat={stat} L={L} v={v} nx={nx} proj={proj} />\n", "played button")
 app = sub(app, "      <div className=\"rcSub\" style={{ marginTop: 10 }}>Verdict rule:", "      <BetsPanel only=\"props\" />\n      <div className=\"rcSub\" style={{ marginTop: 10 }}>Verdict rule:", "bets panel")
@@ -103,6 +103,9 @@ ng = HERE / "nba_games.json"
 data["nba_games"] = json.loads(ng.read_text()) if ng.exists() else None
 ni = HERE / "nba_images.json"
 nba_img = json.loads(ni.read_text()) if ni.exists() else {"heads": {}, "logos": {}}
+# NFL headshots for the NFL Matchups slides, from nfl_images.py. Optional.
+nf = HERE / "nfl_images.json"
+nfl_img = json.loads(nf.read_text()) if nf.exists() else {"heads": {}}
 _logs = {}
 if data["nba"]:
     for _p in data["nba"].get("players", []):
@@ -151,7 +154,8 @@ scripts = (
 data_block = (
     "<script>\nconst EMBED = " + embed + ";\n"
     + team_line + "\n" + logo_line
-    + "\nwindow.NBAIMG = " + json.dumps(nba_img, separators=(",", ":")) + ";\n</script>"
+    + "\nwindow.NBAIMG = " + json.dumps(nba_img, separators=(",", ":")) + ";"
+    + "\nwindow.NFLIMG = " + json.dumps(nfl_img, separators=(",", ":")) + ";\n</script>"
 )
 html = (
     head + css + scripts + data_block

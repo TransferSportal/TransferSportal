@@ -48,3 +48,58 @@ body{background:var(--paper)}
 .lcOut{display:flex;gap:10px;align-items:center;flex-basis:100%;color:var(--ink2)}
 .lcTag{font-weight:700;font-size:11px;padding:3px 10px;border-radius:6px;background:var(--raise)}
 .lcTag.p{background:var(--posBg);color:var(--pos)}.lcTag.l{background:var(--raise);color:#fbbf24}.lcTag.x{background:var(--negBg);color:var(--neg)}
+
+/* ===== Glass: frosted panels over a soft colour wash ===== */
+:root{
+  --glass:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
+  --glassLine:rgba(255,255,255,.14);
+  --glassShadow:0 10px 34px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.2);
+  --card:rgba(255,255,255,.055); --sunk:rgba(0,0,0,.28); --raise:rgba(255,255,255,.09);
+  --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.07);
+  --posBg:rgba(34,197,94,.16); --negBg:rgba(239,68,68,.16);
+}
+html,body{background:#06080c}
+body{background:
+  radial-gradient(900px 560px at 8% -6%,rgba(34,197,94,.30),transparent 62%),
+  radial-gradient(820px 600px at 96% 8%,rgba(99,102,241,.30),transparent 60%),
+  radial-gradient(900px 640px at 55% 108%,rgba(236,72,153,.20),transparent 62%),
+  #06080c;background-attachment:fixed}
+body .tsTop{background:rgba(10,14,20,.55);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);border-bottom:1px solid var(--glassLine);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+body .tsTop .main button{background:var(--glass);border:1px solid var(--glassLine);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.16);transition:transform .15s,box-shadow .15s}
+body .tsTop .main button:hover{transform:translateY(-1px)}
+body .tsTop .main button.on{background:linear-gradient(180deg,#ffffff,#cfd6df);color:#0d0f12;box-shadow:0 4px 18px rgba(255,255,255,.18),inset 0 1px 0 #fff}
+body .tsFrame .bd{background:rgba(12,16,22,.38);-webkit-backdrop-filter:blur(26px) saturate(150%);backdrop-filter:blur(26px) saturate(150%);border:1px solid var(--glassLine);border-radius:26px;box-shadow:0 24px 70px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18)}
+body .bd{--pn:rgba(255,255,255,.07);--pn2:rgba(255,255,255,.12);--ln:rgba(255,255,255,.12)}
+body .bd .sb{background:rgba(255,255,255,.045);border-right:1px solid var(--glassLine)}
+body .bd .sb button{border-radius:12px;transition:background .15s,transform .15s}
+body .bd .sb button:hover{background:rgba(255,255,255,.1);transform:translateX(2px)}
+body .bd .sb button.on{background:linear-gradient(135deg,rgba(34,197,94,.30),rgba(34,197,94,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 1px rgba(34,197,94,.35)}
+/* cards */
+body .dbCard,body .pcard,body .cardTeam,body .cardGame,body .recBox,body .recWeek,body .calTable,body .tbl,body .mxBox,body .adjust,body .calNote,body .alerts:not(:empty),body .bd .hero,body .bd .rows,body .gm,body .msPanel,body .bd .strip .gm{
+  background:var(--glass);border:1px solid var(--glassLine);border-radius:18px;
+  -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);box-shadow:var(--glassShadow)}
+body .calNote{border-left:3px solid var(--pos)}
+body .dbCard,body .pcard,body .cardTeam,body .cardGame,body .gm,body .recBox,body .bd .hero{transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+body .dbCard:hover,body .pcard:hover,body .cardTeam:hover,body .cardGame:hover,body .gm:hover,body .recBox:hover,body .bd .hero:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.26);border-color:rgba(255,255,255,.24)}
+body .gmh,body .pcardFoot,body .calHead,body th,body .bd .hd{background:rgba(255,255,255,.05)}
+body .bd .rw,body .bd .rw:hover{background:transparent}
+body .bd .rw:hover{background:rgba(255,255,255,.07)}
+body .pcardTop:hover{background:rgba(255,255,255,.06)}
+body tbody tr:hover td{background:rgba(255,255,255,.05)}
+/* controls */
+body .seg,body .bd .chips,body select,body .find,body .bd input.q,body .msBtn,body .odds,body .lcBox input{
+  background:var(--glass);border:1px solid var(--glassLine);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+body .seg button.on,body .bd .chips button.on{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(205,212,222,.9));color:#0d0f12;box-shadow:0 2px 12px rgba(255,255,255,.2)}
+body .primary,body .dbLink{border-radius:12px;background:linear-gradient(180deg,#34d46b,#16a34a);border:1px solid rgba(255,255,255,.25);color:#04140a;box-shadow:0 6px 18px rgba(34,197,94,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+body .dbLink{background:var(--glass);color:var(--ink);box-shadow:var(--glassShadow)}
+body .tsFrame .pill,body .rchip,body .tsFrame .tag{background:rgba(255,255,255,.07);border-color:var(--glassLine);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+body .tsFrame .pill.on{background:rgba(34,197,94,.16);border-color:rgba(34,197,94,.5)}
+body .muDays button{background:var(--glass);border-radius:999px}
+body .muDays button.on{background:rgba(34,197,94,.18)}
+/* matchup slides: a glass sheen over the broadcast frame */
+body .muFrame{border-radius:22px;border:1px solid var(--glassLine);box-shadow:0 18px 56px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.2)}
+body .muFrame:after{content:'';position:absolute;inset:0;border-radius:22px;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.10) 0,rgba(255,255,255,0) 32%,rgba(255,255,255,0) 70%,rgba(255,255,255,.04) 100%)}
+body .muStar,body .muT3,body .muPanel,body .muRow,body .muTile{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+body .muTile{border-radius:16px}
+body .muStar,body .muT3,body .muPanel{border-radius:14px}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:8px}::-webkit-scrollbar-track{background:transparent}
