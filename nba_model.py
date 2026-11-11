@@ -227,7 +227,7 @@ def build_games(nba, np, nbaj, daily):
     allg = [dict(g, w=1.0) for g in cur] + [dict(g, w=W_PRIOR) for g in pri]
     model = fit(np, allg)
     bt = backtest(np, pri, "2026-01-15")
-    sd = DEFAULT_SD if not bt else min(14.5, max(11.5, bt["margin_sd"]))
+    sd = DEFAULT_SD if not bt else min(17.0, max(11.5, bt["margin_sd"]))
 
     by_name = {p["name"]: p for p in nbaj["players"]}
     out_names = set()
