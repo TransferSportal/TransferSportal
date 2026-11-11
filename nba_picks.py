@@ -1,5 +1,5 @@
 """
-Best 5 NBA props of the day, locked once per day, graded the next morning.
+Best 5 NBA props of the day, locked once per day at the 4 PM Eastern run, graded the next morning.
 
 Reads nba.json (built by nba.py a moment earlier). For every player with a game
 today and every stat, it sets a model line at his season-long average rounded to
@@ -19,6 +19,10 @@ than the model line (higher for an Over, lower for an Under) the edge shrinks or
 is gone. On last season's games this rule hit about 64% of Overs and 70% of
 Unders against these model lines (baseline: 45% Overs, 55% Unders). That says
 the projection finds real gaps. It does not say a bet beats the closing price.
+
+The card is not made earlier in the day. It locks at the first run at or after 4 PM Eastern,
+which is after the 4 PM research pass has written the day's injury flags into daily.json.
+Any player flagged Out, Doubtful or Questionable there is left off the card.
 
 Every pick is graded against its line: win, loss, or void if the player did not
 play.
@@ -51,6 +55,7 @@ MIN_Z = 0.5                # projection must sit half a typical swing off the li
 MAX_PER_GAME = 2
 MAX_PER_STAT = 2
 N_PICKS = 5
+LOCK_HOUR = 16             # Eastern. The card locks at the first run at or after this hour.
 
 
 ALLOW_W = 4.0              # score points per 100 percent of allowance edge; matches pick_backtest.py
@@ -88,6 +93,21 @@ def allow_edge(gm, opp, grp, stat):
         return None
 
 
+def flagged_names(today):
+    """Players the research pass flagged Out, Doubtful or Questionable today (daily.json). Probable is fine."""
+    try:
+        d = json.loads((HERE / "daily.json").read_text())
+    except Exception:
+        return set()
+    if str(d.get("date", ""))[:10] != today:
+        return set()
+    out = set()
+    for f in ((d.get("nba") or {}).get("flags") or []):
+        if str(f.get("status", "")).lower().startswith(("out", "doubtful", "questionable")) and f.get("player"):
+            out.add(f["player"])
+    return out
+
+
 def model_line(avg):
     """Season-long average, rounded to the nearest half point (always x.5, so no pushes)."""
     f = int(avg // 1)
@@ -101,8 +121,11 @@ def hit_rate(vals, line):
 def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
     today = now.astimezone(ET).date().isoformat()
     adopt, gm = load_extras()
+    flagged = flagged_names(today)
     out = []
     for p in n["players"]:
+        if p["name"] in flagged:
+            continue                       # the research pass says he is out or doubtful tonight
         nx = p.get("next")
         if not nx or not p.get("proj") or not p.get("log20"):
             continue
@@ -266,15 +289,17 @@ def record(files):
                      "lines, so this record says how often the picks beat that line, not what a bet would have paid.")}
 
 
-def main():
-    now = dt.datetime.now(dt.timezone.utc)
+def main(now=None):
+    now = now or dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(ET).date().isoformat()
     n = json.loads((HERE / "nba.json").read_text())
     DIR.mkdir(exist_ok=True)
 
     # 1. Lock today's card once.
     path = DIR / f"{today}.json"
-    if not path.exists():
+    if not path.exists() and now.astimezone(ET).hour < LOCK_HOUR:
+        print(f"nba_picks: before {LOCK_HOUR}:00 Eastern, so today's card is not locked yet")
+    elif not path.exists():
         picks = choose(candidates(n, now))
         if len(picks) < N_PICKS:
             # Short on clean spots: fill with looser ones, marked as leans on the card.
