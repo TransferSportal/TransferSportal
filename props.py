@@ -236,4 +236,10 @@ def main():
 
 
 if __name__ == "__main__":
+    # the morning injury check is applied first, so props.py (which rewrites data.json) carries it forward
+    try:
+        import apply_flags
+        apply_flags.main()
+    except Exception as e:
+        print("apply_flags skipped,", e)
     main()
