@@ -117,6 +117,9 @@ jobs:
           python nba.py || echo "nba.py failed; keeping the last NBA build"
           # Locks today's best 5 NBA props once, then grades every finished day.
           python nba_picks.py || echo "nba_picks.py failed; keeping the last NBA picks"
+          # Projected scores, win probabilities, per game allowances and embedded images for
+          # the Matchups slides. Never blocks the board: each part is skipped on its own.
+          python nba_model.py || echo "nba_model.py failed; keeping the last NBA game model"
           # Weather, snap share and target share for the Research Center. Optional: it writes an empty file on any failure.
           python context.py 2026 || echo "context.py failed; building without it"
           python build.py
