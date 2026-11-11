@@ -53,6 +53,41 @@ MAX_PER_STAT = 2
 N_PICKS = 5
 
 
+ALLOW_W = 4.0              # score points per 100 percent of allowance edge; matches pick_backtest.py
+
+
+def load_extras():
+    """Which matchup inputs the walk-forward test (pick_backtest.py) cleared for the card, and the game model."""
+    try:
+        adopt = json.loads((HERE / "pick_backtest.json").read_text()).get("adopt") or {}
+    except Exception:
+        adopt = {}
+    try:
+        gm = json.loads((HERE / "nba_games.json").read_text())
+    except Exception:
+        gm = None
+    return adopt, gm
+
+
+def model_margin(gm, today, team, opp):
+    """The game model's projected margin (absolute), for today's game between these two teams."""
+    for g in (gm or {}).get("games") or []:
+        if g.get("day") == today and {g.get("home"), g.get("away")} == {team, opp}:
+            return abs(g.get("margin") or 0.0)
+    return None
+
+
+def allow_edge(gm, opp, grp, stat):
+    """Opponent's per game allowance to this position group against the league mean, as a fraction."""
+    try:
+        t = gm["allow"]["teams"][opp][grp]; lg = gm["allow"]["league"][grp]
+        keys = ("pts", "reb", "ast") if stat == "pra" else (stat,)
+        a, b = sum(t[k] for k in keys), sum(lg[k] for k in keys)
+        return a / b - 1.0 if b else None
+    except Exception:
+        return None
+
+
 def model_line(avg):
     """Season-long average, rounded to the nearest half point (always x.5, so no pushes)."""
     f = int(avg // 1)
@@ -65,6 +100,7 @@ def hit_rate(vals, line):
 
 def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
     today = now.astimezone(ET).date().isoformat()
+    adopt, gm = load_extras()
     out = []
     for p in n["players"]:
         nx = p.get("next")
@@ -105,12 +141,18 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 continue
             score = z + 2.0 * (h10 - 0.7) + 1.5 * (h20 - 0.6)
             spread = nx.get("spread")
+            mm = None
+            if spread is None and adopt.get("blowout_model"):
+                spread = mm = model_margin(gm, today, p["team"], nx["opp"])     # the model's own margin stands in for a posted spread
             blow = spread is not None and spread >= 10 and (p.get("min_l10") or 0) >= 26 and side == "over"
             if blow:
                 # Big spread: starters can sit the fourth quarter. Overs lose score, and past 15 they are dropped.
                 if spread >= 15:
                     continue
                 score -= 1.0
+            ae = allow_edge(gm, nx["opp"], p.get("grp"), s) if adopt.get("allowance") else None
+            if ae is not None:
+                score += ALLOW_W * ae * (1 if side == "over" else -1)
             f = (p.get("factors") or {}).get(s) or {}
             out.append({
                 "pid": p["id"], "name": p["name"], "team": p["team"], "pos": p["pos"],
@@ -119,7 +161,8 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 "hit10": round(h10, 2), "hit20": round(h20, 2), "n20": len(v20),
                 "proj": round(proj, 1), "avg": round(avg, 1), "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
                 "sd10": sd, "z": round(z, 2), "score": round(score, 3),
-                "spread": nx.get("spread"), "fav": nx.get("fav"), "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
+                "spread": nx.get("spread") if mm is None else None, "model_margin": round(mm, 1) if mm is not None else None,
+                "allow_edge": round(ae, 3) if ae is not None else None, "fav": nx.get("fav"), "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
                 "opp_out": (n.get("injuries_out") or {}).get(nx["opp"], []),
                 "lean": not (z >= MIN_Z and h10 >= MIN_HIT10),
                 "result": None, "actual": None,
@@ -158,7 +201,12 @@ def why(c):
         bits.append(("Matchup helps this side." if good else "Matchup works against this side."))
     if c["teammates_out"]: bits.append("Teammates out: " + ", ".join(c["teammates_out"]) + ".")
     if c["b2b"]: bits.append("Back to back, so watch the minutes.")
-    if c.get("blowout"): bits.append(f"Spread is {c['spread']:g}, so blowout risk. Minutes could get cut late.")
+    if c.get("blowout"):
+        bits.append(f"Spread is {c['spread']:g}, so blowout risk. Minutes could get cut late." if c.get("spread") is not None
+                    else f"The model has this game decided by {c['model_margin']:g}, so blowout risk. Minutes could get cut late.")
+    ae = c.get("allow_edge")
+    if ae is not None and abs(ae) >= 0.03:
+        bits.append(f"Opponent allows {abs(ae) * 100:.0f} percent {'more' if ae > 0 else 'less'} {LABEL[c['stat']]} than average to his position.")
     if c.get("lean"): bits.append("A lean: the gap or the recent run is smaller than on a full pick.")
     return " ".join(bits)
 
