@@ -123,6 +123,8 @@ jobs:
           # It decides whether the model margin and opponent allowances go into the card. Optional.
           python pick_backtest.py || echo "pick_backtest.py failed; keeping the last verdict"
           # Locks today's best 5 NBA props once, then grades every finished day.
+          # Sportsbook prop lines for the card, fetched once a day from the licensed feed.
+          python nba_lines.py || echo "nba_lines.py failed; no book lines today"
           python nba_picks.py || echo "nba_picks.py failed; keeping the last NBA picks"
           # Embedded NFL headshots for the NFL Matchups slides. Optional, like the NBA model.
           python nfl_images.py || echo "nfl_images.py failed; keeping the last NFL headshots"

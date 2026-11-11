@@ -13,8 +13,8 @@ a half point, then looks for the spots where:
 Overs only: every Under is skipped, by request. The top 5 by a score built from the gap, the last 10 and the last 20 become the
 card. One pick per player, at most 2 per game and 2 per stat.
 
-There is no sportsbook line in here. The line is the model's own, so the card
-tells you the number to look for and which side. If the book's number is worse
+Lines are real sportsbook lines (DraftKings via nba_lines.py). A player with no book line for a
+stat is skipped; there is no fallback to model lines. The model supplies the projection and the side. If the book's number is worse
 than the model line (higher for an Over, lower for an Under) the edge shrinks or
 is gone. On last season's games this rule hit about 64% of Overs and 70% of
 Unders against these model lines (baseline: 45% Overs, 55% Unders). That says
@@ -40,6 +40,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import nba
+from odds import norm
 
 HERE = Path(__file__).parent
 DIR = HERE / "nba_picks"
@@ -108,6 +109,17 @@ def flagged_names(today):
     return out
 
 
+def book_lines(today):
+    """Today's sportsbook lines from nba_lines.json (built by nba_lines.py). Empty if missing or stale."""
+    try:
+        d = json.loads((HERE / "nba_lines.json").read_text())
+    except Exception:
+        return {}, "book"
+    if d.get("date") != today:
+        return {}, d.get("book") or "book"
+    return d.get("lines") or {}, d.get("book") or "book"
+
+
 def model_line(avg):
     """Season-long average, rounded to the nearest half point (always x.5, so no pushes)."""
     f = int(avg // 1)
@@ -122,6 +134,7 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
     today = now.astimezone(ET).date().isoformat()
     adopt, gm = load_extras()
     flagged = flagged_names(today)
+    lines, book = book_lines(today)
     out = []
     for p in n["players"]:
         if p["name"] in flagged:
@@ -145,7 +158,10 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             proj = p["proj"].get(s)
             if avg is None or proj is None:
                 continue
-            line = model_line(avg)
+            bl = (lines.get(norm(p["name"])) or {}).get(s)
+            if not bl:
+                continue                   # no sportsbook line for this player and stat: not a candidate
+            line = bl["line"]
             if line < MIN_LINE[s]:
                 continue
             sd = max((p.get("sd10") or {}).get(s) or 0, 1.0)
@@ -182,7 +198,7 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             out.append({
                 "pid": p["id"], "name": p["name"], "team": p["team"], "pos": p["pos"],
                 "opp": nx["opp"], "home": nx["home"], "tip": nx["date"], "b2b": nx.get("b2b", False),
-                "stat": s, "line": line, "side": side,
+                "stat": s, "line": line, "side": side, "line_src": "book", "book": book, "price": bl.get("over"),
                 "hit10": round(h10, 2), "hit20": round(h20, 2), "n20": len(v20),
                 "proj": round(proj, 1), "avg": round(avg, 1), "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
                 "sd10": sd, "z": round(z, 2), "score": round(score, 3),
@@ -217,7 +233,8 @@ def choose(cands, picks=None):
 
 def why(c):
     word = "over" if c["side"] == "over" else "under"
-    bits = [f"{word.title()} {c['line']} {LABEL[c['stat']]}.",
+    src = f" ({c['book']} line, {c['price']:+d})" if c.get("line_src") == "book" and isinstance(c.get("price"), int) else ""
+    bits = [f"{word.title()} {c['line']} {LABEL[c['stat']]}{src}.",
             f"Went {word} in {round(c['hit10'] * 10)} of his last 10 and {round(c['hit20'] * c['n20'])} of his last {c['n20']}.",
             f"Season average {c['avg']}, model has him at {c['proj']} tonight."]
     d = c.get("def")
@@ -288,7 +305,7 @@ def record(files):
             "by_stat": by_stat, "by_day": by_day[-30:], "streak": streak,
             "note": ("Each pick is graded against its model line, on the side shown. A pick is void if the player did not "
                      "play. The lines are the model's own (season average, rounded to a half point), not sportsbook "
-                     "lines, so this record says how often the picks beat that line, not what a bet would have paid.")}
+                     "lines. Picks from November 12 on use the sportsbook line shown on the pick; earlier picks used the model's own line.")}
 
 
 def main(now=None):
