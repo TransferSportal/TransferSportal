@@ -6,9 +6,11 @@
 // DATA.nba.defense (opponent defense factors by position group), the top 100
 // player projections in DATA.nba.players, and the injury flags in DATA.daily.
 //
-// Nothing here is a price, and there is no projected final score because the
-// model does not produce one. Each slide is drawn on a fixed 960 by 540 canvas
-// and scaled to fit the screen, so it looks the same on a phone and a desktop.
+// Projected scores and win probabilities come from DATA.nba_games (nba_model.py),
+// per game allowances from DATA.nba_games.allow, and embedded logos and
+// headshots from window.NBAIMG. Nothing here is a price. Each slide is drawn on
+// a fixed 960 by 540 canvas and scaled to fit the screen, so it looks the same
+// on a phone and a desktop.
 
 const MU_STATS = [['pts', 'POINTS'], ['reb', 'REBOUNDS'], ['ast', 'ASSISTS'], ['fg3', 'MADE THREES']];
 const MU_TEAMS = {
@@ -32,21 +34,42 @@ function muOrd(n) {
 function muF1(v) { return v == null || isNaN(v) ? '–' : Number(v).toFixed(1); }
 
 // Rank every team on every (position group, stat). Rank 1 is the most generous defense.
-function muRanks(defense) {
-  const teams = Object.keys(defense || {});
+// With per game allowances, f is the allowance over the league average for that group
+// and v is the raw allowance. Without them f is the old model multiplier and v is null.
+function muRanks(defense, allow) {
+  const A = allow && allow.teams ? allow : null;
+  const teams = Object.keys(A ? A.teams : (defense || {}));
   const out = {};
   teams.forEach(t => { out[t] = []; });
   ['G', 'F', 'C'].forEach(g => {
     MU_STATS.forEach(([k, label]) => {
+      const lg = A && A.league && A.league[g] ? A.league[g][k] : null;
       const rows = teams
-        .map(t => ({ t, f: defense[t] && defense[t][g] ? defense[t][g][k] : null }))
+        .map(t => {
+          if (A) {
+            const v = A.teams[t] && A.teams[t][g] ? A.teams[t][g][k] : null;
+            return { t, v, f: v != null && lg ? v / lg : null };
+          }
+          return { t, v: null, f: defense[t] && defense[t][g] ? defense[t][g][k] : null };
+        })
         .filter(r => r.f != null)
         .sort((a, b) => b.f - a.f);
-      rows.forEach((r, i) => out[r.t].push({ g, k, label, f: r.f, rank: i + 1, of: rows.length }));
+      rows.forEach((r, i) => out[r.t].push({ g, k, label, f: r.f, v: r.v, lg, rank: i + 1, of: rows.length }));
     });
   });
   return out;
 }
+function muShot(p) {
+  const h = window.NBAIMG && window.NBAIMG.heads;
+  return (h && h[p.id]) || p.headshot || '';
+}
+function muModel(DATA) {
+  const m = {};
+  const G = (DATA.nba_games && DATA.nba_games.games) || [];
+  G.forEach(g => { m[g.away + '@' + g.home + '@' + nbaDayKey(g.date)] = g; });
+  return m;
+}
+function muPct(x) { return x == null ? '–' : Math.round(x * 100) + '%'; }
 
 function muStatus(p, flags) {
   const f = flags[p.name];
@@ -77,7 +100,7 @@ function muLast(name) {
 
 function MuLogo({ t, size }) {
   return (
-    <img className="muLogo" style={{ width: size, height: size }} src={nbaLogo(t)} alt={t}
+    <img className="muLogo" style={{ width: size, height: size }} src={(window.NBAIMG && window.NBAIMG.logos && window.NBAIMG.logos[t]) || nbaLogo(t)} alt={t}
       onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
   );
 }
@@ -124,26 +147,36 @@ function MuTitle({ kicker, title, sub }) {
 }
 
 // ---- slide 1: the slate ----
-function MuSlateSlide({ games, cur, day, onPick, flagsDate }) {
+function MuSlateSlide({ games, cur, day, onPick, model }) {
   const cols = games.length > 4 ? 3 : 2;
   return (
     <MuSlide tag={games.length + ' GAMES · ONE SLATE'} sub={day}>
       <MuTitle kicker={'NBA GAME NIGHT / ' + day} title={games.length + ' GAMES. ONE SLATE.'} sub="Tap a game to open its slides" />
       <div className="muSlate" style={{ gridTemplateColumns: 'repeat(' + cols + ', minmax(0, 1fr))' }}>
-        {games.map((g, i) => (
+        {games.map((g, i) => {
+          const m = model[g.away.team + '@' + g.home.team + '@' + nbaDayKey(g.date)];
+          return (
           <button key={g.key} className={'muTile' + (g.key === cur ? ' on' : '')} onClick={() => onPick(g.key)}>
             <div className="muTileRow">
-              <div className="muTileTeam"><MuLogo t={g.away.team} size={34} /><b>{g.away.team}</b></div>
+              <div className="muTileTeam"><MuLogo t={g.away.team} size={30} /><b>{g.away.team}</b></div>
               <div className="muTileMid">AT</div>
-              <div className="muTileTeam"><b>{g.home.team}</b><MuLogo t={g.home.team} size={34} /></div>
+              <div className="muTileTeam"><b>{g.home.team}</b><MuLogo t={g.home.team} size={30} /></div>
             </div>
-            <div className="muTileTop">
-              <div className="muBlk"><em>{g.away.star ? muLast(g.away.star.name) : '—'}</em><b>{g.away.star ? muF1(g.away.star.proj.pts) : ''}</b></div>
-              <div className="muBlk r"><em>{g.home.star ? muLast(g.home.star.name) : '—'}</em><b>{g.home.star ? muF1(g.home.star.proj.pts) : ''}</b></div>
+            <div className="muTileProj">
+              <b>{m ? Math.round(m.proj.away) : '–'}</b>
+              <span>{m ? 'WIN ' + muPct(m.win.away) + ' / ' + muPct(m.win.home) : 'NO MODEL YET'}</span>
+              <b>{m ? Math.round(m.proj.home) : '–'}</b>
             </div>
-            <div className="muTileTime">{nbaDay(g.date)} ET · TOP PROJECTED SCORERS</div>
+            {games.length <= 6 ? (
+              <div className="muTileTop">
+                <div className="muBlk"><em>{g.away.star ? muLast(g.away.star.name) + ' PTS' : '-'}</em><b>{g.away.star ? muF1(g.away.star.proj.pts) : ''}</b></div>
+                <div className="muBlk r"><em>{g.home.star ? muLast(g.home.star.name) + ' PTS' : '-'}</em><b>{g.home.star ? muF1(g.home.star.proj.pts) : ''}</b></div>
+              </div>
+            ) : null}
+            <div className="muTileTime">{nbaDay(g.date)} ET · PROJECTED FINAL</div>
           </button>
-        ))}
+          );
+        })}
       </div>
     </MuSlide>
   );
@@ -163,33 +196,35 @@ function MuStar({ side, game }) {
         <>
           <div className="muStarPlayer">{p.name}</div>
           <div className="muCap">{muF1(p.proj.reb)} REB / {muF1(p.proj.ast)} AST / {muF1(p.proj.fg3)} 3PM</div>
-          {p.headshot ? <img className="muShot" src={p.headshot} alt="" onError={e => { e.currentTarget.style.display = 'none'; }} /> : null}
+          {muShot(p) ? <img className="muShot" src={muShot(p)} alt="" onError={e => { e.currentTarget.style.display = 'none'; }} /> : null}
         </>
       ) : <div className="muCap">No top 100 player on this team</div>}
     </div>
   );
 }
-function MuGameSlide({ g, idx, total, day, flags, ranks }) {
-  const best = side => {
-    const r = (ranks[side.opp] || []).filter(x => x.rank <= 3).sort((a, b) => a.rank - b.rank)[0]
-      || (ranks[side.opp] || []).slice().sort((a, b) => a.rank - b.rank)[0];
-    return r;
-  };
-  const tile = side => {
-    const r = best(side);
-    if (!r) return { k: side.team + ' BEST SPOT', v: '–', s: '' };
-    return {
-      k: side.team + ' BEST MATCHUP',
-      v: (r.f >= 1 ? '+' : '') + ((r.f - 1) * 100).toFixed(1) + '%',
-      s: muOrd(r.rank) + ' MOST ' + r.label + ' TO ' + r.g + ' · ' + side.opp + ' DEFENSE',
-    };
-  };
+function MuGameSlide({ g, idx, total, day, flags, model }) {
+  const m = model[g.away.team + '@' + g.home.team + '@' + nbaDayKey(g.date)];
   const watch = [].concat(g.away.players, g.home.players).map(p => ({ p, s: muStatus(p, flags) }))
     .filter(x => x.s && String(x.s).toLowerCase().indexOf('probable') !== 0);
-  const tiles = [tile(g.away), tile(g.home)];
+  const A = g.away.team, H = g.home.team;
+  const none = 'NO GAME MODEL YET';
+  let t1 = { k: 'PROJECTED FINAL', v: '–', s: none };
+  let t2 = { k: 'WIN PROBABILITY', v: '–', s: none };
+  let t3 = { k: 'MODEL MARGIN AND TOTAL', v: '–', s: none };
+  if (m) {
+    const fav = m.margin >= 0 ? H : A;
+    t1 = { k: 'PROJECTED FINAL', v: m.proj.away.toFixed(0) + ' – ' + m.proj.home.toFixed(0), s: A + ' – ' + H + ' · TOTAL ' + m.total.toFixed(1) };
+    t2 = { k: 'WIN PROBABILITY', v: muPct(m.win.away) + ' / ' + muPct(m.win.home), s: A + ' WIN / ' + H + ' WIN', bar: m.win.away };
+    t3 = { k: 'MODEL MARGIN AND TOTAL', v: fav + ' -' + Math.abs(m.margin).toFixed(1),
+      s: m.line && m.line.spread != null ? 'POSTED ' + m.line.fav + ' -' + m.line.spread + ' · MODEL COVERS ' + muPct(m.line.fav_covers) : 'MODEL ONLY, NO POSTED LINE USED' };
+  }
+  const adjNote = m && (m.adj.away || m.adj.home)
+    ? 'ADJ FOR OUT: ' + [m.adj.away ? A + ' ' + m.adj.away.toFixed(1) : '', m.adj.home ? H + ' ' + m.adj.home.toFixed(1) : ''].filter(Boolean).join(' · ')
+    : 'LATEST TRANSFERSPORTAL FLAGS';
+  const tiles = [t1, t2, t3];
   return (
-    <MuSlide tag={'GAME ' + idx + ' / ' + total} sub={g.away.team + ' @ ' + g.home.team} note={day + ' · ' + nbaDay(g.date) + ' ET'}>
-      <div className="muGameTitle">{muTeam(g.away.team)[1].toUpperCase()} AT {muTeam(g.home.team)[1].toUpperCase()}</div>
+    <MuSlide tag={'GAME ' + idx + ' / ' + total} sub={A + ' @ ' + H} note={day + ' · ' + nbaDay(g.date) + ' ET'}>
+      <div className="muGameTitle">{muTeam(A)[1].toUpperCase()} AT {muTeam(H)[1].toUpperCase()}</div>
       <div className="muCard2">
         <MuStar side={g.away} game={g} />
         <div className="muMid"><span>TIP</span><b>{nbaDay(g.date).split(' ').slice(1).join(' ')}</b><span>ET</span></div>
@@ -197,12 +232,17 @@ function MuGameSlide({ g, idx, total, day, flags, ranks }) {
       </div>
       <div className="muTiles3">
         {tiles.map((t, i) => (
-          <div className="muT3" key={i}><div className="muT3k">{t.k}</div><div className="muT3v">{t.v}</div><div className="muCap">{t.s}</div></div>
+          <div className="muT3" key={i}>
+            <div className="muT3k">{t.k}</div>
+            <div className="muT3v">{t.v}</div>
+            {t.bar != null ? <div className="muBar"><i style={{ width: (t.bar * 100) + '%' }} /></div> : null}
+            <div className="muCap">{t.s}</div>
+          </div>
         ))}
         <div className="muT3">
           <div className="muT3k">INJURY WATCH, TOP 100</div>
           <div className="muT3w">{watch.length ? watch.slice(0, 4).map((x, i) => <span key={i}>{muLast(x.p.name).toUpperCase()} <em>{muShort(x.s)}</em></span>) : <span>NO FLAGS</span>}</div>
-          <div className="muCap">LATEST TRANSFERSPORTAL FLAGS</div>
+          <div className="muCap">{adjNote}</div>
         </div>
       </div>
     </MuSlide>
@@ -212,8 +252,8 @@ function MuGameSlide({ g, idx, total, day, flags, ranks }) {
 // ---- slide 3 and 4: defense versus position ----
 function MuDvpSlide({ g, idx, total, side, flags, ranks, players, day }) {
   const list = (ranks[side.opp] || []);
-  const soft = list.slice().sort((a, b) => a.rank - b.rank).slice(0, 4);
-  const tough = list.filter(r => r.rank > r.of - 5).sort((a, b) => b.rank - a.rank).slice(0, 2);
+  const soft = list.slice().sort((a, b) => b.f - a.f).slice(0, 4);
+  const tough = list.filter(r => r.rank > r.of - 5).sort((a, b) => a.f - b.f).slice(0, 2);
   const rows = soft.map(r => Object.assign({ tough: false }, r)).concat(tough.map(r => Object.assign({ tough: true }, r)));
   const who = grp => {
     const c = players.filter(p => p.team === side.team && p.grp === grp && !muIsOut(p, flags)).sort((a, b) => a.rank - b.rank)[0];
@@ -223,13 +263,13 @@ function MuDvpSlide({ g, idx, total, side, flags, ranks, players, day }) {
   return (
     <MuSlide tag={'GAME ' + idx + ' / ' + total} sub={g.away.team + ' @ ' + g.home.team} note={day}>
       <MuTitle kicker={muTeam(side.opp)[1].toUpperCase() + ' ALLOW / ' + muTeam(side.team)[1].toUpperCase() + ' MATCHUP'} title="DEFENSE VS POSITION"
-        sub="Position-group factors from our model, shown against the league average. Not individual projections." />
+        sub="Average per game allowed to the top 100 players at each position group. Not team totals." />
       <div className="muRows">
         {rows.map((r, i) => (
           <div className={'muRow' + (r.tough ? ' tough' : '')} key={i}>
             <div className="muBadge" style={!r.tough && r.rank > 10 ? { background: '#56697a', color: '#fff' } : null}>{r.tough ? muOrd(r.of - r.rank + 1) + ' FEWEST' : muOrd(r.rank) + ' MOST'}</div>
-            <div className="muRowMain"><b>{r.label} TO {r.g}</b><span>{who(r.g)}</span></div>
-            <div className="muRowVal"><b>{pct(r.f)}</b><span>VS AVG</span></div>
+            <div className="muRowMain"><b>{r.label} TO {r.g}{r.v != null ? ' · PER GAME' : ''}</b><span>{who(r.g)}</span></div>
+            <div className="muRowVal"><b>{r.v != null ? muF1(r.v) : pct(r.f)}</b><span>{r.v != null ? pct(r.f) + ' VS LG ' + muF1(r.lg) : 'VS AVG'}</span></div>
           </div>
         ))}
         {!rows.length ? <div className="muCap" style={{ padding: 16 }}>NO DEFENSE DATA FOR {side.opp}</div> : null}
@@ -250,7 +290,7 @@ function MuTable({ side, cols, flags }) {
         const st = muStatus(p, flags);
         return (
           <div className="muTr" key={p.id || p.name}>
-            <span className="muAv">{p.headshot ? <img src={p.headshot} alt="" onError={e => { e.currentTarget.style.display = 'none'; }} /> : null}</span>
+            <span className="muAv">{muShot(p) ? <img src={muShot(p)} alt="" onError={e => { e.currentTarget.style.display = 'none'; }} /> : null}</span>
             <span className="muPl">{p.name}{st && String(st).toLowerCase().indexOf('probable') !== 0 ? <em className={'muSt ' + muShort(st).toLowerCase()}>{muShort(st)}</em> : null}</span>
             {cols.map(c => <span key={c[0]}>{muF1(c[1](p))}</span>)}
           </div>
@@ -274,11 +314,26 @@ function MuProjSlide({ g, idx, total, flags, cols, title, kicker, day }) {
   );
 }
 
+function MuMethod({ G }) {
+  if (!G) return <div className="dbNote" style={{ marginTop: 8 }}>Projected scores and allowances appear after the next daily build.</div>;
+  const bt = G.backtest;
+  return (
+    <div className="dbNote" style={{ marginTop: 8 }}>
+      Projected scores come from team scoring ratings fit on every final score this season and last. Win probability is a normal curve on the projected margin
+      {G.sd ? ' (spread ' + G.sd + ' points' + (bt ? ', set by a walk forward test on last season: ' + bt.winner_pct + '% winners picked, ' + bt.margin_mae + ' point average miss on the margin, ' + bt.games + ' games' : '') + ')' : ''}.
+      Players listed out cost their team about a third of their last 10 scoring, which is a rule of thumb and not a fit.
+      Allowances are per player averages for the top 100 players only, so they are not team totals.
+      {G.generated ? ' Model built ' + G.generated + '.' : ''}
+    </div>
+  );
+}
+
 function NbaMatchups({ DATA }) {
   const N = DATA.nba;
   const [day, setDay] = useState(null);
   const [pick, setPick] = useState(null);
-  const ranks = useMemo(() => (N ? muRanks(N.defense) : {}), [N]);
+  const ranks = useMemo(() => (N ? muRanks(N.defense, DATA.nba_games && DATA.nba_games.allow) : {}), [N, DATA]);
+  const model = useMemo(() => muModel(DATA), [DATA]);
   const flags = useMemo(() => {
     const m = {};
     (((DATA.daily || {}).nba || {}).flags || []).forEach(f => { m[f.player] = f; });
@@ -327,16 +382,17 @@ function NbaMatchups({ DATA }) {
       </div>
       {shown.length ? (
         <>
-          <MuSlateSlide games={shown} cur={sel.key} day={dLabel} onPick={setPick} />
+          <MuSlateSlide games={shown} cur={sel.key} day={dLabel} onPick={setPick} model={model} />
           <div className="muDays" style={{ marginTop: 14 }}>
             {shown.map(x => <button key={x.key} className={'pill' + (x.key === sel.key ? ' on' : '')} onClick={() => setPick(x.key)}>{x.away.team} @ {x.home.team}</button>)}
           </div>
-          <MuGameSlide g={sel} idx={idx} total={shown.length} day={dLabel} flags={flags} ranks={ranks} />
+          <MuGameSlide g={sel} idx={idx} total={shown.length} day={dLabel} flags={flags} model={model} />
           <MuDvpSlide g={sel} idx={idx} total={shown.length} side={sel.away} flags={flags} ranks={ranks} players={N.players} day={dLabel} />
           <MuDvpSlide g={sel} idx={idx} total={shown.length} side={sel.home} flags={flags} ranks={ranks} players={N.players} day={dLabel} />
           <MuProjSlide g={sel} idx={idx} total={shown.length} flags={flags} cols={MU_COLS_P} title="PLAYER PROJECTIONS" kicker="Minutes are the last 10 game average. Everything else is the model projection for this game." day={dLabel} />
           <MuProjSlide g={sel} idx={idx} total={shown.length} flags={flags} cols={MU_COLS_C} title="COMBINATION PROJECTIONS" kicker="Sums of the model's points, rebounds and assists projections." day={dLabel} />
           <div className="dbNote" style={{ marginTop: 8 }}>Tags: OUT, D doubtful, Q questionable, DTD day to day. They come from the latest TransferSportal injury flags, so confirm before tip.</div>
+          <MuMethod G={DATA.nba_games} />
         </>
       ) : <div className="dbNote">No games listed for this day.</div>}
     </section>
@@ -377,8 +433,9 @@ const MU_CSS = `
 .muTileRow{display:flex;align-items:center;justify-content:space-between}
 .muTileTeam{display:flex;align-items:center;gap:8px;font-size:32px}
 .muTileMid{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7d8896}
+.muTileProj{display:flex;align-items:center;justify-content:space-between;gap:6px}.muTileProj b{font-weight:400;font-size:34px;line-height:1}.muTileProj span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#4ade80;text-align:center}
 .muTileTop{display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
-.muBlk{display:flex;flex-direction:column;min-width:0;max-width:48%}.muBlk.r{align-items:flex-end;text-align:right}.muBlk em{font-style:normal;font-size:13px;color:#9aa5b1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.muBlk b{font-weight:400;font-size:32px;line-height:1}
+.muBlk{display:flex;flex-direction:column;min-width:0;max-width:48%}.muBlk.r{align-items:flex-end;text-align:right}.muBlk em{font-style:normal;font-size:11px;color:#9aa5b1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.muBlk b{font-weight:400;font-size:22px;line-height:1}
 .muTileDash{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#6b7684}
 .muTileTime{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#8a95a2}
 .muGameTitle{position:absolute;left:0;right:0;top:62px;text-align:center;font-size:50px;z-index:2;letter-spacing:.5px}
@@ -386,18 +443,19 @@ const MU_CSS = `
 .muStar{flex:1;position:relative;border:1px solid;border-radius:6px;padding:12px 16px;overflow:hidden}
 .muStarTeam{display:flex;align-items:center;gap:8px;font-size:15px;color:#cfd6de;letter-spacing:.8px}
 .muStarName{font-size:34px;line-height:1}
-.muBig{font-size:96px;line-height:.95;margin-top:2px}
+.muBig{font-size:96px;line-height:.95;margin-top:2px;position:relative;z-index:2}
 .muStarPlayer{font-size:28px;margin-top:6px;position:relative;z-index:1}
 .muStar .muCap{position:relative;z-index:1}
 .muShot{position:absolute;right:8px;bottom:0;height:178px;object-fit:contain;object-position:bottom}
 .muMid{width:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .muMid span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7d8896}
 .muMid b{font-size:26px;font-weight:400;line-height:1.05;margin:4px 0}
-.muTiles3{position:absolute;left:26px;right:26px;top:372px;height:98px;display:flex;gap:10px;z-index:2}
+.muTiles3{position:absolute;left:26px;right:26px;top:372px;height:112px;display:flex;gap:10px;z-index:2}
 .muT3{flex:1;background:rgba(18,28,38,.92);border:1px solid #1f2f3d;border-radius:6px;padding:9px 14px;position:relative;overflow:hidden}
 .muT3k{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9aa5b1;letter-spacing:.4px}
-.muT3v{font-size:40px;color:#4ade80;line-height:1.1}
-.muT3w{font-size:22px;line-height:1.25;display:flex;gap:10px;flex-wrap:wrap;margin:2px 0}
+.muT3v{font-size:34px;color:#4ade80;line-height:1.1;white-space:nowrap}
+.muBar{height:5px;background:#fb923c;border-radius:3px;overflow:hidden;margin:2px 0 3px}.muBar i{display:block;height:100%;background:#22c55e}
+.muT3w{font-size:19px;line-height:1.25;display:flex;gap:10px;flex-wrap:wrap;margin:2px 0}
 .muT3w em{font-style:normal;color:#fbbf24}
 .muRows{position:absolute;left:30px;right:30px;top:178px;z-index:2}
 .muRow{display:flex;align-items:stretch;margin-bottom:6px;height:44px;background:#121c26;border:1px solid #1f2f3d;border-radius:4px;overflow:hidden;position:relative}
