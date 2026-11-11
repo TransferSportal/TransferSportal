@@ -97,6 +97,12 @@ data["games_model"] = json.loads(gm.read_text()) if gm.exists() else None
 # leaves the NBA tab saying it is waiting for data.
 nb = HERE / "nba.json"
 data["nba"] = json.loads(nb.read_text()) if nb.exists() else None
+# Projected scores, win probabilities and per game allowances come from nba_model.py,
+# and the embedded logos and headshots from the same script. Both are optional.
+ng = HERE / "nba_games.json"
+data["nba_games"] = json.loads(ng.read_text()) if ng.exists() else None
+ni = HERE / "nba_images.json"
+nba_img = json.loads(ni.read_text()) if ni.exists() else {"heads": {}, "logos": {}}
 _logs = {}
 if data["nba"]:
     for _p in data["nba"].get("players", []):
@@ -144,7 +150,8 @@ scripts = (
 # the browser on every page load. Only the JSX below needs transforming.
 data_block = (
     "<script>\nconst EMBED = " + embed + ";\n"
-    + team_line + "\n" + logo_line + "\n</script>"
+    + team_line + "\n" + logo_line
+    + "\nwindow.NBAIMG = " + json.dumps(nba_img, separators=(",", ":")) + ";\n</script>"
 )
 html = (
     head + css + scripts + data_block
