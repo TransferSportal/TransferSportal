@@ -10,7 +10,7 @@ a half point, then looks for the spots where:
   * he has gone that same way in at least 7 of his last 10 games
     (Over: cleared the line. Under: stayed below it.)
 
-The top 5 by a score built from the gap, the last 10 and the last 20 become the
+Overs only: every Under is skipped, by request. The top 5 by a score built from the gap, the last 10 and the last 20 become the
 card. One pick per player, at most 2 per game and 2 per stat.
 
 There is no sportsbook line in here. The line is the model's own, so the card
@@ -151,6 +151,8 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             sd = max((p.get("sd10") or {}).get(s) or 0, 1.0)
             z = (proj - line) / sd
             side = "over" if z > 0 else "under"
+            if side != "over":
+                continue                   # overs only, by request
             z = abs(z)
             if z < min_z:
                 continue
