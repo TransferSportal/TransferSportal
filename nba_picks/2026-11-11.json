@@ -37,8 +37,8 @@
     "Lauri Markkanen"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 7.0,
    "why": "Over 7.5 rebounds. Went over in 8 of his last 10 and 11 of his last 20. Season average 7.8, model has him at 8.5 tonight. Teammates out: Paolo Banchero. Back to back, so watch the minutes."
   },
   {
@@ -76,8 +76,8 @@
     "Lauri Markkanen"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 7.0,
    "why": "Over 2.5 threes. Went over in 7 of his last 10 and 11 of his last 20. Season average 2.4, model has him at 3.1 tonight. Matchup helps this side. Teammates out: Paolo Banchero. Back to back, so watch the minutes."
   },
   {
@@ -117,8 +117,8 @@
     "Paul George"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 12.0,
    "why": "Over 19.5 points. Went over in 8 of his last 10 and 14 of his last 20. Season average 19.5, model has him at 21.1 tonight. Teammates out: Scottie Barnes, Kawhi Leonard, Brandon Ingram. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -152,8 +152,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 1.0,
    "why": "Over 1.5 threes. Went over in 8 of his last 10 and 13 of his last 20. Season average 1.6, model has him at 1.8 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -187,8 +187,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 42.0,
    "why": "Over 48.5 pts+reb+ast. Went over in 8 of his last 10 and 14 of his last 20. Season average 48.8, model has him at 52.3 tonight. Spread is 14.5, so blowout risk. Minutes could get cut late. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
