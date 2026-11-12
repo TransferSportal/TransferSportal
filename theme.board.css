@@ -103,3 +103,55 @@ body .muStar,body .muT3,body .muPanel,body .muRow,body .muTile{-webkit-backdrop-
 body .muTile{border-radius:16px}
 body .muStar,body .muT3,body .muPanel{border-radius:14px}
 ::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:8px}::-webkit-scrollbar-track{background:transparent}
+
+/* ===== NBA Best 5 as the Key Matchups board ===== */
+.kmHead{padding:18px 4px 6px}
+.kmKicker{display:flex;align-items:center;gap:10px;font-family:var(--num);font-size:11px;letter-spacing:.32em;color:var(--ink2)}
+.kmKicker i{display:block;width:8px;height:16px;background:var(--pos);border-radius:2px}
+.kmKicker span{color:var(--ink3)}
+.kmTitle{font-family:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;font-size:clamp(54px,11vw,92px);line-height:.95;letter-spacing:.01em;color:#f6f1e7;margin:8px 0 6px}
+.kmSubtitle{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink2);margin-bottom:14px}
+.kmSubtitle b{display:block;width:26px;height:2px;background:var(--pos)}
+.kmList{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.kmRow{display:grid;grid-template-columns:96px 1fr 156px;min-height:120px;border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;background:#13201f;cursor:pointer;transition:border-color .15s}
+.kmRow:hover{border-color:rgba(34,197,94,.55)}
+.kmPhoto{position:relative;background:linear-gradient(160deg,#2a4a7a,#16233a);display:flex;align-items:flex-end;justify-content:center}
+.kmPhoto img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.kmRank{position:absolute;top:0;left:0;z-index:1;font-family:var(--num);font-size:11px;font-weight:500;color:#e7ecea;background:rgba(0,0,0,.55);padding:3px 7px;border-bottom-right-radius:6px}
+.kmBody{padding:14px 18px;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.kmName{font-family:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;font-size:30px;line-height:1;letter-spacing:.015em;color:#f6f1e7;text-transform:uppercase}
+.kmLean{font-family:var(--num);font-size:10px;letter-spacing:.12em;margin-left:10px;padding:2px 6px;border:1px solid var(--warn);color:var(--warn);border-radius:4px;vertical-align:middle}
+.kmMeta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-family:var(--num);font-size:11px}
+.kmTag{background:#7a2e35;color:#fff;font-weight:600;padding:3px 8px;border-radius:3px;letter-spacing:.04em}
+.kmTagOpp{background:#27508a}
+.kmAt{color:var(--ink3)}
+.kmTime{color:var(--ink2);margin-left:4px}
+.kmLine{font-size:15px;font-weight:700;color:#f6f1e7;line-height:1.3;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;margin-top:2px}
+.kmSub{font-size:13px;color:var(--ink2);line-height:1.4}
+.kmWhy{font-size:12.5px;color:var(--ink2);line-height:1.5;border-top:1px dashed rgba(255,255,255,.12);padding-top:6px}
+.kmTile{margin:10px;border-radius:8px;background:#1a2c2a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;text-align:center}
+.kmBig{font-family:'Bebas Neue','Oswald',Impact,'Arial Narrow',sans-serif;font-size:64px;line-height:.9;color:#b9e8c4}
+.kmLbl{font-family:var(--num);font-size:12px;font-weight:500;letter-spacing:.14em;color:#e7ecea;margin-top:8px}
+.kmRes{font-family:var(--num);font-size:11px;font-weight:700;letter-spacing:.08em;margin-top:8px;padding:2px 8px;border-radius:4px;background:rgba(255,255,255,.08);color:var(--ink2)}
+.km-win .kmRes{color:var(--pos);background:var(--posBg)}
+.km-loss .kmRes{color:var(--neg);background:var(--negBg)}
+.km-win .kmTile{background:#1d3a2a}
+.km-loss .kmTile{background:#3a1f22}
+.km-loss .kmBig{color:#f3b4ba}
+@media(max-width:640px){
+  .kmRow{grid-template-columns:72px 1fr 96px}
+  .kmBody{padding:10px 12px}
+  .kmName{font-size:24px}
+  .kmLine{font-size:13px}
+  .kmSub{font-size:12px}
+  .kmBig{font-size:42px}
+  .kmLbl{font-size:10px;letter-spacing:.08em}
+}
+
+.kmCheck .lcBox{margin:6px 0 0 0;padding-top:8px}
+.kmCheck:empty{display:none}
+
+.kmPhoto>span:not(.kmRank){width:100%!important;height:100%!important;border-radius:0!important;background:transparent!important}
+.kmPhoto>span img{object-position:top center!important}
+
+.kmUnder{font-family:var(--num);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--warn);margin-bottom:4px}

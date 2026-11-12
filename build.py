@@ -48,8 +48,7 @@ _s = app.index("function BoardTab(")
 _e = app.index("// ============ Shell")
 app = app[:_s] + sub(app[_s:_e], "        </div>\n      </div>\n    </section>\n  );\n}\n", "        </div>\n    </section>\n  );\n}\n", "board wrapper end") + app[_e:]
 app = sub(app, "function BoardTab({ DATA, go }) {", "function BoardTab({ DATA }) {", "board props")
-app = sub(app, "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n",
-          "      <div className=\"dk\" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>\n      <LineCheck c={c} />\n", "line check hook")
+app = sub(app, "{/*LINECHECK*/}", "<LineCheck c={c} />", "line check hook")
 # The root component renders the Shell (two main tabs, NFL and NBA) instead of the old tab bar.
 _i = app.index("  return (\n    <>\n      <Header meta={meta} />")
 _j = app.index("function Notes(")
@@ -81,8 +80,8 @@ app = sub(app, "{DATA._crest(p.team)}\n                <div className=\"pcardMid
           "{DATA._crest(p.team)}\n                <Face name={p.name} team={p.team} size={40} />\n                <div className=\"pcardMid\">", "player stats face")
 app = sub(app, """<img src={p.headshot} alt="" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', background: 'var(--sunk)' }} onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
           """<Face nba id={p.id} name={p.name} size={30} />""", "nba table face")
-app = sub(app, """<img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', background: 'var(--sunk)' }} onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
-          """<Face nba id={c.pid} name={c.name} size={48} />""", "nba best 5 face")
+app = sub(app, """<img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
+          """<Face nba id={c.pid} name={c.name} size={96} round={false} />""", "nba best 5 face")
 app = sub(app, """<img src={p.headshot || ('https://a.espncdn.com/i/headshots/nba/players/full/' + p.id + '.png')} alt="" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />""",
           """<Face nba id={p.id} name={p.name} size={56} />""", "nba research face")
 app = sub(app, '<span className="av">{p.pos}</span>', '<Face name={p.name} team={p.team} size={36} round={false} />', "nfl board row face")
@@ -163,7 +162,7 @@ head = (
     '<link rel="preconnect" href="https://fonts.googleapis.com">'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&'
-    'family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style>'
+    'family=IBM+Plex+Sans:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet"><style>'
 )
 scripts = (
     '</style></head><body><div id="root"></div>'

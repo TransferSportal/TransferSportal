@@ -248,41 +248,60 @@ function NbaResult({ c }) {
   if (c.result === 'void') return <span className="badge" style={{ ...base, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)' }}>Void · did not play</span>;
   return <span className="badge" style={{ ...base, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)' }}>Pending</span>;
 }
+function kmThreshold(c) {
+  // Over 19.5 reads as "20+"; an Under shows its line under a small UNDER tag.
+  if (c.side === 'over') return Math.ceil(Number(c.line)) + '+';
+  return String(c.line);
+}
+const KM_LABEL = { pts: 'POINTS', reb: 'REBOUNDS', ast: 'ASSISTS', fg3: 'MADE THREES', pra: 'PTS+REB+AST' };
+function kmSentence(c) {
+  const n10 = Math.round(c.hit10 * 10);
+  const w = c.side === 'over' ? 'over' : 'under';
+  return 'Went ' + w + ' ' + c.line + ' in ' + n10 + ' of his last 10 and ' + Math.round(c.hit20 * c.n20) + ' of ' + c.n20 + '.';
+}
 function NbaPickRow({ c, rank }) {
   const [open, setOpen] = useState(false);
   const need = c.side === 'over' ? c.line + ' or lower' : c.line + ' or higher';
-  const cell = { minWidth: 64 };
-  const f1 = v => (v == null ? '—' : Number(v).toFixed(1));
+  const done = c.result === 'win' || c.result === 'loss' || c.result === 'void';
   return (
-    <div style={{ border: '1px solid var(--line)', borderRadius: 'var(--r)', background: 'var(--card)', padding: '12px 14px', marginBottom: 10 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }} onClick={() => setOpen(!open)}>
-        <span className="dk" style={{ margin: 0, width: 16 }}>{rank}</span>
-        <img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', background: 'var(--sunk)' }} onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
-        <div style={{ flex: '1 1 160px', minWidth: 150 }}>
-          <div style={{ color: 'var(--ink)', fontWeight: 600 }}>{c.name}{c.lean && <span className="badge" style={{ marginLeft: 8, color: 'var(--ink2)', borderColor: 'var(--line)', background: 'var(--sunk)' }}>Lean</span>}</div>
-          <div className="tc dk" style={{ margin: 0 }}>
-            <span>{c.team}</span><span>{c.home ? 'vs' : '@'}</span><NbaTeam t={c.opp} /><span>· {nbaDay(c.tip)}{c.b2b ? ' · back to back' : ''}</span>
+    <div className={'kmRow' + (c.result ? ' km-' + c.result : '')} onClick={() => setOpen(!open)}>
+      <div className="kmPhoto">
+        <span className="kmRank">{String(rank).padStart(2, '0')}</span>
+        <img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
+      </div>
+      <div className="kmBody">
+        <div className="kmName">{c.name}{c.lean && <span className="kmLean">LEAN</span>}</div>
+        <div className="kmMeta">
+          <span className="kmTag">{c.team}</span><span className="kmAt">{c.home ? 'vs' : '@'}</span><span className="kmTag kmTagOpp">{c.opp}</span>
+          <span className="kmTime">{nbaTimeET(c.tip)}{c.b2b ? ' · back to back' : ''}</span>
+        </div>
+        <div className="kmLine">{kmSentence(c)}</div>
+        <div className="kmSub">Season average {c.avg}, model has {c.proj} tonight. L5 {c.l5 == null ? '—' : Number(c.l5).toFixed(1)}, L10 {c.l10 == null ? '—' : Number(c.l10).toFixed(1)}.</div>
+        <div className="kmCheck" onClick={e => e.stopPropagation()}>{/*LINECHECK*/}</div>
+        {open && (
+          <div className="kmWhy">
+            {c.why}
+            {c.opp_out && c.opp_out.length > 0 && <div>{c.opp} without: {c.opp_out.join(', ')}.</div>}
+            <div>Only take it if your book has {need}.</div>
           </div>
-        </div>
-        <div style={{ fontFamily: 'var(--num)', fontWeight: 700, fontSize: 18, color: 'var(--ink)', whiteSpace: 'nowrap' }}>{nbaPickText(c)}</div>
-        <NbaResult c={c} />
+        )}
       </div>
-      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 10, paddingLeft: 28 }}>
-        <div style={cell}><div className="dk" style={{ margin: 0 }}>Model tonight</div><b>{c.proj}</b></div>
-        <div style={cell}><div className="dk" style={{ margin: 0 }}>Season avg</div><b>{c.avg}</b></div>
-        <div style={cell}><div className="dk" style={{ margin: 0 }}>Last 10 {c.side}</div><b>{Math.round(c.hit10 * 10)}/10</b></div>
-        <div style={cell}><div className="dk" style={{ margin: 0 }}>Last {c.n20} {c.side}</div><b>{Math.round(c.hit20 * c.n20)}/{c.n20}</b></div>
-        <div style={cell}><div className="dk" style={{ margin: 0 }}>L5 / L10 avg</div><b>{f1(c.l5)} / {f1(c.l10)}</b></div>
+      <div className="kmTile">
+        {c.side !== 'over' && <div className="kmUnder">UNDER</div>}
+        <div className="kmBig">{kmThreshold(c)}</div>
+        <div className="kmLbl">{KM_LABEL[c.stat] || String(c.stat).toUpperCase()}</div>
+        {done && <div className="kmRes">{c.result === 'void' ? 'VOID' : c.result.toUpperCase() + ' · ' + c.actual}</div>}
       </div>
-      <div className="dk" style={{ margin: '8px 0 0 28px' }}>Only take it if your book has {need}. Tap for the reasoning.</div>
-      {open && (
-        <div className="dk" style={{ margin: '6px 0 0 28px', color: 'var(--ink2)' }}>
-          {c.why}
-          {c.opp_out && c.opp_out.length > 0 && <div style={{ marginTop: 4 }}>{c.opp} without: {c.opp_out.join(', ')}.</div>}
-        </div>
-      )}
     </div>
   );
+}
+function nbaTimeET(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET';
+}
+function kmSlateDay(card) {
+  const d = new Date((card.date || '') + 'T12:00:00');
+  return isNaN(d) ? 'TODAY' : d.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
 }
 function NbaPicks({ P }) {
   const card = P && P.card;
@@ -300,7 +319,14 @@ function NbaPicks({ P }) {
         {done.length > 0 && <span>{done.filter(c => c.result === 'win').length}-{done.filter(c => c.result === 'loss').length} so far</span>}
         <span style={{ marginLeft: 'auto' }}>Model lines, not sportsbook lines.</span>
       </div>
-      {card.picks.map((c, i) => <NbaPickRow key={c.pid + c.stat} c={c} rank={i + 1} />)}
+      <div className="kmHead">
+        <div className="kmKicker"><i></i>NBA <span>/</span> {kmSlateDay(card)} SLATE</div>
+        <div className="kmTitle">KEY MATCHUPS</div>
+        <div className="kmSubtitle"><b></b>{card.picks.every(c => c.side === 'over') ? 'Five player overs' : 'Five player picks'}</div>
+      </div>
+      <div className="kmList">
+        {card.picks.map((c, i) => <NbaPickRow key={c.pid + c.stat} c={c} rank={i + 1} />)}
+      </div>
       <div className="calNote">
         <b>How these are picked.</b> Each line is the player's season average rounded to a half point. A pick needs the model's
         number for tonight to sit well off that line, and the player to have gone that way in at least 7 of his last 10. Last
