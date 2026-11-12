@@ -13,8 +13,8 @@ a half point, then looks for the spots where:
 Overs only: every Under is skipped, by request. The top 5 by a score built from the gap, the last 10 and the last 20 become the
 card. One pick per player, at most 2 per game and 2 per stat.
 
-Lines are real sportsbook lines (DraftKings via nba_lines.py). A player with no book line for a
-stat is skipped; there is no fallback to model lines. The model supplies the projection and the side. If the book's number is worse
+Lines are real sportsbook lines when nba_lines.py has them. A player with no book line for a
+stat falls back to the model line (season average, rounded to a half point), marked line_src "model". The model supplies the projection and the side. If the book's number is worse
 than the model line (higher for an Over, lower for an Under) the edge shrinks or
 is gone. On last season's games this rule hit about 64% of Overs and 70% of
 Unders against these model lines (baseline: 45% Overs, 55% Unders). That says
@@ -160,7 +160,9 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 continue
             bl = (lines.get(norm(p["name"])) or {}).get(s)
             if not bl:
-                continue                   # no sportsbook line for this player and stat: not a candidate
+                # No sportsbook line (no feed key, or this prop is not posted): fall back to the model's own line,
+                # so the card is never empty just because the feed is down. Marked line_src "model" on the pick.
+                bl = {"line": model_line(avg), "over": None, "src": "model"}
             line = bl["line"]
             if line < MIN_LINE[s]:
                 continue
@@ -198,7 +200,7 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             out.append({
                 "pid": p["id"], "name": p["name"], "team": p["team"], "pos": p["pos"],
                 "opp": nx["opp"], "home": nx["home"], "tip": nx["date"], "b2b": nx.get("b2b", False),
-                "stat": s, "line": line, "side": side, "line_src": "book", "book": book, "price": bl.get("over"),
+                "stat": s, "line": line, "side": side, "line_src": bl.get("src", "book"), "book": book, "price": bl.get("over"),
                 "hit10": round(h10, 2), "hit20": round(h20, 2), "n20": len(v20),
                 "proj": round(proj, 1), "avg": round(avg, 1), "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
                 "sd10": sd, "z": round(z, 2), "score": round(score, 3),
