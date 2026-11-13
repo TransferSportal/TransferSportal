@@ -38,8 +38,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 9.0,
    "why": "Over 4.5 rebounds. Went over in 9 of his last 10 and 14 of his last 20. Season average 4.4, model has him at 5.3 tonight. Teammates out: Anthony Edwards."
   },
   {
@@ -79,8 +79,8 @@
     "Kon Knueppel"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 4.0,
    "why": "Over 1.5 threes. Went over in 8 of his last 10 and 14 of his last 20. Season average 1.8, model has him at 2.0 tonight."
   },
   {
@@ -123,8 +123,8 @@
     "LeBron James"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 31.0,
    "why": "Over 19.5 points. Went over in 7 of his last 10 and 14 of his last 20. Season average 19.3, model has him at 21.6 tonight. Teammates out: Scottie Barnes, Kawhi Leonard, Brandon Ingram. Back to back, so watch the minutes. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -167,8 +167,8 @@
     "Brandon Ingram"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 0.0,
    "why": "Over 1.5 threes. Went over in 6 of his last 10 and 14 of his last 20. Season average 1.8, model has him at 2.0 tonight. Teammates out: LeBron James. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -207,8 +207,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 18.0,
    "why": "Over 15.5 points. Went over in 6 of his last 10 and 14 of his last 20. Season average 15.3, model has him at 18.6 tonight. Teammates out: Anthony Edwards. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
