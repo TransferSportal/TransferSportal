@@ -138,6 +138,7 @@ function NflResearch({ DATA }) {
         <div className="rcSub" style={{ marginTop: 8 }}>Last {Math.min(g.length, 12)} games, oldest to newest{st !== 'td' && isFinite(parseFloat(line)) ? '. Green cleared ' + line + '.' : '.'}</div>
         {gamesView}
         <div className="rcFacts">{facts.map(([a, b]) => <div className="rcF" key={a}>{a}<b>{b}</b></div>)}</div>
+        <NflH2H p={p} DEF={DEF} />
         {dmap && (
           <>
             <div className="rcSub" style={{ marginTop: 12 }}>Every defense against {p.pos}s, {(NR_STATS.find(x => x[0] === st) || [0, st])[1].toLowerCase()} allowed, softest first. Averages are pulled toward the league mean because the samples are small.</div>
@@ -166,6 +167,49 @@ function NflResearch({ DATA }) {
       <BetsPanel only="props" />
       <div className="rcSub" style={{ marginTop: 10 }}>Stats current as of {DATA.meta && DATA.meta.generated}. Verdict rule: his recent games, weighted toward the latest, have to sit at least half a typical swing from the line and he has to have gone that way in most of his last 8. A tough yards-allowed matchup caps a Play at Lean. Position yards allowed explained little week to week this season except for QB passing yards, so it only moves passing projections. Weather and snap share are shown as context. Weather only caps an over at Lean when wind, cold or rain is forecast. I could not backtest either one against past games. Anytime TD compares the model's chance to the odds you type. Model estimates, not guarantees.</div>
     </section>
+  );
+}
+function NflH2H({ p, DEF }) {
+  const g = p.g || [];
+  if (!p.opp || !g.length) return null;
+  const vs = g.filter(r => r[2] === p.opp);
+  const ALL = { QB: [['py', 'Pass yds', 9]], RB: [['ruy', 'Rush yds', 7], ['ry', 'Rec yds', 4], ['rc', 'Receptions', 5]], WR: [['ry', 'Rec yds', 4], ['rc', 'Receptions', 5]], TE: [['ry', 'Rec yds', 4], ['rc', 'Receptions', 5]] };
+  const cols = ALL[p.pos] || ALL.WR;
+  const avg = (rows, ix) => (rows.length ? rows.reduce((s, r) => s + r[ix], 0) / rows.length : null);
+  const f1 = x => (x == null ? '—' : x.toFixed(1));
+  const tdAll = g.filter(r => r[12] > 0).length, tdVs = vs.filter(r => r[12] > 0).length;
+  return (
+    <div className="h2h">
+      <style>{`.h2h{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--sunk)}
+.h2h .h2hT{font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:8px}
+.h2h table{width:100%;border-collapse:collapse;font-size:12px}
+.h2h th{position:static;text-align:right;font-size:10px;font-weight:600;color:var(--ink3);padding:4px 6px;border-bottom:1px solid var(--line);background:none;cursor:default}
+.h2h td{text-align:right;padding:6px;border-bottom:1px solid var(--line2);color:var(--ink2);font-family:var(--num)}
+.h2h th:first-child,.h2h td:first-child{text-align:left;color:var(--ink);font-family:var(--ui);font-weight:600}
+.h2h .up{color:var(--pos);font-weight:700}.h2h .dn{color:var(--neg);font-weight:700}
+.h2h .h2hN{font-size:11.5px;color:var(--ink2);margin-top:8px;line-height:1.5}`}</style>
+      <div className="h2hT">HEAD TO HEAD vs {p.opp}{p.h ? ' (home)' : ' (away)'}</div>
+      <table>
+        <thead><tr><th>Stat</th><th>All logged</th><th>vs {p.opp}{vs.length ? ' (' + vs.length + ' g)' : ''}</th><th>Diff</th><th>{p.opp} allows to {p.pos}s</th></tr></thead>
+        <tbody>
+          {cols.map(([k, l, ix]) => {
+            const a = avg(g, ix), v = avg(vs, ix), df = a != null && v != null ? v - a : null;
+            const dm = (DEF[p.pos + '|' + k] || {})[p.opp];
+            return (
+              <tr key={k}>
+                <td>{l}</td><td>{f1(a)}</td><td>{f1(v)}</td>
+                <td className={df == null ? '' : df > 1 ? 'up' : df < -1 ? 'dn' : ''}>{df == null ? '—' : (df > 0 ? '+' : '') + df.toFixed(1)}</td>
+                <td>{dm ? Math.round(dm.pg * 10) / 10 + '/g · #' + dm.rank + ' softest' : '—'}</td>
+              </tr>
+            );
+          })}
+          <tr><td>Games with a TD</td><td>{tdAll} of {g.length}</td><td>{vs.length ? tdVs + ' of ' + vs.length : '—'}</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <div className="h2hN">
+        {vs.length ? 'Against ' + p.opp + ': ' + vs.map(r => r[0] + ' wk ' + r[1] + (r[3] ? ' vs' : ' @') + ' · ' + cols.map(([k, l, ix]) => r[ix]).join('/') + (r[12] ? ' · ' + r[12] + ' TD' : '')).join('  ·  ') : 'No logged games against ' + p.opp + ' in the games on file.'}
+      </div>
+    </div>
   );
 }
 function NewsFlags({ DATA, sport }) {
