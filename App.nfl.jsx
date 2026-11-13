@@ -200,7 +200,7 @@ function NewsFlags({ DATA, sport }) {
   );
 }
 function MyGames({ DATA }) {
-  const { db, bets, ok } = useBets();
+  const { db, mine: bets, ok, me } = useBets();
   const G = (DATA.games_model && DATA.games_model.games) || [];
   const [lines, setLines] = useState({});
   const [busy, setBusy] = useState('');
@@ -208,7 +208,7 @@ function MyGames({ DATA }) {
   const wk = DATA.picks && DATA.picks.week, season = DATA.picks && DATA.picks.season;
   const pick = async (g, team) => {
     if (!db || busy) return;
-    const id = ['game', season, wk, g.away, g.home].join('_');
+    const id = (me === 'RK' ? ['game'] : ['game', me]).concat([season, wk, g.away, g.home]).join('_');
     const have = bets.find(b => b.id === id);
     const dflt = team === g.home ? g.spread_line * -1 : g.spread_line;
     const typed = parseFloat(lines[g.home]);
@@ -217,7 +217,7 @@ function MyGames({ DATA }) {
     try {
       const ref = db.collection('bets').doc(id);
       if (have && have.pickTeam === team && have.status === 'pending') await ref.delete();
-      else if (!have || have.status === 'pending') await ref.set({ type: 'game', season, week: wk, home: g.home, away: g.away, kick: g.kick, pickTeam: team, line: ln, modelTeam: g.ats_pick_team, modelPick: g.ats_pick, status: 'pending', placedAt: new Date().toISOString() });
+      else if (!have || have.status === 'pending') await ref.set({ type: 'game', owner: me, season, week: wk, home: g.home, away: g.away, kick: g.kick, pickTeam: team, line: ln, modelTeam: g.ats_pick_team, modelPick: g.ats_pick, status: 'pending', placedAt: new Date().toISOString() });
     } catch (e) { /* refused */ }
     setBusy('');
   };
@@ -229,7 +229,7 @@ function MyGames({ DATA }) {
       <div className="rcSub" style={{ marginBottom: 10 }}>The model's card stays as it is. Tap a team to save your own spread pick next to it. Type a different line first if your book has one.</div>
       <div className="rcMain">
         {G.map(g => {
-          const id = ['game', season, wk, g.away, g.home].join('_');
+          const id = (me === 'RK' ? ['game'] : ['game', me]).concat([season, wk, g.away, g.home]).join('_');
           const have = bets.find(b => b.id === id);
           const past = g.kick < today;
           return (
