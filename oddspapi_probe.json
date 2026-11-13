@@ -1,2386 +1,7826 @@
 {
- "markets_status": 200,
- "nba_playerprop_market_count": 440,
- "nba_playerprop_names": {
-  "Over Under Player Points (incl. overtime)": [
-   [
-    111678,
-    4.5,
-    "result",
-    "playertotals-points"
-   ],
-   [
-    111680,
-    5.5,
-    "result",
-    "playertotals-points"
-   ],
-   [
-    111682,
-    6.5,
-    "result",
-    "playertotals-points"
+ "catalog_status": 200,
+ "some": {
+  "14388": {
+   "marketId": 14388,
+   "marketLength": 2,
+   "marketName": "Player To Score TD (incl. overtime)",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 0.0,
+   "period": "result",
+   "marketType": "players-td",
+   "outcomes": [
+    {
+     "outcomeId": 14389,
+     "outcomeName": "No"
+    },
+    {
+     "outcomeId": 14388,
+     "outcomeName": "Yes"
+    }
    ]
-  ],
-  "Over Under Player Rebounds (incl. overtime)": [
-   [
-    111762,
-    0.5,
-    "result",
-    "playertotals-rebounds"
-   ],
-   [
-    111764,
-    1.5,
-    "result",
-    "playertotals-rebounds"
-   ],
-   [
-    111766,
-    2.5,
-    "result",
-    "playertotals-rebounds"
-   ]
-  ],
-  "Over Under Player 3 Point FG (incl. overtime)": [
-   [
-    111792,
-    0.5,
-    "result",
-    "playertotals-3pointers"
-   ],
-   [
-    111794,
-    1.5,
-    "result",
-    "playertotals-3pointers"
-   ],
-   [
-    111796,
-    2.5,
-    "result",
-    "playertotals-3pointers"
-   ]
-  ],
-  "Over Under Player Points + Assists + Rebounds (incl. overtime)": [
-   [
-    111808,
-    10.5,
-    "result",
-    "playertotals-ptsassreb"
-   ],
-   [
-    111810,
-    11.5,
-    "result",
-    "playertotals-ptsassreb"
-   ],
-   [
-    111812,
-    12.5,
-    "result",
-    "playertotals-ptsassreb"
-   ]
-  ],
-  "Over Under Player Assists (incl. overtime)": [
-   [
-    111888,
-    0.5,
-    "result",
-    "playertotals-assists"
-   ],
-   [
-    111890,
-    1.5,
-    "result",
-    "playertotals-assists"
-   ],
-   [
-    111892,
-    2.5,
-    "result",
-    "playertotals-assists"
-   ]
-  ],
-  "Over Under Player Assists + Rebounds (incl. overtime)": [
-   [
-    111918,
-    0.5,
-    "result",
-    "playertotals-assreb"
-   ],
-   [
-    111920,
-    1.5,
-    "result",
-    "playertotals-assreb"
-   ],
-   [
-    111922,
-    2.5,
-    "result",
-    "playertotals-assreb"
-   ]
-  ],
-  "Over Under Player Points + Rebounds (incl. overtime)": [
-   [
-    111976,
-    0.5,
-    "result",
-    "playertotals-ptsreb"
-   ],
-   [
-    111978,
-    1.5,
-    "result",
-    "playertotals-ptsreb"
-   ],
-   [
-    111980,
-    2.5,
-    "result",
-    "playertotals-ptsreb"
-   ]
-  ],
-  "Over Under Player Points + Assists (incl. overtime)": [
-   [
-    112074,
-    0.5,
-    "result",
-    "playertotals-ptsass"
-   ],
-   [
-    112076,
-    1.5,
-    "result",
-    "playertotals-ptsass"
-   ],
-   [
-    112078,
-    2.5,
-    "result",
-    "playertotals-ptsass"
-   ]
-  ],
-  "Over Under Player Steals (incl. overtime)": [
-   [
-    112174,
-    0.5,
-    "result",
-    "playertotals-steals"
-   ],
-   [
-    112176,
-    1.5,
-    "result",
-    "playertotals-steals"
-   ],
-   [
-    112178,
-    2.5,
-    "result",
-    "playertotals-steals"
-   ]
-  ],
-  "Over Under Player Blocks (incl. overtime)": [
-   [
-    112194,
-    0.5,
-    "result",
-    "playertotals-blocks"
-   ],
-   [
-    112196,
-    1.5,
-    "result",
-    "playertotals-blocks"
-   ],
-   [
-    112198,
-    2.5,
-    "result",
-    "playertotals-blocks"
-   ]
-  ],
-  "Over Under Player Turnovers (incl. overtime)": [
-   [
-    112214,
-    0.5,
-    "result",
-    "playertotals-turnovers"
-   ],
-   [
-    112216,
-    1.5,
-    "result",
-    "playertotals-turnovers"
-   ],
-   [
-    112218,
-    2.5,
-    "result",
-    "playertotals-turnovers"
-   ]
-  ],
-  "Over Under Player Steals + Blocks (incl. overtime)": [
-   [
-    112234,
-    0.5,
-    "result",
-    "playertotals-stlblo"
-   ],
-   [
-    112236,
-    1.5,
-    "result",
-    "playertotals-stlblo"
-   ],
-   [
-    112238,
-    2.5,
-    "result",
-    "playertotals-stlblo"
-   ]
-  ],
-  "Player Points (incl. overtime)": [
-   [
-    112254,
-    0.0,
-    "result",
-    "players-points"
-   ]
-  ],
-  "Player Rebounds (incl. overtime)": [
-   [
-    112305,
-    0.0,
-    "result",
-    "players-rebounds"
-   ]
-  ],
-  "Player 3 Point FG (incl. overtime)": [
-   [
-    112317,
-    0.0,
-    "result",
-    "players-3pointers"
-   ]
-  ],
-  "Player Points + Assists + Rebounds (incl. overtime)": [
-   [
-    112328,
-    0.0,
-    "result",
-    "players-ptsassreb"
-   ]
-  ],
-  "Player Assists (incl. overtime)": [
-   [
-    112389,
-    0.0,
-    "result",
-    "players-assists"
-   ]
-  ],
-  "Player Assists + Rebounds (incl. overtime)": [
-   [
-    112405,
-    0.0,
-    "result",
-    "players-assreb"
-   ]
-  ],
-  "Player Points + Rebounds (incl. overtime)": [
-   [
-    112436,
-    0.0,
-    "result",
-    "players-ptsreb"
-   ]
-  ],
-  "Player Points + Assists (incl. overtime)": [
-   [
-    112497,
-    0.0,
-    "result",
-    "players-ptsass"
-   ]
-  ],
-  "Player Steals (incl. overtime)": [
-   [
-    112558,
-    0.0,
-    "result",
-    "players-steals"
-   ]
-  ],
-  "Player Blocks (incl. overtime)": [
-   [
-    112569,
-    0.0,
-    "result",
-    "players-blocks"
-   ]
-  ],
-  "Player Turnovers (incl. overtime)": [
-   [
-    112580,
-    0.0,
-    "result",
-    "players-turnovers"
-   ]
-  ],
-  "Player Steals + Blocks (incl. overtime)": [
-   [
-    112591,
-    0.0,
-    "result",
-    "players-stlblo"
-   ]
-  ],
-  "Player Double - Double": [
-   [
-    112602,
-    0.0,
-    "result",
-    "players-doubledouble"
-   ]
-  ],
-  "Player Triple - Double": [
-   [
-    112603,
-    0.0,
-    "result",
-    "players-tripletriple"
-   ]
-  ],
-  "Player First Point": [
-   [
-    112604,
-    0.0,
-    "result",
-    "players-firstpoint"
-   ]
-  ],
-  "Player First 3 Point FG": [
-   [
-    112605,
-    0.0,
-    "result",
-    "players-first3pointer"
-   ]
-  ],
-  "Over Under Player Points First Quarter": [
-   [
-    112606,
-    0.5,
-    "p1",
-    "playertotals-points"
-   ],
-   [
-    112608,
-    1.5,
-    "p1",
-    "playertotals-points"
-   ],
-   [
-    112610,
-    2.5,
-    "p1",
-    "playertotals-points"
-   ]
-  ],
-  "Over Under Player Rebounds First Quarter": [
-   [
-    112646,
-    0.5,
-    "p1",
-    "playertotals-rebounds"
-   ],
-   [
-    112648,
-    1.5,
-    "p1",
-    "playertotals-rebounds"
-   ],
-   [
-    112650,
-    2.5,
-    "p1",
-    "playertotals-rebounds"
-   ]
-  ],
-  "Over Under Player 3 Point FG First Quarter": [
-   [
-    112660,
-    0.5,
-    "p1",
-    "playertotals-3pointer"
-   ],
-   [
-    112662,
-    1.5,
-    "p1",
-    "playertotals-3pointer"
-   ],
-   [
-    112664,
-    2.5,
-    "p1",
-    "playertotals-3pointer"
-   ]
-  ],
-  "Over Under Player Points + Assists + Rebounds First Quarter": [
-   [
-    112674,
-    0.5,
-    "p1",
-    "playertotals-ptsassreb"
-   ],
-   [
-    112676,
-    1.5,
-    "p1",
-    "playertotals-ptsassreb"
-   ],
-   [
-    112678,
-    2.5,
-    "p1",
-    "playertotals-ptsassreb"
-   ]
-  ],
-  "Over Under Player Assists First Quarter": [
-   [
-    112714,
-    0.5,
-    "p1",
-    "playertotals-assists"
-   ],
-   [
-    112716,
-    1.5,
-    "p1",
-    "playertotals-assists"
-   ],
-   [
-    112718,
-    2.5,
-    "p1",
-    "playertotals-assists"
-   ]
-  ],
-  "Over Under Player Assists + Rebounds First Quarter": [
-   [
-    112728,
-    0.5,
-    "p1",
-    "playertotals-assreb"
-   ],
-   [
-    112730,
-    1.5,
-    "p1",
-    "playertotals-assreb"
-   ],
-   [
-    112732,
-    2.5,
-    "p1",
-    "playertotals-assreb"
-   ]
-  ],
-  "Over Under Player Points + Rebounds First Quarter": [
-   [
-    112758,
-    0.5,
-    "p1",
-    "playertotals-ptsreb"
-   ],
-   [
-    112760,
-    1.5,
-    "p1",
-    "playertotals-ptsreb"
-   ],
-   [
-    112762,
-    2.5,
-    "p1",
-    "playertotals-ptsreb"
-   ]
-  ],
-  "Over Under Player Points + Assists First Quarter": [
-   [
-    112798,
-    0.5,
-    "p1",
-    "playertotals-ptsass"
-   ],
-   [
-    112800,
-    1.5,
-    "p1",
-    "playertotals-ptsass"
-   ],
-   [
-    112802,
-    2.5,
-    "p1",
-    "playertotals-ptsass"
-   ]
-  ],
-  "Over Under Player Steals First Quarter": [
-   [
-    112838,
-    0.5,
-    "p1",
-    "playertotals-steals"
-   ],
-   [
-    112840,
-    1.5,
-    "p1",
-    "playertotals-steals"
-   ],
-   [
-    112842,
-    2.5,
-    "p1",
-    "playertotals-steals"
-   ]
-  ],
-  "Over Under Player Blocks First Quarter": [
-   [
-    112848,
-    0.5,
-    "p1",
-    "playertotals-blocks"
-   ],
-   [
-    112850,
-    1.5,
-    "p1",
-    "playertotals-blocks"
-   ],
-   [
-    112852,
-    2.5,
-    "p1",
-    "playertotals-blocks"
-   ]
-  ],
-  "Over Under Player Turnovers First Quarter": [
-   [
-    112858,
-    0.5,
-    "p1",
-    "playertotals-turnovers"
-   ],
-   [
-    112860,
-    1.5,
-    "p1",
-    "playertotals-turnovers"
-   ],
-   [
-    112862,
-    2.5,
-    "p1",
-    "playertotals-turnovers"
-   ]
-  ],
-  "Over Under Player Steals + Blocks First Quarter": [
-   [
-    112868,
-    0.5,
-    "p1",
-    "playertotals-stlblo"
-   ],
-   [
-    112870,
-    1.5,
-    "p1",
-    "playertotals-stlblo"
-   ],
-   [
-    112872,
-    2.5,
-    "p1",
-    "playertotals-stlblo"
-   ]
-  ]
- },
- "nfl_playerprop_market_count": 6778,
- "nfl_playerprop_names": {
-  "Player To Score TD (incl. overtime)": [
-   [
-    14388,
-    0.0,
-    "result",
-    "players-td"
-   ],
-   [
-    144637,
-    0.0,
-    "result",
-    "players-td"
-   ],
-   [
-    144643,
-    0.0,
-    "result",
-    "players-td-other"
-   ]
-  ],
-  "Player To Score First TD (incl. overtime)": [
-   [
-    14390,
-    0.0,
-    "result",
-    "players-firsttd"
-   ]
-  ],
-  "Player To Score Second TD (incl. overtime)": [
-   [
-    14392,
-    0.0,
-    "result",
-    "players-secondtd"
-   ]
-  ],
-  "Player To Score Third TD (incl. overtime)": [
-   [
-    14394,
-    0.0,
-    "result",
-    "players-thirdtd"
-   ]
-  ],
-  "Over Under Player TD Passes (incl. overtime)": [
-   [
-    14396,
-    0.5,
-    "result",
-    "playertotals-tdpasses"
-   ],
-   [
-    14398,
-    1.5,
-    "result",
-    "playertotals-tdpasses"
-   ],
-   [
-    14400,
-    2.5,
-    "result",
-    "playertotals-tdpasses"
-   ]
-  ],
-  "Over Under Player Interceptions (incl. overtime)": [
-   [
-    14402,
-    0.5,
-    "result",
-    "playertotals-interceptions"
-   ],
-   [
-    14404,
-    1.5,
-    "result",
-    "playertotals-interceptions"
-   ],
-   [
-    14406,
-    2.5,
-    "result",
-    "playertotals-interceptions"
-   ]
-  ],
-  "Over Under Player Receptions (incl. overtime)": [
-   [
-    14408,
-    0.5,
-    "result",
-    "playertotals-receptions"
-   ],
-   [
-    14410,
-    1.5,
-    "result",
-    "playertotals-receptions"
-   ],
-   [
-    14412,
-    2.5,
-    "result",
-    "playertotals-receptions"
-   ]
-  ],
-  "Player To Score TD First Quarter (incl. overtime)": [
-   [
-    144644,
-    0.0,
-    "p1",
-    "players-td-other"
-   ],
-   [
-    144645,
-    0.0,
-    "p1",
-    "players-td"
-   ]
-  ],
-  "Player To Score TD First Half (incl. overtime)": [
-   [
-    144647,
-    0.0,
-    "p1+p2",
-    "players-td-other"
-   ],
-   [
-    144648,
-    0.0,
-    "p1+p2",
-    "players-td"
-   ]
-  ],
-  "Player To Score TD Second Half (incl. overtime)": [
-   [
-    144650,
-    0.0,
-    "p3+p4+overtime",
-    "players-td-other"
-   ],
-   [
-    144651,
-    0.0,
-    "p3+p4+overtime",
-    "players-td"
-   ]
-  ],
-  "Over Under Player Pass Yards (incl. overtime)": [
-   [
-    144653,
-    100.5,
-    "result",
-    "playertotals-passyards"
-   ],
-   [
-    144655,
-    101.5,
-    "result",
-    "playertotals-passyards"
-   ],
-   [
-    144657,
-    102.5,
-    "result",
-    "playertotals-passyards"
-   ]
-  ],
-  "Player Pass Yards (incl. overtime)": [
-   [
-    145253,
-    0.0,
-    "result",
-    "players-passyards"
-   ]
-  ],
-  "Over Under Player Pass Attempts (incl. overtime)": [
-   [
-    145284,
-    0.5,
-    "result",
-    "playertotals-passattempts"
-   ],
-   [
-    145286,
-    1.5,
-    "result",
-    "playertotals-passattempts"
-   ],
-   [
-    145288,
-    2.5,
-    "result",
-    "playertotals-passattempts"
-   ]
-  ],
-  "Over Under Player Pass Completions (incl. overtime)": [
-   [
-    145424,
-    0.5,
-    "result",
-    "playertotals-passcompletions"
-   ],
-   [
-    145426,
-    1.5,
-    "result",
-    "playertotals-passcompletions"
-   ],
-   [
-    145428,
-    2.5,
-    "result",
-    "playertotals-passcompletions"
-   ]
-  ],
-  "Over Under Player Longest Pass Completion (incl. overtime)": [
-   [
-    145564,
-    9.5,
-    "result",
-    "playertotals-longestpasscomp"
-   ],
-   [
-    145566,
-    10.5,
-    "result",
-    "playertotals-longestpasscomp"
-   ],
-   [
-    145568,
-    11.5,
-    "result",
-    "playertotals-longestpasscomp"
-   ]
-  ],
-  "Over Under Player Rush Yards (incl. overtime)": [
-   [
-    145746,
-    9.5,
-    "result",
-    "playertotals-rushyards"
-   ],
-   [
-    145748,
-    10.5,
-    "result",
-    "playertotals-rushyards"
-   ],
-   [
-    145750,
-    11.5,
-    "result",
-    "playertotals-rushyards"
-   ]
-  ],
-  "Player Rush Yards (incl. overtime)": [
-   [
-    146128,
-    0.0,
-    "result",
-    "players-rushyards"
-   ]
-  ],
-  "Over Under Player Rush Attempts (incl. overtime)": [
-   [
-    146167,
-    0.5,
-    "result",
-    "playertotals-rushattempts"
-   ],
-   [
-    146169,
-    1.5,
-    "result",
-    "playertotals-rushattempts"
-   ],
-   [
-    146171,
-    2.5,
-    "result",
-    "playertotals-rushattempts"
-   ]
-  ],
-  "Player Rush Attempts (incl. overtime)": [
-   [
-    146267,
-    0.0,
-    "result",
-    "players-rushattempts"
-   ]
-  ],
-  "Over Under Player Longest Rush Yards (incl. overtime)": [
-   [
-    146318,
-    0.5,
-    "result",
-    "playertotals-longestrushyards"
-   ],
-   [
-    146320,
-    1.5,
-    "result",
-    "playertotals-longestrushyards"
-   ],
-   [
-    146322,
-    2.5,
-    "result",
-    "playertotals-longestrushyards"
-   ]
-  ],
-  "Over Under Player Rush TD (incl. overtime)": [
-   [
-    146418,
-    0.5,
-    "result",
-    "playertotals-rushtd"
-   ],
-   [
-    146420,
-    1.5,
-    "result",
-    "playertotals-rushtd"
-   ],
-   [
-    146422,
-    2.5,
-    "result",
-    "playertotals-rushtd"
-   ]
-  ],
-  "Player Rush TD (incl. overtime)": [
-   [
-    146426,
-    0.0,
-    "result",
-    "players-rushtd"
-   ]
-  ],
-  "Over Under Player Sacks (incl. overtime)": [
-   [
-    146431,
-    0.5,
-    "result",
-    "playertotals-sacks"
-   ],
-   [
-    146433,
-    1.5,
-    "result",
-    "playertotals-sacks"
-   ],
-   [
-    146435,
-    2.5,
-    "result",
-    "playertotals-sacks"
-   ]
-  ],
-  "Player Sacks (incl. overtime)": [
-   [
-    146441,
-    0.0,
-    "result",
-    "players-sacks"
-   ]
-  ],
-  "Over Under Player Assists (incl. overtime)": [
-   [
-    146447,
-    0.5,
-    "result",
-    "playertotals-assists"
-   ],
-   [
-    146449,
-    1.5,
-    "result",
-    "playertotals-assists"
-   ],
-   [
-    146451,
-    2.5,
-    "result",
-    "playertotals-assists"
-   ]
-  ],
-  "Player Assists (incl. overtime)": [
-   [
-    146477,
-    0.0,
-    "result",
-    "players-assists"
-   ]
-  ],
-  "Over Under Player Tackles + Assists (incl. overtime)": [
-   [
-    146493,
-    0.5,
-    "result",
-    "playertotals-tacass"
-   ],
-   [
-    146495,
-    1.5,
-    "result",
-    "playertotals-tacass"
-   ],
-   [
-    146497,
-    2.5,
-    "result",
-    "playertotals-tacass"
-   ]
-  ],
-  "Player Tackles + Assists (incl. overtime)": [
-   [
-    146543,
-    0.0,
-    "result",
-    "players-tacass"
-   ]
-  ],
-  "Over Under Player Field Goals (incl. overtime)": [
-   [
-    146569,
-    0.5,
-    "result",
-    "playertotals-fieldgoals"
-   ],
-   [
-    146571,
-    1.5,
-    "result",
-    "playertotals-fieldgoals"
-   ],
-   [
-    146573,
-    2.5,
-    "result",
-    "playertotals-fieldgoals"
-   ]
-  ],
-  "Player Field Goals (incl. overtime)": [
-   [
-    146589,
-    0.0,
-    "result",
-    "players-fieldgoals"
-   ]
-  ],
-  "Over Under Player Kicking Points (incl. overtime)": [
-   [
-    146600,
-    0.5,
-    "result",
-    "playertotals-kickingpoints"
-   ],
-   [
-    146602,
-    1.5,
-    "result",
-    "playertotals-kickingpoints"
-   ],
-   [
-    146604,
-    2.5,
-    "result",
-    "playertotals-kickingpoints"
-   ]
-  ],
-  "Player Kicking Points (incl. overtime)": [
-   [
-    146640,
-    0.0,
-    "result",
-    "players-kickingpoints"
-   ]
-  ],
-  "Over Under Player TD (incl. overtime)": [
-   [
-    148549,
-    0.5,
-    "result",
-    "playertotals-td"
-   ],
-   [
-    148551,
-    1.5,
-    "result",
-    "playertotals-td"
-   ],
-   [
-    148553,
-    2.5,
-    "result",
-    "playertotals-td"
-   ]
-  ],
-  "Over Under Player Receiving Yards (incl. overtime)": [
-   [
-    148559,
-    0.5,
-    "result",
-    "playertotals-receivingyards"
-   ],
-   [
-    148561,
-    1.5,
-    "result",
-    "playertotals-receivingyards"
-   ],
-   [
-    148563,
-    2.5,
-    "result",
-    "playertotals-receivingyards"
-   ]
-  ],
-  "Over Under Player Pass Yards": [
-   [
-    1424518,
-    0.5,
-    "p1",
-    "playertotals-passyards"
-   ],
-   [
-    1424520,
-    1.5,
-    "p1",
-    "playertotals-passyards"
-   ],
-   [
-    1424522,
-    2.5,
-    "p1",
-    "playertotals-passyards"
-   ]
-  ],
-  "Over Under Player Receiving Yards": [
-   [
-    1427718,
-    0.5,
-    "p1",
-    "playertotals-receivingyards"
-   ],
-   [
-    1427720,
-    1.5,
-    "p1",
-    "playertotals-receivingyards"
-   ],
-   [
-    1427722,
-    2.5,
-    "p1",
-    "playertotals-receivingyards"
-   ]
-  ],
-  "Over Under Player Rush Yards": [
-   [
-    1429858,
-    0.5,
-    "p1",
-    "playertotals-rushyards"
-   ],
-   [
-    1429860,
-    1.5,
-    "p1",
-    "playertotals-rushyards"
-   ],
-   [
-    1429862,
-    2.5,
-    "p1",
-    "playertotals-rushyards"
-   ]
-  ],
-  "Over Under Player Pass Attempts": [
-   [
-    1431458,
-    0.5,
-    "p1",
-    "playertotals-passattempts"
-   ],
-   [
-    1431460,
-    1.5,
-    "p1",
-    "playertotals-passattempts"
-   ],
-   [
-    1431462,
-    2.5,
-    "p1",
-    "playertotals-passattempts"
-   ]
-  ],
-  "Over Under Player Pass Completions": [
-   [
-    1431890,
-    0.5,
-    "p1",
-    "playertotals-passcompletions"
-   ],
-   [
-    1431892,
-    1.5,
-    "p1",
-    "playertotals-passcompletions"
-   ],
-   [
-    1431894,
-    2.5,
-    "p1",
-    "playertotals-passcompletions"
-   ]
-  ],
-  "Over Under Player Rush Attempts": [
-   [
-    1432322,
-    0.5,
-    "p1",
-    "playertotals-rushattempts"
-   ],
-   [
-    1432324,
-    1.5,
-    "p1",
-    "playertotals-rushattempts"
-   ],
-   [
-    1432326,
-    2.5,
-    "p1",
-    "playertotals-rushattempts"
-   ]
-  ],
-  "Over Under Player Tackles + Assists": [
-   [
-    1432642,
-    0.5,
-    "p1",
-    "playertotals-tacass"
-   ],
-   [
-    1432644,
-    1.5,
-    "p1",
-    "playertotals-tacass"
-   ],
-   [
-    1432646,
-    2.5,
-    "p1",
-    "playertotals-tacass"
-   ]
-  ],
-  "Over Under Player Kicking Points": [
-   [
-    1432802,
-    0.5,
-    "p1",
-    "playertotals-kickingpoints"
-   ],
-   [
-    1432804,
-    1.5,
-    "p1",
-    "playertotals-kickingpoints"
-   ],
-   [
-    1432806,
-    2.5,
-    "p1",
-    "playertotals-kickingpoints"
-   ]
-  ],
-  "Over Under Player Receptions": [
-   [
-    1432962,
-    0.5,
-    "p1",
-    "playertotals-receptions"
-   ],
-   [
-    1432964,
-    1.5,
-    "p1",
-    "playertotals-receptions"
-   ],
-   [
-    1432966,
-    2.5,
-    "p1",
-    "playertotals-receptions"
-   ]
-  ],
-  "Over Under Player Field Goals": [
-   [
-    1433102,
-    0.5,
-    "p1",
-    "playertotals-fieldgoals"
-   ],
-   [
-    1433104,
-    1.5,
-    "p1",
-    "playertotals-fieldgoals"
-   ],
-   [
-    1433106,
-    2.5,
-    "p1",
-    "playertotals-fieldgoals"
-   ]
-  ],
-  "Over Under Player TD Passes": [
-   [
-    1433178,
-    0.5,
-    "p1",
-    "playertotals-tdpasses"
-   ],
-   [
-    1433180,
-    1.5,
-    "p1",
-    "playertotals-tdpasses"
-   ],
-   [
-    1433182,
-    2.5,
-    "p1",
-    "playertotals-tdpasses"
-   ]
-  ],
-  "Over Under Player Interceptions": [
-   [
-    1433226,
-    0.5,
-    "p1",
-    "playertotals-interceptions"
-   ],
-   [
-    1433228,
-    1.5,
-    "p1",
-    "playertotals-interceptions"
-   ],
-   [
-    1433230,
-    2.5,
-    "p1",
-    "playertotals-interceptions"
-   ]
-  ],
-  "Over Under Player Rush TD": [
-   [
-    1433274,
-    0.5,
-    "p1",
-    "playertotals-rushtd"
-   ],
-   [
-    1433276,
-    1.5,
-    "p1",
-    "playertotals-rushtd"
-   ],
-   [
-    1433278,
-    2.5,
-    "p1",
-    "playertotals-rushtd"
-   ]
-  ],
-  "Over Under Player Sacks": [
-   [
-    1433318,
-    0.5,
-    "p1",
-    "playertotals-sacks"
-   ],
-   [
-    1433320,
-    1.5,
-    "p1",
-    "playertotals-sacks"
-   ],
-   [
-    1433322,
-    2.5,
-    "p1",
-    "playertotals-sacks"
-   ]
-  ],
-  "Over Under Player TD": [
-   [
-    1433366,
-    0.5,
-    "p1",
-    "playertotals-td"
-   ],
-   [
-    1433368,
-    1.5,
-    "p1",
-    "playertotals-td"
-   ],
-   [
-    1433370,
-    2.5,
-    "p1",
-    "playertotals-td"
-   ]
-  ],
-  "Player To Score TD": [
-   [
-    1433410,
-    0.0,
-    "p2",
-    "players-td"
-   ],
-   [
-    1433412,
-    0.0,
-    "p3",
-    "players-td"
-   ],
-   [
-    1433414,
-    0.0,
-    "p4",
-    "players-td"
-   ]
-  ],
-  "Player Receptions (incl. overtime)": [
-   [
-    1436093,
-    0.0,
-    "result",
-    "players-receptions"
-   ]
-  ],
-  "Player Pass Attempts (incl. overtime)": [
-   [
-    1436115,
-    0.0,
-    "result",
-    "players-passattempts"
-   ]
-  ],
-  "Player Pass Completions (incl. overtime)": [
-   [
-    1436196,
-    0.0,
-    "result",
-    "players-passcompletions"
-   ]
-  ],
-  "Player TD Passes (incl. overtime)": [
-   [
-    1436277,
-    0.0,
-    "result",
-    "players-tdpasses"
-   ]
-  ],
-  "Player Interceptions (incl. overtime)": [
-   [
-    1436286,
-    0.0,
-    "result",
-    "players-interceptions"
-   ]
-  ],
-  "Player Receiving Yards (incl. overtime)": [
-   [
-    1436295,
-    0.0,
-    "result",
-    "players-receivingyards"
-   ]
-  ],
-  "Player Longest Pass Completion (incl. overtime)": [
-   [
-    1436374,
-    0.0,
-    "result",
-    "players-longestpasscomp"
-   ]
-  ],
-  "Player Longest Rush Yards (incl. overtime)": [
-   [
-    1436394,
-    0.0,
-    "result",
-    "players-longestrushyards"
-   ]
-  ],
-  "Player To Score Last TD (incl. overtime)": [
-   [
-    1437423,
-    0.0,
-    "result",
-    "players-lasttd"
-   ]
-  ],
-  "Over Under Player Longest Reception (incl. overtime)": [
-   [
-    1440920,
-    0.5,
-    "result",
-    "playertotals-longestreception"
-   ],
-   [
-    1440922,
-    1.5,
-    "result",
-    "playertotals-longestreception"
-   ],
-   [
-    1440924,
-    2.5,
-    "result",
-    "playertotals-longestreception"
-   ]
-  ],
-  "Over Under Player Extra Points (incl. overtime)": [
-   [
-    1441120,
-    0.5,
-    "result",
-    "playertotals-extrapoints"
-   ],
-   [
-    1441122,
-    1.5,
-    "result",
-    "playertotals-extrapoints"
-   ],
-   [
-    1441124,
-    2.5,
-    "result",
-    "playertotals-extrapoints"
-   ]
-  ],
-  "Over Under Player Interceptions Thrown (incl. overtime)": [
-   [
-    1441138,
-    0.5,
-    "result",
-    "playertotals-interceptionsthrown"
-   ],
-   [
-    1441140,
-    1.5,
-    "result",
-    "playertotals-interceptionsthrown"
-   ],
-   [
-    1441142,
-    2.5,
-    "result",
-    "playertotals-interceptionsthrown"
-   ]
-  ],
-  "Over Under Player Rush + Receiving Yards (incl. overtime)": [
-   [
-    1441150,
-    0.5,
-    "result",
-    "playertotals-rushrec"
-   ],
-   [
-    1441152,
-    1.5,
-    "result",
-    "playertotals-rushrec"
-   ],
-   [
-    1441154,
-    2.5,
-    "result",
-    "playertotals-rushrec"
-   ]
-  ],
-  "Player Longest Reception (incl. overtime)": [
-   [
-    1441750,
-    0.0,
-    "result",
-    "players-longestreception"
-   ]
-  ],
-  "Player Extra Points (incl. overtime)": [
-   [
-    1441770,
-    0.0,
-    "result",
-    "players-extrapoints"
-   ]
-  ],
-  "Player Interceptions Thrown (incl. overtime)": [
-   [
-    1441780,
-    0.0,
-    "result",
-    "players-interceptionsthrown"
-   ]
-  ],
-  "Player Rush + Receiving Yards (incl. overtime)": [
-   [
-    1441787,
-    0.0,
-    "result",
-    "players-rushrec"
-   ]
-  ],
-  "Top Passer (incl. overtime)": [
-   [
-    1441846,
-    0.0,
-    "result",
-    "players-top-passer"
-   ]
-  ],
-  "Top Rusher (incl. overtime)": [
-   [
-    1441848,
-    0.0,
-    "result",
-    "players-top-rusher"
-   ]
-  ],
-  "Top Receiver (incl. overtime)": [
-   [
-    1441850,
-    0.0,
-    "result",
-    "players-top-receiver"
-   ]
-  ],
-  "Player Pass Yards in Both Halves": [
-   [
-    1441852,
-    0.0,
-    "fulltime",
-    "players-passyardsinbh"
-   ]
-  ],
-  "Player Rush Yards in Both Halves": [
-   [
-    1441854,
-    0.0,
-    "fulltime",
-    "players-rushyardsinbh"
-   ]
-  ],
-  "Player Receiving Yards in Both Halves": [
-   [
-    1441856,
-    0.0,
-    "fulltime",
-    "players-receivingyardsinbh"
-   ]
-  ],
-  "Player First Point (incl. overtime)": [
-   [
-    1442131,
-    0.0,
-    "result",
-    "players-firstpoint"
-   ]
-  ]
- },
- "nba_tournaments": [
-  {
-   "tournamentId": 132,
-   "tournamentSlug": "nba",
-   "tournamentName": "NBA",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 1017,
-   "upcomingFixtures": 9,
-   "liveFixtures": 6
   },
-  {
-   "tournamentId": 486,
-   "tournamentSlug": "wnba",
-   "tournamentName": "WNBA",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
+  "144637": {
+   "marketId": 144637,
+   "marketLength": 0,
+   "marketName": "Player To Score TD (incl. overtime)",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 0.0,
+   "period": "result",
+   "marketType": "players-td",
+   "outcomes": [
+    {
+     "outcomeId": 144641,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 144642,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 144640,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 144639,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 144638,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 144637,
+     "outcomeName": "0"
+    }
+   ]
   },
-  {
-   "tournamentId": 875,
-   "tournamentSlug": "nba-all-star-game",
-   "tournamentName": "NBA All Star Game",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
+  "145362": {
+   "marketId": 145362,
+   "marketLength": 2,
+   "marketName": "Over Under Player Pass Attempts (incl. overtime)",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 39.5,
+   "period": "result",
+   "marketType": "playertotals-passattempts",
+   "outcomes": [
+    {
+     "outcomeId": 145362,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145363,
+     "outcomeName": "Under"
+    }
+   ]
   },
-  {
-   "tournamentId": 1329,
-   "tournamentSlug": "wnba-all-star-game",
-   "tournamentName": "WNBA All Star Game",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
+  "148857": {
+   "marketId": 148857,
+   "marketLength": 2,
+   "marketName": "Over Under Player Receiving Yards (incl. overtime)",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 149.5,
+   "period": "result",
+   "marketType": "playertotals-receivingyards",
+   "outcomes": [
+    {
+     "outcomeId": 148858,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148857,
+     "outcomeName": "Over"
+    }
+   ]
   },
-  {
-   "tournamentId": 1580,
-   "tournamentSlug": "nba-g-league",
-   "tournamentName": "NBA G League",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
+  "148625": {
+   "marketId": 148625,
+   "marketLength": 2,
+   "marketName": "Over Under Player Receiving Yards (incl. overtime)",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 33.5,
+   "period": "result",
+   "marketType": "playertotals-receivingyards",
+   "outcomes": [
+    {
+     "outcomeId": 148626,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148625,
+     "outcomeName": "Over"
+    }
+   ]
   },
-  {
-   "tournamentId": 2382,
-   "tournamentSlug": "nba-preseason",
-   "tournamentName": "NBA Preseason",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
+  "1426556": {
+   "marketId": 1426556,
+   "marketLength": 2,
+   "marketName": "Over Under Player Pass Yards",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 219.5,
+   "period": "p1+p2",
+   "marketType": "playertotals-passyards",
+   "outcomes": [
+    {
+     "outcomeId": 1426557,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426556,
+     "outcomeName": "Over"
+    }
+   ]
+  },
+  "1428820": {
+   "marketId": 1428820,
+   "marketLength": 2,
+   "marketName": "Over Under Player Receiving Yards",
+   "playerProp": true,
+   "sportId": 14,
+   "handicap": 15.5,
+   "period": "p1+p2",
+   "marketType": "playertotals-receivingyards",
+   "outcomes": [
+    {
+     "outcomeId": 1428821,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428820,
+     "outcomeName": "Over"
+    }
+   ]
+  },
+  "111678": {
+   "marketId": 111678,
+   "marketLength": 2,
+   "marketName": "Over Under Player Points (incl. overtime)",
+   "playerProp": true,
+   "sportId": 11,
+   "handicap": 4.5,
+   "period": "result",
+   "marketType": "playertotals-points",
+   "outcomes": [
+    {
+     "outcomeId": 111678,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 111679,
+     "outcomeName": "Under"
+    }
+   ]
+  },
+  "112020": {
+   "marketId": 112020,
+   "marketLength": 2,
+   "marketName": "Over Under Player Points + Rebounds (incl. overtime)",
+   "playerProp": true,
+   "sportId": 11,
+   "handicap": 22.5,
+   "period": "result",
+   "marketType": "playertotals-ptsreb",
+   "outcomes": [
+    {
+     "outcomeId": 112021,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 112020,
+     "outcomeName": "Over"
+    }
+   ]
+  },
+  "111694": {
+   "marketId": 111694,
+   "marketLength": 2,
+   "marketName": "Over Under Player Points (incl. overtime)",
+   "playerProp": true,
+   "sportId": 11,
+   "handicap": 12.5,
+   "period": "result",
+   "marketType": "playertotals-points",
+   "outcomes": [
+    {
+     "outcomeId": 111694,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 111695,
+     "outcomeName": "Under"
+    }
+   ]
+  },
+  "111848": {
+   "marketId": 111848,
+   "marketLength": 2,
+   "marketName": "Over Under Player Points + Assists + Rebounds (incl. overtime)",
+   "playerProp": true,
+   "sportId": 11,
+   "handicap": 30.5,
+   "period": "result",
+   "marketType": "playertotals-ptsassreb",
+   "outcomes": [
+    {
+     "outcomeId": 111848,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 111849,
+     "outcomeName": "Under"
+    }
+   ]
   }
- ],
- "nba_odds_132": {
-  "tournament": 132,
-  "status": 200,
-  "fixtures": 23,
-  "fixture_keys": [
-   "fixtureId",
-   "participant1Id",
-   "participant2Id",
-   "sportId",
-   "tournamentId",
-   "seasonId",
-   "statusId",
-   "hasOdds",
-   "startTime",
-   "trueStartTime",
-   "trueEndTime",
-   "updatedAt",
-   "bookmakerOdds"
-  ],
-  "market_ids": [
-   "119150",
-   "11208",
-   "11210",
-   "119690",
-   "1110016",
-   "119726",
-   "118832",
-   "119996",
-   "113432",
-   "11346",
-   "1110004",
-   "111644",
-   "11228",
-   "11226",
-   "111",
-   "118840",
-   "11216",
-   "11626",
-   "11238",
-   "11486",
-   "118422",
-   "118394",
-   "118438",
-   "11402",
-   "11430",
-   "11418",
-   "11200",
-   "118836",
-   "11434",
-   "113440",
-   "115748",
-   "11212",
-   "115456",
-   "11538",
-   "113428",
-   "11514",
-   "111114",
-   "11620",
-   "11920",
-   "11446",
-   "118406",
-   "11276",
-   "11242",
-   "119440",
-   "119968",
-   "119432",
-   "11632",
-   "111112",
-   "11286",
-   "11542",
-   "11272",
-   "119694",
-   "11438",
-   "11264",
-   "11406",
-   "118816",
-   "11442",
-   "11348",
-   "11826",
-   "119420",
-   "11824",
-   "119130",
-   "119174",
-   "119734",
-   "11522",
-   "114256",
-   "119714",
-   "11234",
-   "11218",
-   "118844",
-   "119154",
-   "11644",
-   "11640",
-   "118434",
-   "119134",
-   "118410",
-   "118426",
-   "11474",
-   "11252",
-   "11278"
-  ],
-  "sample_player_markets": {
-   "112020": [
-    {
-     "outcome": "112021",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473810#2259542922_15L42648Q1852816742Q20",
-      "bookmakerOutcomeId": "0QA361473810#2259542922_15L42648Q1852816742Q20",
-      "bookmakerChangedAt": "2026-11-13T17:35:29.725Z",
-      "changedAt": "2026-11-13T17:35:29.797Z",
-      "limit": null,
-      "playerName": "Anunoby, OG",
-      "price": 1.952,
-      "priceAmerican": "-105",
-      "priceFractional": "79/83",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    },
-    {
-     "outcome": "112020",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473810#2259542921_13L42648Q1295512847Q20",
-      "bookmakerOutcomeId": "0QA361473810#2259542921_13L42648Q1295512847Q20",
-      "bookmakerChangedAt": "2026-11-13T17:35:29.725Z",
-      "changedAt": "2026-11-13T17:35:29.797Z",
-      "limit": null,
-      "playerName": "Anunoby, OG",
-      "price": 1.8,
-      "priceAmerican": "-125",
-      "priceFractional": "4/5",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "111694": [
-    {
-     "outcome": "111695",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473678#2251195086_13L42648Q1-1693375913Q20",
-      "bookmakerOutcomeId": "0QA361473678#2251195086_13L42648Q1-1693375913Q20",
-      "bookmakerChangedAt": "2026-11-13T17:38:09.876Z",
-      "changedAt": "2026-11-13T17:38:09.938Z",
-      "limit": null,
-      "playerName": "Zubac, Ivica",
-      "price": 1.917,
-      "priceAmerican": "-109",
-      "priceFractional": "11/12",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    },
-    {
-     "outcome": "111694",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473678#2251195083_13L42648Q1-1662826468Q20",
-      "bookmakerOutcomeId": "0QA361473678#2251195083_13L42648Q1-1662826468Q20",
-      "bookmakerChangedAt": "2026-11-13T17:38:09.876Z",
-      "changedAt": "2026-11-13T17:38:09.938Z",
-      "limit": null,
-      "playerName": "Zubac, Ivica",
-      "price": 1.855,
-      "priceAmerican": "-117",
-      "priceFractional": "59/69",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "111848": [
-    {
-     "outcome": "111848",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361474171#2251195577_13L42648Q1655210411Q20",
-      "bookmakerOutcomeId": "0QA361474171#2251195577_13L42648Q1655210411Q20",
-      "bookmakerChangedAt": "2026-11-13T17:38:02.418Z",
-      "changedAt": "2026-11-13T17:38:02.473Z",
-      "limit": null,
-      "playerName": "Siakam, Pascal",
-      "price": 1.833,
-      "priceAmerican": "-120",
-      "priceFractional": "5/6",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    },
-    {
-     "outcome": "111849",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361474171#2251195586_15L42648Q1-737468840Q20",
-      "bookmakerOutcomeId": "0QA361474171#2251195586_15L42648Q1-737468840Q20",
-      "bookmakerChangedAt": "2026-11-13T17:38:02.418Z",
-      "changedAt": "2026-11-13T17:38:02.473Z",
-      "limit": null,
-      "playerName": "Siakam, Pascal",
-      "price": 1.909,
-      "priceAmerican": "-110",
-      "priceFractional": "10/11",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "112118": [
-    {
-     "outcome": "112119",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473684#2362906406_15L42648Q1-268563022Q20",
-      "bookmakerOutcomeId": "0QA361473684#2362906406_15L42648Q1-268563022Q20",
-      "bookmakerChangedAt": "2026-11-13T17:37:46.182Z",
-      "changedAt": "2026-11-13T17:37:46.268Z",
-      "limit": null,
-      "playerName": "Nembhard, Andrew",
-      "price": 1.885,
-      "priceAmerican": "-113",
-      "priceFractional": "77/87",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    },
-    {
-     "outcome": "112118",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473684#2362906405_13L42648Q1-465477975Q20",
-      "bookmakerOutcomeId": "0QA361473684#2362906405_13L42648Q1-465477975Q20",
-      "bookmakerChangedAt": "2026-11-13T17:37:46.182Z",
-      "changedAt": "2026-11-13T17:37:46.268Z",
-      "limit": null,
-      "playerName": "Nembhard, Andrew",
-      "price": 1.862,
-      "priceAmerican": "-116",
-      "priceFractional": "25/29",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "112024": [
-    {
-     "outcome": "112025",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473469#2251190669_15L42648Q11251409926Q20",
-      "bookmakerOutcomeId": "0QA361473469#2251190669_15L42648Q11251409926Q20",
-      "bookmakerChangedAt": "2026-11-13T11:56:48.103Z",
-      "changedAt": "2026-11-13T11:56:48.182Z",
-      "limit": null,
-      "playerName": "Zubac, Ivica",
-      "price": 1.855,
-      "priceAmerican": "-117",
-      "priceFractional": "59/69",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    },
-    {
-     "outcome": "112024",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473469#2251190650_13L42648Q12101114071Q20",
-      "bookmakerOutcomeId": "0QA361473469#2251190650_13L42648Q12101114071Q20",
-      "bookmakerChangedAt": "2026-11-13T11:56:48.103Z",
-      "changedAt": "2026-11-13T11:56:48.182Z",
-      "limit": null,
-      "playerName": "Zubac, Ivica",
-      "price": 1.893,
-      "priceAmerican": "-112",
-      "priceFractional": "25/28",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "112608": [
-    {
-     "outcome": "112608",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473534#2251190684_13L42648Q1-1400339376Q20",
-      "bookmakerOutcomeId": "0QA361473534#2251190684_13L42648Q1-1400339376Q20",
-      "bookmakerChangedAt": "2026-11-13T17:19:31.489Z",
-      "changedAt": "2026-11-13T17:19:31.677Z",
-      "limit": null,
-      "playerName": "Anunoby, OG",
-      "price": 1.13,
-      "priceAmerican": "-769",
-      "priceFractional": "13/100",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ]
-  },
-  "n_player_markets": 128
  },
- "nba_odds_486": {
-  "tournament": 486,
-  "status": 404,
-  "body": "{\"error\":{\"message\":\"No fixtures found for the specified tournament IDs and bookmaker.\",\"code\":\"FIXTURE_NOT_FOUND\",\"details\":\"Please check the provided tournament IDs and try again.\"}}"
+ "nfl_fixture": {
+  "fixtureId": "id1400003171488892",
+  "participant1Id": 4419,
+  "participant2Id": 4424,
+  "startTime": "2026-11-15T14:30:00.000Z"
  },
- "nfl_tournaments": [
-  {
-   "tournamentId": 31,
-   "tournamentSlug": "nfl",
-   "tournamentName": "NFL",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 135,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
-  },
-  {
-   "tournamentId": 233,
-   "tournamentSlug": "nfl-preseason",
-   "tournamentName": "NFL Preseason",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
-  },
-  {
-   "tournamentId": 1010,
-   "tournamentSlug": "nfl-pro-bowl",
-   "tournamentName": "NFL Pro Bowl",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
-  },
-  {
-   "tournamentId": 14872,
-   "tournamentSlug": "nflpa-collegiate-bowl",
-   "tournamentName": "NFLPA Collegiate Bowl",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
-  },
-  {
-   "tournamentId": 38947,
-   "tournamentSlug": "nfl-draft",
-   "tournamentName": "NFL Draft",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
-  },
-  {
-   "tournamentId": 53904,
-   "tournamentSlug": "nfl-specials",
-   "tournamentName": "NFL Specials",
-   "categorySlug": "usa",
-   "categoryName": "USA",
-   "futureFixtures": 0,
-   "upcomingFixtures": 0,
-   "liveFixtures": 0
-  }
- ],
- "nfl_odds_31": {
-  "tournament": 31,
-  "status": 200,
-  "fixtures": 26,
-  "fixture_keys": [
-   "fixtureId",
-   "participant1Id",
-   "participant2Id",
-   "sportId",
-   "tournamentId",
-   "seasonId",
-   "statusId",
-   "hasOdds",
-   "startTime",
-   "trueStartTime",
-   "trueEndTime",
-   "updatedAt",
-   "bookmakerOdds"
-  ],
-  "market_ids": [
-   "14821",
-   "14220",
-   "14232",
-   "1437425",
-   "1452",
-   "148",
-   "147013",
-   "1433450",
-   "14332",
-   "144548",
-   "142177",
-   "1437437",
-   "142950",
-   "143315",
-   "14240",
-   "147017",
-   "143898",
-   "1433460",
-   "141652",
-   "144422",
-   "1484",
-   "146969",
-   "141648",
-   "142193",
-   "143521",
-   "14312",
-   "14320",
-   "14324",
-   "147001",
-   "141398",
-   "1496",
-   "14228",
-   "146769",
-   "14184",
-   "14176",
-   "142173",
-   "14348",
-   "14434",
-   "141676",
-   "14432",
-   "1437419",
-   "14438",
-   "14108",
-   "1480",
-   "1433440",
-   "141414",
-   "14180",
-   "141402",
-   "14428",
-   "142391",
-   "141153",
-   "14384",
-   "1464",
-   "14192",
-   "1442114",
-   "14272",
-   "146797",
-   "1437413",
-   "14817",
-   "14292",
-   "142411",
-   "143319",
-   "144426",
-   "1419934",
-   "14527",
-   "14567",
-   "14448",
-   "1448",
-   "142161",
-   "14308",
-   "1436783",
-   "142142",
-   "141664",
-   "144414",
-   "141410",
-   "14430",
-   "147005",
-   "144510",
-   "141374",
-   "1432"
-  ],
-  "sample_player_markets": {
-   "148857": [
+ "nfl_player_markets": {
+  "1428988": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 99.5,
+   "period": "p1+p2",
+   "outcomes": [
     {
-     "outcome": "148857",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551399#2357730564_13L88808Q11550558023Q20",
-      "bookmakerOutcomeId": "0QA387551399#2357730564_13L88808Q11550558023Q20",
-      "bookmakerChangedAt": "2026-11-13T17:13:18.843Z",
-      "changedAt": "2026-11-13T17:13:19.012Z",
-      "limit": null,
-      "playerName": "Williams, Jameson",
-      "price": 29.0,
-      "priceAmerican": "2800",
-      "priceFractional": "28/1",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "145362": [
-    {
-     "outcome": "145362",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551635#2357730928_13L88808Q1-1180270845Q20",
-      "bookmakerOutcomeId": "0QA387551635#2357730928_13L88808Q1-1180270845Q20",
-      "bookmakerChangedAt": null,
-      "changedAt": "2026-11-13T17:17:51.600Z",
-      "limit": null,
-      "playerName": "Goff, Jared",
-      "price": 3.53,
-      "priceAmerican": "253",
-      "priceFractional": "253/100",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "148625": [
-    {
-     "outcome": "148626",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551617#2357768736_13L88808Q1171556106Q20",
-      "bookmakerOutcomeId": "0QA387551617#2357768736_13L88808Q1171556106Q20",
-      "bookmakerChangedAt": null,
-      "changedAt": "2026-11-13T16:20:07.484Z",
-      "limit": null,
-      "playerName": "Gibbs, Jahmyr",
-      "price": 1.87,
-      "priceAmerican": "-115",
-      "priceFractional": "87/100",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
+     "outcomeId": 1428989,
+     "outcomeName": "Under"
     },
     {
-     "outcome": "148625",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551617#2357768734_13L88808Q1-1745495349Q20",
-      "bookmakerOutcomeId": "0QA387551617#2357768734_13L88808Q1-1745495349Q20",
-      "bookmakerChangedAt": null,
-      "changedAt": "2026-11-13T16:20:07.484Z",
-      "limit": null,
-      "playerName": "Gibbs, Jahmyr",
-      "price": 1.917,
-      "priceAmerican": "-109",
-      "priceFractional": "11/12",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
+     "outcomeId": 1428988,
+     "outcomeName": "Over"
     }
    ],
-   "1426556": [
+   "rows": 1
+  },
+  "1428928": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 69.5,
+   "period": "p1+p2",
+   "outcomes": [
     {
-     "outcome": "1426556",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551470#2357730405_13L88808Q11751323295Q20",
-      "bookmakerOutcomeId": "0QA387551470#2357730405_13L88808Q11751323295Q20",
-      "bookmakerChangedAt": "2026-11-13T17:15:43.663Z",
-      "changedAt": "2026-11-13T17:15:45.052Z",
-      "limit": null,
-      "playerName": "Goff, Jared",
-      "price": 9.9,
-      "priceAmerican": "890",
-      "priceFractional": "89/10",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
+     "outcomeId": 1428928,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428929,
+     "outcomeName": "Under"
     }
    ],
-   "144650": [
+   "rows": 2
+  },
+  "1429910": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 26.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429910,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429911,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145836": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 54.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145837,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145836,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1433180": {
+   "name": "Over Under Player TD Passes",
+   "type": "playertotals-tdpasses",
+   "hcp": 1.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1433180,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1433181,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148857": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 149.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148858,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148857,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145922": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 97.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145922,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145923,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146612": {
+   "name": "Over Under Player Kicking Points (incl. overtime)",
+   "type": "playertotals-kickingpoints",
+   "hcp": 6.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146613,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146612,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145370": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 43.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145370,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145371,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1432964": {
+   "name": "Over Under Player Receptions",
+   "type": "playertotals-receptions",
+   "hcp": 1.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1432964,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1432965,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "148713": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 77.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148713,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148714,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1440956": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 18.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440957,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1440956,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148711": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 76.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148712,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148711,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428918": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 64.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428919,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428918,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "1427718": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 0.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427718,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427719,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "1428800": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 5.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428800,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428801,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424642": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 62.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424642,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424643,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145784": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 28.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145784,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145785,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "144987": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 267.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144987,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 144988,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145352": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 34.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145353,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145352,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "1428908": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 59.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428908,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428909,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 5
+  },
+  "148619": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 30.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148620,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148619,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145338": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 27.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145339,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145338,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146173": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 3.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146173,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146174,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1430716": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 29.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430717,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430716,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "145754": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 13.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145754,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145755,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424656": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 69.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424656,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424657,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428836": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 23.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428836,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428837,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148647": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 44.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148648,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148647,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146209": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 21.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146210,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146209,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428848": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 29.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428849,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428848,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "1430676": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 9.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430676,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430677,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146175": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 4.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146175,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146176,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1440946": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 13.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440947,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1440946,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "148625": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 33.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148626,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148625,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145918": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 95.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145919,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145918,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1429946": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 44.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429947,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429946,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144991": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 269.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144992,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144991,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424646": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 64.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424646,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424647,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148617": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 29.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148617,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148618,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424596": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 39.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424596,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424597,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146177": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 5.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146178,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146177,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "145350": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 33.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145350,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145351,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "146128": {
+   "name": "Player Rush Yards (incl. overtime)",
+   "type": "players-rushyards",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146147,
+     "outcomeName": "105+"
+    },
+    {
+     "outcomeId": 146140,
+     "outcomeName": "70+"
+    },
+    {
+     "outcomeId": 146145,
+     "outcomeName": "95+"
+    },
+    {
+     "outcomeId": 146165,
+     "outcomeName": "195+"
+    },
+    {
+     "outcomeId": 146148,
+     "outcomeName": "110+"
+    },
+    {
+     "outcomeId": 146144,
+     "outcomeName": "90+"
+    },
+    {
+     "outcomeId": 146150,
+     "outcomeName": "120+"
+    },
+    {
+     "outcomeId": 146162,
+     "outcomeName": "180+"
+    },
+    {
+     "outcomeId": 146155,
+     "outcomeName": "145+"
+    },
+    {
+     "outcomeId": 146131,
+     "outcomeName": "25+"
+    },
+    {
+     "outcomeId": 146130,
+     "outcomeName": "20+"
+    },
+    {
+     "outcomeId": 146152,
+     "outcomeName": "130+"
+    },
+    {
+     "outcomeId": 146164,
+     "outcomeName": "190+"
+    },
+    {
+     "outcomeId": 146156,
+     "outcomeName": "150+"
+    },
+    {
+     "outcomeId": 146139,
+     "outcomeName": "65+"
+    },
+    {
+     "outcomeId": 146151,
+     "outcomeName": "125+"
+    },
+    {
+     "outcomeId": 146158,
+     "outcomeName": "160+"
+    },
+    {
+     "outcomeId": 146136,
+     "outcomeName": "50+"
+    },
+    {
+     "outcomeId": 146149,
+     "outcomeName": "115+"
+    },
+    {
+     "outcomeId": 146160,
+     "outcomeName": "170+"
+    },
+    {
+     "outcomeId": 146135,
+     "outcomeName": "45+"
+    },
+    {
+     "outcomeId": 146146,
+     "outcomeName": "100+"
+    },
+    {
+     "outcomeId": 146137,
+     "outcomeName": "55+"
+    },
+    {
+     "outcomeId": 146132,
+     "outcomeName": "30+"
+    },
+    {
+     "outcomeId": 146129,
+     "outcomeName": "15+"
+    },
+    {
+     "outcomeId": 146161,
+     "outcomeName": "175+"
+    },
+    {
+     "outcomeId": 146128,
+     "outcomeName": "10+"
+    },
+    {
+     "outcomeId": 146133,
+     "outcomeName": "35+"
+    },
+    {
+     "outcomeId": 146134,
+     "outcomeName": "40+"
+    },
+    {
+     "outcomeId": 146163,
+     "outcomeName": "185+"
+    },
+    {
+     "outcomeId": 146154,
+     "outcomeName": "140+"
+    },
+    {
+     "outcomeId": 146138,
+     "outcomeName": "60+"
+    },
+    {
+     "outcomeId": 146143,
+     "outcomeName": "85+"
+    },
+    {
+     "outcomeId": 146166,
+     "outcomeName": "200+"
+    },
+    {
+     "outcomeId": 146159,
+     "outcomeName": "165+"
+    },
+    {
+     "outcomeId": 146141,
+     "outcomeName": "75+"
+    },
+    {
+     "outcomeId": 146157,
+     "outcomeName": "155+"
+    },
+    {
+     "outcomeId": 146153,
+     "outcomeName": "135+"
+    },
+    {
+     "outcomeId": 146142,
+     "outcomeName": "80+"
+    }
+   ],
+   "rows": 57
+  },
+  "145464": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 20.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145465,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145464,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144969": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 258.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144970,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144969,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430726": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 34.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430726,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430727,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1424566": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 24.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424566,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424567,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148721": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 81.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148722,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148721,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1429906": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 24.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429907,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429906,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "1429926": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 34.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429927,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429926,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "1429866": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 4.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429867,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429866,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "145828": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 50.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145829,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145828,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426356": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 119.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426357,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426356,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145472": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 24.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145472,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145473,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "144650": {
+   "name": "Player To Score TD Second Half (incl. overtime)",
+   "type": "players-td-other",
+   "hcp": 0.0,
+   "period": "p3+p4+overtime",
+   "outcomes": [
+    {
+     "outcomeId": 144650,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
     {
      "outcome": "144650",
-     "player": {
-      "active": true,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA388535135#2362121170_13L88808Q11912006256Q20",
-      "bookmakerOutcomeId": "0QA388535135#2362121170_13L88808Q11912006256Q20",
-      "bookmakerChangedAt": "2026-11-13T04:58:17.665Z",
-      "changedAt": "2026-11-13T04:58:18.245Z",
-      "limit": null,
-      "playerName": "Hollins, Mack",
-      "price": 6.5,
-      "priceAmerican": "550",
-      "priceFractional": "11/2",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
-    }
-   ],
-   "1428820": [
-    {
-     "outcome": "1428820",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551310#2357768709_13L88808Q1-479989172Q20",
-      "bookmakerOutcomeId": "0QA387551310#2357768709_13L88808Q1-479989172Q20",
-      "bookmakerChangedAt": "2026-11-13T01:21:04.567Z",
-      "changedAt": "2026-11-13T01:21:04.768Z",
-      "limit": null,
-      "playerName": "Gibbs, Jahmyr",
-      "price": 1.909,
-      "priceAmerican": "-110",
-      "priceFractional": "10/11",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
+     "name": "LaPorta, Sam",
+     "american": "450",
+     "active": true,
+     "main": false
     },
     {
-     "outcome": "1428821",
-     "player": {
-      "active": false,
-      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551310#2357768710_13L88808Q1-437224943Q20",
-      "bookmakerOutcomeId": "0QA387551310#2357768710_13L88808Q1-437224943Q20",
-      "bookmakerChangedAt": "2026-11-13T01:21:04.567Z",
-      "changedAt": "2026-11-13T01:21:04.768Z",
-      "limit": null,
-      "playerName": "Gibbs, Jahmyr",
-      "price": 1.847,
-      "priceAmerican": "-118",
-      "priceFractional": "72/85",
-      "mainLine": false,
-      "exchangeMeta": null
-     }
+     "outcome": "144650",
+     "name": "Martin, Tay",
+     "american": "5500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Chism, Efton",
+     "american": "950",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Vaki, Sione",
+     "american": "1000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Carter, DeAndre",
+     "american": "2500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Douglas, Demario",
+     "american": "550",
+     "active": true,
+     "main": false
     }
    ]
   },
-  "n_player_markets": 324
+  "1430678": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 10.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430679,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430678,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145928": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 100.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145928,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145929,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430752": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 47.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430753,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430752,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428798": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 4.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428798,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428799,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 7
+  },
+  "145346": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 31.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145346,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145347,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148669": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 55.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148669,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148670,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1440966": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 23.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440966,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1440967,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426394": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 138.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426394,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426395,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148917": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 179.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148917,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148918,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "145354": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 35.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145355,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145354,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "148597": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 19.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148597,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148598,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428938": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 74.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428939,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428938,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424616": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 49.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424616,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424617,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145782": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 27.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145782,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145783,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "144983": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 265.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144984,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144983,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "14388": {
+   "name": "Player To Score TD (incl. overtime)",
+   "type": "players-td",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14389,
+     "outcomeName": "No"
+    },
+    {
+     "outcomeId": 14388,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 26,
+   "sample_rows": [
+    {
+     "outcome": "14388",
+     "name": "TeSlaa, Isaac",
+     "american": "450",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "LaPorta, Sam",
+     "american": "215",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "St. Brown, Amon-Ra",
+     "american": "-105",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "Maye, Drake",
+     "american": "295",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "Raridon, Eli",
+     "american": "350",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "Gibbs, Jahmyr",
+     "american": "-280",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1430746": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 44.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430746,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430747,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1430754": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 48.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430755,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430754,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1440968": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 24.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440969,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1440968,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "145926": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 99.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145927,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145926,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428948": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 79.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428948,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428949,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1432962": {
+   "name": "Over Under Player Receptions",
+   "type": "playertotals-receptions",
+   "hcp": 0.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1432962,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1432963,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "1424636": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 59.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424636,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424637,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "148641": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 41.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148641,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148642,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "14402": {
+   "name": "Over Under Player Interceptions (incl. overtime)",
+   "type": "playertotals-interceptions",
+   "hcp": 0.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14402,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 14403,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "148667": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 54.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148668,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148667,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "14414": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 3.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14415,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14414,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 10
+  },
+  "148645": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 43.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148645,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148646,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430666": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 4.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430667,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430666,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "145482": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 29.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145482,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145483,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426386": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 134.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426387,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426386,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148643": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 42.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148644,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148643,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430836": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 89.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430837,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430836,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "145490": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 33.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145490,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145491,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1427734": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 8.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427735,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427734,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148665": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 53.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148665,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148666,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424586": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 34.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424587,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424586,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "14410": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 1.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14410,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 14411,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "14412": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 2.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14413,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14412,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 5
+  },
+  "1427732": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 7.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427732,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427733,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424676": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 79.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424677,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424676,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426426": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 154.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426426,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426427,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148737": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 89.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148737,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148738,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "1424624": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 53.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424625,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424624,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144975": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 261.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144976,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144975,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426496": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 189.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426497,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426496,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148715": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 78.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148715,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148716,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146640": {
+   "name": "Player Kicking Points (incl. overtime)",
+   "type": "players-kickingpoints",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146656,
+     "outcomeName": "16+"
+    },
+    {
+     "outcomeId": 146650,
+     "outcomeName": "10+"
+    },
+    {
+     "outcomeId": 146641,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 146655,
+     "outcomeName": "15+"
+    },
+    {
+     "outcomeId": 146642,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 146654,
+     "outcomeName": "14+"
+    },
+    {
+     "outcomeId": 146649,
+     "outcomeName": "9+"
+    },
+    {
+     "outcomeId": 146646,
+     "outcomeName": "6+"
+    },
+    {
+     "outcomeId": 146652,
+     "outcomeName": "12+"
+    },
+    {
+     "outcomeId": 146645,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 146660,
+     "outcomeName": "20+"
+    },
+    {
+     "outcomeId": 146659,
+     "outcomeName": "19+"
+    },
+    {
+     "outcomeId": 146651,
+     "outcomeName": "11+"
+    },
+    {
+     "outcomeId": 146644,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 146643,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 146658,
+     "outcomeName": "18+"
+    },
+    {
+     "outcomeId": 146647,
+     "outcomeName": "7+"
+    },
+    {
+     "outcomeId": 146653,
+     "outcomeName": "13+"
+    },
+    {
+     "outcomeId": 146648,
+     "outcomeName": "8+"
+    },
+    {
+     "outcomeId": 146640,
+     "outcomeName": "0"
+    },
+    {
+     "outcomeId": 146657,
+     "outcomeName": "17+"
+    }
+   ],
+   "rows": 10
+  },
+  "144644": {
+   "name": "Player To Score TD First Quarter (incl. overtime)",
+   "type": "players-td-other",
+   "hcp": 0.0,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 144644,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "144644",
+     "name": "Hollins, Mack",
+     "american": "1400",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Gibbs, Jahmyr",
+     "american": "270",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Saylors, Jacob",
+     "american": "5500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Vaki, Sione",
+     "american": "3000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Stevenson, Rhamondre",
+     "american": "550",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Henry, Hunter",
+     "american": "1200",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1430698": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 20.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430699,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430698,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426506": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 194.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426507,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426506,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424606": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 44.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424607,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424606,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148671": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 56.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148672,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148671,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145474": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 25.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145475,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145474,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426516": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 199.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426517,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426516,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148627": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 34.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148628,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148627,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430826": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 84.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430826,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430827,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1433182": {
+   "name": "Over Under Player TD Passes",
+   "type": "playertotals-tdpasses",
+   "hcp": 2.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1433183,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1433182,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428866": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 38.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428867,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428866,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1441770": {
+   "name": "Player Extra Points (incl. overtime)",
+   "type": "players-extrapoints",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1441776,
+     "outcomeName": "6+"
+    },
+    {
+     "outcomeId": 1441778,
+     "outcomeName": "8+"
+    },
+    {
+     "outcomeId": 1441775,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 1441777,
+     "outcomeName": "7+"
+    },
+    {
+     "outcomeId": 1441772,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 1441779,
+     "outcomeName": "9+"
+    },
+    {
+     "outcomeId": 1441773,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 1441774,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 1441771,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 1441770,
+     "outcomeName": "0"
+    }
+   ],
+   "rows": 10
+  },
+  "1426406": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 144.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426406,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426407,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430706": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 24.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430706,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430707,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "1428868": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 39.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428868,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428869,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 7
+  },
+  "1430686": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 14.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430686,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430687,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148817": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 129.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148818,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148817,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "148937": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 189.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148938,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148937,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "144977": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 262.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144978,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144977,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "146614": {
+   "name": "Over Under Player Kicking Points (incl. overtime)",
+   "type": "playertotals-kickingpoints",
+   "hcp": 7.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146615,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146614,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144647": {
+   "name": "Player To Score TD First Half (incl. overtime)",
+   "type": "players-td-other",
+   "hcp": 0.0,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 144647,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "144647",
+     "name": "Saylors, Jacob",
+     "american": "2800",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "St. Brown, Amon-Ra",
+     "american": "220",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Meeks, Jackson",
+     "american": "3000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Martin, Tay",
+     "american": "6500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Kiner, Corey",
+     "american": "260",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Henry, Hunter",
+     "american": "500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1430750": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 46.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430751,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430750,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426306": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 94.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426307,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426306,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424556": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 19.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424557,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424556,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428818": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 14.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428818,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428819,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 8
+  },
+  "1426374": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 128.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426375,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426374,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426400": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 141.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426401,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426400,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430682": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 12.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430683,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430682,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145366": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 41.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145366,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145367,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145752": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 12.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145753,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145752,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145834": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 53.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145834,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145835,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148837": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 139.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148838,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148837,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "144971": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 259.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144972,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144971,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430796": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 69.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430797,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430796,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1428978": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 94.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428979,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428978,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "148623": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 32.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148624,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148623,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1440944": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 12.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440945,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1440944,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426556": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 219.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426557,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426556,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1429916": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 29.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429916,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429917,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1430846": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 94.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430847,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430846,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "148589": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 15.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148590,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148589,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "14398": {
+   "name": "Over Under Player TD Passes (incl. overtime)",
+   "type": "playertotals-tdpasses",
+   "hcp": 1.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14398,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 14399,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "1427748": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 15.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427749,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427748,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424644": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 63.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424644,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424645,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146169": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 1.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146170,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146169,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1427736": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 9.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427736,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427737,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "1428840": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 25.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428841,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428840,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "14420": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 6.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14421,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14420,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "1424576": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 29.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424577,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424576,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426446": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 164.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426446,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426447,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428838": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 24.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428838,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428839,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 7
+  },
+  "148593": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 17.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148594,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148593,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1432970": {
+   "name": "Over Under Player Receptions",
+   "type": "playertotals-receptions",
+   "hcp": 4.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1432970,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1432971,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1426436": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 159.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426436,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426437,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424634": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 58.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424634,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424635,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145468": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 22.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145468,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145469,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "14406": {
+   "name": "Over Under Player Interceptions (incl. overtime)",
+   "type": "playertotals-interceptions",
+   "hcp": 2.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14406,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 14407,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "145374": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 45.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145375,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145374,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424696": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 89.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424696,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424697,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426416": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 149.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426416,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426417,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146571": {
+   "name": "Over Under Player Field Goals (incl. overtime)",
+   "type": "playertotals-fieldgoals",
+   "hcp": 1.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146572,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146571,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "1430776": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 59.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430777,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430776,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145920": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 96.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145921,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145920,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428826": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 18.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428827,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428826,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148599": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 20.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148599,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148600,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427786": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 34.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427787,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427786,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "145462": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 19.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145462,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145463,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148591": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 16.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148592,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148591,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428820": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 15.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428821,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428820,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "145330": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 23.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145330,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145331,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1428790": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 0.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428791,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428790,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145466": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 21.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145466,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145467,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "146221": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 27.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146222,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146221,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1429874": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 8.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429874,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429875,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145778": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 25.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145778,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145779,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1436295": {
+   "name": "Player Receiving Yards (incl. overtime)",
+   "type": "players-receivingyards",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1436336,
+     "outcomeName": "215+"
+    },
+    {
+     "outcomeId": 1436306,
+     "outcomeName": "65+"
+    },
+    {
+     "outcomeId": 1436350,
+     "outcomeName": "285+"
+    },
+    {
+     "outcomeId": 1436362,
+     "outcomeName": "345+"
+    },
+    {
+     "outcomeId": 1436349,
+     "outcomeName": "280+"
+    },
+    {
+     "outcomeId": 1436316,
+     "outcomeName": "115+"
+    },
+    {
+     "outcomeId": 1436347,
+     "outcomeName": "270+"
+    },
+    {
+     "outcomeId": 1436315,
+     "outcomeName": "110+"
+    },
+    {
+     "outcomeId": 1436354,
+     "outcomeName": "305+"
+    },
+    {
+     "outcomeId": 1436358,
+     "outcomeName": "325+"
+    },
+    {
+     "outcomeId": 1436313,
+     "outcomeName": "100+"
+    },
+    {
+     "outcomeId": 1436303,
+     "outcomeName": "50+"
+    },
+    {
+     "outcomeId": 1436367,
+     "outcomeName": "370+"
+    },
+    {
+     "outcomeId": 1436314,
+     "outcomeName": "105+"
+    },
+    {
+     "outcomeId": 1436365,
+     "outcomeName": "360+"
+    },
+    {
+     "outcomeId": 1436357,
+     "outcomeName": "320+"
+    },
+    {
+     "outcomeId": 1436369,
+     "outcomeName": "380+"
+    },
+    {
+     "outcomeId": 1436345,
+     "outcomeName": "260+"
+    },
+    {
+     "outcomeId": 1436308,
+     "outcomeName": "75+"
+    },
+    {
+     "outcomeId": 1436319,
+     "outcomeName": "130+"
+    },
+    {
+     "outcomeId": 1436364,
+     "outcomeName": "355+"
+    },
+    {
+     "outcomeId": 1436321,
+     "outcomeName": "140+"
+    },
+    {
+     "outcomeId": 1436328,
+     "outcomeName": "175+"
+    },
+    {
+     "outcomeId": 1436295,
+     "outcomeName": "10+"
+    },
+    {
+     "outcomeId": 1436340,
+     "outcomeName": "235+"
+    },
+    {
+     "outcomeId": 1436344,
+     "outcomeName": "255+"
+    },
+    {
+     "outcomeId": 1436372,
+     "outcomeName": "395+"
+    },
+    {
+     "outcomeId": 1436341,
+     "outcomeName": "240+"
+    },
+    {
+     "outcomeId": 1436361,
+     "outcomeName": "340+"
+    },
+    {
+     "outcomeId": 1436301,
+     "outcomeName": "40+"
+    },
+    {
+     "outcomeId": 1436348,
+     "outcomeName": "275+"
+    },
+    {
+     "outcomeId": 1436305,
+     "outcomeName": "60+"
+    },
+    {
+     "outcomeId": 1436333,
+     "outcomeName": "200+"
+    },
+    {
+     "outcomeId": 1436373,
+     "outcomeName": "400+"
+    },
+    {
+     "outcomeId": 1436298,
+     "outcomeName": "25+"
+    },
+    {
+     "outcomeId": 1436325,
+     "outcomeName": "160+"
+    },
+    {
+     "outcomeId": 1436360,
+     "outcomeName": "335+"
+    },
+    {
+     "outcomeId": 1436311,
+     "outcomeName": "90+"
+    },
+    {
+     "outcomeId": 1436363,
+     "outcomeName": "350+"
+    },
+    {
+     "outcomeId": 1436312,
+     "outcomeName": "95+"
+    },
+    {
+     "outcomeId": 1436310,
+     "outcomeName": "85+"
+    },
+    {
+     "outcomeId": 1436323,
+     "outcomeName": "150+"
+    },
+    {
+     "outcomeId": 1436331,
+     "outcomeName": "190+"
+    },
+    {
+     "outcomeId": 1436356,
+     "outcomeName": "315+"
+    },
+    {
+     "outcomeId": 1436359,
+     "outcomeName": "330+"
+    },
+    {
+     "outcomeId": 1436351,
+     "outcomeName": "290+"
+    },
+    {
+     "outcomeId": 1436302,
+     "outcomeName": "45+"
+    },
+    {
+     "outcomeId": 1436334,
+     "outcomeName": "205+"
+    },
+    {
+     "outcomeId": 1436324,
+     "outcomeName": "155+"
+    },
+    {
+     "outcomeId": 1436327,
+     "outcomeName": "170+"
+    },
+    {
+     "outcomeId": 1436332,
+     "outcomeName": "195+"
+    },
+    {
+     "outcomeId": 1436304,
+     "outcomeName": "55+"
+    },
+    {
+     "outcomeId": 1436317,
+     "outcomeName": "120+"
+    },
+    {
+     "outcomeId": 1436297,
+     "outcomeName": "20+"
+    },
+    {
+     "outcomeId": 1436352,
+     "outcomeName": "295+"
+    },
+    {
+     "outcomeId": 1436355,
+     "outcomeName": "310+"
+    },
+    {
+     "outcomeId": 1436330,
+     "outcomeName": "185+"
+    },
+    {
+     "outcomeId": 1436300,
+     "outcomeName": "35+"
+    },
+    {
+     "outcomeId": 1436339,
+     "outcomeName": "230+"
+    },
+    {
+     "outcomeId": 1436299,
+     "outcomeName": "30+"
+    },
+    {
+     "outcomeId": 1436329,
+     "outcomeName": "180+"
+    },
+    {
+     "outcomeId": 1436326,
+     "outcomeName": "165+"
+    },
+    {
+     "outcomeId": 1436318,
+     "outcomeName": "125+"
+    },
+    {
+     "outcomeId": 1436322,
+     "outcomeName": "145+"
+    },
+    {
+     "outcomeId": 1436371,
+     "outcomeName": "390+"
+    },
+    {
+     "outcomeId": 1436337,
+     "outcomeName": "220+"
+    },
+    {
+     "outcomeId": 1436343,
+     "outcomeName": "250+"
+    },
+    {
+     "outcomeId": 1436309,
+     "outcomeName": "80+"
+    },
+    {
+     "outcomeId": 1436335,
+     "outcomeName": "210+"
+    },
+    {
+     "outcomeId": 1436342,
+     "outcomeName": "245+"
+    },
+    {
+     "outcomeId": 1436353,
+     "outcomeName": "300+"
+    },
+    {
+     "outcomeId": 1436307,
+     "outcomeName": "70+"
+    },
+    {
+     "outcomeId": 1436320,
+     "outcomeName": "135+"
+    },
+    {
+     "outcomeId": 1436338,
+     "outcomeName": "225+"
+    },
+    {
+     "outcomeId": 1436370,
+     "outcomeName": "385+"
+    },
+    {
+     "outcomeId": 1436366,
+     "outcomeName": "365+"
+    },
+    {
+     "outcomeId": 1436296,
+     "outcomeName": "15+"
+    },
+    {
+     "outcomeId": 1436346,
+     "outcomeName": "265+"
+    },
+    {
+     "outcomeId": 1436368,
+     "outcomeName": "375+"
+    }
+   ],
+   "rows": 50
+  },
+  "1427730": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 6.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427731,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427730,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "145914": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 93.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145915,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145914,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1429862": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 2.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429863,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429862,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "14404": {
+   "name": "Over Under Player Interceptions (incl. overtime)",
+   "type": "playertotals-interceptions",
+   "hcp": 1.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14405,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14404,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426526": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 204.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426526,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426527,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428898": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 54.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428899,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428898,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 5
+  },
+  "14426": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 9.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14427,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14426,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "1426316": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 99.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426316,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426317,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426346": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 114.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426347,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426346,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426546": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 214.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426546,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426547,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145776": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 24.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145776,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145777,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428888": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 49.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428889,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428888,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 5
+  },
+  "145378": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 47.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145379,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145378,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430766": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 54.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430766,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430767,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430696": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 19.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430697,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430696,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146189": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 11.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146189,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146190,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "148797": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 119.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148798,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148797,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 5
+  },
+  "1430704": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 23.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430705,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430704,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145912": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 92.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145912,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145913,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145486": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 31.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145487,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145486,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "144993": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 270.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144994,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144993,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1432968": {
+   "name": "Over Under Player Receptions",
+   "type": "playertotals-receptions",
+   "hcp": 3.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1432968,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1432969,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427728": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 5.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427729,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427728,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "1428878": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 44.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428878,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428879,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "1429878": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 10.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429879,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429878,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1427766": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 24.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427767,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427766,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "146225": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 29.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146225,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146226,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1430680": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 11.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430680,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430681,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430806": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 74.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430806,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430807,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "146201": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 17.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146201,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146202,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428808": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 9.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428809,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428808,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "1429886": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 14.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429886,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429887,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1441124": {
+   "name": "Over Under Player Extra Points (incl. overtime)",
+   "type": "playertotals-extrapoints",
+   "hcp": 2.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1441124,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1441125,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "146191": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 12.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146192,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146191,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1430786": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 64.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430786,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430787,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1429908": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 25.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429908,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429909,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145818": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 45.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145819,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145818,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144979": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 263.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144980,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144979,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146213": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 23.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146213,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146214,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424726": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 104.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424726,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424727,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146181": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 7.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146181,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146182,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1429896": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 19.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429896,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429897,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1424736": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 109.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424737,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424736,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426336": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 109.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426336,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426337,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426466": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 174.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426467,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426466,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426366": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 124.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426367,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426366,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148877": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 159.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148877,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148878,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427806": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 44.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427806,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427807,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 5
+  },
+  "1424536": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 9.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424536,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424537,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145470": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 23.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145471,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145470,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "1440954": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 17.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440954,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1440955,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "1437423": {
+   "name": "Player To Score Last TD (incl. overtime)",
+   "type": "players-lasttd",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1437423,
+     "outcomeName": "Yes"
+    },
+    {
+     "outcomeId": 1437424,
+     "outcomeName": "No"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "1437423",
+     "name": "Larison, Lan",
+     "american": "2000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Meeks, Jackson",
+     "american": "7500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Kiner, Corey",
+     "american": "850",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Vaki, Sione",
+     "american": "2500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Williams, Kyle",
+     "american": "2200",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "TeSlaa, Isaac",
+     "american": "2500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "145358": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 37.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145358,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145359,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "144967": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 257.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144968,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144967,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426326": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 104.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426326,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426327,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1436277": {
+   "name": "Player TD Passes (incl. overtime)",
+   "type": "players-tdpasses",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1436283,
+     "outcomeName": "6+"
+    },
+    {
+     "outcomeId": 1436278,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 1436279,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 1436281,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 1436280,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 1436277,
+     "outcomeName": "0"
+    },
+    {
+     "outcomeId": 1436282,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 1436285,
+     "outcomeName": "8+"
+    },
+    {
+     "outcomeId": 1436284,
+     "outcomeName": "7+"
+    }
+   ],
+   "rows": 8,
+   "sample_rows": [
+    {
+     "outcome": "1436281",
+     "name": "Goff, Jared",
+     "american": "870",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436281",
+     "name": "Maye, Drake",
+     "american": "1040",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436280",
+     "name": "Maye, Drake",
+     "american": "295",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436280",
+     "name": "Goff, Jared",
+     "american": "240",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436279",
+     "name": "Goff, Jared",
+     "american": "-164",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436279",
+     "name": "Maye, Drake",
+     "american": "-130",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "145334": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 25.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145335,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145334,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426536": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 209.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426536,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426537,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430736": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 39.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430736,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430737,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1426296": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 89.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426297,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426296,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145780": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 26.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145780,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145781,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146207": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 20.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146207,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146208,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1430700": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 21.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430701,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430700,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146229": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 31.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146229,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146230,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1426396": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 139.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426396,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426397,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146193": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 13.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146194,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146193,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 3
+  },
+  "1428958": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 84.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428958,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428959,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "148719": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 80.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148720,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148719,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1429956": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 49.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429957,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1429956,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1424716": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 99.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424716,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424717,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426388": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 135.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426389,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426388,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424546": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 14.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424546,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424547,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "146205": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 19.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146206,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146205,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "14390": {
+   "name": "Player To Score First TD (incl. overtime)",
+   "type": "players-firsttd",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14391,
+     "outcomeName": "No"
+    },
+    {
+     "outcomeId": 14390,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 26,
+   "sample_rows": [
+    {
+     "outcome": "14390",
+     "name": "Henry, Hunter",
+     "american": "1500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Kiner, Corey",
+     "american": "850",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Arkin, Tanner",
+     "american": "8000",
+     "active": false,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Larison, Lan",
+     "american": "2200",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Vaki, Sione",
+     "american": "4000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "TeSlaa, Isaac",
+     "american": "2500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1428828": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 19.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428828,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428829,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 7
+  },
+  "148629": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 35.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148629,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148630,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424640": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 61.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424640,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424641,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427776": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 29.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427777,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427776,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "1426376": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 129.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426377,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426376,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145454": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 15.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145454,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145455,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426390": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 136.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426390,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426391,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145478": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 27.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145478,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145479,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1433178": {
+   "name": "Over Under Player TD Passes",
+   "type": "playertotals-tdpasses",
+   "hcp": 0.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1433179,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1433178,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144637": {
+   "name": "Player To Score TD (incl. overtime)",
+   "type": "players-td",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144641,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 144642,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 144640,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 144639,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 144638,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 144637,
+     "outcomeName": "0"
+    }
+   ],
+   "rows": 48,
+   "sample_rows": [
+    {
+     "outcome": "144639",
+     "name": "LaPorta, Sam",
+     "american": "1800",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Carter, DeAndre",
+     "american": "17000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Larison, Lan",
+     "american": "3500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Wright, Brock",
+     "american": "13000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Brown, A.J.",
+     "american": "1700",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "TeSlaa, Isaac",
+     "american": "4500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1428968": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 89.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428969,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428968,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "14416": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 4.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14417,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14416,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 8
+  },
+  "145342": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 29.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145342,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145343,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145253": {
+   "name": "Player Pass Yards (incl. overtime)",
+   "type": "players-passyards",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145272,
+     "outcomeName": "290+"
+    },
+    {
+     "outcomeId": 145282,
+     "outcomeName": "390+"
+    },
+    {
+     "outcomeId": 145270,
+     "outcomeName": "270+"
+    },
+    {
+     "outcomeId": 145261,
+     "outcomeName": "180+"
+    },
+    {
+     "outcomeId": 145263,
+     "outcomeName": "200+"
+    },
+    {
+     "outcomeId": 145258,
+     "outcomeName": "150+"
+    },
+    {
+     "outcomeId": 145265,
+     "outcomeName": "220+"
+    },
+    {
+     "outcomeId": 145278,
+     "outcomeName": "350+"
+    },
+    {
+     "outcomeId": 145279,
+     "outcomeName": "360+"
+    },
+    {
+     "outcomeId": 145283,
+     "outcomeName": "400+"
+    },
+    {
+     "outcomeId": 145254,
+     "outcomeName": "110+"
+    },
+    {
+     "outcomeId": 145257,
+     "outcomeName": "140+"
+    },
+    {
+     "outcomeId": 145281,
+     "outcomeName": "380+"
+    },
+    {
+     "outcomeId": 145276,
+     "outcomeName": "330+"
+    },
+    {
+     "outcomeId": 145256,
+     "outcomeName": "130+"
+    },
+    {
+     "outcomeId": 145264,
+     "outcomeName": "210+"
+    },
+    {
+     "outcomeId": 145262,
+     "outcomeName": "190+"
+    },
+    {
+     "outcomeId": 145253,
+     "outcomeName": "100+"
+    },
+    {
+     "outcomeId": 145274,
+     "outcomeName": "310+"
+    },
+    {
+     "outcomeId": 145255,
+     "outcomeName": "120+"
+    },
+    {
+     "outcomeId": 145268,
+     "outcomeName": "250+"
+    },
+    {
+     "outcomeId": 145280,
+     "outcomeName": "370+"
+    },
+    {
+     "outcomeId": 145266,
+     "outcomeName": "230+"
+    },
+    {
+     "outcomeId": 145271,
+     "outcomeName": "280+"
+    },
+    {
+     "outcomeId": 145269,
+     "outcomeName": "260+"
+    },
+    {
+     "outcomeId": 145273,
+     "outcomeName": "300+"
+    },
+    {
+     "outcomeId": 145277,
+     "outcomeName": "340+"
+    },
+    {
+     "outcomeId": 145275,
+     "outcomeName": "320+"
+    },
+    {
+     "outcomeId": 145267,
+     "outcomeName": "240+"
+    },
+    {
+     "outcomeId": 145259,
+     "outcomeName": "160+"
+    },
+    {
+     "outcomeId": 145260,
+     "outcomeName": "170+"
+    }
+   ],
+   "rows": 47
+  },
+  "1426286": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 84.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426287,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426286,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1429864": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 3.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429864,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429865,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "145832": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 52.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145833,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145832,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424686": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 84.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424686,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424687,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424666": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 74.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424667,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424666,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424622": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 52.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424623,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1424622,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "145830": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 51.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145831,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145830,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146185": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 9.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146186,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146185,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1428864": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 37.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428865,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428864,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "146589": {
+   "name": "Player Field Goals (incl. overtime)",
+   "type": "players-fieldgoals",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146598,
+     "outcomeName": "9+"
+    },
+    {
+     "outcomeId": 146596,
+     "outcomeName": "7+"
+    },
+    {
+     "outcomeId": 146597,
+     "outcomeName": "8+"
+    },
+    {
+     "outcomeId": 146594,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 146593,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 146599,
+     "outcomeName": "10+"
+    },
+    {
+     "outcomeId": 146589,
+     "outcomeName": "0"
+    },
+    {
+     "outcomeId": 146590,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 146592,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 146591,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 146595,
+     "outcomeName": "6+"
+    }
+   ],
+   "rows": 8
+  },
+  "14424": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 8.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14424,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 14425,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "14422": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 7.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14422,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 14423,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "1426276": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 79.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426276,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426277,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1426398": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 140.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426399,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426398,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426486": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 184.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426487,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426486,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144973": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 260.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144973,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 144974,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148777": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 109.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148777,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148778,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 5
+  },
+  "1428816": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 13.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428817,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428816,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "144985": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 266.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144986,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144985,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424638": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 60.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424638,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424639,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1424706": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 94.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424706,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424707,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426456": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 169.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426457,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426456,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1427756": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 19.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427756,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427757,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 6
+  },
+  "146217": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 25.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146217,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 146218,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "146197": {
+   "name": "Over Under Player Rush Attempts (incl. overtime)",
+   "type": "playertotals-rushattempts",
+   "hcp": 15.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 146198,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 146197,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1440948": {
+   "name": "Over Under Player Longest Reception (incl. overtime)",
+   "type": "playertotals-longestreception",
+   "hcp": 14.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1440949,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1440948,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 4
+  },
+  "1428858": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 34.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428859,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1428858,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "145382": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 49.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145383,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145382,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1426370": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 126.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426371,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1426370,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148897": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 169.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148897,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148898,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "1426476": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 179.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426476,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426477,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1426266": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 74.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426266,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426267,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "145756": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 14.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145757,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145756,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1424626": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 54.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1424626,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1424627,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1430856": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 99.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430856,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430857,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 1
+  },
+  "14418": {
+   "name": "Over Under Player Receptions (incl. overtime)",
+   "type": "playertotals-receptions",
+   "hcp": 5.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14419,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 14418,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  },
+  "1429876": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 9.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429876,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429877,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 4
+  },
+  "145362": {
+   "name": "Over Under Player Pass Attempts (incl. overtime)",
+   "type": "playertotals-passattempts",
+   "hcp": 39.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145362,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145363,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428792": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 1.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428792,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428793,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "148621": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 31.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148621,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 148622,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427746": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 14.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427746,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427747,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 7
+  },
+  "1430756": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 49.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430756,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1430757,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1441750": {
+   "name": "Player Longest Reception (incl. overtime)",
+   "type": "players-longestreception",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1441750,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 1441759,
+     "outcomeName": "50+"
+    },
+    {
+     "outcomeId": 1441767,
+     "outcomeName": "90+"
+    },
+    {
+     "outcomeId": 1441754,
+     "outcomeName": "25+"
+    },
+    {
+     "outcomeId": 1441753,
+     "outcomeName": "20+"
+    },
+    {
+     "outcomeId": 1441756,
+     "outcomeName": "35+"
+    },
+    {
+     "outcomeId": 1441762,
+     "outcomeName": "65+"
+    },
+    {
+     "outcomeId": 1441760,
+     "outcomeName": "55+"
+    },
+    {
+     "outcomeId": 1441758,
+     "outcomeName": "45+"
+    },
+    {
+     "outcomeId": 1441751,
+     "outcomeName": "10+"
+    },
+    {
+     "outcomeId": 1441761,
+     "outcomeName": "60+"
+    },
+    {
+     "outcomeId": 1441766,
+     "outcomeName": "85+"
+    },
+    {
+     "outcomeId": 1441765,
+     "outcomeName": "80+"
+    },
+    {
+     "outcomeId": 1441757,
+     "outcomeName": "40+"
+    },
+    {
+     "outcomeId": 1441769,
+     "outcomeName": "100+"
+    },
+    {
+     "outcomeId": 1441763,
+     "outcomeName": "70+"
+    },
+    {
+     "outcomeId": 1441768,
+     "outcomeName": "95+"
+    },
+    {
+     "outcomeId": 1441755,
+     "outcomeName": "30+"
+    },
+    {
+     "outcomeId": 1441764,
+     "outcomeName": "75+"
+    },
+    {
+     "outcomeId": 1441752,
+     "outcomeName": "15+"
+    }
+   ],
+   "rows": 29
+  },
+  "1430816": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 79.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1430817,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1430816,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 1
+  },
+  "1429936": {
+   "name": "Over Under Player Rush Yards",
+   "type": "playertotals-rushyards",
+   "hcp": 39.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1429936,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1429937,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1432966": {
+   "name": "Over Under Player Receptions",
+   "type": "playertotals-receptions",
+   "hcp": 2.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1432966,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1432967,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 5
+  },
+  "148717": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 79.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148718,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148717,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 7
+  },
+  "144989": {
+   "name": "Over Under Player Pass Yards (incl. overtime)",
+   "type": "playertotals-passyards",
+   "hcp": 268.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144990,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 144989,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "1426372": {
+   "name": "Over Under Player Pass Yards",
+   "type": "playertotals-passyards",
+   "hcp": 127.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1426372,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1426373,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427816": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 49.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427816,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1427817,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 3
+  },
+  "1427726": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 4.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427727,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427726,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 7
+  },
+  "145458": {
+   "name": "Over Under Player Pass Completions (incl. overtime)",
+   "type": "playertotals-passcompletions",
+   "hcp": 17.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145458,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 145459,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1428870": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 40.5,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 1428870,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 1428871,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": 2
+  },
+  "1427796": {
+   "name": "Over Under Player Receiving Yards",
+   "type": "playertotals-receivingyards",
+   "hcp": 39.5,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 1427797,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 1427796,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 5
+  },
+  "145924": {
+   "name": "Over Under Player Rush Yards (incl. overtime)",
+   "type": "playertotals-rushyards",
+   "hcp": 98.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 145925,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 145924,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 2
+  },
+  "148757": {
+   "name": "Over Under Player Receiving Yards (incl. overtime)",
+   "type": "playertotals-receivingyards",
+   "hcp": 99.5,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 148758,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 148757,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": 6
+  }
  },
- "nfl_odds_233": {
-  "tournament": 233,
-  "status": 404,
-  "body": "{\"error\":{\"message\":\"No fixtures found for the specified tournament IDs and bookmaker.\",\"code\":\"FIXTURE_NOT_FOUND\",\"details\":\"Please check the provided tournament IDs and try again.\"}}"
- }
+ "nfl_td_markets": {
+  "144650": {
+   "name": "Player To Score TD Second Half (incl. overtime)",
+   "type": "players-td-other",
+   "hcp": 0.0,
+   "period": "p3+p4+overtime",
+   "outcomes": [
+    {
+     "outcomeId": 144650,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "144650",
+     "name": "LaPorta, Sam",
+     "american": "450",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Martin, Tay",
+     "american": "5500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Chism, Efton",
+     "american": "950",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Vaki, Sione",
+     "american": "1000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Carter, DeAndre",
+     "american": "2500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144650",
+     "name": "Douglas, Demario",
+     "american": "550",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "14388": {
+   "name": "Player To Score TD (incl. overtime)",
+   "type": "players-td",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14389,
+     "outcomeName": "No"
+    },
+    {
+     "outcomeId": 14388,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 26,
+   "sample_rows": [
+    {
+     "outcome": "14388",
+     "name": "TeSlaa, Isaac",
+     "american": "450",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "LaPorta, Sam",
+     "american": "215",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "St. Brown, Amon-Ra",
+     "american": "-105",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "Maye, Drake",
+     "american": "295",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "Raridon, Eli",
+     "american": "350",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14388",
+     "name": "Gibbs, Jahmyr",
+     "american": "-280",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "144644": {
+   "name": "Player To Score TD First Quarter (incl. overtime)",
+   "type": "players-td-other",
+   "hcp": 0.0,
+   "period": "p1",
+   "outcomes": [
+    {
+     "outcomeId": 144644,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "144644",
+     "name": "Hollins, Mack",
+     "american": "1400",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Gibbs, Jahmyr",
+     "american": "270",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Saylors, Jacob",
+     "american": "5500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Vaki, Sione",
+     "american": "3000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Stevenson, Rhamondre",
+     "american": "550",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144644",
+     "name": "Henry, Hunter",
+     "american": "1200",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "144647": {
+   "name": "Player To Score TD First Half (incl. overtime)",
+   "type": "players-td-other",
+   "hcp": 0.0,
+   "period": "p1+p2",
+   "outcomes": [
+    {
+     "outcomeId": 144647,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "144647",
+     "name": "Saylors, Jacob",
+     "american": "2800",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "St. Brown, Amon-Ra",
+     "american": "220",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Meeks, Jackson",
+     "american": "3000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Martin, Tay",
+     "american": "6500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Kiner, Corey",
+     "american": "260",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144647",
+     "name": "Henry, Hunter",
+     "american": "500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1437423": {
+   "name": "Player To Score Last TD (incl. overtime)",
+   "type": "players-lasttd",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1437423,
+     "outcomeName": "Yes"
+    },
+    {
+     "outcomeId": 1437424,
+     "outcomeName": "No"
+    }
+   ],
+   "rows": 25,
+   "sample_rows": [
+    {
+     "outcome": "1437423",
+     "name": "Larison, Lan",
+     "american": "2000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Meeks, Jackson",
+     "american": "7500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Kiner, Corey",
+     "american": "850",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Vaki, Sione",
+     "american": "2500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "Williams, Kyle",
+     "american": "2200",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1437423",
+     "name": "TeSlaa, Isaac",
+     "american": "2500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "1436277": {
+   "name": "Player TD Passes (incl. overtime)",
+   "type": "players-tdpasses",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 1436283,
+     "outcomeName": "6+"
+    },
+    {
+     "outcomeId": 1436278,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 1436279,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 1436281,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 1436280,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 1436277,
+     "outcomeName": "0"
+    },
+    {
+     "outcomeId": 1436282,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 1436285,
+     "outcomeName": "8+"
+    },
+    {
+     "outcomeId": 1436284,
+     "outcomeName": "7+"
+    }
+   ],
+   "rows": 8,
+   "sample_rows": [
+    {
+     "outcome": "1436281",
+     "name": "Goff, Jared",
+     "american": "870",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436281",
+     "name": "Maye, Drake",
+     "american": "1040",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436280",
+     "name": "Maye, Drake",
+     "american": "295",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436280",
+     "name": "Goff, Jared",
+     "american": "240",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436279",
+     "name": "Goff, Jared",
+     "american": "-164",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "1436279",
+     "name": "Maye, Drake",
+     "american": "-130",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "14390": {
+   "name": "Player To Score First TD (incl. overtime)",
+   "type": "players-firsttd",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 14391,
+     "outcomeName": "No"
+    },
+    {
+     "outcomeId": 14390,
+     "outcomeName": "Yes"
+    }
+   ],
+   "rows": 26,
+   "sample_rows": [
+    {
+     "outcome": "14390",
+     "name": "Henry, Hunter",
+     "american": "1500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Kiner, Corey",
+     "american": "850",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Arkin, Tanner",
+     "american": "8000",
+     "active": false,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Larison, Lan",
+     "american": "2200",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "Vaki, Sione",
+     "american": "4000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "14390",
+     "name": "TeSlaa, Isaac",
+     "american": "2500",
+     "active": true,
+     "main": false
+    }
+   ]
+  },
+  "144637": {
+   "name": "Player To Score TD (incl. overtime)",
+   "type": "players-td",
+   "hcp": 0.0,
+   "period": "result",
+   "outcomes": [
+    {
+     "outcomeId": 144641,
+     "outcomeName": "4+"
+    },
+    {
+     "outcomeId": 144642,
+     "outcomeName": "5+"
+    },
+    {
+     "outcomeId": 144640,
+     "outcomeName": "3+"
+    },
+    {
+     "outcomeId": 144639,
+     "outcomeName": "2+"
+    },
+    {
+     "outcomeId": 144638,
+     "outcomeName": "1+"
+    },
+    {
+     "outcomeId": 144637,
+     "outcomeName": "0"
+    }
+   ],
+   "rows": 48,
+   "sample_rows": [
+    {
+     "outcome": "144639",
+     "name": "LaPorta, Sam",
+     "american": "1800",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Carter, DeAndre",
+     "american": "17000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Larison, Lan",
+     "american": "3500",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Wright, Brock",
+     "american": "13000",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "Brown, A.J.",
+     "american": "1700",
+     "active": true,
+     "main": false
+    },
+    {
+     "outcome": "144639",
+     "name": "TeSlaa, Isaac",
+     "american": "4500",
+     "active": true,
+     "main": false
+    }
+   ]
+  }
+ },
+ "participants_status": 200,
+ "participants_sample": "{'346314': 'Columbia Lions', '236872': 'James Madison Dukes', '4412': 'Arizona Cardinals', '446307': 'Harding Bisons', '450173': 'Saint Vincent Bearcats', '450145': 'Salve Regina Seahawks', '1269990':",
+ "nba_fixture": {
+  "fixtureId": "id1100013273696984",
+  "participant1Id": 3419,
+  "participant2Id": 3421,
+  "startTime": "2026-11-14T00:00:00.000Z"
+ },
+ "nba_markets_sample": {
+  "112632": {
+   "type": "playertotals-points",
+   "hcp": 13.5,
+   "outcomes": [
+    {
+     "outcomeId": 112632,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 112633,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": [
+    [
+     "112632",
+     "Brunson, Jalen",
+     "453",
+     false,
+     true
+    ]
+   ]
+  },
+  "111814": {
+   "type": "playertotals-ptsassreb",
+   "hcp": 13.5,
+   "outcomes": [
+    {
+     "outcomeId": 111814,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 111815,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": [
+    [
+     "111815",
+     "Bridges, Mikal",
+     "-130",
+     false,
+     false
+    ],
+    [
+     "111815",
+     "Shamet, Landry",
+     "-131",
+     false,
+     false
+    ],
+    [
+     "111814",
+     "Bridges, Mikal",
+     "-101",
+     false,
+     false
+    ],
+    [
+     "111814",
+     "Shamet, Landry",
+     "100",
+     false,
+     false
+    ]
+   ]
+  },
+  "111688": {
+   "type": "playertotals-points",
+   "hcp": 9.5,
+   "outcomes": [
+    {
+     "outcomeId": 111688,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 111689,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": [
+    [
+     "111688",
+     "Hart, Josh",
+     "-105",
+     false,
+     true
+    ],
+    [
+     "111688",
+     "Shamet, Landry",
+     "101",
+     false,
+     false
+    ],
+    [
+     "111688",
+     "Toppin, Obi",
+     "-125",
+     false,
+     true
+    ],
+    [
+     "111689",
+     "Shamet, Landry",
+     "-129",
+     false,
+     false
+    ]
+   ]
+  },
+  "112636": {
+   "type": "playertotals-points",
+   "hcp": 15.5,
+   "outcomes": [
+    {
+     "outcomeId": 112637,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 112636,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": [
+    [
+     "112636",
+     "Brunson, Jalen",
+     "870",
+     false,
+     true
+    ]
+   ]
+  },
+  "111796": {
+   "type": "playertotals-3pointers",
+   "hcp": 2.5,
+   "outcomes": [
+    {
+     "outcomeId": 111796,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 111797,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": [
+    [
+     "111797",
+     "Brunson, Jalen",
+     "-140",
+     false,
+     true
+    ],
+    [
+     "111797",
+     "Nembhard, Andrew",
+     "-193",
+     false,
+     false
+    ],
+    [
+     "111797",
+     "Anunoby, OG",
+     "-179",
+     false,
+     true
+    ],
+    [
+     "111796",
+     "Anunoby, OG",
+     "135",
+     false,
+     true
+    ]
+   ]
+  },
+  "111768": {
+   "type": "playertotals-rebounds",
+   "hcp": 3.5,
+   "outcomes": [
+    {
+     "outcomeId": 111769,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 111768,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": [
+    [
+     "111769",
+     "Oubre Jr., Kelly",
+     "101",
+     false,
+     true
+    ],
+    [
+     "111769",
+     "Brunson, Jalen",
+     "-152",
+     false,
+     true
+    ],
+    [
+     "111769",
+     "Nesmith, Aaron",
+     "-142",
+     false,
+     true
+    ],
+    [
+     "111769",
+     "Toppin, Obi",
+     "113",
+     false,
+     false
+    ]
+   ]
+  },
+  "111700": {
+   "type": "playertotals-points",
+   "hcp": 15.5,
+   "outcomes": [
+    {
+     "outcomeId": 111701,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 111700,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": [
+    [
+     "111701",
+     "Nembhard, Andrew",
+     "-106",
+     false,
+     true
+    ],
+    [
+     "111700",
+     "Nembhard, Andrew",
+     "-120",
+     false,
+     true
+    ]
+   ]
+  },
+  "112624": {
+   "type": "playertotals-points",
+   "hcp": 9.5,
+   "outcomes": [
+    {
+     "outcomeId": 112625,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 112624,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": [
+    [
+     "112624",
+     "Brunson, Jalen",
+     "119",
+     false,
+     true
+    ],
+    [
+     "112624",
+     "Nembhard, Andrew",
+     "690",
+     false,
+     true
+    ],
+    [
+     "112624",
+     "Siakam, Pascal",
+     "326",
+     false,
+     true
+    ],
+    [
+     "112624",
+     "Anunoby, OG",
+     "740",
+     false,
+     true
+    ]
+   ]
+  },
+  "111862": {
+   "type": "playertotals-ptsassreb",
+   "hcp": 37.5,
+   "outcomes": [
+    {
+     "outcomeId": 111863,
+     "outcomeName": "Under"
+    },
+    {
+     "outcomeId": 111862,
+     "outcomeName": "Over"
+    }
+   ],
+   "rows": [
+    [
+     "111862",
+     "Towns, Karl-Anthony",
+     "-116",
+     false,
+     true
+    ],
+    [
+     "111863",
+     "Towns, Karl-Anthony",
+     "-113",
+     false,
+     true
+    ]
+   ]
+  },
+  "112626": {
+   "type": "playertotals-points",
+   "hcp": 10.5,
+   "outcomes": [
+    {
+     "outcomeId": 112626,
+     "outcomeName": "Over"
+    },
+    {
+     "outcomeId": 112627,
+     "outcomeName": "Under"
+    }
+   ],
+   "rows": [
+    [
+     "112626",
+     "Brunson, Jalen",
+     "166",
+     false,
+     true
+    ],
+    [
+     "112626",
+     "Towns, Karl-Anthony",
+     "740",
+     false,
+     true
+    ],
+    [
+     "112626",
+     "Siakam, Pascal",
+     "481",
+     false,
+     true
+    ]
+   ]
+  }
+ },
+ "nba_main_count": 0,
+ "nba_participants_sample": "{'946493': 'Christopher Newport Captains', '347408': 'Memphis Tigers', '421385': 'Taiyuan', '96605': 'Pelita Jaya Jakarta', '726685': 'Eberlein Drive', '107517': 'Basket Lattes Montpellier', '1310606'"
 }
