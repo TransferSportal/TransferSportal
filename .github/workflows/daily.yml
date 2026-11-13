@@ -127,6 +127,8 @@ jobs:
           # Sportsbook prop lines for the card, fetched once a day from the licensed feed.
           python nba_lines.py || echo "nba_lines.py failed; no book lines today"
           python nba_picks.py || echo "nba_picks.py failed; keeping the last NBA picks"
+          # Top 5 EV against the DraftKings lines fetched above. Optional.
+          python nba_ev.py || echo "nba_ev.py failed; no EV list today"
           # Embedded NFL headshots for the NFL Matchups slides. Optional, like the NBA model.
           python nfl_images.py || echo "nfl_images.py failed; keeping the last NFL headshots"
           # Weather, snap share and target share for the Research Center. Optional: it writes an empty file on any failure.
