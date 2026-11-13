@@ -310,7 +310,7 @@ function NbaEvRow({ c, rank }) {
     <div className="kmRow">
       <div className="kmPhoto">
         <span className="kmRank">{String(rank).padStart(2, '0')}</span>
-        <img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
+        <Face nba id={c.pid} name={c.name} size={96} round={false} />
       </div>
       <div className="kmBody">
         <div className="kmName">{c.name}</div>
