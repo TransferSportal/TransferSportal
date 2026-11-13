@@ -11,12 +11,15 @@ jobs:
       - name: Probe OddsPapi
         env:
           ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
-        run: python3 oddspapi.py
+        run: |
+          python3 oddspapi.py
+          python3 -c "import nba_lines, datetime as dt; nba_lines.main(now=dt.datetime.now(dt.timezone.utc).replace(hour=21))" || true
+          python3 nba_ev.py --test || true
       - name: Save result
         run: |
           git config user.name "TransferSportal"
           git config user.email "326551834+TransferSportal@users.noreply.github.com"
-          git add oddspapi_check.json
+          git add oddspapi_check.json ev_test.json
           git commit -m "OddsPapi check result" || echo "nothing to commit"
           git pull --rebase origin main
           git push
