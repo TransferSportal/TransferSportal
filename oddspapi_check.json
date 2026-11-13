@@ -1,0 +1,274 @@
+{
+ "fetched": "2026-11-13 17:46 UTC",
+ "nfl_games": 13,
+ "nfl_players_yes": 346,
+ "nfl_players_with_no": 0,
+ "nfl_events": [
+  "Detroit Lions vs New England Patriots DET/NE",
+  "Atlanta Falcons vs Kansas City Chiefs ATL/KC",
+  "Cleveland Browns vs Houston Texans CLE/HOU",
+  "Green Bay Packers vs Minnesota Vikings GB/MIN",
+  "Indianapolis Colts vs Miami Dolphins IND/MIA",
+  "New Orleans Saints vs Carolina Panthers CAR/NO",
+  "New York Jets vs Buffalo Bills BUF/NYJ",
+  "Tennessee Titans vs Jacksonville Jaguars JAX/TEN",
+  "Arizona Cardinals vs Los Angeles Rams ARI/LA",
+  "Las Vegas Raiders vs Seattle Seahawks LV/SEA",
+  "Dallas Cowboys vs San Francisco 49ers DAL/SF",
+  "Cincinnati Bengals vs Pittsburgh Steelers CIN/PIT",
+  "Baltimore Ravens vs Los Angeles Chargers BAL/LAC"
+ ],
+ "nfl_sample": {
+  "Efton Chism": {
+   "yes": 500.0
+  },
+  "Drake Maye": {
+   "yes": 300.0
+  },
+  "Jahmyr Gibbs": {
+   "yes": -275.0
+  },
+  "Cameron Latu": {
+   "yes": 2500.0
+  },
+  "DeAndre Carter": {
+   "yes": 1400.0
+  },
+  "Jameson Williams": {
+   "yes": 195.0
+  }
+ },
+ "nba_games": 9,
+ "nba_players": 121,
+ "nba_stats_count": {
+  "pts": 120,
+  "reb": 113,
+  "fg3": 103,
+  "pra": 95
+ },
+ "nba_sample": {
+  "pascal siakam": {
+   "reb": {
+    "line": 6.5,
+    "over": 108,
+    "under": -142,
+    "name": "Pascal Siakam",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "fg3": {
+    "line": 1.5,
+    "over": -106,
+    "under": -125,
+    "name": "Pascal Siakam",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pts": {
+    "line": 20.5,
+    "over": -121,
+    "under": -105,
+    "name": "Pascal Siakam",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "andre drummond": {
+   "reb": {
+    "line": 6.5,
+    "over": -110,
+    "under": -120,
+    "name": "Andre Drummond",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "josh hart": {
+   "reb": {
+    "line": 7.5,
+    "over": 102,
+    "under": -135,
+    "name": "Josh Hart",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pra": {
+    "line": 20.5,
+    "over": -122,
+    "under": -108,
+    "name": "Josh Hart",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pts": {
+    "line": 9.5,
+    "over": -105,
+    "under": -121,
+    "name": "Josh Hart",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "fg3": {
+    "line": 1.5,
+    "over": 153,
+    "under": -204,
+    "name": "Josh Hart",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "karl anthony towns": {
+   "reb": {
+    "line": 12.5,
+    "over": -124,
+    "under": -106,
+    "name": "Karl-Anthony Towns",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pra": {
+    "line": 37.5,
+    "over": -116,
+    "under": -113,
+    "name": "Karl-Anthony Towns",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "fg3": {
+    "line": 1.5,
+    "over": 123,
+    "under": -163,
+    "name": "Karl-Anthony Towns",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pts": {
+    "line": 20.5,
+    "over": -123,
+    "under": -103,
+    "name": "Karl-Anthony Towns",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "ivica zubac": {
+   "reb": {
+    "line": 9.5,
+    "over": -142,
+    "under": 108,
+    "name": "Ivica Zubac",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pts": {
+    "line": 12.5,
+    "over": -117,
+    "under": -109,
+    "name": "Ivica Zubac",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pra": {
+    "line": 25.5,
+    "over": -108,
+    "under": -122,
+    "name": "Ivica Zubac",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "kelly oubre": {
+   "pts": {
+    "line": 10.5,
+    "over": -126,
+    "under": -101,
+    "name": "Kelly Oubre Jr.",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "fg3": {
+    "line": 1.5,
+    "over": 160,
+    "under": -213,
+    "name": "Kelly Oubre Jr.",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "reb": {
+    "line": 3.5,
+    "over": -134,
+    "under": 101,
+    "name": "Kelly Oubre Jr.",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  }
+ },
+ "nba_named": {
+  "ivica zubac": {
+   "reb": {
+    "line": 9.5,
+    "over": -142,
+    "under": 108,
+    "name": "Ivica Zubac",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pts": {
+    "line": 12.5,
+    "over": -117,
+    "under": -109,
+    "name": "Ivica Zubac",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pra": {
+    "line": 25.5,
+    "over": -108,
+    "under": -122,
+    "name": "Ivica Zubac",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "aaron nesmith": {
+   "pts": {
+    "line": 11.5,
+    "over": -119,
+    "under": -107,
+    "name": "Aaron Nesmith",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "fg3": {
+    "line": 1.5,
+    "over": -190,
+    "under": 143,
+    "name": "Aaron Nesmith",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "reb": {
+    "line": 3.5,
+    "over": 107,
+    "under": -142,
+    "name": "Aaron Nesmith",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pra": {
+    "line": 16.5,
+    "over": -116,
+    "under": -113,
+    "name": "Aaron Nesmith",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  },
+  "jalen brunson": {
+   "pts": {
+    "line": 25.5,
+    "over": -107,
+    "under": -119,
+    "name": "Jalen Brunson",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "pra": {
+    "line": 35.5,
+    "over": -107,
+    "under": -123,
+    "name": "Jalen Brunson",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "fg3": {
+    "line": 2.5,
+    "over": 107,
+    "under": -140,
+    "name": "Jalen Brunson",
+    "game": "Indiana Pacers vs New York Knicks"
+   },
+   "reb": {
+    "line": 3.5,
+    "over": 115,
+    "under": -152,
+    "name": "Jalen Brunson",
+    "game": "Indiana Pacers vs New York Knicks"
+   }
+  }
+ }
+}
