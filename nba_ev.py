@@ -9,8 +9,8 @@ How EV is worked out
   1. The model's chance of the Over: a normal curve around the projection, using the player's recent
      game-to-game swing (threes use a Poisson, since the counts are small).
   2. The book's own chance: the Over and Under prices with the vig removed.
-  3. The two are blended half and half. A raw model edge on a small sample is mostly noise, and
-     halving it keeps one wild projection from topping the list.
+  3. The two are blended, 35% model and 65% book. A raw model edge on a small sample is mostly noise,
+     and the book is usually sharper, so most of the weight stays on its price.
   4. EV per $1 = blended win chance x decimal payout - 1, for whichever side is better.
 One play per player, at most two per game. Only players with a clean injury status and a game today
 that has not tipped. It runs after nba_lines.py and only shows lines dated today.
@@ -26,7 +26,7 @@ from odds import norm
 
 HERE = Path(__file__).parent
 STATS = ("pts", "reb", "fg3", "pra")
-BLEND = 0.5          # weight on the model; the rest is the book's devigged price
+BLEND = 0.35         # weight on the model; the rest is the book's devigged price
 MIN_GAMES = 15
 MIN_AVAIL = 0.9
 TOP = 5
@@ -85,7 +85,7 @@ def build(now):
                                               ("under", b["under"], 1 - pm_o, 1 - fair_o, 1 - bl_o)):
                 ev = bl * dec(price) - 1
                 if best is None or ev > best["ev"]:
-                    logs = ((p.get("logs") or {}).get(s) or [])[-10:]
+                    logs = [g[s] for g in (p.get("log20") or []) if g.get(s) is not None][-10:]
                     hit = sum(1 for x in logs if (x > line if side == "over" else x < line))
                     best = {"pid": p["id"], "name": p["name"], "team": p["team"], "opp": nx.get("opp"),
                             "home": bool(nx.get("home")), "tip": nx["date"], "stat": s, "side": side,
