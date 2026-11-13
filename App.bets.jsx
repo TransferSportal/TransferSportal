@@ -13,7 +13,7 @@ function useSlip() {
 }
 // Two bettors share the site: RK (the owner) and DM. Every bet carries an owner tag; a bet with no tag is RK's.
 // The owner is signed in as RK, anyone else as DM. Each has a separate bankroll (config doc: "config" for RK, "config_DM" for DM).
-const OWN = { me: 'RK', view: 'RK', ready: false, subs: new Set() };
+const OWN = { me: 'RK', view: 'RK', ready: false, chosen: false, subs: new Set() };
 function ownSet(p) { Object.assign(OWN, p); OWN.subs.forEach(f => f()); }
 function useOwn() {
   const [, f] = useState(0);
@@ -33,6 +33,19 @@ function OwnerSwitch() {
     </div>
   );
 }
+// Who is saving bets on this browser. Chosen once by tapping RK or DM, remembered on this device.
+function SaveAs() {
+  const o = useOwn();
+  const pick = k => { try { localStorage.setItem('tsOwner', k); } catch (e) { /* no storage */ } ownSet({ me: k, view: k, chosen: true }); };
+  const bt = on => ({ appearance: 'none', cursor: 'pointer', borderRadius: 8, padding: '5px 12px', fontSize: 12, fontWeight: 700, border: '1px solid ' + (on ? 'var(--pos)' : 'var(--line2)'), background: on ? 'var(--posBg)' : 'transparent', color: on ? 'var(--pos)' : 'var(--ink2)' });
+  return (
+    <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', flexBasis: '100%', margin: '2px 0 4px' }}>
+      <span className="rcSub">Saving as:</span>
+      {['RK', 'DM'].map(k => <button key={k} style={bt(o.me === k)} onClick={() => pick(k)}>{k}</button>)}
+      {!o.chosen && <span className="rcSub" style={{ color: 'var(--warn)' }}>Tap yours once. This device remembers it.</span>}
+    </div>
+  );
+}
 function useBets() {
   const [st, setSt] = useState({ db: null, all: [], ok: null });
   const o = useOwn();
@@ -46,7 +59,7 @@ function useBets() {
         if (!db) { setSt(s => ({ ...s, ok: false })); return; }
         try {
           const u = await window.claude.use('user');
-          if (!OWN.ready) { OWN.ready = true; const me = u && u.isOwner && !u.isOwner() ? 'DM' : 'RK'; ownSet({ me, view: me }); }
+          if (!OWN.ready) { OWN.ready = true; let me = u && u.isOwner && !u.isOwner() ? 'DM' : 'RK', chosen = false; try { const sv = localStorage.getItem('tsOwner'); if (sv === 'RK' || sv === 'DM') { me = sv; chosen = true; } } catch (e2) { /* no storage */ } ownSet({ me, view: me, chosen }); }
         } catch (e) { /* stays RK */ }
         off = db.collection('bets').onSnapshot(
           q => setSt({ db, ok: true, all: q.docs.map(d => ({ id: d.id, ...d.data() })) }),
@@ -93,17 +106,17 @@ const money = n => (n < 0 ? '-$' : '$') + Math.abs(n).toFixed(2);
 const bkPct = n => (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
 function BetEdit({ b }) {
   const { db, me } = useBets();
-  const mineB = ownOf(b) === me;
+  const mineB = true;
   const [open, setOpen] = useState(false);
-  const [f, setF] = useState({ stake: b.stake || '', odds: b.odds || '', book: b.book || '', alt: !!b.alt });
+  const [f, setF] = useState({ stake: b.stake || '', odds: b.odds || '', book: b.book || '', alt: !!b.alt, owner: ownOf(b) });
   const [msg, setMsg] = useState('');
-  useEffect(() => { if (!open) setF({ stake: b.stake || '', odds: b.odds || '', book: b.book || '', alt: !!b.alt }); }, [b.stake, b.odds, b.book, b.alt, open]);
+  useEffect(() => { if (!open) setF({ stake: b.stake || '', odds: b.odds || '', book: b.book || '', alt: !!b.alt, owner: ownOf(b) }); }, [b.stake, b.odds, b.book, b.alt, b.owner, open]);
   const inp = { background: 'var(--bg2)', border: '1px solid var(--line2)', borderRadius: 8, padding: '6px 8px', color: 'var(--ink)', fontSize: 13, width: 84 };
   const sum = b.stake ? '$' + b.stake + (b.odds ? ' at ' + (Number(b.odds) > 0 ? '+' : '') + b.odds : ' (no odds yet)') + (b.book ? ' · ' + b.book : '') + (b.alt ? ' · alt line' : '') : 'Add stake and odds';
   const save = async () => {
     if (!db) return;
     try {
-      await db.collection('bets').doc(b.id).update({ stake: Number(f.stake) || 0, odds: Number(f.odds) || 0, book: f.book.trim(), alt: !!f.alt });
+      await db.collection('bets').doc(b.id).update({ stake: Number(f.stake) || 0, odds: Number(f.odds) || 0, book: f.book.trim(), alt: !!f.alt, owner: f.owner });
       setMsg('Saved'); setOpen(false);
     } catch (e) { setMsg('Could not save'); }
   };
@@ -117,6 +130,7 @@ function BetEdit({ b }) {
           <input style={{ ...inp, width: 110 }} list="bookList" placeholder="Book" value={f.book} onChange={e => setF({ ...f, book: e.target.value })} />
           <datalist id="bookList"><option value="FanDuel" /><option value="DraftKings" /><option value="BetMGM" /><option value="Caesars" /><option value="Fanatics" /><option value="Other" /></datalist>
           <label className="rcSub" style={{ display: 'flex', gap: 4, alignItems: 'center' }}><input type="checkbox" checked={f.alt} onChange={e => setF({ ...f, alt: e.target.checked })} />Alt line</label>
+          <select value={f.owner} onChange={e => setF({ ...f, owner: e.target.value })} style={{ ...inp, width: 70 }}><option value="RK">RK</option><option value="DM">DM</option></select>
           <button onClick={save} style={{ appearance: 'none', cursor: 'pointer', borderRadius: 8, padding: '6px 12px', fontSize: 13, fontWeight: 700, border: '1px solid var(--ink)', background: 'var(--ink)', color: '#0d0f12' }}>Save</button>
           {msg && <span className="rcSub">{msg}</span>}
         </div>
@@ -352,6 +366,7 @@ function PlayControls({ leg: baseLeg }) {
   const sideBtn = x => ({ appearance: 'none', cursor: 'pointer', borderRadius: 8, padding: '6px 12px', fontSize: 13, fontWeight: 700, border: '1px solid ' + (side === x ? 'var(--ink)' : 'var(--line2)'), background: side === x ? 'var(--ink)' : 'transparent', color: side === x ? '#0d0f12' : 'var(--ink2)' });
   return (
     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
+      <SaveAs />
       {canFlip && !have && <div style={{ flexBasis: '100%', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
         <span className="rcSub">Your side{side !== baseLeg.side ? ' (against the model)' : ''}:</span>
         <button style={sideBtn('over')} onClick={() => setOv({ k: baseLeg.key, s: 'over' })}>Over {leg.line}</button>
@@ -387,6 +402,7 @@ function SlipBar() {
   return (
     <div className="rcMain" style={{ marginBottom: 14, borderColor: 'var(--ink)' }}>
       <div className="rcName" style={{ fontSize: 16 }}>Parlay slip · {slip.length} leg{slip.length === 1 ? '' : 's'}</div>
+      <SaveAs />
       {slip.map(l => (
         <div key={l.key} className="rcP" style={{ cursor: 'default' }}>
           <span><b>{legText(l)}</b> <span style={{ color: 'var(--ink2)' }}>({l.sport.toUpperCase()}, {l.verdict}, {l.gameDate})</span></span>
