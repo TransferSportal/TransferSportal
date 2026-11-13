@@ -157,6 +157,7 @@ function BkChart({ vals }) {
   const any = vals.some(v => v !== 0);
   return (
     <svg viewBox={'0 0 ' + W + ' ' + H} style={{ width: '100%', height: 'auto', display: 'block' }}>
+      <defs><filter id="bkGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter></defs>
       <line x1={L} x2={W - R} y1={y(0)} y2={y(0)} stroke="rgba(255,255,255,.28)" strokeDasharray="3 4" />
       <text x={L - 6} y={y(0) + 3} textAnchor="end" fontSize="9" fill="var(--ink3)">$0</text>
       {mx > 0 && <text x={L - 6} y={y(mx) + 3} textAnchor="end" fontSize="9" fill="var(--ink3)">{bkShort(mx).replace('+', '')}</text>}
@@ -166,7 +167,7 @@ function BkChart({ vals }) {
         const top = Math.min(y(v), y(0)), h = Math.max(Math.abs(y(v) - y(0)), v !== 0 ? 2 : 0);
         return (
           <g key={i}>
-            {v !== 0 && <rect x={x} y={top} width={w} height={h} rx="3" fill={v > 0 ? '#22c55e' : '#ef4444'} />}
+            {v !== 0 && <rect x={x} y={top} width={w} height={h} rx="3" fill={v > 0 ? '#34f5a1' : '#ff5d6c'} filter="url(#bkGlow)" />}
             {v !== 0 && <text x={x + w / 2} y={v > 0 ? top - 4 : top + h + 11} textAnchor="middle" fontSize="9.5" fontWeight="700" fill={v > 0 ? '#22c55e' : '#ef4444'}>{bkShort(v)}</text>}
             <text x={x + w / 2} y={H - 8} textAnchor="middle" fontSize="10" fill="var(--ink3)">{BK_DAYS[i]}</text>
           </g>
@@ -180,8 +181,9 @@ function BkRing({ pct }) {
   const r = 54, c = 2 * Math.PI * r, p = Math.max(0, Math.min(1, pct));
   return (
     <svg viewBox="0 0 140 140" style={{ width: 150, height: 150 }}>
+      <defs><filter id="bkGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter></defs>
       <circle cx="70" cy="70" r={r} fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="12" />
-      <circle cx="70" cy="70" r={r} fill="none" stroke={pct >= 1 ? '#22c55e' : '#facc15'} strokeWidth="12" strokeLinecap="round" strokeDasharray={c * p + ' ' + c} transform="rotate(-90 70 70)" />
+      <circle cx="70" cy="70" r={r} fill="none" stroke={pct >= 1 ? '#34f5a1' : '#5eead4'} strokeWidth="10" strokeLinecap="round" filter="url(#bkGlow)" strokeDasharray={c * p + ' ' + c} transform="rotate(-90 70 70)" />
       <text x="70" y="77" textAnchor="middle" fontSize="26" fontWeight="800" fill="var(--ink)">{Math.round(pct * 100)}%</text>
     </svg>
   );
@@ -216,6 +218,34 @@ const BK_CSS = `
 .bk details summary::-webkit-details-marker{display:none}
 .bk details summary:before{content:'+ ';color:var(--ink3)}.bk details[open] summary:before{content:'- '}
 @media(max-width:760px){.bk .bkGrid{grid-template-columns:repeat(2,1fr)}.bk .bkT:nth-child(4n){border-right:1px solid var(--line)}.bk .bkT:nth-child(2n){border-right:none}.bk .bkT:nth-last-child(-n+4){border-bottom:1px solid var(--line)}.bk .bkT:nth-last-child(-n+2){border-bottom:none}.bk .bkTwo{grid-template-columns:1fr}.bk .bkV{font-size:21px}}
+`;
+const BK_FX = `
+.bk{position:relative;isolation:isolate}
+.bk:before{content:'';position:absolute;inset:-8px;z-index:-1;border-radius:24px;pointer-events:none;background:radial-gradient(620px 240px at 12% 0%,rgba(0,255,200,.12),transparent 70%),radial-gradient(520px 260px at 92% 8%,rgba(120,90,255,.14),transparent 70%)}
+.bk .bkKick{color:#5eead4;letter-spacing:3.2px;font-family:var(--num);text-shadow:0 0 10px rgba(94,234,212,.7)}
+.bk .bkKick:before{content:'';display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:50%;background:#5eead4;box-shadow:0 0 10px #5eead4;animation:bkPulse 1.8s ease-in-out infinite}
+.bk .bkTitle{font-family:var(--num);text-transform:uppercase;letter-spacing:5px;font-size:28px;font-weight:700;background:linear-gradient(90deg,#f0fffd,#5eead4 55%,#93a4ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 12px rgba(94,234,212,.35))}
+.bk .bkGrid,.bk .bkCard{background:linear-gradient(160deg,rgba(94,234,212,.08),rgba(8,14,22,.6));border:1px solid rgba(94,234,212,.30);border-radius:10px;box-shadow:0 0 26px rgba(94,234,212,.08),inset 0 1px 0 rgba(255,255,255,.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.bk .bkGrid{position:relative}
+.bk .bkGrid:after{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,rgba(94,234,212,.85),transparent);animation:bkScan 5s linear infinite;pointer-events:none}
+.bk .bkT{border-color:rgba(94,234,212,.16);transition:background .2s,box-shadow .2s}
+.bk .bkT:hover{background:rgba(94,234,212,.08);box-shadow:inset 0 0 24px rgba(94,234,212,.12)}
+.bk .bkL{color:#7dd3c8;font-family:var(--num);letter-spacing:2.2px}
+.bk .bkV{font-family:var(--num);font-weight:600;font-size:27px;text-shadow:0 0 18px currentColor}
+.bk .bkS{font-family:var(--num);color:#6f8f93}
+.bk .bkCardH{font-family:var(--num);text-transform:uppercase;letter-spacing:2.2px;font-size:11.5px;color:#9ae6dc}
+.bk .bkRow{border-top-color:rgba(94,234,212,.13);font-family:var(--num);font-size:12.5px}
+.bk .bkNav b{font-family:var(--num);color:#d6fffa}
+.bk .bkNav button,.bk .bkBtn{border-color:rgba(94,234,212,.5);color:#5eead4;border-radius:6px;font-family:var(--num);background:rgba(94,234,212,.05);transition:box-shadow .2s,color .2s}
+.bk .bkNav button:hover,.bk .bkBtn:hover{box-shadow:0 0 16px rgba(94,234,212,.5);color:#f0fffd}
+.bk .bkIn{border-color:rgba(94,234,212,.38);font-family:var(--num);border-radius:6px}
+.bk .bkLink{color:#5eead4}
+.bk details summary{color:#9ae6dc;font-family:var(--num)}
+.bk circle{transition:stroke-dasharray 1.4s ease}
+.bk svg rect{transition:all .7s ease}
+@keyframes bkScan{0%{top:0;opacity:0}8%{opacity:1}92%{opacity:1}100%{top:calc(100% - 2px);opacity:0}}
+@keyframes bkPulse{50%{opacity:.35;transform:scale(.75)}}
+@media (prefers-reduced-motion:reduce){.bk .bkGrid:after,.bk .bkKick:before{animation:none}}
 `;
 function Bankroll() {
   const { db, bets, ok, me, view } = useBets();
@@ -267,7 +297,7 @@ function Bankroll() {
   const pct = goal ? w.pl / goal : 0;
   return (
     <section className="bk">
-      <style>{BK_CSS}</style>
+      <style>{BK_CSS + BK_FX}</style>
       <div className="bkHead">
         <div><div className="bkKick">Week of {fmt(bkDay(days[0]))}</div><h2 className="bkTitle">Bankroll ({view})</h2><OwnerSwitch /></div>
         <div className="bkNav"><button onClick={() => setOff(off - 1)}>Prev</button><b>{fmt(bkDay(days[0]))} - {fmt(sun)}</b><button onClick={() => setOff(off + 1)} disabled={off >= 0} style={{ opacity: off >= 0 ? 0.4 : 1 }}>Next</button></div>
