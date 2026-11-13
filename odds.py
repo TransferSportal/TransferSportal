@@ -128,7 +128,15 @@ def fetch_and_merge(path="data.json", source=None):
     # is only tried when there is no key, and it is asked once: if it declines,
     # that is the answer.
     feed, used_source = None, None
-    if source in (None, "api") and KEY:
+    if source in (None, "api") and os.environ.get("ODDSPAPI_KEY", "").strip():
+        try:
+            import oddspapi
+            feed = oddspapi.nfl_td_games(TEAM_FULL) or None
+            used_source = "oddspapi/draftkings"
+        except Exception as e:
+            print(f"OddsPapi failed ({type(e).__name__}); trying the next source")
+            feed = None
+    if feed is None and source in (None, "api") and KEY:
         feed = api_games()
         used_source = f"the-odds-api/{BOOK}"
     if feed is None and source in (None, "dk"):
