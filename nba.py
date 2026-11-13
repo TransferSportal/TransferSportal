@@ -246,18 +246,20 @@ def build():
         base = c or p
         cand[pid] = (val, base)
     top = sorted(cand.items(), key=lambda kv: -kv[1][0])[:TOP_N]
-    # Teams we always want a deeper bench for on the Matchups tab. Named players are added even when
-    # they fall outside the top 100; an injured one stays on the list and shows up once he is back.
-    ALWAYS = {"IND": ["Ivica Zubac", "Aaron Nesmith", "Tyrese Haliburton"]}
+    # Players we always want on the Matchups tab even when they fall outside the top 100 by value.
+    # Keyed by ESPN id so a missing or renamed leaders row cannot drop them. A player with no games
+    # logged yet (Haliburton) still gets a row, and the page hides him while he is flagged out.
+    ALWAYS = {"4017837": ("Ivica Zubac", "C"), "4396909": ("Aaron Nesmith", "G"),
+              "4396993": ("Tyrese Haliburton", "G")}
     have = {pid for pid, _ in top}
-    for tm, names in ALWAYS.items():
-        for nm in names:
-            hit = [(pid, v) for pid, v in cand.items()
-                   if v[1]["name"] == nm and pid not in have]
-            if hit:
-                pick = max(hit, key=lambda kv: kv[1][0])
-                top.append(pick)
-                have.add(pick[0])
+    for pid, (nm, pos) in ALWAYS.items():
+        if pid in have:
+            continue
+        if pid in cand:
+            top.append((pid, cand[pid]))
+        else:
+            top.append((pid, (20.0, {"id": pid, "name": nm, "team": "IND", "pos": pos, "gp": 0, "val": 20.0})))
+        have.add(pid)
     if len(top) < 60:
         raise RuntimeError("leaders came back thin")
     ids = [pid for pid, _ in top]
