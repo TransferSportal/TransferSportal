@@ -69,6 +69,12 @@ def build(data, frames, inj):
     # game_id is season_week_AWAY_HOME
     a["home"] = [1 if str(g).split("_")[-1] == t else 0 for g, t in zip(a.game_id, a.team)]
     a = a.sort_values(["t"])
+    # follow trades: group each player under his CURRENT roster team
+    cur_team = {}
+    for p in data.get("players", []):
+        if p.get("team"):
+            cur_team[(p["name"], p.get("pos"))] = TEAM_FIX.get(p["team"], p["team"])
+    a["cteam"] = [cur_team.get((n, pos), t) for n, pos, t in zip(a.player_display_name, a.position, a.team)]
 
     # teams whose game this week is already in the stats feed (Thursday night):
     # their props are settled, so they leave the slate. Judged on the current
@@ -92,7 +98,7 @@ def build(data, frames, inj):
 
     players, injured = [], []
     for team, (opp, home) in sorted(teams.items()):
-        tg = a[a.team == team]
+        tg = a[a.cteam == team]
         if tg.empty:
             continue
         tgames = sorted(tg.t.unique())
