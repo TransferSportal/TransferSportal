@@ -25,6 +25,7 @@ HERE = Path(__file__).parent
 OUT = HERE / "nba_lines.json"
 API = "https://api.the-odds-api.com/v4/sports/basketball_nba"
 KEY = os.environ.get("ODDS_API_KEY", "").strip()
+OPK = os.environ.get("ODDSPAPI_KEY", "").strip()
 BOOK = os.environ.get("ODDS_BOOK", "draftkings").strip()
 BOOK_NAME = {"draftkings": "DraftKings", "fanduel": "FanDuel", "betmgm": "BetMGM"}.get(BOOK, BOOK)
 MARKETS = {"player_points": "pts", "player_rebounds": "reb", "player_threes": "fg3",
@@ -45,8 +46,8 @@ def q(**kw):
 def main(now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(nba.ET).date().isoformat()
-    if not KEY:
-        print("nba_lines: no ODDS_API_KEY, so no book lines today")
+    if not KEY and not OPK:
+        print("nba_lines: no ODDSPAPI_KEY or ODDS_API_KEY, so no book lines today")
         return
     if now.astimezone(nba.ET).hour < LOCK_HOUR:
         print(f"nba_lines: before {LOCK_HOUR}:00 Eastern, not fetching yet")
@@ -58,6 +59,19 @@ def main(now=None):
             return
     except Exception:
         pass
+    if OPK:
+        try:
+            import oddspapi
+            lines, n = oddspapi.nba_lines(lambda t: t > now and t.astimezone(nba.ET).date().isoformat() == today, norm)
+            print(f"nba_lines: oddspapi {n} games, {len(lines)} players")
+            if lines:
+                OUT.write_text(json.dumps({"date": today, "fetched": now.strftime("%Y-%m-%d %H:%M UTC"),
+                                           "book": "DraftKings", "lines": lines}, separators=(",", ":")))
+                return
+        except Exception as ex:
+            print("nba_lines: oddspapi failed,", type(ex).__name__)
+        if not KEY:
+            return
     events, _ = get(f"{API}/events?" + q(apiKey=KEY))
     todays = []
     for e in events:
