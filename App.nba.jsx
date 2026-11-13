@@ -303,12 +303,64 @@ function kmSlateDay(card) {
   const d = new Date((card.date || '') + 'T12:00:00');
   return isNaN(d) ? 'TODAY' : d.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase();
 }
+function NbaEvRow({ c, rank }) {
+  const price = c.price > 0 ? '+' + c.price : String(c.price);
+  const pc = x => Math.round(x * 100) + '%';
+  return (
+    <div className="kmRow">
+      <div className="kmPhoto">
+        <span className="kmRank">{String(rank).padStart(2, '0')}</span>
+        <img src={'https://a.espncdn.com/i/headshots/nba/players/full/' + c.pid + '.png'} alt="" onError={e => { e.currentTarget.style.visibility = 'hidden'; }} />
+      </div>
+      <div className="kmBody">
+        <div className="kmName">{c.name}</div>
+        <div className="kmMeta">
+          <span className="kmTag">{c.team}</span><span className="kmAt">{c.home ? 'vs' : '@'}</span><span className="kmTag kmTagOpp">{c.opp}</span>
+          <span className="kmTime">{nbaTimeET(c.tip)}</span>
+        </div>
+        <div className="kmLine">{(c.side === 'over' ? 'OVER ' : 'UNDER ') + c.line + ' ' + (NBA_PICK_STAT[c.stat] || c.stat)} at {price} <span style={{ color: 'var(--ink2)', fontWeight: 500, fontSize: 12 }}>{c.book}</span></div>
+        <div className="kmSub">Model has {c.proj}, line is {c.line}. Win chance {pc(c.p_blend)} against the book's {pc(c.p_fair)}.{c.n10 ? ' Went ' + c.side + ' in ' + c.hit10 + ' of his last ' + c.n10 + '.' : ''}</div>
+      </div>
+      <div className="kmTile">
+        <div className="kmBig">{'+' + (c.ev * 100).toFixed(1) + '%'}</div>
+        <div className="kmLbl">EV PER $1</div>
+      </div>
+    </div>
+  );
+}
+function NbaEv({ P }) {
+  const ev = P && P.ev;
+  const card = P && P.card;
+  if (!ev || ev.date !== (card && card.date ? card.date : ev.date)) return null;
+  if (!ev.picks || !ev.picks.length) return null;
+  return (
+    <>
+      <div className="kmHead">
+        <div className="kmKicker"><i></i>NBA <span>/</span> DRAFTKINGS PRICES</div>
+        <div className="kmTitle" style={{ fontSize: 'clamp(40px,8vw,64px)' }}>TOP 5 EV</div>
+        <div className="kmSubtitle"><b></b>The model's chance against the book's price</div>
+      </div>
+      <div className="kmList">
+        {ev.picks.map((c, i) => <NbaEvRow key={c.pid + c.stat} c={c} rank={i + 1} />)}
+      </div>
+      <div className="calNote">
+        <b>How EV is worked out.</b> The model's chance is blended 35/65 with the book's own price (vig removed), because the
+        book is usually the sharper of the two. EV per $1 is that chance times the payout, minus the dollar. Positive means the
+        price pays more than the chance says it should. These are estimates, not guarantees, and EV picks are not graded
+        in the record. Lines are the DraftKings main lines at the 4 PM refresh ({ev.made_at}). Confirm the number before you bet.
+      </div>
+    </>
+  );
+}
 function NbaPicks({ P }) {
   const card = P && P.card;
   if (!card || !card.picks || !card.picks.length) {
     return (
+      <>
       <div className="calNote"><b>No card yet today.</b> The Best 5 locks once at the 4 PM Eastern refresh, after the injury check and before most tips. If
         there is no game day or nothing clears the bar, it stays empty.</div>
+      <NbaEv P={P} />
+      </>
     );
   }
   const done = card.picks.filter(c => c.result === 'win' || c.result === 'loss');
@@ -327,6 +379,7 @@ function NbaPicks({ P }) {
       <div className="kmList">
         {card.picks.map((c, i) => <NbaPickRow key={c.pid + c.stat} c={c} rank={i + 1} />)}
       </div>
+      <NbaEv P={P} />
       <div className="calNote">
         <b>How these are picked.</b> Each line is the player's season average rounded to a half point. A pick needs the model's
         number for tonight to sit well off that line, and the player to have gone that way in at least 7 of his last 10. Last
