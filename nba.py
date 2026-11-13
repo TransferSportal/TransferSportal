@@ -246,6 +246,18 @@ def build():
         base = c or p
         cand[pid] = (val, base)
     top = sorted(cand.items(), key=lambda kv: -kv[1][0])[:TOP_N]
+    # Teams we always want a deeper bench for on the Matchups tab. Named players are added even when
+    # they fall outside the top 100; an injured one stays on the list and shows up once he is back.
+    ALWAYS = {"IND": ["Ivica Zubac", "Aaron Nesmith", "Tyrese Haliburton"]}
+    have = {pid for pid, _ in top}
+    for tm, names in ALWAYS.items():
+        for nm in names:
+            hit = [(pid, v) for pid, v in cand.items()
+                   if v[1]["name"] == nm and pid not in have]
+            if hit:
+                pick = max(hit, key=lambda kv: kv[1][0])
+                top.append(pick)
+                have.add(pick[0])
     if len(top) < 60:
         raise RuntimeError("leaders came back thin")
     ids = [pid for pid, _ in top]
