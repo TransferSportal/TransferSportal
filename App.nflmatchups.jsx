@@ -261,7 +261,7 @@ function NflMatchups({ DATA }) {
   }, [DATA]);
   const days = Array.from(new Set(games.map(x => x.g.kick)));
   if (!GM || !games.length) return <section className="view on"><h2 className="tsH">Matchups</h2><div className="dbNote">Waiting for the game model.</div></section>;
-  const cur = day || days[0];
+  const cur = day || muDefaultDay(days);
   const shown = games.filter(x => x.g.kick === cur);
   const sel = shown.find(x => x.key === pick) || shown[0];
   const idx = shown.indexOf(sel) + 1;
