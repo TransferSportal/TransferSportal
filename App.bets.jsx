@@ -30,6 +30,7 @@ function OwnerSwitch() {
     <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap', margin: '4px 0' }}>
       {['RK', 'DM'].map(k => <button key={k} style={bt(o.view === k)} onClick={() => ownSet({ view: k })}>{k}{o.me === k ? ' (you)' : ''}</button>)}
       {o.view !== o.me && <span className="rcSub">Viewing {o.view}'s picks and bankroll (read only)</span>}
+      <SaveAs />
     </div>
   );
 }
