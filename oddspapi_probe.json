@@ -1,1733 +1,2386 @@
 {
- "sports": [
-  200,
-  "[{\"sportId\": 10, \"slug\": \"soccer\", \"sportName\": \"Soccer\"}, {\"sportId\": 11, \"slug\": \"basketball\", \"sportName\": \"Basketball\"}, {\"sportId\": 12, \"slug\": \"tennis\", \"sportName\": \"Tennis\"}, {\"sportId\": 13, \"slug\": \"baseball\", \"sportName\": \"Baseball\"}, {\"sportId\": 14, \"slug\": \"american-football\", \"sportName\": \"American Football\"}, {\"sportId\": 15, \"slug\": \"ice-hockey\", \"sportName\": \"Ice Hockey\"}, {\"sportId\": 16, \"slug\": \"esport-dota\", \"sportName\": \"ESport Dota\"}, {\"sportId\": 17, \"slug\": \"esport-counter-strike\", \"sportName\": \"ESport Counter-Strike\"}, {\"sportId\": 18, \"slug\": \"esport-league-of-legends\", \"sportName\": \"ESport League of Legends\"}, {\"sportId\": 19, \"slug\": \"darts\", \"sportName\": \"Darts\"}, {\"sportId\": 20, \"slug\": \"mma\", \"sportName\": \"MMA\"}, {\"sportId\": 21, \"slug\": \"boxing\", \"sportName\": \"Boxing\"}, {\"sportId\": 22, \"slug\": \"handball\", \"sportName\": \"Handball\"}, {\"sportId\": 23, \"slug\": \"volleyball\", \"sportName\": \"Volleyball\"}, {\"sportId\": 24, \"slug\": \"snooker\", \"sportName\": \"Snooker\"}, {\"sportId\": 25, \"slug\": \"table-tennis\", \"sportName\": \"Table Tennis\"}, {\"sportId\": 26, \"slug\": \"rugby\", \"sportName\": \"Rugby\"}, {\"sportId\": 27, \"slug\": \"cricket\", \"sportName\": \"Cricket\"}, {\"sportId\": 28, \"slug\": \"waterpolo\", \"sportName\": \"Waterpolo\"}, {\"sportId\": 29, \"slug\": \"futsal\", \"sportName\": \"Futsal\"}, {\"sportId\": 30, \"slug\": \"beach-volley\", \"sportName\": \"Beach Volley\"}, {\"sportId\": 31, \"slug\": \"aussie-rules\", \"sportName\": \"Aussie Rules\"}, {\"sportId\": 32, \"slug\": \"field-hockey\", \"sportName\": \"Field hockey\"}, {\"sportId\": 33, \"slug\": \"floorball\", \"sportName\": \"Floorball\"}, {\"sportId\": 34, \"slug\": \"squash\", \"sportName\": \"Squash\"}, {\"sportId\": 35, \"slug\": \"basketball-3x3\", \"sportName\": \"Basketball 3x3\"}, {\"sportId\": 36, \"slug\": \"beach-soccer\", \"sportName\": \"Beach Soccer\"}, {\"sportId\": 37, \"slug\": \"pesapallo\", \"sportName\": \"Pesapallo\"}, {\"sportId\": 38, \"slug\": \"lacrosse\", \"sportName\": \"Lacrosse\"}, {\"sportId\": 39, \"slug\": \"curling\", \"sportName\": \"Curling\"}, {\"sportId\": 40, \"slug\": \"padel\", \"sportName\": \"Padel\"}, {\"sportId\": 41, \"slug\": \"bandy\", \"sportName\": \"Bandy\"}, {\"sportId\": 42, \"slug\": \"kabaddi\", \"sportName\": \"Kabaddi\"}, {\"sportId\": 43, \"slug\": \"rink-hockey\", \"sportName\": \"Rink Hockey\"}, {\"sportId\": 44, \"slug\": \"soccer-specials\", \"sportName\": \"Soccer Specials\"}, {\"sportId\": 45, \"slug\": \"gaelic-football\", \"sportName\": \"Gaelic Football\"}, {\"sportId\": 46, \"slug\": \"netball\", \"sportName\": \"Netball\"}, {\"sportId\": 47, \"slug\": \"beach-handball\", \"sportName\": \"Beach Handball\"}, {\"sportId"
- ],
- "bookmakers_status": 200,
- "draftkings": [
-  {
-   "bookmakerName": "Draftkings",
-   "slug": "draftkings",
-   "liveOdds": true,
-   "cloneOf": null
-  },
-  {
-   "bookmakerName": "DraftKings Predictions",
-   "slug": "draftkings-predictions",
-   "liveOdds": true,
-   "cloneOf": null
-  }
- ],
- "bookmaker_count": 321,
  "markets_status": 200,
- "market_count": 70742,
- "player_markets": [
-  {
-   "marketId": 101,
-   "marketLength": 3,
-   "marketName": "Full Time Result",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.0,
-   "period": "fulltime",
-   "marketType": "1x2",
-   "outcomes": [
-    {
-     "outcomeId": 101,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 102,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 103,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 104,
-   "marketLength": 2,
-   "marketName": "Both Teams To Score",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.0,
-   "period": "fulltime",
-   "marketType": "bothteamsscore",
-   "outcomes": [
-    {
-     "outcomeId": 105,
-     "outcomeName": "No"
-    },
-    {
-     "outcomeId": 104,
-     "outcomeName": "Yes"
-    }
-   ]
-  },
-  {
-   "marketId": 106,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 107,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 106,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 108,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 109,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 108,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1010,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1011,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 1010,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1012,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 3.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1013,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 1012,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1014,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 4.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1014,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 1015,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 1016,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 5.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1017,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 1016,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1018,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 6.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1019,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 1018,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1020,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 7.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1021,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 1020,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1022,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 8.5,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 1023,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 1022,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 1024,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -6.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1024,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1025,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1026,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -5.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1026,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1027,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1028,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -5.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1029,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1028,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1030,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -5.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1030,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1031,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1032,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -5.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1032,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1033,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1034,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -4.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1034,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1035,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1036,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -4.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1036,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1037,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1038,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -4.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1038,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1039,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1040,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -4.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1040,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1041,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1042,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -3.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1043,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1042,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1044,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -3.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1044,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1045,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1046,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -3.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1046,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1047,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1048,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -3.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1048,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1049,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1050,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -2.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1051,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1050,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1052,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -2.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1052,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1053,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1054,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -2.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1055,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1054,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1056,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -2.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1057,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1056,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1058,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -1.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1058,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1059,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1060,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -1.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1060,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1061,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1062,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -1.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1063,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1062,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1064,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -1.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1064,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1065,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1066,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -0.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1067,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1066,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1068,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -0.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1069,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1068,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1070,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -0.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1071,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1070,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1072,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1073,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1072,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1074,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1074,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1075,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1076,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1077,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1076,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1078,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1079,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1078,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1080,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1081,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1080,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1082,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1083,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1082,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1084,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1085,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1084,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1086,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1086,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 1087,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 1088,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1089,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1088,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1090,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1091,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1090,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1092,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1093,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1092,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1094,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1095,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1094,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1096,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 3.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1097,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1096,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 1098,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 3.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 1099,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 1098,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10100,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 3.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10101,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10100,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10102,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 3.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10103,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10102,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10104,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 4.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10105,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10104,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10106,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 4.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10106,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10107,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 10108,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 4.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10109,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10108,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10110,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 4.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10111,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10110,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10112,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 5.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10113,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10112,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10114,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 5.25,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10115,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10114,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10116,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 5.5,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10116,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10117,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 10118,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 5.75,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10119,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10118,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10120,
-   "marketLength": 2,
-   "marketName": "Asian Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 6.0,
-   "period": "fulltime",
-   "marketType": "spreads",
-   "outcomes": [
-    {
-     "outcomeId": 10121,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10120,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10122,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 6.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10123,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10124,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10122,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10125,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 5.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10126,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10125,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10127,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 10128,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 4.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10129,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10130,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10128,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10131,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 3.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10132,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10133,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10131,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10134,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10134,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10136,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10135,
-     "outcomeName": "X"
-    }
-   ]
-  },
-  {
-   "marketId": 10137,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10139,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10138,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10137,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10140,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -1.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10141,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10140,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10142,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 10143,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -2.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10144,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10143,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10145,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 10146,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -3.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10148,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10147,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10146,
-     "outcomeName": "1"
-    }
-   ]
-  },
-  {
-   "marketId": 10149,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -4.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10149,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10150,
-     "outcomeName": "X"
-    },
-    {
-     "outcomeId": 10151,
-     "outcomeName": "2"
-    }
-   ]
-  },
-  {
-   "marketId": 10152,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -5.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10154,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10152,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10153,
-     "outcomeName": "X"
-    }
-   ]
-  },
-  {
-   "marketId": 10155,
-   "marketLength": 3,
-   "marketName": "European Handicap",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": -6.0,
-   "period": "fulltime",
-   "marketType": "spreads-european",
-   "outcomes": [
-    {
-     "outcomeId": 10155,
-     "outcomeName": "1"
-    },
-    {
-     "outcomeId": 10157,
-     "outcomeName": "2"
-    },
-    {
-     "outcomeId": 10156,
-     "outcomeName": "X"
-    }
-   ]
-  },
-  {
-   "marketId": 10158,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.25,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10158,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 10159,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 10160,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 0.75,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10160,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 10161,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 10162,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.0,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10162,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 10163,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 10164,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.25,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10165,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 10164,
-     "outcomeName": "Over"
-    }
-   ]
-  },
-  {
-   "marketId": 10166,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 1.75,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10166,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 10167,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 10168,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.0,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10168,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 10169,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 10170,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.25,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10170,
-     "outcomeName": "Over"
-    },
-    {
-     "outcomeId": 10171,
-     "outcomeName": "Under"
-    }
-   ]
-  },
-  {
-   "marketId": 10172,
-   "marketLength": 2,
-   "marketName": "Over Under Full Time",
-   "playerProp": false,
-   "sportId": 10,
-   "handicap": 2.75,
-   "period": "fulltime",
-   "marketType": "totals",
-   "outcomes": [
-    {
-     "outcomeId": 10173,
-     "outcomeName": "Under"
-    },
-    {
-     "outcomeId": 10172,
-     "outcomeName": "Over"
-    }
-   ]
-  }
- ],
- "sport_rows": {
-  "basketball": {
-   "sportId": 55,
-   "slug": "ebasketball",
-   "sportName": "eBasketball"
-  },
-  "football": {
-   "sportId": 14,
-   "slug": "american-football",
-   "sportName": "American Football"
-  }
+ "nba_playerprop_market_count": 440,
+ "nba_playerprop_names": {
+  "Over Under Player Points (incl. overtime)": [
+   [
+    111678,
+    4.5,
+    "result",
+    "playertotals-points"
+   ],
+   [
+    111680,
+    5.5,
+    "result",
+    "playertotals-points"
+   ],
+   [
+    111682,
+    6.5,
+    "result",
+    "playertotals-points"
+   ]
+  ],
+  "Over Under Player Rebounds (incl. overtime)": [
+   [
+    111762,
+    0.5,
+    "result",
+    "playertotals-rebounds"
+   ],
+   [
+    111764,
+    1.5,
+    "result",
+    "playertotals-rebounds"
+   ],
+   [
+    111766,
+    2.5,
+    "result",
+    "playertotals-rebounds"
+   ]
+  ],
+  "Over Under Player 3 Point FG (incl. overtime)": [
+   [
+    111792,
+    0.5,
+    "result",
+    "playertotals-3pointers"
+   ],
+   [
+    111794,
+    1.5,
+    "result",
+    "playertotals-3pointers"
+   ],
+   [
+    111796,
+    2.5,
+    "result",
+    "playertotals-3pointers"
+   ]
+  ],
+  "Over Under Player Points + Assists + Rebounds (incl. overtime)": [
+   [
+    111808,
+    10.5,
+    "result",
+    "playertotals-ptsassreb"
+   ],
+   [
+    111810,
+    11.5,
+    "result",
+    "playertotals-ptsassreb"
+   ],
+   [
+    111812,
+    12.5,
+    "result",
+    "playertotals-ptsassreb"
+   ]
+  ],
+  "Over Under Player Assists (incl. overtime)": [
+   [
+    111888,
+    0.5,
+    "result",
+    "playertotals-assists"
+   ],
+   [
+    111890,
+    1.5,
+    "result",
+    "playertotals-assists"
+   ],
+   [
+    111892,
+    2.5,
+    "result",
+    "playertotals-assists"
+   ]
+  ],
+  "Over Under Player Assists + Rebounds (incl. overtime)": [
+   [
+    111918,
+    0.5,
+    "result",
+    "playertotals-assreb"
+   ],
+   [
+    111920,
+    1.5,
+    "result",
+    "playertotals-assreb"
+   ],
+   [
+    111922,
+    2.5,
+    "result",
+    "playertotals-assreb"
+   ]
+  ],
+  "Over Under Player Points + Rebounds (incl. overtime)": [
+   [
+    111976,
+    0.5,
+    "result",
+    "playertotals-ptsreb"
+   ],
+   [
+    111978,
+    1.5,
+    "result",
+    "playertotals-ptsreb"
+   ],
+   [
+    111980,
+    2.5,
+    "result",
+    "playertotals-ptsreb"
+   ]
+  ],
+  "Over Under Player Points + Assists (incl. overtime)": [
+   [
+    112074,
+    0.5,
+    "result",
+    "playertotals-ptsass"
+   ],
+   [
+    112076,
+    1.5,
+    "result",
+    "playertotals-ptsass"
+   ],
+   [
+    112078,
+    2.5,
+    "result",
+    "playertotals-ptsass"
+   ]
+  ],
+  "Over Under Player Steals (incl. overtime)": [
+   [
+    112174,
+    0.5,
+    "result",
+    "playertotals-steals"
+   ],
+   [
+    112176,
+    1.5,
+    "result",
+    "playertotals-steals"
+   ],
+   [
+    112178,
+    2.5,
+    "result",
+    "playertotals-steals"
+   ]
+  ],
+  "Over Under Player Blocks (incl. overtime)": [
+   [
+    112194,
+    0.5,
+    "result",
+    "playertotals-blocks"
+   ],
+   [
+    112196,
+    1.5,
+    "result",
+    "playertotals-blocks"
+   ],
+   [
+    112198,
+    2.5,
+    "result",
+    "playertotals-blocks"
+   ]
+  ],
+  "Over Under Player Turnovers (incl. overtime)": [
+   [
+    112214,
+    0.5,
+    "result",
+    "playertotals-turnovers"
+   ],
+   [
+    112216,
+    1.5,
+    "result",
+    "playertotals-turnovers"
+   ],
+   [
+    112218,
+    2.5,
+    "result",
+    "playertotals-turnovers"
+   ]
+  ],
+  "Over Under Player Steals + Blocks (incl. overtime)": [
+   [
+    112234,
+    0.5,
+    "result",
+    "playertotals-stlblo"
+   ],
+   [
+    112236,
+    1.5,
+    "result",
+    "playertotals-stlblo"
+   ],
+   [
+    112238,
+    2.5,
+    "result",
+    "playertotals-stlblo"
+   ]
+  ],
+  "Player Points (incl. overtime)": [
+   [
+    112254,
+    0.0,
+    "result",
+    "players-points"
+   ]
+  ],
+  "Player Rebounds (incl. overtime)": [
+   [
+    112305,
+    0.0,
+    "result",
+    "players-rebounds"
+   ]
+  ],
+  "Player 3 Point FG (incl. overtime)": [
+   [
+    112317,
+    0.0,
+    "result",
+    "players-3pointers"
+   ]
+  ],
+  "Player Points + Assists + Rebounds (incl. overtime)": [
+   [
+    112328,
+    0.0,
+    "result",
+    "players-ptsassreb"
+   ]
+  ],
+  "Player Assists (incl. overtime)": [
+   [
+    112389,
+    0.0,
+    "result",
+    "players-assists"
+   ]
+  ],
+  "Player Assists + Rebounds (incl. overtime)": [
+   [
+    112405,
+    0.0,
+    "result",
+    "players-assreb"
+   ]
+  ],
+  "Player Points + Rebounds (incl. overtime)": [
+   [
+    112436,
+    0.0,
+    "result",
+    "players-ptsreb"
+   ]
+  ],
+  "Player Points + Assists (incl. overtime)": [
+   [
+    112497,
+    0.0,
+    "result",
+    "players-ptsass"
+   ]
+  ],
+  "Player Steals (incl. overtime)": [
+   [
+    112558,
+    0.0,
+    "result",
+    "players-steals"
+   ]
+  ],
+  "Player Blocks (incl. overtime)": [
+   [
+    112569,
+    0.0,
+    "result",
+    "players-blocks"
+   ]
+  ],
+  "Player Turnovers (incl. overtime)": [
+   [
+    112580,
+    0.0,
+    "result",
+    "players-turnovers"
+   ]
+  ],
+  "Player Steals + Blocks (incl. overtime)": [
+   [
+    112591,
+    0.0,
+    "result",
+    "players-stlblo"
+   ]
+  ],
+  "Player Double - Double": [
+   [
+    112602,
+    0.0,
+    "result",
+    "players-doubledouble"
+   ]
+  ],
+  "Player Triple - Double": [
+   [
+    112603,
+    0.0,
+    "result",
+    "players-tripletriple"
+   ]
+  ],
+  "Player First Point": [
+   [
+    112604,
+    0.0,
+    "result",
+    "players-firstpoint"
+   ]
+  ],
+  "Player First 3 Point FG": [
+   [
+    112605,
+    0.0,
+    "result",
+    "players-first3pointer"
+   ]
+  ],
+  "Over Under Player Points First Quarter": [
+   [
+    112606,
+    0.5,
+    "p1",
+    "playertotals-points"
+   ],
+   [
+    112608,
+    1.5,
+    "p1",
+    "playertotals-points"
+   ],
+   [
+    112610,
+    2.5,
+    "p1",
+    "playertotals-points"
+   ]
+  ],
+  "Over Under Player Rebounds First Quarter": [
+   [
+    112646,
+    0.5,
+    "p1",
+    "playertotals-rebounds"
+   ],
+   [
+    112648,
+    1.5,
+    "p1",
+    "playertotals-rebounds"
+   ],
+   [
+    112650,
+    2.5,
+    "p1",
+    "playertotals-rebounds"
+   ]
+  ],
+  "Over Under Player 3 Point FG First Quarter": [
+   [
+    112660,
+    0.5,
+    "p1",
+    "playertotals-3pointer"
+   ],
+   [
+    112662,
+    1.5,
+    "p1",
+    "playertotals-3pointer"
+   ],
+   [
+    112664,
+    2.5,
+    "p1",
+    "playertotals-3pointer"
+   ]
+  ],
+  "Over Under Player Points + Assists + Rebounds First Quarter": [
+   [
+    112674,
+    0.5,
+    "p1",
+    "playertotals-ptsassreb"
+   ],
+   [
+    112676,
+    1.5,
+    "p1",
+    "playertotals-ptsassreb"
+   ],
+   [
+    112678,
+    2.5,
+    "p1",
+    "playertotals-ptsassreb"
+   ]
+  ],
+  "Over Under Player Assists First Quarter": [
+   [
+    112714,
+    0.5,
+    "p1",
+    "playertotals-assists"
+   ],
+   [
+    112716,
+    1.5,
+    "p1",
+    "playertotals-assists"
+   ],
+   [
+    112718,
+    2.5,
+    "p1",
+    "playertotals-assists"
+   ]
+  ],
+  "Over Under Player Assists + Rebounds First Quarter": [
+   [
+    112728,
+    0.5,
+    "p1",
+    "playertotals-assreb"
+   ],
+   [
+    112730,
+    1.5,
+    "p1",
+    "playertotals-assreb"
+   ],
+   [
+    112732,
+    2.5,
+    "p1",
+    "playertotals-assreb"
+   ]
+  ],
+  "Over Under Player Points + Rebounds First Quarter": [
+   [
+    112758,
+    0.5,
+    "p1",
+    "playertotals-ptsreb"
+   ],
+   [
+    112760,
+    1.5,
+    "p1",
+    "playertotals-ptsreb"
+   ],
+   [
+    112762,
+    2.5,
+    "p1",
+    "playertotals-ptsreb"
+   ]
+  ],
+  "Over Under Player Points + Assists First Quarter": [
+   [
+    112798,
+    0.5,
+    "p1",
+    "playertotals-ptsass"
+   ],
+   [
+    112800,
+    1.5,
+    "p1",
+    "playertotals-ptsass"
+   ],
+   [
+    112802,
+    2.5,
+    "p1",
+    "playertotals-ptsass"
+   ]
+  ],
+  "Over Under Player Steals First Quarter": [
+   [
+    112838,
+    0.5,
+    "p1",
+    "playertotals-steals"
+   ],
+   [
+    112840,
+    1.5,
+    "p1",
+    "playertotals-steals"
+   ],
+   [
+    112842,
+    2.5,
+    "p1",
+    "playertotals-steals"
+   ]
+  ],
+  "Over Under Player Blocks First Quarter": [
+   [
+    112848,
+    0.5,
+    "p1",
+    "playertotals-blocks"
+   ],
+   [
+    112850,
+    1.5,
+    "p1",
+    "playertotals-blocks"
+   ],
+   [
+    112852,
+    2.5,
+    "p1",
+    "playertotals-blocks"
+   ]
+  ],
+  "Over Under Player Turnovers First Quarter": [
+   [
+    112858,
+    0.5,
+    "p1",
+    "playertotals-turnovers"
+   ],
+   [
+    112860,
+    1.5,
+    "p1",
+    "playertotals-turnovers"
+   ],
+   [
+    112862,
+    2.5,
+    "p1",
+    "playertotals-turnovers"
+   ]
+  ],
+  "Over Under Player Steals + Blocks First Quarter": [
+   [
+    112868,
+    0.5,
+    "p1",
+    "playertotals-stlblo"
+   ],
+   [
+    112870,
+    1.5,
+    "p1",
+    "playertotals-stlblo"
+   ],
+   [
+    112872,
+    2.5,
+    "p1",
+    "playertotals-stlblo"
+   ]
+  ]
  },
- "basketball_tournaments": [
+ "nfl_playerprop_market_count": 6778,
+ "nfl_playerprop_names": {
+  "Player To Score TD (incl. overtime)": [
+   [
+    14388,
+    0.0,
+    "result",
+    "players-td"
+   ],
+   [
+    144637,
+    0.0,
+    "result",
+    "players-td"
+   ],
+   [
+    144643,
+    0.0,
+    "result",
+    "players-td-other"
+   ]
+  ],
+  "Player To Score First TD (incl. overtime)": [
+   [
+    14390,
+    0.0,
+    "result",
+    "players-firsttd"
+   ]
+  ],
+  "Player To Score Second TD (incl. overtime)": [
+   [
+    14392,
+    0.0,
+    "result",
+    "players-secondtd"
+   ]
+  ],
+  "Player To Score Third TD (incl. overtime)": [
+   [
+    14394,
+    0.0,
+    "result",
+    "players-thirdtd"
+   ]
+  ],
+  "Over Under Player TD Passes (incl. overtime)": [
+   [
+    14396,
+    0.5,
+    "result",
+    "playertotals-tdpasses"
+   ],
+   [
+    14398,
+    1.5,
+    "result",
+    "playertotals-tdpasses"
+   ],
+   [
+    14400,
+    2.5,
+    "result",
+    "playertotals-tdpasses"
+   ]
+  ],
+  "Over Under Player Interceptions (incl. overtime)": [
+   [
+    14402,
+    0.5,
+    "result",
+    "playertotals-interceptions"
+   ],
+   [
+    14404,
+    1.5,
+    "result",
+    "playertotals-interceptions"
+   ],
+   [
+    14406,
+    2.5,
+    "result",
+    "playertotals-interceptions"
+   ]
+  ],
+  "Over Under Player Receptions (incl. overtime)": [
+   [
+    14408,
+    0.5,
+    "result",
+    "playertotals-receptions"
+   ],
+   [
+    14410,
+    1.5,
+    "result",
+    "playertotals-receptions"
+   ],
+   [
+    14412,
+    2.5,
+    "result",
+    "playertotals-receptions"
+   ]
+  ],
+  "Player To Score TD First Quarter (incl. overtime)": [
+   [
+    144644,
+    0.0,
+    "p1",
+    "players-td-other"
+   ],
+   [
+    144645,
+    0.0,
+    "p1",
+    "players-td"
+   ]
+  ],
+  "Player To Score TD First Half (incl. overtime)": [
+   [
+    144647,
+    0.0,
+    "p1+p2",
+    "players-td-other"
+   ],
+   [
+    144648,
+    0.0,
+    "p1+p2",
+    "players-td"
+   ]
+  ],
+  "Player To Score TD Second Half (incl. overtime)": [
+   [
+    144650,
+    0.0,
+    "p3+p4+overtime",
+    "players-td-other"
+   ],
+   [
+    144651,
+    0.0,
+    "p3+p4+overtime",
+    "players-td"
+   ]
+  ],
+  "Over Under Player Pass Yards (incl. overtime)": [
+   [
+    144653,
+    100.5,
+    "result",
+    "playertotals-passyards"
+   ],
+   [
+    144655,
+    101.5,
+    "result",
+    "playertotals-passyards"
+   ],
+   [
+    144657,
+    102.5,
+    "result",
+    "playertotals-passyards"
+   ]
+  ],
+  "Player Pass Yards (incl. overtime)": [
+   [
+    145253,
+    0.0,
+    "result",
+    "players-passyards"
+   ]
+  ],
+  "Over Under Player Pass Attempts (incl. overtime)": [
+   [
+    145284,
+    0.5,
+    "result",
+    "playertotals-passattempts"
+   ],
+   [
+    145286,
+    1.5,
+    "result",
+    "playertotals-passattempts"
+   ],
+   [
+    145288,
+    2.5,
+    "result",
+    "playertotals-passattempts"
+   ]
+  ],
+  "Over Under Player Pass Completions (incl. overtime)": [
+   [
+    145424,
+    0.5,
+    "result",
+    "playertotals-passcompletions"
+   ],
+   [
+    145426,
+    1.5,
+    "result",
+    "playertotals-passcompletions"
+   ],
+   [
+    145428,
+    2.5,
+    "result",
+    "playertotals-passcompletions"
+   ]
+  ],
+  "Over Under Player Longest Pass Completion (incl. overtime)": [
+   [
+    145564,
+    9.5,
+    "result",
+    "playertotals-longestpasscomp"
+   ],
+   [
+    145566,
+    10.5,
+    "result",
+    "playertotals-longestpasscomp"
+   ],
+   [
+    145568,
+    11.5,
+    "result",
+    "playertotals-longestpasscomp"
+   ]
+  ],
+  "Over Under Player Rush Yards (incl. overtime)": [
+   [
+    145746,
+    9.5,
+    "result",
+    "playertotals-rushyards"
+   ],
+   [
+    145748,
+    10.5,
+    "result",
+    "playertotals-rushyards"
+   ],
+   [
+    145750,
+    11.5,
+    "result",
+    "playertotals-rushyards"
+   ]
+  ],
+  "Player Rush Yards (incl. overtime)": [
+   [
+    146128,
+    0.0,
+    "result",
+    "players-rushyards"
+   ]
+  ],
+  "Over Under Player Rush Attempts (incl. overtime)": [
+   [
+    146167,
+    0.5,
+    "result",
+    "playertotals-rushattempts"
+   ],
+   [
+    146169,
+    1.5,
+    "result",
+    "playertotals-rushattempts"
+   ],
+   [
+    146171,
+    2.5,
+    "result",
+    "playertotals-rushattempts"
+   ]
+  ],
+  "Player Rush Attempts (incl. overtime)": [
+   [
+    146267,
+    0.0,
+    "result",
+    "players-rushattempts"
+   ]
+  ],
+  "Over Under Player Longest Rush Yards (incl. overtime)": [
+   [
+    146318,
+    0.5,
+    "result",
+    "playertotals-longestrushyards"
+   ],
+   [
+    146320,
+    1.5,
+    "result",
+    "playertotals-longestrushyards"
+   ],
+   [
+    146322,
+    2.5,
+    "result",
+    "playertotals-longestrushyards"
+   ]
+  ],
+  "Over Under Player Rush TD (incl. overtime)": [
+   [
+    146418,
+    0.5,
+    "result",
+    "playertotals-rushtd"
+   ],
+   [
+    146420,
+    1.5,
+    "result",
+    "playertotals-rushtd"
+   ],
+   [
+    146422,
+    2.5,
+    "result",
+    "playertotals-rushtd"
+   ]
+  ],
+  "Player Rush TD (incl. overtime)": [
+   [
+    146426,
+    0.0,
+    "result",
+    "players-rushtd"
+   ]
+  ],
+  "Over Under Player Sacks (incl. overtime)": [
+   [
+    146431,
+    0.5,
+    "result",
+    "playertotals-sacks"
+   ],
+   [
+    146433,
+    1.5,
+    "result",
+    "playertotals-sacks"
+   ],
+   [
+    146435,
+    2.5,
+    "result",
+    "playertotals-sacks"
+   ]
+  ],
+  "Player Sacks (incl. overtime)": [
+   [
+    146441,
+    0.0,
+    "result",
+    "players-sacks"
+   ]
+  ],
+  "Over Under Player Assists (incl. overtime)": [
+   [
+    146447,
+    0.5,
+    "result",
+    "playertotals-assists"
+   ],
+   [
+    146449,
+    1.5,
+    "result",
+    "playertotals-assists"
+   ],
+   [
+    146451,
+    2.5,
+    "result",
+    "playertotals-assists"
+   ]
+  ],
+  "Player Assists (incl. overtime)": [
+   [
+    146477,
+    0.0,
+    "result",
+    "players-assists"
+   ]
+  ],
+  "Over Under Player Tackles + Assists (incl. overtime)": [
+   [
+    146493,
+    0.5,
+    "result",
+    "playertotals-tacass"
+   ],
+   [
+    146495,
+    1.5,
+    "result",
+    "playertotals-tacass"
+   ],
+   [
+    146497,
+    2.5,
+    "result",
+    "playertotals-tacass"
+   ]
+  ],
+  "Player Tackles + Assists (incl. overtime)": [
+   [
+    146543,
+    0.0,
+    "result",
+    "players-tacass"
+   ]
+  ],
+  "Over Under Player Field Goals (incl. overtime)": [
+   [
+    146569,
+    0.5,
+    "result",
+    "playertotals-fieldgoals"
+   ],
+   [
+    146571,
+    1.5,
+    "result",
+    "playertotals-fieldgoals"
+   ],
+   [
+    146573,
+    2.5,
+    "result",
+    "playertotals-fieldgoals"
+   ]
+  ],
+  "Player Field Goals (incl. overtime)": [
+   [
+    146589,
+    0.0,
+    "result",
+    "players-fieldgoals"
+   ]
+  ],
+  "Over Under Player Kicking Points (incl. overtime)": [
+   [
+    146600,
+    0.5,
+    "result",
+    "playertotals-kickingpoints"
+   ],
+   [
+    146602,
+    1.5,
+    "result",
+    "playertotals-kickingpoints"
+   ],
+   [
+    146604,
+    2.5,
+    "result",
+    "playertotals-kickingpoints"
+   ]
+  ],
+  "Player Kicking Points (incl. overtime)": [
+   [
+    146640,
+    0.0,
+    "result",
+    "players-kickingpoints"
+   ]
+  ],
+  "Over Under Player TD (incl. overtime)": [
+   [
+    148549,
+    0.5,
+    "result",
+    "playertotals-td"
+   ],
+   [
+    148551,
+    1.5,
+    "result",
+    "playertotals-td"
+   ],
+   [
+    148553,
+    2.5,
+    "result",
+    "playertotals-td"
+   ]
+  ],
+  "Over Under Player Receiving Yards (incl. overtime)": [
+   [
+    148559,
+    0.5,
+    "result",
+    "playertotals-receivingyards"
+   ],
+   [
+    148561,
+    1.5,
+    "result",
+    "playertotals-receivingyards"
+   ],
+   [
+    148563,
+    2.5,
+    "result",
+    "playertotals-receivingyards"
+   ]
+  ],
+  "Over Under Player Pass Yards": [
+   [
+    1424518,
+    0.5,
+    "p1",
+    "playertotals-passyards"
+   ],
+   [
+    1424520,
+    1.5,
+    "p1",
+    "playertotals-passyards"
+   ],
+   [
+    1424522,
+    2.5,
+    "p1",
+    "playertotals-passyards"
+   ]
+  ],
+  "Over Under Player Receiving Yards": [
+   [
+    1427718,
+    0.5,
+    "p1",
+    "playertotals-receivingyards"
+   ],
+   [
+    1427720,
+    1.5,
+    "p1",
+    "playertotals-receivingyards"
+   ],
+   [
+    1427722,
+    2.5,
+    "p1",
+    "playertotals-receivingyards"
+   ]
+  ],
+  "Over Under Player Rush Yards": [
+   [
+    1429858,
+    0.5,
+    "p1",
+    "playertotals-rushyards"
+   ],
+   [
+    1429860,
+    1.5,
+    "p1",
+    "playertotals-rushyards"
+   ],
+   [
+    1429862,
+    2.5,
+    "p1",
+    "playertotals-rushyards"
+   ]
+  ],
+  "Over Under Player Pass Attempts": [
+   [
+    1431458,
+    0.5,
+    "p1",
+    "playertotals-passattempts"
+   ],
+   [
+    1431460,
+    1.5,
+    "p1",
+    "playertotals-passattempts"
+   ],
+   [
+    1431462,
+    2.5,
+    "p1",
+    "playertotals-passattempts"
+   ]
+  ],
+  "Over Under Player Pass Completions": [
+   [
+    1431890,
+    0.5,
+    "p1",
+    "playertotals-passcompletions"
+   ],
+   [
+    1431892,
+    1.5,
+    "p1",
+    "playertotals-passcompletions"
+   ],
+   [
+    1431894,
+    2.5,
+    "p1",
+    "playertotals-passcompletions"
+   ]
+  ],
+  "Over Under Player Rush Attempts": [
+   [
+    1432322,
+    0.5,
+    "p1",
+    "playertotals-rushattempts"
+   ],
+   [
+    1432324,
+    1.5,
+    "p1",
+    "playertotals-rushattempts"
+   ],
+   [
+    1432326,
+    2.5,
+    "p1",
+    "playertotals-rushattempts"
+   ]
+  ],
+  "Over Under Player Tackles + Assists": [
+   [
+    1432642,
+    0.5,
+    "p1",
+    "playertotals-tacass"
+   ],
+   [
+    1432644,
+    1.5,
+    "p1",
+    "playertotals-tacass"
+   ],
+   [
+    1432646,
+    2.5,
+    "p1",
+    "playertotals-tacass"
+   ]
+  ],
+  "Over Under Player Kicking Points": [
+   [
+    1432802,
+    0.5,
+    "p1",
+    "playertotals-kickingpoints"
+   ],
+   [
+    1432804,
+    1.5,
+    "p1",
+    "playertotals-kickingpoints"
+   ],
+   [
+    1432806,
+    2.5,
+    "p1",
+    "playertotals-kickingpoints"
+   ]
+  ],
+  "Over Under Player Receptions": [
+   [
+    1432962,
+    0.5,
+    "p1",
+    "playertotals-receptions"
+   ],
+   [
+    1432964,
+    1.5,
+    "p1",
+    "playertotals-receptions"
+   ],
+   [
+    1432966,
+    2.5,
+    "p1",
+    "playertotals-receptions"
+   ]
+  ],
+  "Over Under Player Field Goals": [
+   [
+    1433102,
+    0.5,
+    "p1",
+    "playertotals-fieldgoals"
+   ],
+   [
+    1433104,
+    1.5,
+    "p1",
+    "playertotals-fieldgoals"
+   ],
+   [
+    1433106,
+    2.5,
+    "p1",
+    "playertotals-fieldgoals"
+   ]
+  ],
+  "Over Under Player TD Passes": [
+   [
+    1433178,
+    0.5,
+    "p1",
+    "playertotals-tdpasses"
+   ],
+   [
+    1433180,
+    1.5,
+    "p1",
+    "playertotals-tdpasses"
+   ],
+   [
+    1433182,
+    2.5,
+    "p1",
+    "playertotals-tdpasses"
+   ]
+  ],
+  "Over Under Player Interceptions": [
+   [
+    1433226,
+    0.5,
+    "p1",
+    "playertotals-interceptions"
+   ],
+   [
+    1433228,
+    1.5,
+    "p1",
+    "playertotals-interceptions"
+   ],
+   [
+    1433230,
+    2.5,
+    "p1",
+    "playertotals-interceptions"
+   ]
+  ],
+  "Over Under Player Rush TD": [
+   [
+    1433274,
+    0.5,
+    "p1",
+    "playertotals-rushtd"
+   ],
+   [
+    1433276,
+    1.5,
+    "p1",
+    "playertotals-rushtd"
+   ],
+   [
+    1433278,
+    2.5,
+    "p1",
+    "playertotals-rushtd"
+   ]
+  ],
+  "Over Under Player Sacks": [
+   [
+    1433318,
+    0.5,
+    "p1",
+    "playertotals-sacks"
+   ],
+   [
+    1433320,
+    1.5,
+    "p1",
+    "playertotals-sacks"
+   ],
+   [
+    1433322,
+    2.5,
+    "p1",
+    "playertotals-sacks"
+   ]
+  ],
+  "Over Under Player TD": [
+   [
+    1433366,
+    0.5,
+    "p1",
+    "playertotals-td"
+   ],
+   [
+    1433368,
+    1.5,
+    "p1",
+    "playertotals-td"
+   ],
+   [
+    1433370,
+    2.5,
+    "p1",
+    "playertotals-td"
+   ]
+  ],
+  "Player To Score TD": [
+   [
+    1433410,
+    0.0,
+    "p2",
+    "players-td"
+   ],
+   [
+    1433412,
+    0.0,
+    "p3",
+    "players-td"
+   ],
+   [
+    1433414,
+    0.0,
+    "p4",
+    "players-td"
+   ]
+  ],
+  "Player Receptions (incl. overtime)": [
+   [
+    1436093,
+    0.0,
+    "result",
+    "players-receptions"
+   ]
+  ],
+  "Player Pass Attempts (incl. overtime)": [
+   [
+    1436115,
+    0.0,
+    "result",
+    "players-passattempts"
+   ]
+  ],
+  "Player Pass Completions (incl. overtime)": [
+   [
+    1436196,
+    0.0,
+    "result",
+    "players-passcompletions"
+   ]
+  ],
+  "Player TD Passes (incl. overtime)": [
+   [
+    1436277,
+    0.0,
+    "result",
+    "players-tdpasses"
+   ]
+  ],
+  "Player Interceptions (incl. overtime)": [
+   [
+    1436286,
+    0.0,
+    "result",
+    "players-interceptions"
+   ]
+  ],
+  "Player Receiving Yards (incl. overtime)": [
+   [
+    1436295,
+    0.0,
+    "result",
+    "players-receivingyards"
+   ]
+  ],
+  "Player Longest Pass Completion (incl. overtime)": [
+   [
+    1436374,
+    0.0,
+    "result",
+    "players-longestpasscomp"
+   ]
+  ],
+  "Player Longest Rush Yards (incl. overtime)": [
+   [
+    1436394,
+    0.0,
+    "result",
+    "players-longestrushyards"
+   ]
+  ],
+  "Player To Score Last TD (incl. overtime)": [
+   [
+    1437423,
+    0.0,
+    "result",
+    "players-lasttd"
+   ]
+  ],
+  "Over Under Player Longest Reception (incl. overtime)": [
+   [
+    1440920,
+    0.5,
+    "result",
+    "playertotals-longestreception"
+   ],
+   [
+    1440922,
+    1.5,
+    "result",
+    "playertotals-longestreception"
+   ],
+   [
+    1440924,
+    2.5,
+    "result",
+    "playertotals-longestreception"
+   ]
+  ],
+  "Over Under Player Extra Points (incl. overtime)": [
+   [
+    1441120,
+    0.5,
+    "result",
+    "playertotals-extrapoints"
+   ],
+   [
+    1441122,
+    1.5,
+    "result",
+    "playertotals-extrapoints"
+   ],
+   [
+    1441124,
+    2.5,
+    "result",
+    "playertotals-extrapoints"
+   ]
+  ],
+  "Over Under Player Interceptions Thrown (incl. overtime)": [
+   [
+    1441138,
+    0.5,
+    "result",
+    "playertotals-interceptionsthrown"
+   ],
+   [
+    1441140,
+    1.5,
+    "result",
+    "playertotals-interceptionsthrown"
+   ],
+   [
+    1441142,
+    2.5,
+    "result",
+    "playertotals-interceptionsthrown"
+   ]
+  ],
+  "Over Under Player Rush + Receiving Yards (incl. overtime)": [
+   [
+    1441150,
+    0.5,
+    "result",
+    "playertotals-rushrec"
+   ],
+   [
+    1441152,
+    1.5,
+    "result",
+    "playertotals-rushrec"
+   ],
+   [
+    1441154,
+    2.5,
+    "result",
+    "playertotals-rushrec"
+   ]
+  ],
+  "Player Longest Reception (incl. overtime)": [
+   [
+    1441750,
+    0.0,
+    "result",
+    "players-longestreception"
+   ]
+  ],
+  "Player Extra Points (incl. overtime)": [
+   [
+    1441770,
+    0.0,
+    "result",
+    "players-extrapoints"
+   ]
+  ],
+  "Player Interceptions Thrown (incl. overtime)": [
+   [
+    1441780,
+    0.0,
+    "result",
+    "players-interceptionsthrown"
+   ]
+  ],
+  "Player Rush + Receiving Yards (incl. overtime)": [
+   [
+    1441787,
+    0.0,
+    "result",
+    "players-rushrec"
+   ]
+  ],
+  "Top Passer (incl. overtime)": [
+   [
+    1441846,
+    0.0,
+    "result",
+    "players-top-passer"
+   ]
+  ],
+  "Top Rusher (incl. overtime)": [
+   [
+    1441848,
+    0.0,
+    "result",
+    "players-top-rusher"
+   ]
+  ],
+  "Top Receiver (incl. overtime)": [
+   [
+    1441850,
+    0.0,
+    "result",
+    "players-top-receiver"
+   ]
+  ],
+  "Player Pass Yards in Both Halves": [
+   [
+    1441852,
+    0.0,
+    "fulltime",
+    "players-passyardsinbh"
+   ]
+  ],
+  "Player Rush Yards in Both Halves": [
+   [
+    1441854,
+    0.0,
+    "fulltime",
+    "players-rushyardsinbh"
+   ]
+  ],
+  "Player Receiving Yards in Both Halves": [
+   [
+    1441856,
+    0.0,
+    "fulltime",
+    "players-receivingyardsinbh"
+   ]
+  ],
+  "Player First Point (incl. overtime)": [
+   [
+    1442131,
+    0.0,
+    "result",
+    "players-firstpoint"
+   ]
+  ]
+ },
+ "nba_tournaments": [
   {
-   "tournamentId": 24958,
-   "tournamentSlug": "nba2k-league",
-   "tournamentName": "NBA2K League",
-   "categorySlug": "other",
-   "categoryName": "Other",
+   "tournamentId": 132,
+   "tournamentSlug": "nba",
+   "tournamentName": "NBA",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 1017,
+   "upcomingFixtures": 9,
+   "liveFixtures": 6
+  },
+  {
+   "tournamentId": 486,
+   "tournamentSlug": "wnba",
+   "tournamentName": "WNBA",
+   "categorySlug": "usa",
+   "categoryName": "USA",
    "futureFixtures": 0,
    "upcomingFixtures": 0,
    "liveFixtures": 0
   },
   {
-   "tournamentId": 28396,
-   "tournamentSlug": "nba2k-league",
-   "tournamentName": "NBA2K League",
-   "categorySlug": "nba",
-   "categoryName": "NBA",
+   "tournamentId": 875,
+   "tournamentSlug": "nba-all-star-game",
+   "tournamentName": "NBA All Star Game",
+   "categorySlug": "usa",
+   "categoryName": "USA",
    "futureFixtures": 0,
    "upcomingFixtures": 0,
    "liveFixtures": 0
   },
   {
-   "tournamentId": 40259,
-   "tournamentSlug": "eadriatic-league",
-   "tournamentName": "eBasket NBA League",
-   "categorySlug": "eadriatic-league",
-   "categoryName": "NextGen eBasket",
+   "tournamentId": 1329,
+   "tournamentSlug": "wnba-all-star-game",
+   "tournamentName": "WNBA All Star Game",
+   "categorySlug": "usa",
+   "categoryName": "USA",
    "futureFixtures": 0,
-   "upcomingFixtures": 3,
-   "liveFixtures": 7
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 1580,
+   "tournamentSlug": "nba-g-league",
+   "tournamentName": "NBA G League",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 2382,
+   "tournamentSlug": "nba-preseason",
+   "tournamentName": "NBA Preseason",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
   }
  ],
- "basketball_odds_24958": {
-  "tournament": 24958,
+ "nba_odds_132": {
+  "tournament": 132,
+  "status": 200,
+  "fixtures": 23,
+  "fixture_keys": [
+   "fixtureId",
+   "participant1Id",
+   "participant2Id",
+   "sportId",
+   "tournamentId",
+   "seasonId",
+   "statusId",
+   "hasOdds",
+   "startTime",
+   "trueStartTime",
+   "trueEndTime",
+   "updatedAt",
+   "bookmakerOdds"
+  ],
+  "market_ids": [
+   "119150",
+   "11208",
+   "11210",
+   "119690",
+   "1110016",
+   "119726",
+   "118832",
+   "119996",
+   "113432",
+   "11346",
+   "1110004",
+   "111644",
+   "11228",
+   "11226",
+   "111",
+   "118840",
+   "11216",
+   "11626",
+   "11238",
+   "11486",
+   "118422",
+   "118394",
+   "118438",
+   "11402",
+   "11430",
+   "11418",
+   "11200",
+   "118836",
+   "11434",
+   "113440",
+   "115748",
+   "11212",
+   "115456",
+   "11538",
+   "113428",
+   "11514",
+   "111114",
+   "11620",
+   "11920",
+   "11446",
+   "118406",
+   "11276",
+   "11242",
+   "119440",
+   "119968",
+   "119432",
+   "11632",
+   "111112",
+   "11286",
+   "11542",
+   "11272",
+   "119694",
+   "11438",
+   "11264",
+   "11406",
+   "118816",
+   "11442",
+   "11348",
+   "11826",
+   "119420",
+   "11824",
+   "119130",
+   "119174",
+   "119734",
+   "11522",
+   "114256",
+   "119714",
+   "11234",
+   "11218",
+   "118844",
+   "119154",
+   "11644",
+   "11640",
+   "118434",
+   "119134",
+   "118410",
+   "118426",
+   "11474",
+   "11252",
+   "11278"
+  ],
+  "sample_player_markets": {
+   "112020": [
+    {
+     "outcome": "112021",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473810#2259542922_15L42648Q1852816742Q20",
+      "bookmakerOutcomeId": "0QA361473810#2259542922_15L42648Q1852816742Q20",
+      "bookmakerChangedAt": "2026-11-13T17:35:29.725Z",
+      "changedAt": "2026-11-13T17:35:29.797Z",
+      "limit": null,
+      "playerName": "Anunoby, OG",
+      "price": 1.952,
+      "priceAmerican": "-105",
+      "priceFractional": "79/83",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "112020",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473810#2259542921_13L42648Q1295512847Q20",
+      "bookmakerOutcomeId": "0QA361473810#2259542921_13L42648Q1295512847Q20",
+      "bookmakerChangedAt": "2026-11-13T17:35:29.725Z",
+      "changedAt": "2026-11-13T17:35:29.797Z",
+      "limit": null,
+      "playerName": "Anunoby, OG",
+      "price": 1.8,
+      "priceAmerican": "-125",
+      "priceFractional": "4/5",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "111694": [
+    {
+     "outcome": "111695",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473678#2251195086_13L42648Q1-1693375913Q20",
+      "bookmakerOutcomeId": "0QA361473678#2251195086_13L42648Q1-1693375913Q20",
+      "bookmakerChangedAt": "2026-11-13T17:38:09.876Z",
+      "changedAt": "2026-11-13T17:38:09.938Z",
+      "limit": null,
+      "playerName": "Zubac, Ivica",
+      "price": 1.917,
+      "priceAmerican": "-109",
+      "priceFractional": "11/12",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "111694",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473678#2251195083_13L42648Q1-1662826468Q20",
+      "bookmakerOutcomeId": "0QA361473678#2251195083_13L42648Q1-1662826468Q20",
+      "bookmakerChangedAt": "2026-11-13T17:38:09.876Z",
+      "changedAt": "2026-11-13T17:38:09.938Z",
+      "limit": null,
+      "playerName": "Zubac, Ivica",
+      "price": 1.855,
+      "priceAmerican": "-117",
+      "priceFractional": "59/69",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "111848": [
+    {
+     "outcome": "111848",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361474171#2251195577_13L42648Q1655210411Q20",
+      "bookmakerOutcomeId": "0QA361474171#2251195577_13L42648Q1655210411Q20",
+      "bookmakerChangedAt": "2026-11-13T17:38:02.418Z",
+      "changedAt": "2026-11-13T17:38:02.473Z",
+      "limit": null,
+      "playerName": "Siakam, Pascal",
+      "price": 1.833,
+      "priceAmerican": "-120",
+      "priceFractional": "5/6",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "111849",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361474171#2251195586_15L42648Q1-737468840Q20",
+      "bookmakerOutcomeId": "0QA361474171#2251195586_15L42648Q1-737468840Q20",
+      "bookmakerChangedAt": "2026-11-13T17:38:02.418Z",
+      "changedAt": "2026-11-13T17:38:02.473Z",
+      "limit": null,
+      "playerName": "Siakam, Pascal",
+      "price": 1.909,
+      "priceAmerican": "-110",
+      "priceFractional": "10/11",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "112118": [
+    {
+     "outcome": "112119",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473684#2362906406_15L42648Q1-268563022Q20",
+      "bookmakerOutcomeId": "0QA361473684#2362906406_15L42648Q1-268563022Q20",
+      "bookmakerChangedAt": "2026-11-13T17:37:46.182Z",
+      "changedAt": "2026-11-13T17:37:46.268Z",
+      "limit": null,
+      "playerName": "Nembhard, Andrew",
+      "price": 1.885,
+      "priceAmerican": "-113",
+      "priceFractional": "77/87",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "112118",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473684#2362906405_13L42648Q1-465477975Q20",
+      "bookmakerOutcomeId": "0QA361473684#2362906405_13L42648Q1-465477975Q20",
+      "bookmakerChangedAt": "2026-11-13T17:37:46.182Z",
+      "changedAt": "2026-11-13T17:37:46.268Z",
+      "limit": null,
+      "playerName": "Nembhard, Andrew",
+      "price": 1.862,
+      "priceAmerican": "-116",
+      "priceFractional": "25/29",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "112024": [
+    {
+     "outcome": "112025",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473469#2251190669_15L42648Q11251409926Q20",
+      "bookmakerOutcomeId": "0QA361473469#2251190669_15L42648Q11251409926Q20",
+      "bookmakerChangedAt": "2026-11-13T11:56:48.103Z",
+      "changedAt": "2026-11-13T11:56:48.182Z",
+      "limit": null,
+      "playerName": "Zubac, Ivica",
+      "price": 1.855,
+      "priceAmerican": "-117",
+      "priceFractional": "59/69",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "112024",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473469#2251190650_13L42648Q12101114071Q20",
+      "bookmakerOutcomeId": "0QA361473469#2251190650_13L42648Q12101114071Q20",
+      "bookmakerChangedAt": "2026-11-13T11:56:48.103Z",
+      "changedAt": "2026-11-13T11:56:48.182Z",
+      "limit": null,
+      "playerName": "Zubac, Ivica",
+      "price": 1.893,
+      "priceAmerican": "-112",
+      "priceFractional": "25/28",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "112608": [
+    {
+     "outcome": "112608",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34516397?outcomes=0QA361473534#2251190684_13L42648Q1-1400339376Q20",
+      "bookmakerOutcomeId": "0QA361473534#2251190684_13L42648Q1-1400339376Q20",
+      "bookmakerChangedAt": "2026-11-13T17:19:31.489Z",
+      "changedAt": "2026-11-13T17:19:31.677Z",
+      "limit": null,
+      "playerName": "Anunoby, OG",
+      "price": 1.13,
+      "priceAmerican": "-769",
+      "priceFractional": "13/100",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ]
+  },
+  "n_player_markets": 128
+ },
+ "nba_odds_486": {
+  "tournament": 486,
   "status": 404,
   "body": "{\"error\":{\"message\":\"No fixtures found for the specified tournament IDs and bookmaker.\",\"code\":\"FIXTURE_NOT_FOUND\",\"details\":\"Please check the provided tournament IDs and try again.\"}}"
  },
- "basketball_odds_28396": {
-  "tournament": 28396,
-  "status": 429,
-  "body": "{\"error\":{\"message\":\"You are being rate limited. Please wait before making more requests to this endpoint.\",\"code\":\"RATE_LIMITED\",\"details\":\"Please wait 0.76 seconds before making another request to /v4/odds-by-tournaments.\",\"retryAfter\":\"0.76 seconds\",\"retryMs\":764}}"
+ "nfl_tournaments": [
+  {
+   "tournamentId": 31,
+   "tournamentSlug": "nfl",
+   "tournamentName": "NFL",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 135,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 233,
+   "tournamentSlug": "nfl-preseason",
+   "tournamentName": "NFL Preseason",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 1010,
+   "tournamentSlug": "nfl-pro-bowl",
+   "tournamentName": "NFL Pro Bowl",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 14872,
+   "tournamentSlug": "nflpa-collegiate-bowl",
+   "tournamentName": "NFLPA Collegiate Bowl",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 38947,
+   "tournamentSlug": "nfl-draft",
+   "tournamentName": "NFL Draft",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  },
+  {
+   "tournamentId": 53904,
+   "tournamentSlug": "nfl-specials",
+   "tournamentName": "NFL Specials",
+   "categorySlug": "usa",
+   "categoryName": "USA",
+   "futureFixtures": 0,
+   "upcomingFixtures": 0,
+   "liveFixtures": 0
+  }
+ ],
+ "nfl_odds_31": {
+  "tournament": 31,
+  "status": 200,
+  "fixtures": 26,
+  "fixture_keys": [
+   "fixtureId",
+   "participant1Id",
+   "participant2Id",
+   "sportId",
+   "tournamentId",
+   "seasonId",
+   "statusId",
+   "hasOdds",
+   "startTime",
+   "trueStartTime",
+   "trueEndTime",
+   "updatedAt",
+   "bookmakerOdds"
+  ],
+  "market_ids": [
+   "14821",
+   "14220",
+   "14232",
+   "1437425",
+   "1452",
+   "148",
+   "147013",
+   "1433450",
+   "14332",
+   "144548",
+   "142177",
+   "1437437",
+   "142950",
+   "143315",
+   "14240",
+   "147017",
+   "143898",
+   "1433460",
+   "141652",
+   "144422",
+   "1484",
+   "146969",
+   "141648",
+   "142193",
+   "143521",
+   "14312",
+   "14320",
+   "14324",
+   "147001",
+   "141398",
+   "1496",
+   "14228",
+   "146769",
+   "14184",
+   "14176",
+   "142173",
+   "14348",
+   "14434",
+   "141676",
+   "14432",
+   "1437419",
+   "14438",
+   "14108",
+   "1480",
+   "1433440",
+   "141414",
+   "14180",
+   "141402",
+   "14428",
+   "142391",
+   "141153",
+   "14384",
+   "1464",
+   "14192",
+   "1442114",
+   "14272",
+   "146797",
+   "1437413",
+   "14817",
+   "14292",
+   "142411",
+   "143319",
+   "144426",
+   "1419934",
+   "14527",
+   "14567",
+   "14448",
+   "1448",
+   "142161",
+   "14308",
+   "1436783",
+   "142142",
+   "141664",
+   "144414",
+   "141410",
+   "14430",
+   "147005",
+   "144510",
+   "141374",
+   "1432"
+  ],
+  "sample_player_markets": {
+   "148857": [
+    {
+     "outcome": "148857",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551399#2357730564_13L88808Q11550558023Q20",
+      "bookmakerOutcomeId": "0QA387551399#2357730564_13L88808Q11550558023Q20",
+      "bookmakerChangedAt": "2026-11-13T17:13:18.843Z",
+      "changedAt": "2026-11-13T17:13:19.012Z",
+      "limit": null,
+      "playerName": "Williams, Jameson",
+      "price": 29.0,
+      "priceAmerican": "2800",
+      "priceFractional": "28/1",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "145362": [
+    {
+     "outcome": "145362",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551635#2357730928_13L88808Q1-1180270845Q20",
+      "bookmakerOutcomeId": "0QA387551635#2357730928_13L88808Q1-1180270845Q20",
+      "bookmakerChangedAt": null,
+      "changedAt": "2026-11-13T17:17:51.600Z",
+      "limit": null,
+      "playerName": "Goff, Jared",
+      "price": 3.53,
+      "priceAmerican": "253",
+      "priceFractional": "253/100",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "148625": [
+    {
+     "outcome": "148626",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551617#2357768736_13L88808Q1171556106Q20",
+      "bookmakerOutcomeId": "0QA387551617#2357768736_13L88808Q1171556106Q20",
+      "bookmakerChangedAt": null,
+      "changedAt": "2026-11-13T16:20:07.484Z",
+      "limit": null,
+      "playerName": "Gibbs, Jahmyr",
+      "price": 1.87,
+      "priceAmerican": "-115",
+      "priceFractional": "87/100",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "148625",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551617#2357768734_13L88808Q1-1745495349Q20",
+      "bookmakerOutcomeId": "0QA387551617#2357768734_13L88808Q1-1745495349Q20",
+      "bookmakerChangedAt": null,
+      "changedAt": "2026-11-13T16:20:07.484Z",
+      "limit": null,
+      "playerName": "Gibbs, Jahmyr",
+      "price": 1.917,
+      "priceAmerican": "-109",
+      "priceFractional": "11/12",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "1426556": [
+    {
+     "outcome": "1426556",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551470#2357730405_13L88808Q11751323295Q20",
+      "bookmakerOutcomeId": "0QA387551470#2357730405_13L88808Q11751323295Q20",
+      "bookmakerChangedAt": "2026-11-13T17:15:43.663Z",
+      "changedAt": "2026-11-13T17:15:45.052Z",
+      "limit": null,
+      "playerName": "Goff, Jared",
+      "price": 9.9,
+      "priceAmerican": "890",
+      "priceFractional": "89/10",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "144650": [
+    {
+     "outcome": "144650",
+     "player": {
+      "active": true,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA388535135#2362121170_13L88808Q11912006256Q20",
+      "bookmakerOutcomeId": "0QA388535135#2362121170_13L88808Q11912006256Q20",
+      "bookmakerChangedAt": "2026-11-13T04:58:17.665Z",
+      "changedAt": "2026-11-13T04:58:18.245Z",
+      "limit": null,
+      "playerName": "Hollins, Mack",
+      "price": 6.5,
+      "priceAmerican": "550",
+      "priceFractional": "11/2",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ],
+   "1428820": [
+    {
+     "outcome": "1428820",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551310#2357768709_13L88808Q1-479989172Q20",
+      "bookmakerOutcomeId": "0QA387551310#2357768709_13L88808Q1-479989172Q20",
+      "bookmakerChangedAt": "2026-11-13T01:21:04.567Z",
+      "changedAt": "2026-11-13T01:21:04.768Z",
+      "limit": null,
+      "playerName": "Gibbs, Jahmyr",
+      "price": 1.909,
+      "priceAmerican": "-110",
+      "priceFractional": "10/11",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    },
+    {
+     "outcome": "1428821",
+     "player": {
+      "active": false,
+      "betslip": "https://sportsbook.draftkings.com/event/34118220?outcomes=0QA387551310#2357768710_13L88808Q1-437224943Q20",
+      "bookmakerOutcomeId": "0QA387551310#2357768710_13L88808Q1-437224943Q20",
+      "bookmakerChangedAt": "2026-11-13T01:21:04.567Z",
+      "changedAt": "2026-11-13T01:21:04.768Z",
+      "limit": null,
+      "playerName": "Gibbs, Jahmyr",
+      "price": 1.847,
+      "priceAmerican": "-118",
+      "priceFractional": "72/85",
+      "mainLine": false,
+      "exchangeMeta": null
+     }
+    }
+   ]
+  },
+  "n_player_markets": 324
  },
- "football_tournaments_error": "{\"error\":{\"message\":\"You are being rate limited. Please wait before making more requests to this endpoint.\",\"code\":\"RATE_LIMITED\",\"details\":\"Please wait 0.48 seconds before making another request to /v4/tournaments.\",\"retryAfter\":\"0.48 seconds\",\"retryMs\":479}}"
+ "nfl_odds_233": {
+  "tournament": 233,
+  "status": 404,
+  "body": "{\"error\":{\"message\":\"No fixtures found for the specified tournament IDs and bookmaker.\",\"code\":\"FIXTURE_NOT_FOUND\",\"details\":\"Please check the provided tournament IDs and try again.\"}}"
+ }
 }
