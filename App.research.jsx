@@ -64,6 +64,58 @@ function rcJudge(side, L, proj, sd, logs) {
   const z = (over ? proj - L : L - proj) / sd;
   return { side, z, h10, n10: l10.length, h20, n20: l20.length };
 }
+function RcH2H({ p, N }) {
+  const nx = p.next || {};
+  if (!nx.opp) return null;
+  const h = p.h2h || {};
+  const dm = (N && N.defense) || {};
+  const teams = Object.keys(dm);
+  const d = dm[nx.opp] && dm[nx.opp][p.grp];
+  const rank = st => {
+    if (!d || d[st] == null) return null;
+    const arr = teams.map(t => dm[t] && dm[t][p.grp] && dm[t][p.grp][st]).filter(x => x != null).sort((a, b) => b - a);
+    return { r: arr.indexOf(d[st]) + 1, n: arr.length };
+  };
+  const sa = p.avg60 || {}, pj = p.proj || {};
+  const STS = [['pts', 'Points'], ['reb', 'Rebounds'], ['ast', 'Assists'], ['fg3', 'Threes'], ['pra', 'Pts+Reb+Ast']];
+  const f1 = x => (x == null ? '—' : Number(x).toFixed(1));
+  return (
+    <div className="h2h">
+      <style>{`.h2h{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--sunk)}
+.h2h .h2hT{font-size:13px;font-weight:800;letter-spacing:.3px;margin-bottom:8px}
+.h2h table{width:100%;border-collapse:collapse;font-size:12px}
+.h2h th{position:static;text-align:right;font-size:10px;font-weight:600;color:var(--ink3);padding:4px 6px;border-bottom:1px solid var(--line);background:none;cursor:default}
+.h2h td{text-align:right;padding:6px;border-bottom:1px solid var(--line2);color:var(--ink2);font-family:var(--num)}
+.h2h th:first-child,.h2h td:first-child{text-align:left;color:var(--ink);font-family:var(--ui);font-weight:600}
+.h2h .up{color:var(--pos);font-weight:700}.h2h .dn{color:var(--neg);font-weight:700}
+.h2h .h2hN{font-size:11.5px;color:var(--ink2);margin-top:8px;line-height:1.5}`}</style>
+      <div className="h2hT">HEAD TO HEAD vs {nx.opp}{nx.home ? ' (home)' : ' (away)'}</div>
+      <table>
+        <thead><tr><th>Stat</th><th>Season avg</th><th>vs {nx.opp}{h.n ? ' (' + h.n + ' g)' : ''}</th><th>Diff</th><th>Model</th><th>{nx.opp} defense vs {p.grp}</th></tr></thead>
+        <tbody>
+          {STS.map(([k, l]) => {
+            const v = h.n ? h[k] : null, a = sa[k];
+            const df = v != null && a != null ? v - a : null;
+            const rk = rank(k);
+            const f = d && d[k];
+            return (
+              <tr key={k}>
+                <td>{l}</td><td>{f1(a)}</td><td>{f1(v)}</td>
+                <td className={df == null ? '' : df > 0.4 ? 'up' : df < -0.4 ? 'dn' : ''}>{df == null ? '—' : (df > 0 ? '+' : '') + df.toFixed(1)}</td>
+                <td>{f1(pj[k])}</td>
+                <td>{f == null ? '—' : (f >= 1.03 ? 'Soft' : f <= 0.97 ? 'Tough' : 'Average') + ' ' + (f >= 1 ? '+' : '') + Math.round((f - 1) * 100) + '%' + (rk ? ' · #' + rk.r + '/' + rk.n : '')}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="h2hN">
+        {h.n ? 'Last meetings: ' + (h.last || []).map(g => g.date + ' ' + g.pts + '/' + g.reb + '/' + g.ast).join('  ·  ') + ' (pts/reb/ast).' : 'No logged games against ' + nx.opp + '.'}
+        {' '}Defense is how many more (+) or fewer (-) the team allows to {p.grp}s than the league average; #1 is the softest.
+      </div>
+    </div>
+  );
+}
 function ResearchCenter({ DATA }) {
   const N = DATA.nba;
   const [today, setToday] = useState(true);
@@ -173,6 +225,7 @@ function ResearchCenter({ DATA }) {
           <div className="rcF">Game line<b>{nx.spread != null ? (nx.fav ? nx.fav + ' -' : 'Spread ') + nx.spread + (nx.total != null ? ' · total ' + nx.total : '') : 'No line posted yet'}</b></div>
           <div className="rcF">Status<b>{p.avail >= 0.9 ? 'Healthy' : 'Check injury'}</b></div>
         </div>
+        <RcH2H p={p} N={N} />
       </>
     );
   }
