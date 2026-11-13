@@ -1,0 +1,22 @@
+name: oddspapi-probe
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe OddsPapi
+        env:
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
+        run: python3 oddspapi_probe.py
+      - name: Save result
+        run: |
+          git config user.name "TransferSportal"
+          git config user.email "326551834+TransferSportal@users.noreply.github.com"
+          git add oddspapi_probe.json
+          git commit -m "OddsPapi probe result" || echo "nothing to commit"
+          git pull --rebase origin main
+          git push
