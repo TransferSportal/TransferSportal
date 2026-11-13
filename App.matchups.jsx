@@ -328,6 +328,12 @@ function MuMethod({ G }) {
   );
 }
 
+function muDefaultDay(days) {
+  let t = '';
+  try { t = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); } catch (e) { t = ''; }
+  const up = days.filter(d => d >= t);
+  return up.length ? up[0] : days[days.length - 1];
+}
 function NbaMatchups({ DATA }) {
   const N = DATA.nba;
   const [day, setDay] = useState(null);
@@ -368,7 +374,7 @@ function NbaMatchups({ DATA }) {
   }, [N, flags]);
 
   if (!N) return <section className="view on"><h2 className="tsH">Matchups</h2><div className="dbNote">Waiting for NBA data.</div></section>;
-  const cur = day || days[0];
+  const cur = day || muDefaultDay(days);
   const shown = games.filter(x => nbaDayKey(x.date) === cur);
   const sel = shown.find(x => x.key === pick) || shown[0];
   const idx = sel ? shown.indexOf(sel) + 1 : 0;
