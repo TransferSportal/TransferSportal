@@ -95,6 +95,7 @@ jobs:
           # DraftKings' own endpoint is tried as a courtesy and returns 403 to
           # datacenter IPs, which is the site's call and is left alone.
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDSPAPI_KEY: ${{ secrets.ODDSPAPI_KEY }}
         run: |
           # The crests are generated rather than stored: 123KB of base64 PNG
           # does not compress and is not something anyone can audit in a diff.
