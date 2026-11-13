@@ -299,6 +299,8 @@ def build():
 
     inj = injuries()
     sched = upcoming()
+    if not sched:
+        raise RuntimeError("schedule fetch came back empty")   # keep the last good nba.json
     out_by_team = {}
     for pid in ids:
         st = inj.get(pid)
