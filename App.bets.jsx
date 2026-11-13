@@ -56,7 +56,9 @@ function betPL(b) {
   if (!st) return null;
   if (s === 'loss') return -st;
   if (s === 'push' || s === 'void') return 0;
-  if (s === 'win') { const d = amDec(b.odds); return d ? st * (d - 1) : null; }
+  // stake is the total charged (wager plus any 3% injury insurance fee). The odds price only the wager, so a
+  // ticket with a separate wager field pays wager x odds, and the fee is part of what was lost.
+  if (s === 'win') { const d = amDec(b.odds), w = Number(b.wager) > 0 ? Number(b.wager) : st; return d ? w * d - st : null; }
   return null;
 }
 const money = n => (n < 0 ? '-$' : '$') + Math.abs(n).toFixed(2);
@@ -258,7 +260,7 @@ function Bankroll() {
           <div className="bkCardH"><span>Settled this week</span><span className="bkS" style={{ margin: 0 }}>{wkAll.length} bet{wkAll.length === 1 ? '' : 's'}</span></div>
           {!wkAll.length && <div className="bkS">Nothing graded yet this week.</div>}
           {wkAll.sort((a, b) => bkWhen(b).localeCompare(bkWhen(a))).map(b => { const pl = betPL(b), s = betState(b); return (
-            <div className="bkRow" key={b.id}><div><div>{label(b)}</div><div className="sub">{bkWhen(b)} · {money(Number(b.stake))} at {oddsTxt(b)}{b.book ? ' · ' + b.book : ''}</div></div>
+            <div className="bkRow" key={b.id}><div><div>{label(b)}</div><div className="sub">{bkWhen(b)} · {money(Number(b.stake))}{Number(b.wager) > 0 && Number(b.wager) < Number(b.stake) ? ' (' + money(Number(b.wager)) + ' priced)' : ''} at {oddsTxt(b)}{b.book ? ' · ' + b.book : ''}</div></div>
               <b style={{ color: pl == null ? 'var(--ink2)' : s === 'win' ? 'var(--pos)' : s === 'loss' ? 'var(--neg)' : 'var(--ink2)', whiteSpace: 'nowrap' }}>{pl == null ? 'needs odds' : money(pl)}</b></div>); })}
         </div>
         <div className="bkCard">
@@ -286,7 +288,7 @@ function Bankroll() {
               {Object.keys(books).sort().map(k => line(k, agg(books[k])))}
             </tbody>
           </table>
-          <div className="bkS" style={{ marginTop: 10 }}>Win profit = stake times the payout from the odds you typed. A loss is minus the stake. A push or void is zero. Pending bets count as money at risk.</div>
+          <div className="bkS" style={{ marginTop: 10 }}>Win profit = the wager times the payout from the odds you typed, minus the stake. With no separate wager that is the stake times the profit on the odds. When a ticket has an injury insurance fee, the stake is the total charged and the wager is the amount the odds price. A loss is minus the stake. A push or void is zero. Pending bets count as money at risk.</div>
         </details>
       </div>
     </section>
