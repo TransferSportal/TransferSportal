@@ -38,8 +38,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 22.0,
    "why": "Over 25.5 pts+reb+ast (DraftKings line, -119). Went over in 7 of his last 10 and 12 of his last 20. Season average 27.6, model has him at 29.3 tonight. Teammates out: Tyrese Haliburton."
   },
   {
@@ -78,8 +78,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 2.0,
    "why": "Over 2.5 threes (DraftKings line, -118). Went over in 7 of his last 10 and 12 of his last 20. Season average 2.8, model has him at 3.0 tonight. Matchup helps this side. Teammates out: Evan Mobley."
   },
   {
@@ -118,8 +118,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 0.0,
    "why": "Over 1.5 threes (DraftKings line, -182). Went over in 7 of his last 10 and 7 of his last 12. Season average 2.4, model has him at 2.5 tonight. Teammates out: Stephen Curry. Spread is 12.5, so blowout risk. Minutes could get cut late."
   },
   {
@@ -158,8 +158,8 @@
     "Paolo Banchero"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 22.0,
    "why": "Over 13.5 points (DraftKings line, -114). Went over in 7 of his last 10 and 15 of his last 20. Season average 15.3, model has him at 15.5 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -198,8 +198,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 5.0,
    "why": "Over 15.5 points (DraftKings line, -112). Went over in 6 of his last 10 and 6 of his last 20. Season average 16.1, model has him at 17.6 tonight. Teammates out: Paolo Banchero. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
