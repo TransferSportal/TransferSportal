@@ -97,6 +97,8 @@ css += (
 )
 # White and black theme with red / green / grey for matchups, layered over the base styles.
 css += (HERE / "theme.board.css").read_text()
+# Warm paper, raised cream cards, leather bar. Last layer, so it wins.
+css += (HERE / "theme.skeuo.css").read_text()
 team_line = (HERE / "team.js").read_text().strip()
 logo_line = (HERE / "logos.js").read_text().strip()
 mount = (HERE / "mount.js").read_text().strip()

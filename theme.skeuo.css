@@ -1,0 +1,150 @@
+/* ===== Skeuo: warm paper, raised cream cards, leather bar, ink pills, orange accent =====
+   Last layer in the build. Every rule is prefixed `html body` so it beats the
+   runtime BOARD_CSS block React injects after the head styles. */
+:root{
+  --paper:#d9cebf; --card:#f3ecdf; --sunk:#e5dacb; --raise:#faf5ec;
+  --ink:#2b221d; --ink2:#5a4e45; --ink3:#85776a;
+  --line:rgba(94,70,46,.16); --line2:rgba(94,70,46,.09);
+  --pos:#2c8a55; --neg:#d0502a; --accent:#e0702f; --accent2:#b4571f; --warn:#c0820f;
+  --posBg:rgba(44,138,85,.12); --negBg:rgba(208,80,42,.12);
+  --posLine:rgba(44,138,85,.38); --negLine:rgba(208,80,42,.40);
+  --glass:linear-gradient(180deg,#fbf7ef 0%,#efe6d8 100%);
+  --glassLine:rgba(255,255,255,.82);
+  --glassShadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(94,70,46,.10),0 10px 22px rgba(92,66,40,.16),0 2px 4px rgba(92,66,40,.12);
+  --leather:linear-gradient(180deg,#5b493f 0%,#3b2d26 52%,#2a201b 100%);
+  --pillDark:linear-gradient(180deg,#3d322b,#1f1814);
+  --dent:inset 0 2px 5px rgba(92,66,40,.26),inset 0 -1px 0 rgba(255,255,255,.85);
+  color-scheme:light;
+}
+html,body{background:#d9cebf}
+html body{background:
+  radial-gradient(1000px 600px at 12% -8%,rgba(255,244,226,.85),transparent 60%),
+  radial-gradient(900px 600px at 100% 100%,rgba(190,168,140,.35),transparent 60%),
+  linear-gradient(180deg,#e3d9cb,#d4c8b8);
+  background-attachment:fixed;color:var(--ink)}
+::selection{background:rgba(224,112,47,.28);color:var(--ink)}
+::-webkit-scrollbar-thumb{background:rgba(94,70,46,.30)}
+
+/* ---- top bar: stitched leather ---- */
+html body .tsTop{position:sticky;top:10px;margin:12px 16px 0;border-radius:26px;border:1px solid #1c1410;
+  background:var(--leather);color:#f3e8d9;padding:10px 18px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 0 rgba(0,0,0,.25),0 12px 24px rgba(60,40,22,.35);
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+html body .tsTop:after{content:'';position:absolute;inset:5px;border:1px dashed rgba(240,222,192,.26);border-radius:21px;pointer-events:none}
+html body .tsTop .brand{color:#f7eddf}
+html body .tsTop .main button{background:rgba(0,0,0,.30);border:1px solid rgba(0,0,0,.35);color:#d3c4b1;border-radius:999px;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.45),0 1px 0 rgba(255,255,255,.10);padding:8px 28px}
+html body .tsTop .main button.on{background:linear-gradient(180deg,#fffaf1,#e7dac7);color:#2b221d;
+  box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 #fff}
+html body .tsTop .stat{color:#c9baa6}
+html body .tsTop .stat b{color:#f2b07a}
+
+/* ---- main panel and the dark rail ---- */
+html body .tsFrame{margin:22px auto;padding:0 16px}
+html body .tsFrame .bd{--bg:transparent;--pn:#f3ecdf;--pn2:#e9dfd0;--ln:rgba(94,70,46,.16);--ink:#2b221d;--mu:#5a4e45;
+  --gr:#2c8a55;--grd:rgba(44,138,85,.38);--rd:#d0502a;
+  background:linear-gradient(180deg,#f6efe4 0%,#ebe1d2 100%);color:var(--ink);
+  border:1px solid rgba(255,255,255,.85);border-radius:30px;overflow:visible;padding:14px;grid-template-columns:216px 1fr;
+  box-shadow:inset 0 1px 0 #fff,inset 0 -2px 0 rgba(94,70,46,.10),0 26px 60px rgba(88,62,36,.26),0 4px 10px rgba(88,62,36,.14);
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+html body .bd .sb{background:var(--leather);border:1px solid #1c1410;border-radius:24px;padding:14px 10px;margin:0;gap:4px;
+  position:sticky;top:96px;align-self:start;color:#e9dccb;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -2px 0 rgba(0,0,0,.28),0 12px 24px rgba(60,40,22,.30)}
+html body .bd .sb h6{color:#b9a892}
+html body .bd .sb button{color:#d8c9b6;border-radius:14px;padding:9px 12px}
+html body .bd .sb button:hover{background:rgba(255,255,255,.08);color:#fff;transform:none}
+html body .bd .sb button.on{background:linear-gradient(180deg,#fffaf1,#e6d9c6);color:#2b221d;font-weight:600;
+  box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 #fff}
+html body .bd .sb .live{color:#b9a892;border-top:1px solid rgba(255,255,255,.12)}
+html body .tsFrame .mn{padding:18px 22px}
+html body .bd h2,html body .tsFrame .mn h2.tsH{color:var(--ink)}
+
+/* ---- raised cream cards ---- */
+html body .dbCard,html body .pcard,html body .cardTeam,html body .cardGame,html body .recBox,html body .recWeek,
+html body .calTable,html body .tbl,html body .mxBox,html body .adjust,html body .calNote,
+html body .alerts:not(:empty),html body .bd .hero,html body .bd .rows,html body .gm,html body .msPanel,
+html body .bd .strip .gm,html body .kmRow{
+  background:var(--glass);border:1px solid var(--glassLine);border-bottom-color:rgba(94,70,46,.16);border-radius:18px;
+  box-shadow:var(--glassShadow);color:var(--ink);-webkit-backdrop-filter:none;backdrop-filter:none}
+html body .dbCard:hover,html body .pcard:hover,html body .cardTeam:hover,html body .cardGame:hover,html body .gm:hover,
+html body .recBox:hover,html body .bd .hero:hover{
+  transform:translateY(-2px);border-color:#fff;
+  box-shadow:inset 0 1px 0 #fff,0 16px 30px rgba(92,66,40,.24),0 3px 6px rgba(92,66,40,.12)}
+html body .calNote{border-left:3px solid var(--accent)}
+html body .gm.gmOn,html body .bd .gm.on{border-color:var(--accent)}
+html body .gmh,html body .pcardFoot,html body .calHead,html body th,html body .bd .hd{background:rgba(94,70,46,.06);color:var(--ink2)}
+html body .bd .rw{background:transparent;border-top:1px solid var(--line2)}
+html body .bd .rw:hover,html body .pcardTop:hover,html body tbody tr:hover td{background:rgba(255,255,255,.55)}
+html body .dbRow{border-top-color:var(--line2)}
+html body .dbCard h4{color:var(--ink2)}
+html body .dbPct,html body .pv2,html body .pcardScore .pv2,html body .bd .big{color:var(--accent)}
+
+/* ---- inset controls and dark pills ---- */
+html body .seg,html body .bd .chips,html body .find,html body .bd input.q,html body .msBtn,html body .odds,html body .lcBox input{
+  background:linear-gradient(180deg,#e3d8c8,#eee5d8);border:1px solid rgba(94,70,46,.18);border-radius:14px;
+  box-shadow:var(--dent);color:var(--ink)}
+html body select{background-color:#ece3d6;color:var(--ink);border:1px solid rgba(94,70,46,.18);border-radius:14px;box-shadow:var(--dent);
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236b5e54' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")}
+html body select option{background-color:#f3ecdf;color:#2b221d}
+html body .seg button,html body .bd .chips button{color:var(--ink2)}
+html body .seg button.on,html body .bd .chips button.on{background:var(--pillDark);color:#f6ede1;border-radius:12px;font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 3px 8px rgba(30,20,12,.35)}
+html body .primary{background:linear-gradient(180deg,#f0883f,#cf5f22);border:1px solid #a84a16;color:#fff8ef;border-radius:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 6px 14px rgba(190,90,30,.35);text-shadow:0 1px 0 rgba(120,50,10,.4)}
+html body .dbLink{background:var(--pillDark);border:1px solid #120d0a;color:#f6ede1;border-radius:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 6px 14px rgba(30,20,12,.3)}
+html body input::placeholder,html body textarea::placeholder{color:var(--ink3)}
+
+/* ---- tags and chips ---- */
+html body .tsFrame .pill,html body .bd .pill,html body .rchip,html body .tsFrame .tag,html body .bd .tag{
+  background:#efe6d8;border:1px solid rgba(94,70,46,.18);color:var(--ink2);
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+html body .tsFrame .tag.r,html body .bd .tag.r{color:#b13d1b;border-color:rgba(208,80,42,.4);background:rgba(208,80,42,.08)}
+html body .tsFrame .pill.on,html body .bd .pill.on{color:var(--pos);border-color:var(--posLine);background:rgba(44,138,85,.10)}
+html body .lcTag.l{color:#a8690a}
+html body .bd .bar{background:#e0d4c3;box-shadow:var(--dent)}
+html body .bd .bar i{background:linear-gradient(180deg,#f19a52,#d2622a)}
+html body .bd .tile,html body .bd .av{background:linear-gradient(160deg,#4a3b33,#241b16);color:#f4a66b;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+
+/* ---- NBA Best 5 board ---- */
+html body .kmTitle{color:var(--ink)}
+html body .kmKicker{color:var(--ink2)}
+html body .kmKicker i,html body .kmSubtitle b{background:var(--accent)}
+html body .kmRow{border-radius:20px}
+html body .kmRow:hover{border-color:var(--accent)}
+html body .kmName,html body .kmLine{color:var(--ink)}
+html body .kmLine{border-top:1px solid var(--line)}
+html body .kmWhy{border-top:1px dashed var(--line)}
+html body .kmPhoto{background:linear-gradient(160deg,#6a5546,#2e231d)}
+html body .kmRank{background:rgba(30,20,12,.7);color:#f3e8d9}
+html body .kmTile{background:var(--pillDark);border-radius:16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -2px 0 rgba(0,0,0,.3),0 4px 10px rgba(30,20,12,.3)}
+html body .kmBig{color:#f4a66b}
+html body .kmLbl{color:#e9dccb}
+html body .kmRes{background:rgba(255,255,255,.12);color:#d3c4b1}
+html body .km-win .kmTile{background:linear-gradient(180deg,#2f6b49,#1c3d2b)}
+html body .km-win .kmBig{color:#bdf0cf}
+html body .km-win .kmRes{color:#7fe0a6;background:rgba(0,0,0,.25)}
+html body .km-loss .kmTile{background:linear-gradient(180deg,#8a3a22,#4e2013)}
+html body .km-loss .kmBig{color:#ffd0bd}
+html body .km-loss .kmRes{color:#ffb39a;background:rgba(0,0,0,.25)}
+
+/* ---- broadcast slides (Matchups): leather instead of green-black ---- */
+html body .muFrame{background:linear-gradient(180deg,#4a3b33,#241b16) !important;border:1px solid #1c1410;border-radius:24px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 18px 40px rgba(60,40,22,.4)}
+
+/* ---- phone: the rail becomes a floating dark pill nav ---- */
+@media(max-width:860px){
+  html body{padding-bottom:96px}
+  html body .tsTop{margin:8px 8px 0;top:6px;border-radius:22px}
+  html body .tsTop:after{border-radius:17px}
+  html body .tsFrame{padding:0 8px;margin:14px auto}
+  html body .tsFrame .bd{grid-template-columns:1fr;padding:6px;border-radius:24px}
+  html body .tsFrame .mn{padding:12px 10px}
+  html body .bd .sb{position:fixed;left:10px;right:10px;bottom:12px;top:auto;z-index:40;flex-direction:row;overflow-x:auto;
+    border-radius:999px;padding:8px;gap:4px;scrollbar-width:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -2px 0 rgba(0,0,0,.28),0 14px 30px rgba(40,26,14,.5)}
+  html body .bd .sb::-webkit-scrollbar{display:none}
+  html body .bd .sb button{white-space:nowrap;flex:none;padding:9px 14px}
+}
