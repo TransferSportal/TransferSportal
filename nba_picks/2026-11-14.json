@@ -38,8 +38,8 @@
     "Trey Murphy III"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 0.0,
    "why": "Over 2.5 threes (DraftKings line, -162). Went over in 7 of his last 10 and 15 of his last 20. Season average 3.2, model has him at 3.8 tonight. Spread is 12.5, so blowout risk. Minutes could get cut late."
   },
   {
@@ -78,8 +78,8 @@
     "Jalen Duren"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 3.0,
    "why": "Over 1.5 threes (DraftKings line, -180). Went over in 8 of his last 10 and 13 of his last 20. Season average 1.6, model has him at 1.8 tonight. Back to back, so watch the minutes. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -118,8 +118,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 8.0,
    "why": "Over 8.5 rebounds (DraftKings line, -141). Went over in 7 of his last 10 and 9 of his last 12. Season average 9.8, model has him at 9.2 tonight. Teammates out: Ty Jerome. Back to back, so watch the minutes. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
