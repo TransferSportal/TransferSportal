@@ -314,7 +314,7 @@ const NF_CSS = `
 .nfBarL,.nfBarR{height:12px;background:#121c26;border-radius:6px;overflow:hidden;display:flex}
 .nfBarL{justify-content:flex-end}
 .nfBarL i,.nfBarR i{display:block;height:100%;background:#56697a;border-radius:6px}
-.nfBarL i.w,.nfBarR i.w{background:#22c55e}
+.nfBarL i.w,.nfBarR i.w{background:#35e08a}
 .muRowVal span{white-space:nowrap}
 .muSlate.nfSlate .muTile{justify-content:center;gap:16px}
 .muSt.nfPos{background:#16222e;color:#8fa3b5}
