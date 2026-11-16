@@ -3,9 +3,9 @@
   --paper:#0d0f12; --card:#14171c; --sunk:#0a0c0f; --raise:#1a1e24;
   --ink:#eceef1; --ink2:#8a919c; --ink3:#5c646f;
   --line:#242932; --line2:#171a20;
-  --pos:#22c55e; --neg:#ef4444; --accent:#22c55e;
+  --pos:#35e08a; --neg:#ef4444; --accent:#35e08a;
   --posBg:rgba(34,197,94,.12); --negBg:rgba(239,68,68,.12);
-  --posLine:#14532d; --negLine:#5b2121;
+  --posLine:#1d6b45; --negLine:#5b2121;
   color-scheme:dark;
 }
 body{background:var(--paper)}
@@ -155,3 +155,27 @@ body .muStar,body .muT3,body .muPanel{border-radius:14px}
 .kmPhoto>span img{object-position:top center!important}
 
 .kmUnder{font-family:var(--num);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--warn);margin-bottom:4px}
+
+/* ===== Navy + matte neon green ===== */
+:root{--paper:#0a1428;--sunk:rgba(4,10,24,.45);--ink:#e8eefc;--ink2:#a9b9db;--ink3:#7a8fb8;
+ --pos:#35e08a;--accent:#35e08a;--posBg:rgba(53,224,138,.14);--posLine:#1d6b45;--neg:#ff6b78;--negBg:rgba(255,107,120,.14);--negLine:#6b2a35;
+ --glass:linear-gradient(135deg,rgba(130,170,255,.10),rgba(130,170,255,.03));--glassLine:rgba(140,175,255,.16);
+ --glassShadow:0 10px 34px rgba(2,6,18,.5),inset 0 1px 0 rgba(180,205,255,.14);
+ --card:rgba(130,170,255,.06);--raise:rgba(130,170,255,.10);--line:rgba(140,175,255,.16);--line2:rgba(140,175,255,.09)}
+html,body{background:#071022}
+body{background:radial-gradient(900px 560px at 8% -6%,rgba(53,224,138,.10),transparent 62%),radial-gradient(900px 640px at 96% 6%,rgba(40,80,170,.30),transparent 62%),linear-gradient(180deg,#0b1730,#071022);background-attachment:fixed}
+body .tsTop{background:rgba(7,16,34,.72)}
+body .tsFrame .bd{background:rgba(8,18,40,.55)}
+body .tsTop .main button.on{background:var(--pos);color:#04120b;box-shadow:0 4px 16px rgba(53,224,138,.22)}
+body .seg button.on,body .bd .chips button.on{background:var(--pos);color:#04120b;box-shadow:none}
+body .bd .sb button.on{background:rgba(53,224,138,.14);box-shadow:inset 0 0 0 1px rgba(53,224,138,.4);color:var(--pos)}
+body .primary{background:var(--pos);color:#04120b;border-color:transparent;box-shadow:0 4px 14px rgba(53,224,138,.25)}
+body .tsFrame .pill.on{background:rgba(53,224,138,.16);border-color:rgba(53,224,138,.5)}
+body .muDays button.on{background:rgba(53,224,138,.18)}
+body .bd{--bg:#0a1428;--pn:rgba(130,170,255,.07);--pn2:rgba(130,170,255,.12);--ln:rgba(140,175,255,.16);--ink:#e8eefc;--mu:#a9b9db;--gr:#35e08a;--grd:#1d6b45;--rd:#ff6b78}
+body .bd .sb{background:rgba(130,170,255,.05)}
+body .dbCard:hover,body .pcard:hover,body .cardTeam:hover,body .cardGame:hover,body .gm:hover,body .recBox:hover,body .bd .hero:hover{border-color:rgba(53,224,138,.35)}
+.tsFrame .mn .seg{max-width:100%;overflow-x:auto;scrollbar-width:none}
+.tsFrame .mn .seg::-webkit-scrollbar{display:none}
+.tsFrame .mn .seg button{white-space:nowrap}
+::-webkit-scrollbar-thumb{background:rgba(140,175,255,.22)}
