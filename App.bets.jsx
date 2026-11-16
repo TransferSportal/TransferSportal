@@ -168,8 +168,8 @@ function BkChart({ vals }) {
         const top = Math.min(y(v), y(0)), h = Math.max(Math.abs(y(v) - y(0)), v !== 0 ? 2 : 0);
         return (
           <g key={i}>
-            {v !== 0 && <rect x={x} y={top} width={w} height={h} rx="3" fill={v > 0 ? '#34f5a1' : '#ff5d6c'} filter="url(#bkGlow)" />}
-            {v !== 0 && <text x={x + w / 2} y={v > 0 ? top - 4 : top + h + 11} textAnchor="middle" fontSize="9.5" fontWeight="700" fill={v > 0 ? '#22c55e' : '#ef4444'}>{bkShort(v)}</text>}
+            {v !== 0 && <rect x={x} y={top} width={w} height={h} rx="3" fill={v > 0 ? '#35e08a' : '#ff5d6c'} filter="url(#bkGlow)" />}
+            {v !== 0 && <text x={x + w / 2} y={v > 0 ? top - 4 : top + h + 11} textAnchor="middle" fontSize="9.5" fontWeight="700" fill={v > 0 ? '#35e08a' : '#ef4444'}>{bkShort(v)}</text>}
             <text x={x + w / 2} y={H - 8} textAnchor="middle" fontSize="10" fill="var(--ink3)">{BK_DAYS[i]}</text>
           </g>
         );
@@ -184,7 +184,7 @@ function BkRing({ pct }) {
     <svg viewBox="0 0 140 140" style={{ width: 150, height: 150 }}>
       <defs><filter id="bkGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter></defs>
       <circle cx="70" cy="70" r={r} fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="12" />
-      <circle cx="70" cy="70" r={r} fill="none" stroke={pct >= 1 ? '#34f5a1' : '#5eead4'} strokeWidth="10" strokeLinecap="round" filter="url(#bkGlow)" strokeDasharray={c * p + ' ' + c} transform="rotate(-90 70 70)" />
+      <circle cx="70" cy="70" r={r} fill="none" stroke={pct >= 1 ? '#35e08a' : '#35e08a'} strokeWidth="10" strokeLinecap="round" filter="url(#bkGlow)" strokeDasharray={c * p + ' ' + c} transform="rotate(-90 70 70)" />
       <text x="70" y="77" textAnchor="middle" fontSize="26" fontWeight="800" fill="var(--ink)">{Math.round(pct * 100)}%</text>
     </svg>
   );
