@@ -97,6 +97,24 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
   const secs = top === 'nfl' ? nflSecs : nbaSecs;
   const cur = top === 'nfl' ? sec : nsec;
   const setCur = top === 'nfl' ? setSec : setNsec;
+  const GRP = top === 'nfl' ? [
+    ['Today', [['today', 'Daily board']]],
+    ['Picks', [['board', 'Anytime TD'], ['card', 'The Card'], ['preds', 'Game picks (ML & spread)'], ['mine', 'My game picks']]],
+    ['Games', [['slides', 'Matchups'], ['stats:matchups', 'Matchup table'], ['stats:games', 'Game stats'], ['dvp', 'Defense vs Position'], ['stats:team', 'Team stats']]],
+    ['Players', [['research', 'Research Center'], ['stats:players', 'Player stats'], ['tools:sheets', 'Cheatsheets'], ['tools:pairs', 'Parlay builder'], ['tools:full', 'Full board + prices']]],
+    ['News', [['news', 'Injuries & news'], ['inj', 'Injuries']]],
+    ['Bankroll', [['bank', 'Bankroll']]],
+    ['About', [['about', 'About the model']]],
+  ] : [
+    ['Picks', [['picks', 'Best 5 today'], ['record', 'Pick record' + (rec ? ' · ' + rec : '')], ['gpred', 'Game picks (ML & spread)']]],
+    ['Games', [['matchups', 'Matchups'], ['dvp', 'Defense vs Position']]],
+    ['Players', [['research', 'Research Center'], ['all', 'All 100 players']]],
+    ['News', [['news', 'Injuries & news']]],
+    ['Bankroll', [['bank', 'Bankroll']]],
+  ];
+  const curKey = top === 'nfl' ? (sec === 'stats' ? 'stats:' + stats : sec === 'tools' ? 'tools:' + tools : sec) : nsec;
+  const goKey = k => { if (top === 'nba') { setNsec(k); return; } const [a, b] = k.split(':'); setSec(a); if (a === 'stats') setStats(b); if (a === 'tools') setTools(b); };
+  const grp = GRP.find(g => g[1].some(x => x[0] === curKey)) || GRP[0];
   return (
     <>
       <style>{BOARD_CSS}</style>
@@ -116,22 +134,21 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
         <div className="bd">
           <aside className="sb">
             <h6>{top === 'nfl' ? 'NFL · ' + (meta.predict_week || '') : 'NBA'}</h6>
-            {secs.map(([k, l]) => <button key={k} className={cur === k ? 'on' : ''} onClick={() => setCur(k)}>{l}</button>)}
+            {GRP.map(([name, items]) => <button key={name} className={grp[0] === name ? 'on' : ''} onClick={() => goKey(items[0][0])}>{name}</button>)}
             <div className="live">{meta.generated}<br />Model estimates, not guarantees</div>
           </aside>
           <div className="mn">
+            {grp[1].length > 1 && <SegBar v={curKey} set={goKey} items={grp[1]} />}
             {top === 'nfl' && sec === 'today' && <DailyBoard DATA={DATA} meta={meta} go={setTop} />}
             {top === 'nfl' && sec === 'board' && <BoardTab DATA={DATA} />}
             {top === 'nfl' && sec === 'card' && <CardTab DATA={DATA} />}
             {top === 'nfl' && sec === 'stats' && (<>
-              <SegBar v={stats} set={setStats} items={[['games', 'Games'], ['matchups', 'Matchups'], ['team', 'Team stats'], ['players', 'Player stats']]} />
               {stats === 'games' && <GamesTab GAMES={DATA.games_model} DATA={DATA} />}
               {stats === 'matchups' && <MatchupsTab DATA={DATA} CALP={CALP} CAL={CAL} CALPP={CALPP} CALP2={CALP2} />}
               {stats === 'team' && <TeamStatsTab DATA={DATA} />}
               {stats === 'players' && <PlayerStatsTab DATA={DATA} />}
             </>)}
             {top === 'nfl' && sec === 'tools' && (<>
-              <SegBar v={tools} set={setTools} items={[['sheets', 'Cheatsheets'], ['pairs', 'Parlay builder'], ['full', 'Full board + prices']]} />
               {tools === 'sheets' && <CheatsheetsTab DATA={DATA} />}
               {tools === 'pairs' && <ParlayTab DATA={DATA} />}
               {tools === 'full' && (<>
