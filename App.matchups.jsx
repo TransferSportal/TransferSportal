@@ -419,9 +419,9 @@ const MU_CSS = `
   radial-gradient(ellipse at 50% 38%,#122030 0,#070b10 70%)}
 .muBrand{position:absolute;left:26px;top:20px;font-size:25px;letter-spacing:.5px;display:flex;align-items:center;gap:9px;z-index:2}
 .muMark{display:inline-flex;align-items:flex-end;gap:3px;height:22px}
-.muMark i{display:block;width:5px;background:#22c55e;border-radius:1px}
+.muMark i{display:block;width:5px;background:#35e08a;border-radius:1px}
 .muMark i:nth-child(1){height:10px;background:#ef4444}.muMark i:nth-child(2){height:16px}.muMark i:nth-child(3){height:22px}
-.muTag{position:absolute;right:26px;top:18px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7fe0a0;z-index:2;border-top:2px solid #22c55e;padding-top:6px;min-width:230px;background:rgba(10,18,26,.7)}
+.muTag{position:absolute;right:26px;top:18px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7fe0a0;z-index:2;border-top:2px solid #35e08a;padding-top:6px;min-width:230px;background:rgba(10,18,26,.7)}
 .muTag b{font-weight:500;display:block;letter-spacing:.5px}
 .muTag span{display:block;color:#aeb8c4;font-size:10px;margin-top:2px}
 .muTitle{position:absolute;left:0;right:0;top:62px;text-align:center;z-index:2}
@@ -435,7 +435,7 @@ const MU_CSS = `
 .muLogo{object-fit:contain;display:inline-block}
 .muSlate{position:absolute;left:30px;right:30px;top:170px;bottom:50px;display:grid;gap:14px;z-index:2}
 .muTile{appearance:none;text-align:left;font-family:inherit;color:inherit;cursor:pointer;background:linear-gradient(160deg,#142131,#0c131b);border:1px solid #213244;border-radius:10px;padding:12px 18px;display:flex;flex-direction:column;justify-content:space-between}
-.muTile.on{border-color:#22c55e;box-shadow:0 0 0 1px #22c55e inset}
+.muTile.on{border-color:#35e08a;box-shadow:0 0 0 1px #35e08a inset}
 .muTileRow{display:flex;align-items:center;justify-content:space-between}
 .muTileTeam{display:flex;align-items:center;gap:8px;font-size:32px}
 .muTileMid{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7d8896}
@@ -460,7 +460,7 @@ const MU_CSS = `
 .muT3{flex:1;background:rgba(18,28,38,.92);border:1px solid #1f2f3d;border-radius:6px;padding:9px 14px;position:relative;overflow:hidden}
 .muT3k{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#9aa5b1;letter-spacing:.4px}
 .muT3v{font-size:34px;color:#4ade80;line-height:1.1;white-space:nowrap}
-.muBar{height:5px;background:#fb923c;border-radius:3px;overflow:hidden;margin:2px 0 3px}.muBar i{display:block;height:100%;background:#22c55e}
+.muBar{height:5px;background:#fb923c;border-radius:3px;overflow:hidden;margin:2px 0 3px}.muBar i{display:block;height:100%;background:#35e08a}
 .muT3w{font-size:19px;line-height:1.25;display:flex;gap:10px;flex-wrap:wrap;margin:2px 0}
 .muT3w em{font-style:normal;color:#fbbf24}
 .muRows{position:absolute;left:30px;right:30px;top:178px;z-index:2}
