@@ -9,7 +9,7 @@ const DVP_CSS = `
 .dvp .dvpHead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .dvp .dvpWk{font-size:13px;font-weight:700;letter-spacing:.8px;color:var(--pos);text-transform:uppercase}
 .dvp .dvpKey{display:flex;flex-direction:column;gap:3px;width:170px}
-.dvp .dvpBar{height:6px;border-radius:4px;background:linear-gradient(90deg,#ef4444,rgba(255,255,255,.18) 50%,#22c55e)}
+.dvp .dvpBar{height:6px;border-radius:4px;background:linear-gradient(90deg,#ef4444,rgba(255,255,255,.18) 50%,#35e08a)}
 .dvp .dvpKeyL{display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;letter-spacing:.7px}
 .dvp .dvpKeyL i{font-style:normal}.dvp .dvpKeyL i:first-child{color:var(--neg)}.dvp .dvpKeyL i:last-child{color:var(--pos)}
 .dvp .dvpScroll{overflow-x:auto;padding-bottom:4px}
