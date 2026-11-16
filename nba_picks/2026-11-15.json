@@ -38,8 +38,8 @@
    ],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 3.0,
    "why": "Over 1.5 threes (DraftKings line, -167). Went over in 7 of his last 10 and 13 of his last 20. Season average 2.0, model has him at 2.1 tonight. Teammates out: Kon Knueppel."
   },
   {
@@ -76,8 +76,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 7.0,
    "why": "Over 4.5 rebounds (DraftKings line, -111). Went over in 8 of his last 10 and 15 of his last 20. Season average 5.3, model has him at 5.4 tonight. Spread is 14.5, so blowout risk. Minutes could get cut late."
   },
   {
@@ -116,8 +116,8 @@
     "Chet Holmgren"
    ],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 3.0,
    "why": "Over 2.5 threes (DraftKings line, -153). Went over in 8 of his last 10 and 8 of his last 12. Season average 3.1, model has him at 3.2 tonight. Spread is 10.5, so blowout risk. Minutes could get cut late."
   },
   {
@@ -154,8 +154,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 6.0,
    "why": "Over 14.5 points (DraftKings line, -127). Went over in 6 of his last 10 and 14 of his last 20. Season average 15.3, model has him at 16.8 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -192,8 +192,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 8.0,
    "why": "Over 9.5 rebounds (DraftKings line, -140). Went over in 6 of his last 10 and 13 of his last 20. Season average 10.8, model has him at 10.8 tonight. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
