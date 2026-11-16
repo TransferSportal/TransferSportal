@@ -8,7 +8,7 @@ function fairOdds(p) {
   return (v > 0 ? '+' : '') + v;
 }
 const BOARD_CSS = `
-.bd{--bg:#0d0f12;--pn:#14171c;--pn2:#1a1e24;--ln:#242932;--ink:#eceef1;--mu:#8a919c;--gr:#22c55e;--grd:#14532d;--rd:#ef4444;
+.bd{--bg:#0d0f12;--pn:#14171c;--pn2:#1a1e24;--ln:#242932;--ink:#eceef1;--mu:#8a919c;--gr:#35e08a;--grd:#1d6b45;--rd:#ef4444;
   display:grid;grid-template-columns:200px 1fr;background:var(--bg);color:var(--ink);border:1px solid var(--ln);border-radius:14px;overflow:hidden;min-height:640px;font-family:Inter,system-ui,sans-serif}
 .bd *{box-sizing:border-box}
 .bd .sb{background:#0a0c0f;border-right:1px solid var(--ln);padding:16px 12px;display:flex;flex-direction:column;gap:2px}
