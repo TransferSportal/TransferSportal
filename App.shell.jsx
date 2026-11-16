@@ -92,8 +92,8 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
   const lr = meta.live_record && meta.live_record.totals;
   const P = DATA.nba_picks;
   const rec = P && P.record && (P.record.w + P.record.l) ? P.record.w + '-' + P.record.l : null;
-  const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ['card', 'The Card'], ['stats', 'Games & Stats'], ['tools', 'Tools'], ['inj', 'Injuries'], ['about', 'About the model']];
-  const nbaSecs = [['picks', 'Best 5 today'], ['record', 'Pick record' + (rec ? ' · ' + rec : '')], ['all', 'All 100 players']];
+  const nflSecs = [['today', 'Daily board'], ['board', 'Anytime TD'], ['card', 'The Card'], ['stats', 'Games & Stats'], ['tools', 'Tools'], ['inj', 'Injuries'], ['about', 'About the model'], ['preds', 'Game picks (ML & spread)']];
+  const nbaSecs = [['picks', 'Best 5 today'], ['record', 'Pick record' + (rec ? ' · ' + rec : '')], ['all', 'All 100 players'], ['gpred', 'Game picks (ML & spread)']];
   const secs = top === 'nfl' ? nflSecs : nbaSecs;
   const cur = top === 'nfl' ? sec : nsec;
   const setCur = top === 'nfl' ? setSec : setNsec;
@@ -142,6 +142,7 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
             </>)}
             {top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}
             {top === 'nfl' && sec === 'about' && <Notes meta={meta} />}
+            {top === 'nfl' && sec === 'preds' && <GamePreds sport="nfl" DATA={DATA} />}
             {top === 'nba' && <NbaTab DATA={DATA} view={nsec} noBar />}
           </div>
         </div>
