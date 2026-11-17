@@ -130,6 +130,20 @@ def hit_rate(vals, line):
     return sum(1 for v in vals if v > line) / len(vals) if vals else 0.0
 
 
+EDGE_MIN = 0.03     # estimated win probability must beat the price break-even by 3 points for a full pick
+EDGE_LEAN = 0.01    # a lean needs at least 1 point; below that the card stays short rather than forcing a bet
+
+
+def _ncdf(x):
+    return 0.5 * (1 + math.erf(x / math.sqrt(2)))
+
+
+def breakeven(price):
+    """Break-even win probability for an American price (-115 if the feed gave none)."""
+    pr = price if isinstance(price, (int, float)) else -115
+    return 100.0 / (pr + 100.0) if pr > 0 else -pr / (-pr + 100.0)
+
+
 SHRINK = 0.5        # share of the model-vs-book gap that is believed (audit 2026-11-17: 6-12 on real lines)
 PRICE_FLOOR = -150  # skip overs priced worse than this
 
@@ -188,7 +202,17 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 h10, h20 = 1 - hit_rate(v10, line), 1 - hit_rate(v20, line)
             if h10 < min_h:
                 continue
-            score = z + 2.0 * (h10 - 0.7) + 1.5 * (h20 - 0.6)
+            # Conservative win probability: half a normal curve around the shrunk projection, half his own
+            # recent hit rate pulled toward 50%. Audit 2026-11-17: recency and averages all predict within 1-2% of
+            # each other, so most of any gap is noise; the probability is deliberately kept near a coin flip.
+            p_norm = 1 - _ncdf((line - proj) / sd)
+            p_emp = (h20 * len(v20) + 0.5 * 10) / (len(v20) + 10)
+            p_hat = 0.5 * p_norm + 0.5 * p_emp
+            be = breakeven(bl.get("over"))
+            edge = p_hat - be
+            if edge < EDGE_LEAN:
+                continue
+            score = 100.0 * edge + 0.2 * (z + 2.0 * (h10 - 0.7) + 1.5 * (h20 - 0.6))
             spread = nx.get("spread")
             mm = None
             if spread is None and adopt.get("blowout_model"):
@@ -213,7 +237,7 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 "spread": nx.get("spread") if mm is None else None, "model_margin": round(mm, 1) if mm is not None else None,
                 "allow_edge": round(ae, 3) if ae is not None else None, "fav": nx.get("fav"), "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
                 "opp_out": (n.get("injuries_out") or {}).get(nx["opp"], []),
-                "lean": not (z >= MIN_Z and h10 >= MIN_HIT10),
+                "lean": not (z >= MIN_Z and h10 >= MIN_HIT10 and edge >= EDGE_MIN), "p_hat": round(p_hat, 3), "breakeven": round(be, 3), "edge": round(edge, 3),
                 "result": None, "actual": None,
             })
     return out
@@ -244,7 +268,8 @@ def why(c):
     src = f" ({c['book']} line, {c['price']:+d})" if c.get("line_src") == "book" and isinstance(c.get("price"), int) else ""
     bits = [f"{word.title()} {c['line']} {LABEL[c['stat']]}{src}.",
             f"Went {word} in {round(c['hit10'] * 10)} of his last 10 and {round(c['hit20'] * c['n20'])} of his last {c['n20']}.",
-            f"Season average {c['avg']}, model has him at {c['proj']} tonight."]
+            f"Season average {c['avg']}, model has him at {c['proj']} tonight.",
+            f"Estimated win chance {round(100 * c['p_hat'])}% against a {round(100 * c['breakeven'])}% break-even." if c.get("p_hat") else ""]
     d = c.get("def")
     good = (d is not None) and ((d >= 1.03) == (c["side"] == "over")) and abs(d - 1) >= 0.03
     if d is not None and abs(d - 1) >= 0.03:
@@ -258,7 +283,7 @@ def why(c):
     if ae is not None and abs(ae) >= 0.03:
         bits.append(f"Opponent allows {abs(ae) * 100:.0f} percent {'more' if ae > 0 else 'less'} {LABEL[c['stat']]} than average to his position.")
     if c.get("lean"): bits.append("A lean: the gap or the recent run is smaller than on a full pick.")
-    return " ".join(bits)
+    return " ".join(b for b in bits if b)
 
 
 def grade(files, today):
