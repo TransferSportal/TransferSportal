@@ -40,6 +40,8 @@ PRI_START, PRI_END = dt.date(2025, 10, 20), dt.date(2026, 4, 15)
 W_PRIOR = 0.30
 RIDGE = 6.0
 TOTAL_SD = 18.0
+MODEL_W = 0.35     # weight on the team-rating model when a market spread exists (audit 2026-11-17: Celtics 88% vs a -8.5 market)
+PROB_CAP = 0.93    # no single NBA game is ever better than 93/7 on this model
 DEFAULT_SD = 13.0
 OUT_SHARE, OUT_CAP = 0.35, 9.0
 
@@ -261,11 +263,17 @@ def build_games(nba, np, nbaj, daily):
         an, aadj = lost(away)
         hn, hadj = lost(home)
         pa, ph = p[0] + aadj, p[1] + hadj
-        margin = ph - pa
-        wh = cdf(margin / sd)
+        raw_margin = ph - pa
+        margin, mkt = raw_margin, None
+        if nx.get("spread") is not None and nx.get("fav") in (home, away):
+            mkt = nx["spread"] if nx["fav"] == home else -nx["spread"]        # market margin, home minus away
+            margin = MODEL_W * raw_margin + (1 - MODEL_W) * mkt                # the closing market is the best single predictor
+            shift = margin - raw_margin
+            pa, ph = pa - shift / 2, ph + shift / 2
+        wh = min(PROB_CAP, max(1 - PROB_CAP, cdf(margin / sd)))
         g = {"date": nx["date"], "day": nx["day"], "away": away, "home": home,
              "proj": {"away": round(pa, 1), "home": round(ph, 1)},
-             "margin": round(margin, 1), "total": round(pa + ph, 1),
+             "margin": round(margin, 1), "raw_margin": round(raw_margin, 1), "mkt_margin": None if mkt is None else round(mkt, 1), "total": round(pa + ph, 1),
              "win": {"away": round(1 - wh, 3), "home": round(wh, 3)},
              "out": {"away": an, "home": hn}, "adj": {"away": round(aadj, 1) + 0.0, "home": round(hadj, 1) + 0.0},
              "line": None}
