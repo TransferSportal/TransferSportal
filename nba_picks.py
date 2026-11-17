@@ -130,6 +130,10 @@ def hit_rate(vals, line):
     return sum(1 for v in vals if v > line) / len(vals) if vals else 0.0
 
 
+SHRINK = 0.5        # share of the model-vs-book gap that is believed (audit 2026-11-17: 6-12 on real lines)
+PRICE_FLOOR = -150  # skip overs priced worse than this
+
+
 def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
     today = now.astimezone(ET).date().isoformat()
     adopt, gm = load_extras()
@@ -160,13 +164,15 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 continue
             bl = (lines.get(norm(p["name"])) or {}).get(s)
             if not bl:
-                # No sportsbook line (no feed key, or this prop is not posted): fall back to the model's own line,
-                # so the card is never empty just because the feed is down. Marked line_src "model" on the pick.
-                bl = {"line": model_line(avg), "over": None, "src": "model"}
+                continue                   # no sportsbook line, no pick: the model's own lines proved nothing (see AUDIT in record note)
+            pr = bl.get("over")
+            if isinstance(pr, (int, float)) and pr < PRICE_FLOOR:
+                continue                   # paying -150 or worse needs a 60%+ hit rate to break even
             line = bl["line"]
             if line < MIN_LINE[s]:
                 continue
             sd = max((p.get("sd10") or {}).get(s) or 0, 1.0)
+            proj = line + SHRINK * (proj - line)   # the book line is a strong prior: keep only part of the gap
             z = (proj - line) / sd
             side = "over" if z > 0 else "under"
             if side != "over":
@@ -297,6 +303,11 @@ def record(files):
                 b["w" if r == "win" else "l"] += 1
         by_day.append({"date": f["date"], "w": dw, "l": dl, "v": dv,
                        "pending": sum(1 for c in f["picks"] if c["result"] is None)})
+    src = {"book": {"w": 0, "l": 0}, "model": {"w": 0, "l": 0}}
+    for f in files:
+        for c in f["picks"]:
+            if c["result"] in ("win", "loss"):
+                src[c.get("line_src") or "model"]["w" if c["result"] == "win" else "l"] += 1
     streak = ""
     if seq:
         k = 1
@@ -304,10 +315,10 @@ def record(files):
             k += 1
         streak = f"{seq[-1]}{k}"
     return {"w": w, "l": l, "v": v, "pct": round(100.0 * w / (w + l), 1) if (w + l) else None,
-            "by_stat": by_stat, "by_day": by_day[-30:], "streak": streak,
+            "by_stat": by_stat, "by_day": by_day[-30:], "streak": streak, "by_line_src": src,
             "note": ("Each pick is graded against its model line, on the side shown. A pick is void if the player did not "
                      "play. The lines are the model's own (season average, rounded to a half point), not sportsbook "
-                     "lines. Picks from November 12 on use the sportsbook line shown on the pick; earlier picks used the model's own line.")}
+                     "lines. Picks from November 12 on use the sportsbook line shown on the pick; earlier picks used the model's own line. AUDIT: the model-line record is NOT evidence of an edge (the model grades itself); the real test is by_line_src.book, break-even 52.4% at -110. From Nov 17 picks need a book line, keep half the model-vs-book gap and skip prices worse than -150.")}
 
 
 def main(now=None):
