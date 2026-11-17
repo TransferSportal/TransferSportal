@@ -431,6 +431,9 @@ function NbaRecord({ P }) {
           </div>
         </div>
       ))}
+      {r.by_line_src && (
+        <div className="calNote"><b>Real sportsbook lines: {r.by_line_src.book.w}-{r.by_line_src.book.l}</b>{(r.by_line_src.book.w + r.by_line_src.book.l) > 0 ? ' (' + (100 * r.by_line_src.book.w / (r.by_line_src.book.w + r.by_line_src.book.l)).toFixed(0) + '%, break-even is 52.4%)' : ''}. Against the model's own lines: {r.by_line_src.model.w}-{r.by_line_src.model.l}. Only the first number can show an edge.</div>
+      )}
       <div className="calNote">{r.note}</div>
     </>
   );
