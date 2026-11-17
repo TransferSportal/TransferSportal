@@ -36,8 +36,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 1.0,
    "why": "Over 2.5 threes (DraftKings line, -157). Went over in 7 of his last 10 and 15 of his last 20. Season average 3.2, model has him at 3.5 tonight."
   },
   {
@@ -74,8 +74,8 @@
    "teammates_out": [],
    "opp_out": [],
    "lean": false,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 1.0,
    "why": "Over 1.5 threes (DraftKings line, -172). Went over in 8 of his last 10 and 14 of his last 20. Season average 1.7, model has him at 2.2 tonight."
   },
   {
@@ -114,8 +114,8 @@
     "Paolo Banchero"
    ],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 8.0,
    "why": "Over 4.5 rebounds (DraftKings line, -102). Went over in 8 of his last 10 and 15 of his last 20. Season average 5.3, model has him at 5.2 tonight. Back to back, so watch the minutes. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -154,8 +154,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 7.0,
    "why": "Over 8.5 rebounds (DraftKings line, -132). Went over in 6 of his last 10 and 9 of his last 13. Season average 9.7, model has him at 9.8 tonight. Teammates out: Ty Jerome. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -194,8 +194,8 @@
    ],
    "opp_out": [],
    "lean": true,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 22.0,
    "why": "Over 25.5 pts+reb+ast (DraftKings line, -120). Went over in 6 of his last 10 and 10 of his last 20. Season average 22.3, model has him at 27.7 tonight. Teammates out: Anthony Edwards. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
