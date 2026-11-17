@@ -1,0 +1,52 @@
+{
+ "date": "2026-11-17",
+ "made_at": "2026-11-17 21:12 UTC",
+ "picks": [
+  {
+   "pid": "3945274",
+   "name": "Luka Doncic",
+   "team": "LAL",
+   "pos": "G",
+   "opp": "CHA",
+   "home": true,
+   "tip": "2026-11-18T04:00Z",
+   "b2b": false,
+   "stat": "fg3",
+   "line": 4.5,
+   "side": "over",
+   "line_src": "book",
+   "book": "DraftKings",
+   "price": -125,
+   "hit10": 0.9,
+   "hit20": 0.7,
+   "n20": 20,
+   "proj": 5.0,
+   "avg": 4.3,
+   "l5": 4.8,
+   "l10": 5.8,
+   "sd10": 1.0,
+   "z": 0.45,
+   "score": 9.993,
+   "spread": 7.5,
+   "model_margin": null,
+   "allow_edge": null,
+   "fav": "LAL",
+   "blowout": false,
+   "def": 1.007,
+   "teammates_out": [
+    "Austin Reaves",
+    "Walker Kessler"
+   ],
+   "opp_out": [
+    "Kon Knueppel"
+   ],
+   "lean": true,
+   "p_hat": 0.653,
+   "breakeven": 0.556,
+   "edge": 0.098,
+   "result": null,
+   "actual": null,
+   "why": "Over 4.5 threes (DraftKings line, -125). Went over in 9 of his last 10 and 14 of his last 20. Season average 4.3, model has him at 5.0 tonight. Estimated win chance 65% against a 56% break-even. Teammates out: Austin Reaves, Walker Kessler. A lean: the gap or the recent run is smaller than on a full pick."
+  }
+ ]
+}
