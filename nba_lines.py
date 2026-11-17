@@ -112,6 +112,15 @@ def main(now=None):
     if lines:
         OUT.write_text(json.dumps({"date": today, "fetched": now.strftime("%Y-%m-%d %H:%M UTC"),
                                    "book": BOOK_NAME, "lines": lines}, separators=(",", ":")))
+        # Permanent history so closing-line value and real-line hit rates can be measured later.
+        hist = HERE / "nba_lines_history.jsonl"
+        try:
+            seen = hist.exists() and any(json.loads(x).get("date") == today for x in hist.read_text().splitlines() if x)
+        except Exception:
+            seen = False
+        if not seen:
+            with hist.open("a") as fh:
+                fh.write(json.dumps({"date": today, "book": BOOK_NAME, "lines": lines}, separators=(",", ":")) + "\n")
 
 
 if __name__ == "__main__":
