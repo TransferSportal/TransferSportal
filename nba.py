@@ -27,7 +27,8 @@ from pathlib import Path
 HERE = Path(__file__).parent
 SEASON_END = 2027            # ESPN names 2026-27 as 2027
 PRIOR_END = SEASON_END - 1
-TOP_N = 100
+TOP_N = 100                  # players shown on the site (nba.json)
+WIDE_N = 250                 # players modeled for the Best 5 (nba_all.json): book lines cover role players too
 UA = {"User-Agent": "Mozilla/5.0"}
 ET = ZoneInfo("America/New_York")
 
@@ -245,13 +246,14 @@ def build():
         else: continue
         base = c or p
         cand[pid] = (val, base)
-    top = sorted(cand.items(), key=lambda kv: -kv[1][0])[:TOP_N]
+    top = sorted(cand.items(), key=lambda kv: -kv[1][0])[:WIDE_N]
     # Players we always want on the Matchups tab even when they fall outside the top 100 by value.
     # Keyed by ESPN id so a missing or renamed leaders row cannot drop them. A player with no games
     # logged yet (Haliburton) still gets a row, and the page hides him while he is flagged out.
     ALWAYS = {"4017837": ("Ivica Zubac", "C"), "4396909": ("Aaron Nesmith", "G"),
               "4396993": ("Tyrese Haliburton", "G")}
     have = {pid for pid, _ in top}
+    always_ids = set(ALWAYS)
     for pid, (nm, pos) in ALWAYS.items():
         if pid in have:
             continue
@@ -322,6 +324,8 @@ def build():
                "min_l10": round(win[10]["min"], 1) if win[10]["min"] else None,
                "windows": {str(w): {k: (round(v, 1) if isinstance(v, float) else v) for k, v in win[w].items()} for w in WINDOWS},
                "injury": st or None, "avail": a, "next": None, "proj": None}
+        if rank > TOP_N and pid not in always_ids:
+            rec["wide"] = True              # modeled for the Best 5 only, kept off the site
         if nx:
             opp, home = nx["opp"], nx["home"]
             last = dt.date.fromisoformat(rows[-1]["date"])
@@ -399,5 +403,8 @@ if __name__ == "__main__":
     except Exception as e:                         # noqa
         print("nba.py: skipped,", e)
         sys.exit(0)
-    (HERE / "nba.json").write_text(json.dumps(data, separators=(",", ":")))
-    print(f"nba.json: {len(data['players'])} players, {sum(1 for p in data['players'] if p['proj'])} projected")
+    (HERE / "nba_all.json").write_text(json.dumps(data, separators=(",", ":")))
+    site = dict(data, players=[p for p in data["players"] if not p.get("wide")])
+    (HERE / "nba.json").write_text(json.dumps(site, separators=(",", ":")))
+    print(f"nba.json: {len(site['players'])} players on the site, nba_all.json: {len(data['players'])} modeled, "
+          f"{sum(1 for p in data['players'] if p['proj'])} projected")

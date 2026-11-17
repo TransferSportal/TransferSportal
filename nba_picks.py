@@ -349,7 +349,8 @@ def record(files):
 def main(now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(ET).date().isoformat()
-    n = json.loads((HERE / "nba.json").read_text())
+    wide = HERE / "nba_all.json"            # every modeled player, not just the 100 on the site
+    n = json.loads((wide if wide.exists() else HERE / "nba.json").read_text())
     DIR.mkdir(exist_ok=True)
 
     # 1. Lock today's card once.
