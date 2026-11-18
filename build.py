@@ -104,6 +104,15 @@ logo_line = (HERE / "logos.js").read_text().strip()
 mount = (HERE / "mount.js").read_text().strip()
 logo = (HERE / "logo_b64.txt").read_text().strip()
 data = json.loads((HERE / "data.json").read_text())
+# Stamp data.json with a short hash of this script. The workflow skips committing
+# index.html on a day when data.json did not change, so without this a change to
+# the build itself (like the image sheets) would never reach the repo. The stamp
+# moves only when build.py does, so ordinary quiet days still commit nothing.
+import hashlib as _hl
+_sig = _hl.sha256((HERE / "build.py").read_bytes()).hexdigest()[:12]
+if (data.get("meta") or {}).get("build_sig") != _sig:
+    data.setdefault("meta", {})["build_sig"] = _sig
+    (HERE / "data.json").write_text(json.dumps(data, separators=(",", ":")))
 # The game model is built separately by games.py and folded in here, so a build
 # still succeeds on a machine that has not run it yet -- the Games tab just says
 # so instead of the page failing to render.
@@ -175,17 +184,124 @@ scripts = (
 # The data, the team map and the logo art are plain JS -- putting them in their
 # own script tag keeps Babel from parsing half a megabyte of string literals in
 # the browser on every page load. Only the JSX below needs transforming.
+# ---- image sheets -------------------------------------------------------------
+# The public share review rejects a page with hundreds of separate embedded
+# images, and this page carried about 530 (every headshot and crest). The images
+# are the same, but they now ship packed into a few sheets and are cut back out
+# in the browser, one at a time, the first time something asks for them. The
+# components still read window.NBAIMG.heads[id], window.NFLIMG.heads[key],
+# window.NBAIMG.logos[team] and window.CREST[team] exactly as before.
+import base64 as _b64, io as _io
+from PIL import Image as _Image
+
+
+def _decode(uri):
+    raw = uri.split(",", 1)[1] if uri.startswith("data:") else uri
+    return _Image.open(_io.BytesIO(_b64.b64decode(raw))).convert("RGBA")
+
+
+def _sheets(name, items, fmt, per_sheet, quality=84):
+    """items: {key: data URI or raw base64}. Returns a list of sheet specs."""
+    keys = sorted(items)
+    out = []
+    for c0 in range(0, len(keys), per_sheet):
+        chunk = [(k, _decode(items[k])) for k in keys[c0:c0 + per_sheet]]
+        cw = max(im.width for _, im in chunk)
+        ch = max(im.height for _, im in chunk)
+        cols = max(1, min(len(chunk), 10 if fmt == "webp" else 8))
+        rows = -(-len(chunk) // cols)
+        sheet = _Image.new("RGBA", (cols * cw, rows * ch), (0, 0, 0, 0))
+        cells = []
+        for i, (k, im) in enumerate(chunk):
+            x, y = (i % cols) * cw, (i // cols) * ch
+            sheet.paste(im, (x, y))
+            cells.append([k, x, y, im.width, im.height])
+        buf = _io.BytesIO()
+        if fmt == "webp":
+            sheet.save(buf, "WEBP", quality=quality, alpha_quality=100, method=4)
+        else:
+            sheet.save(buf, "PNG", optimize=True)
+        out.append({"set": name, "fmt": fmt, "cells": cells,
+                    "src": "data:image/%s;base64,%s" % (fmt, _b64.b64encode(buf.getvalue()).decode())})
+    return out
+
+
+def _crest_map(js):
+    """The {team: base64 png} object out of logos.js."""
+    a, b = js.index("{"), js.rindex("}")
+    return json.loads(js[a:b + 1])
+
+
+_crest = _crest_map(logo_line)
+_sprites = (
+    _sheets("nbaHeads", nba_img.get("heads") or {}, "webp", 120)
+    + _sheets("nflHeads", nfl_img.get("heads") or {}, "webp", 130)
+    + _sheets("nbaLogos", nba_img.get("logos") or {}, "png", 64)
+    + _sheets("crest", _crest, "png", 64)
+)
+print("image sheets:", len(_sprites), "sheets,",
+      sum(len(x["src"]) for x in _sprites) // 1024, "KB,",
+      sum(len(x["cells"]) for x in _sprites), "images packed")
+
+_sheet_js = r"""
+(function () {
+  var SH = %SHEETS%;
+  var cache = {}, loaded = {};
+  function cut(sh, cell, img, strip) {
+    var c = document.createElement('canvas');
+    c.width = cell[3]; c.height = cell[4];
+    c.getContext('2d').drawImage(img, cell[1], cell[2], cell[3], cell[4], 0, 0, cell[3], cell[4]);
+    var u = sh.fmt === 'webp' ? c.toDataURL('image/webp', 0.92) : c.toDataURL('image/png');
+    return strip ? u.slice(u.indexOf(',') + 1) : u;
+  }
+  function table(set, strip) {
+    var idx = {};
+    SH.forEach(function (sh, i) { if (sh.set === set) sh.cells.forEach(function (c) { idx[c[0]] = [i, c]; }); });
+    return new Proxy({}, {
+      get: function (_, k) {
+        if (typeof k !== 'string' || !(k in idx)) return undefined;
+        var id = set + '|' + k;
+        if (cache[id]) return cache[id];
+        var hit = idx[k], img = loaded[hit[0]];
+        if (!img) return undefined;
+        return (cache[id] = cut(SH[hit[0]], hit[1], img, strip));
+      },
+      has: function (_, k) { return k in idx; },
+      ownKeys: function () { return Object.keys(idx); },
+      getOwnPropertyDescriptor: function (_, k) {
+        return k in idx ? { enumerable: true, configurable: true, value: undefined } : undefined;
+      }
+    });
+  }
+  window.NBAIMG = { heads: table('nbaHeads', false), logos: table('nbaLogos', false) };
+  window.NFLIMG = { heads: table('nflHeads', false) };
+  window.CREST = table('crest', true);
+  window.__imgsReady = Promise.all(SH.map(function (sh, i) {
+    return new Promise(function (ok) {
+      var im = new Image();
+      im.onload = function () { loaded[i] = im; ok(); };
+      im.onerror = function () { ok(); };
+      im.src = sh.src;
+    });
+  }));
+})();
+""".replace("%SHEETS%", json.dumps(_sprites, separators=(",", ":")))
+
 data_block = (
     "<script>\nconst EMBED = " + embed + ";\n"
-    + team_line + "\n" + logo_line
-    + "\nwindow.NBAIMG = " + json.dumps(nba_img, separators=(",", ":")) + ";"
-    + "\nwindow.NFLIMG = " + json.dumps(nfl_img, separators=(",", ":")) + ";\n</script>"
+    + team_line + "\n"
+    + _sheet_js + "\n</script>"
 )
+_mount_old = "root.render(<App initialData={withHelpers(EMBED)} />);"
+assert _mount_old in mount, "BUILD FAIL: mount.js changed shape"
+mount_web = mount.replace(_mount_old,
+    "Promise.resolve(window.__imgsReady).catch(function () {}).then(function () { "
+    + _mount_old + " });")
 html = (
     head + css + scripts + data_block
     + '<script type="text/babel" data-presets="react">\n'
     + app + "\n\n"
-    + mount + "\n"
+    + mount_web + "\n"
     + "</script></body></html>"
 )
 (HERE / "index.html").write_text(html)
