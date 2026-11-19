@@ -133,6 +133,8 @@ jobs:
           python nfl_images.py || echo "nfl_images.py failed; keeping the last NFL headshots"
           # Weather, snap share and target share for the Research Center. Optional: it writes an empty file on any failure.
           python context.py 2026 || echo "context.py failed; building without it"
+          # NCAA men's basketball Top 25 projections. Optional: any failure keeps the last NCAA board.
+          python ncaa.py || echo "ncaa.py failed; keeping the last NCAA build"
           python build.py
           python build_record.py
 

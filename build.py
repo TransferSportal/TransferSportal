@@ -27,7 +27,7 @@ css = (HERE / "theme.css").read_text()
 # <script type="text/babel"> block, so they behave exactly as the single
 # file they used to be: App.jsx has the helpers and shared pieces,
 # App.tabs.jsx has the tabs and the root component.
-app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.matchups.jsx", "App.nflmatchups.jsx", "App.dvp.jsx", "App.nbadvp.jsx", "App.faces.jsx", "App.board.jsx", "App.research.jsx", "App.bets.jsx", "App.nfl.jsx", "App.gamepreds.jsx", "App.shell.jsx", "App.tabs.jsx"))
+app = "\n".join((HERE / f).read_text() for f in ("App.jsx", "App.props.jsx", "App.nba.jsx", "App.matchups.jsx", "App.nflmatchups.jsx", "App.dvp.jsx", "App.nbadvp.jsx", "App.faces.jsx", "App.board.jsx", "App.research.jsx", "App.bets.jsx", "App.nfl.jsx", "App.gamepreds.jsx", "App.ncaa.jsx", "App.shell.jsx", "App.tabs.jsx"))
 
 # The NBA tab can be driven from the Shell sidebar: pass view and noBar to use its own switch no more.
 app = sub(app, "function NbaTab({ DATA }) {", "function NbaTab({ DATA, view: vProp, noBar }) {", "nba props")
@@ -120,6 +120,8 @@ gm = HERE / "games.json"
 data["games_model"] = json.loads(gm.read_text()) if gm.exists() else None
 # NBA projections are built separately by nba.py. A missing or empty file just
 # leaves the NBA tab saying it is waiting for data.
+nc = HERE / "ncaa.json"
+data["ncaa"] = json.loads(nc.read_text()) if nc.exists() else None
 nb = HERE / "nba.json"
 data["nba"] = json.loads(nb.read_text()) if nb.exists() else None
 # Projected scores, win probabilities and per game allowances come from nba_model.py,

@@ -97,7 +97,7 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
   const secs = top === 'nfl' ? nflSecs : nbaSecs;
   const cur = top === 'nfl' ? sec : nsec;
   const setCur = top === 'nfl' ? setSec : setNsec;
-  const GRP = top === 'nfl' ? [
+  const GRP = top === 'ncaa' ? [['Games', [['ncaa', 'Top 25 games']]]] : top === 'nfl' ? [
     ['Today', [['today', 'Daily board']]],
     ['Picks', [['board', 'Anytime TD'], ['card', 'The Card'], ['preds', 'Game picks (ML & spread)'], ['mine', 'My game picks']]],
     ['Games', [['slides', 'Matchups'], ['stats:matchups', 'Matchup table'], ['stats:games', 'Game stats'], ['dvp', 'Defense vs Position'], ['stats:team', 'Team stats']]],
@@ -112,8 +112,8 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
     ['News', [['news', 'Injuries & news']]],
     ['Bankroll', [['bank', 'Bankroll']]],
   ];
-  const curKey = top === 'nfl' ? (sec === 'stats' ? 'stats:' + stats : sec === 'tools' ? 'tools:' + tools : sec) : nsec;
-  const goKey = k => { if (top === 'nba') { setNsec(k); return; } const [a, b] = k.split(':'); setSec(a); if (a === 'stats') setStats(b); if (a === 'tools') setTools(b); };
+  const curKey = top === 'nfl' ? (sec === 'stats' ? 'stats:' + stats : sec === 'tools' ? 'tools:' + tools : sec) : top === 'ncaa' ? 'ncaa' : nsec;
+  const goKey = k => { if (top === 'ncaa') return; if (top === 'nba') { setNsec(k); return; } const [a, b] = k.split(':'); setSec(a); if (a === 'stats') setStats(b); if (a === 'tools') setTools(b); };
   const grp = GRP.find(g => g[1].some(x => x[0] === curKey)) || GRP[0];
   return (
     <>
@@ -123,17 +123,19 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
         <div className="main">
           <button className={top === 'nfl' ? 'on' : ''} onClick={() => setTop('nfl')}>NFL</button>
           <button className={top === 'nba' ? 'on' : ''} onClick={() => setTop('nba')}>NBA</button>
+          <button className={top === 'ncaa' ? 'on' : ''} onClick={() => setTop('ncaa')}>NCAAB</button>
         </div>
         <div className="stat">
           {top === 'nfl'
             ? <>{lr && lr.top12_of ? <>Live top 12: <b>{lr.top12}/{lr.top12_of}</b> · </> : null}Through week {meta.weeks_played}</>
+            : top === 'ncaa' ? <>AP Top 25 · {((DATA.ncaa && DATA.ncaa.games) || []).length} games on the board</>
             : <>{rec ? <>Best 5 record: <b>{rec}</b> · </> : null}ESPN data</>}
         </div>
       </div>
       <div className="tsFrame">
         <div className="bd">
           <aside className="sb">
-            <h6>{top === 'nfl' ? 'NFL · ' + (meta.predict_week || '') : 'NBA'}</h6>
+            <h6>{top === 'nfl' ? 'NFL · ' + (meta.predict_week || '') : top === 'ncaa' ? 'NCAA basketball' : 'NBA'}</h6>
             {GRP.map(([name, items]) => <button key={name} className={grp[0] === name ? 'on' : ''} onClick={() => goKey(items[0][0])}>{name}</button>)}
             <div className="live">{meta.generated}<br />Model estimates, not guarantees</div>
           </aside>
@@ -161,6 +163,7 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
             {top === 'nfl' && sec === 'about' && <Notes meta={meta} />}
             {top === 'nfl' && sec === 'preds' && <GamePreds sport="nfl" DATA={DATA} />}
             {top === 'nba' && <NbaTab DATA={DATA} view={nsec} noBar />}
+            {top === 'ncaa' && <NcaaTab DATA={DATA} />}
           </div>
         </div>
       </div>
