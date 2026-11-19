@@ -55,7 +55,7 @@ except Exception:                                   # pragma: no cover
 SEASON_START = datetime.date(2026, 11, 1)
 HCA_PRIOR, HCA_K = 3.6, 1.0e5         # home-court points; pinned, because with few games per team the fit mistakes better home teams for home court
 TEAM_K = 2.0                          # pseudo-games of belief in the poll-rank starting value
-MARGIN_CAP, MARGIN_KEEP = 22.0, 0.25  # past 22 points of margin only a quarter counts
+MARGIN_CAP, MARGIN_KEEP = 30.0, 0.5   # past 30 points of margin only half counts
 SD_FLOOR, SD_CEIL, SD_DEFAULT = 10.5, 14.0, 12.0
 BIG_GAP = 8.0                         # points of disagreement with the book that read as a data problem
 DAYS_AHEAD = 1                        # today and tomorrow
@@ -319,14 +319,18 @@ def fit(results, ranks, team_ids):
     return out
 
 
-def project(model, h, a, neutral, rest_adj=0.0):
+CAL = {"scale": 1.0}                 # set from the walk-forward test: how much the raw margin under-states real margins
+
+
+def project(model, h, a, neutral, rest_adj=0.0, scale=1.0):
     th, ta = model["team"].get(h), model["team"].get(a)
     if not th or not ta:
         return None
     hv = 0.0 if neutral else 0.5 * model["hfa"]
     hp = model["mu"] + hv + th["off"] - ta["def"] + rest_adj / 2.0
     ap = model["mu"] - hv + ta["off"] - th["def"] - rest_adj / 2.0
-    return {"home_pts": hp, "away_pts": ap, "margin": hp - ap, "total": hp + ap}
+    tot, mg = hp + ap, (hp - ap) * scale
+    return {"home_pts": (tot + mg) / 2.0, "away_pts": (tot - mg) / 2.0, "margin": mg, "total": tot}
 
 
 def rest_adjust(rh, ra):
@@ -338,7 +342,7 @@ def backtest(finished, ranks, today, diag):
     """Walk forward: for each day, fit on everything before it, then predict that day's
     games that involve a ranked team. Returns the record and the spread of the misses."""
     days = sorted({g["day"] for g in finished})
-    errs, su, n, bias = [], 0, 0, []
+    errs, su, n, bias, pairs = [], 0, 0, [], []
     for d in days:
         if d < SEASON_START + datetime.timedelta(days=9) or d >= today:
             continue
@@ -370,13 +374,18 @@ def backtest(finished, ranks, today, diag):
             n += 1
             errs.append(actual - p["margin"])
             bias.append(actual - p["margin"])
+            pairs.append((p["margin"], actual))
             su += 1 if (actual > 0) == (p["margin"] > 0) else 0
     if n < 12:
         diag["backtest_n"] = n
         return None
-    e = np.array(errs)
+    pm = np.array([x for x, _ in pairs]); ac = np.array([y for _, y in pairs])
+    slope = float((pm * ac).sum() / max((pm * pm).sum(), 1e-9))
+    slope = max(1.0, min(1.6, slope))                # never shrink margins, and never stretch them past 1.6x
+    e = ac - slope * pm
     return {"games": n, "su_pct": round(100.0 * su / n, 1), "mae": round(float(np.mean(np.abs(e))), 1),
-            "sd": round(float(np.std(e)), 1), "bias": round(float(np.mean(bias)), 2)}
+            "sd": round(float(np.std(e)), 1), "bias": round(float(np.mean(e)), 2), "scale": round(slope, 2),
+            "raw_mae": round(float(np.mean(np.abs(np.array(errs)))), 1)}
 
 
 # ---------------------------------------------------------------- team cards and picks
@@ -400,7 +409,7 @@ def build_game(g, model, ranks, played, last_day, today, sd, stats_by_team):
     h, a = g["home"], g["away"]
     rh = (g["day"] - last_day[h["id"]]).days if h["id"] in last_day else None
     ra = (g["day"] - last_day[a["id"]]).days if a["id"] in last_day else None
-    proj = project(model, h["id"], a["id"], g["neutral"], rest_adjust(rh, ra))
+    proj = project(model, h["id"], a["id"], g["neutral"], rest_adjust(rh, ra), CAL["scale"])
     out = {"id": g["id"], "day": g["day"].isoformat(), "tip": g["tip"], "state": g["state"], "neutral": g["neutral"],
            "venue": g["venue"], "home": team_card(h, model, ranks, played, last_day, g["day"], stats_by_team),
            "away": team_card(a, model, ranks, played, last_day, g["day"], stats_by_team),
@@ -509,6 +518,7 @@ def run():
     bt = backtest(finished, ranks, today, diag)
     sd = SD_DEFAULT
     if bt:
+        CAL["scale"] = bt["scale"]
         sd = max(SD_FLOOR, min(SD_CEIL, bt["sd"]))
     slate = [g for g in games if today <= g["day"] <= today + datetime.timedelta(days=DAYS_AHEAD)
              and (ranks.get(g["home"]["id"]) or ranks.get(g["away"]["id"]))]
