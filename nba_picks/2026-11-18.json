@@ -45,8 +45,8 @@
    "p_hat": 0.67,
    "breakeven": 0.58,
    "edge": 0.09,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 1.0,
    "why": "Over 1.5 threes (DraftKings line, -138). Went over in 8 of his last 10 and 15 of his last 20. Season average 2.4, model has him at 1.9 tonight. Estimated win chance 67% against a 58% break-even. Teammates out: Ty Jerome, Isaiah Stewart. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -90,8 +90,8 @@
    "p_hat": 0.582,
    "breakeven": 0.541,
    "edge": 0.041,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 15.0,
    "why": "Over 18.5 points (DraftKings line, -118). Went over in 7 of his last 10 and 11 of his last 20. Season average 20.4, model has him at 20.1 tonight. Estimated win chance 58% against a 54% break-even. Teammates out: Paolo Banchero. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
