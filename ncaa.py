@@ -53,8 +53,8 @@ except Exception:                                   # pragma: no cover
     ET = datetime.timezone(datetime.timedelta(hours=-5))
 
 SEASON_START = datetime.date(2026, 11, 1)
-HCA_PRIOR, HCA_K = 3.5, 25.0          # home-court points, and how many games the prior is worth
-TEAM_K = 6.0                          # pseudo-games of belief in the poll-rank starting value
+HCA_PRIOR, HCA_K = 3.6, 1.0e5         # home-court points; pinned, because with few games per team the fit mistakes better home teams for home court
+TEAM_K = 2.0                          # pseudo-games of belief in the poll-rank starting value
 MARGIN_CAP, MARGIN_KEEP = 22.0, 0.25  # past 22 points of margin only a quarter counts
 SD_FLOOR, SD_CEIL, SD_DEFAULT = 10.5, 14.0, 12.0
 BIG_GAP = 8.0                         # points of disagreement with the book that read as a data problem
@@ -268,7 +268,7 @@ def fetch_poll(diag):
 # ---------------------------------------------------------------- the rating fit
 def prior_rating(rank):
     """Starting margin vs an average team, from poll rank. #1 about +19, #25 about +12."""
-    return 0.0 if not rank else 19.0 - 0.28 * (rank - 1)
+    return -2.0 if not rank else 19.0 - 0.28 * (rank - 1)
 
 
 def adj_points(ph, pa):
