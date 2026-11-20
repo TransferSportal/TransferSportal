@@ -39,8 +39,8 @@
    "p_hat": 0.825,
    "breakeven": 0.524,
    "edge": 0.301,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 21.0,
    "why": "Over 22.0 points (model line, no book price). Went over in 9 of his last 10 and 15 of his last 20. Model has him at 24.9 tonight against a 20-game average of 26.1. Estimated win chance 82% against a 52% break-even at -110. Added by Ryan after the 4 PM lock, picked from the matchup projections.",
    "post_lock": true
   },
@@ -81,8 +81,8 @@
    "p_hat": 0.825,
    "breakeven": 0.524,
    "edge": 0.301,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 12.0,
    "why": "Over 11.5 rebounds (model line, no book price). Went over in 9 of his last 10 and 15 of his last 20. Model has him at 13.0 tonight against a 20-game average of 13.4. Estimated win chance 82% against a 52% break-even at -110. Added by Ryan after the 4 PM lock, picked from the matchup projections.",
    "post_lock": true
   },
@@ -125,8 +125,8 @@
    "p_hat": 0.775,
    "breakeven": 0.524,
    "edge": 0.251,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 13.0,
    "why": "Over 9.0 rebounds (model line, no book price). Went over in 8 of his last 10 and 15 of his last 20. Model has him at 11.8 tonight against a 20-game average of 10.7. Estimated win chance 78% against a 52% break-even at -110. Teammates out: Robert Williams III. Added by Ryan after the 4 PM lock, picked from the matchup projections.",
    "post_lock": true
   },
@@ -170,8 +170,8 @@
    "p_hat": 0.725,
    "breakeven": 0.524,
    "edge": 0.201,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 6.0,
    "why": "Over 15.5 points (model line, no book price). Went over in 8 of his last 10 and 13 of his last 20. Model has him at 20.2 tonight against a 20-game average of 18.4. Estimated win chance 72% against a 52% break-even at -110. Teammates out: Anthony Edwards, Donte DiVincenzo. Added by Ryan after the 4 PM lock, picked from the matchup projections.",
    "post_lock": true
   },
@@ -215,8 +215,8 @@
    "p_hat": 0.75,
    "breakeven": 0.524,
    "edge": 0.226,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 15.0,
    "why": "Over 17.0 points (model line, no book price). Went over in 8 of his last 10 and 14 of his last 20. Model has him at 21.2 tonight against a 20-game average of 20.1. Estimated win chance 75% against a 52% break-even at -110. Teammates out: Anthony Edwards, Donte DiVincenzo. Added by Ryan after the 4 PM lock, picked from the matchup projections.",
    "post_lock": true
   }
