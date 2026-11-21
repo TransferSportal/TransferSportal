@@ -24,14 +24,16 @@
  },
  "nba": {
   "flags": [
-   {"player": "Tyrese Haliburton", "team": "IND", "status": "Out", "note": "Hamstring. Out at least 10 days as of Nov 11."},
-   {"player": "Stephen Curry", "team": "GS", "status": "Out", "note": "Oblique and abdominal tear. About a month as of Nov 12."},
-   {"player": "Anthony Edwards", "team": "MIN", "status": "Out", "note": "Right knee arthroscopic procedure."},
-   {"player": "Evan Mobley", "team": "CLE", "status": "Out", "note": "Toe. Out at least 7 to 10 days from Nov 15."},
-   {"player": "Jalen Duren", "team": "DET", "status": "Out", "note": "Right hamstring. At least 2 more weeks as of Nov 17."},
-   {"player": "CJ McCollum", "team": "ATL", "status": "Out", "note": "Calf. At least four weeks as of Nov 17."},
-   {"player": "Caleb Wilson", "team": "CHI", "status": "Out", "note": "Fractured right hand. Out 4 to 6 weeks."}
+   {"player": "Anthony Edwards", "team": "MIN", "status": "Out", "note": "Right knee arthroscopic procedure. Out on the official NBA report for tonight vs MEM."},
+   {"player": "Cameron Boozer", "team": "MEM", "status": "Out", "note": "Right ankle sprain. Out on the official NBA report for tonight at MIN."},
+   {"player": "Trey Murphy III", "team": "NO", "status": "Out", "note": "Bilateral patellar tendinopathy, injury maintenance. Out on the official NBA report for tonight at SA."},
+   {"player": "Dylan Harper", "team": "SA", "status": "Out", "note": "Left hip external rotator strain. Out on the official NBA report for tonight vs NO."},
+   {"player": "OG Anunoby", "team": "NY", "status": "Doubtful", "note": "Left calf tightness. Downgraded to doubtful for tonight, reported by Fred Katz."},
+   {"player": "Karl-Anthony Towns", "team": "NY", "status": "Questionable", "note": "Illness. Questionable on the official NBA report for tonight vs POR."},
+   {"player": "Deni Avdija", "team": "POR", "status": "Questionable", "note": "Left foot contusion. Questionable on the official report, has missed two straight games."},
+   {"player": "Jayson Tatum", "team": "BOS", "status": "Questionable", "note": "Rest, back to back Sunday. Questionable on the official report. CBS Sports at 3:53 PM ET says he will also sit."},
+   {"player": "Derrick White", "team": "BOS", "status": "Questionable", "note": "Left AC joint contusion. Questionable on the official report. CBS Sports at 3:53 PM ET says he is ruled out."}
   ],
-  "notes": "Multi-week absences only. Tonight's game-day statuses are not confirmed yet, the 4 PM Eastern run refreshes them."
+  "notes": "Built from the official NBA injury report and team reports dated Nov 21 (2 PM report plus later team updates). Only players with games tonight are flagged. Multi-week absences (Haliburton, Curry, Mobley, Duren, McCollum, Wilson) are not flagged because their teams are not playing tonight. PHI at 1 PM already tipped, so Maxey and Jaylen Brown are not flagged. Day-To-Day tags with no listed status for tonight were left unflagged."
  }
 }
