@@ -44,8 +44,8 @@
    "p_hat": 0.581,
    "breakeven": 0.512,
    "edge": 0.068,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 35.0,
    "why": "Over 28.5 pts+reb+ast (DraftKings line, -105). Went over in 7 of his last 10 and 11 of his last 20. Season average 29.5, model has him at 30.1 tonight. Estimated win chance 58% against a 51% break-even. Teammates out: Trey Murphy III. Spread is 11.5, so blowout risk. Minutes could get cut late. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -87,8 +87,8 @@
    "p_hat": 0.628,
    "breakeven": 0.58,
    "edge": 0.048,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 3.0,
    "why": "Over 2.5 threes (DraftKings line, -138). Went over in 7 of his last 10 and 13 of his last 20. Season average 3.4, model has him at 2.9 tonight. Estimated win chance 63% against a 58% break-even. A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
