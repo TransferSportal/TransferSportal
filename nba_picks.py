@@ -59,6 +59,8 @@ N_PICKS = 5
 LOCK_HOUR = 16             # Eastern. The card locks at the first run at or after this hour.
 
 
+MU_SOFT = 1.05            # matchup index at which a soft spot can clear the gap test
+MU_W = 2.0                # log-odds weight on the position matchup index. Set by judgment on 2026-11-22, not backtested
 ALLOW_W = 4.0              # score points per 100 percent of allowance edge; matches pick_backtest.py
 
 
@@ -81,6 +83,16 @@ def model_margin(gm, today, team, opp):
         if g.get("day") == today and {g.get("home"), g.get("away")} == {team, opp}:
             return abs(g.get("margin") or 0.0)
     return None
+
+
+def matchup_idx(n, opp, grp, stat):
+    """Opponent allowance to this position group on this stat vs the league (1.00 is average). pra averages pts, reb, ast."""
+    try:
+        d = n["defense"][opp][grp]
+        keys = ("pts", "reb", "ast") if stat == "pra" else (stat,)
+        return sum(d[k] for k in keys) / len(keys)
+    except Exception:
+        return None
 
 
 def allow_edge(gm, opp, grp, stat):
@@ -192,8 +204,9 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             if side != "over":
                 continue                   # overs only, by request
             z = abs(z)
-            if z < min_z:
-                continue
+            mu = matchup_idx(n, nx["opp"], p.get("grp"), s)
+            if z < min_z and not (mu and mu >= MU_SOFT and z > 0):
+                continue                   # a soft position matchup (index MU_SOFT or more) can stand in for a wide gap
             v10 = [g[s] for g in log[-10:]]
             v20 = [g[s] for g in log]
             if side == "over":
@@ -208,6 +221,11 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
             p_norm = 1 - _ncdf((line - proj) / sd)
             p_emp = (h20 * len(v20) + 0.5 * 10) / (len(v20) + 10)
             p_hat = 0.5 * p_norm + 0.5 * p_emp
+            # Position matchup: how much the opponent gives up to his position (G, F or C) on this stat, against
+            # the league. Added in the log odds so a soft matchup lifts the win chance and a tough one cuts it.
+            if mu:
+                lo = math.log(p_hat / (1 - p_hat)) + MU_W * math.log(mu)
+                p_hat = 1 / (1 + math.exp(-lo))
             be = breakeven(bl.get("over"))
             edge = p_hat - be
             if edge < EDGE_LEAN:
@@ -235,7 +253,7 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
                 "proj": round(proj, 1), "avg": round(avg, 1), "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
                 "sd10": sd, "z": round(z, 2), "score": round(score, 3),
                 "spread": nx.get("spread") if mm is None else None, "model_margin": round(mm, 1) if mm is not None else None,
-                "allow_edge": round(ae, 3) if ae is not None else None, "fav": nx.get("fav"), "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
+                "matchup": round(mu, 3) if mu else None, "allow_edge": round(ae, 3) if ae is not None else None, "fav": nx.get("fav"), "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
                 "opp_out": (n.get("injuries_out") or {}).get(nx["opp"], []),
                 "lean": not (z >= MIN_Z and h10 >= MIN_HIT10 and edge >= EDGE_MIN), "p_hat": round(p_hat, 3), "breakeven": round(be, 3), "edge": round(edge, 3),
                 "result": None, "actual": None,
@@ -279,6 +297,8 @@ def why(c):
     if c.get("blowout"):
         bits.append(f"Spread is {c['spread']:g}, so blowout risk. Minutes could get cut late." if c.get("spread") is not None
                     else f"The model has this game decided by {c['model_margin']:g}, so blowout risk. Minutes could get cut late.")
+    if c.get("matchup") and abs(c["matchup"] - 1) >= 0.03:
+        bits.append(f"Position matchup: {c['matchup']:.2f} (opponent gives up {abs(c['matchup'] - 1) * 100:.0f} percent {'more' if c['matchup'] > 1 else 'less'} {LABEL[c['stat']]} than average to his position).")
     ae = c.get("allow_edge")
     if ae is not None and abs(ae) >= 0.03:
         bits.append(f"Opponent allows {abs(ae) * 100:.0f} percent {'more' if ae > 0 else 'less'} {LABEL[c['stat']]} than average to his position.")
