@@ -684,39 +684,51 @@ def build():
                 p.update(keep); n += 1
         print(f"carried {n} existing prices into the rebuild")
 
-    # ---- matchup: how many rushing yards the opponent gives up (RBs only) ----
-    # Added Sunday of week 11 at the owner's request. Walk-forward check on 2024-2026 weeks 7+
-    # (backtest on 2,059 RB games, base rate = shrunk own TD rate): coefficient on
-    # ln(opponent rush yards allowed vs league) = 0.80 +/- 0.49, so the direction is right but it is
-    # noisy. Opponent rush TDs allowed was weaker (0.28 +/- 0.25) and WR/TE showed nothing, so only this
-    # one input is used, and at 0.6 rather than the fitted 0.8. The yards index is shrunk toward 1 with
-    # 6 games of league-average. Applied on log-odds BEFORE the team-sum step, so a team's total
-    # still matches its implied points and only the split between its players moves.
-    RB_RUSH_K, RB_RUSH_SHRINK = 0.6, 6
+    # ---- matchup: offense strength against the opponent's defense --------------
+    # RBs: ln(own team rush yards per game index x opponent rush yards allowed index), so the best rushing
+    # offense against the worst rush defense gets the biggest lift. Walk-forward test on 2,059 RB games,
+    # 2024-2026 weeks 7+, base rate = shrunk own TD rate: coefficient 0.75 +/- 0.34 on that product (defense
+    # alone 0.80 +/- 0.49, offense alone 0.66 +/- 0.45). Used at the fitted 0.75.
+    # WR/TE: only the team's receiving-yards index matters (offense 1.03 +/- 0.52, defense 0.02 +/- 0.52 on
+    # 4,934 games), so it is offense only, at 0.5 (half the fit) because the team total already carries part of it.
+    # Indexes are pulled toward 1 with 6 games of league average. Applied on log-odds BEFORE the team-sum
+    # step, so a team's total still matches its implied points and only the split between players moves.
+    RB_MU_K, WR_OFF_K, MU_SHRINK = 0.75, 0.5, 6
     if have_current:
         try:
             import math as _mr
-            _ry = df.groupby(["opponent_team", "week"]).rushing_yards.sum().reset_index()
-            _ag = _ry.groupby("opponent_team").rushing_yards.agg(["mean", "count"])
-            _lg = float(_ag["mean"].mean())
-            _idx = {t: ((r["mean"] * r["count"] + _lg * RB_RUSH_SHRINK) / (r["count"] + RB_RUSH_SHRINK)) / _lg
-                    for t, r in _ag.iterrows()}
+            def _team_idx(col, key):
+                t = df.groupby([key, "week"])[col].sum().reset_index().groupby(key)[col].agg(["mean", "count"])
+                lg = float(t["mean"].mean())
+                return {k_: ((r["mean"] * r["count"] + lg * MU_SHRINK) / (r["count"] + MU_SHRINK)) / lg for k_, r in t.iterrows()}
+            _ro, _rd = _team_idx("rushing_yards", "team"), _team_idx("rushing_yards", "opponent_team")
+            _co = _team_idx("receiving_yards", "team")
             _n = 0
             for p in players:
-                if p.get("pos") != "RB" or p.get("prob") is None:
+                if p.get("prob") is None or p.get("pos") not in ("RB", "WR", "TE"):
                     continue
-                ix = _idx.get(p.get("next_opp") or "")
-                if ix is None:
-                    continue
+                tm, opp = p.get("team") or "", p.get("next_opp") or ""
+                if p["pos"] == "RB":
+                    a, b = _ro.get(tm), _rd.get(opp)
+                    if a is None or b is None:
+                        continue
+                    ix = a * b
+                    k_ = RB_MU_K
+                else:
+                    a = _co.get(tm)
+                    if a is None:
+                        continue
+                    ix = a
+                    k_ = WR_OFF_K
                 q = min(max(p["prob"], 1e-6), 1 - 1e-6)
-                lo = _mr.log(q / (1 - q)) + RB_RUSH_K * _mr.log(ix)
+                lo = _mr.log(q / (1 - q)) + k_ * _mr.log(ix)
                 p["prob_pre_matchup"] = p["prob"]
-                p["rush_allowed_idx"] = round(ix, 3)
+                p["matchup_idx"] = round(ix, 3)
                 p["prob"] = round(1 / (1 + _mr.exp(-lo)), 3)
                 _n += 1
-            print(f"rush-yards-allowed matchup applied to {_n} running backs")
+            print(f"offense-vs-defense matchup applied to {_n} players")
         except Exception as e:
-            print("rush matchup step skipped:", e)
+            print("matchup step skipped:", e)
 
     # ---- team consistency: make each team's probabilities add up ----------
     # A prop asks "does this player score at least once", so the probabilities
