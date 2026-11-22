@@ -56,7 +56,7 @@ MIN_Z = 0.5                # projection must sit half a typical swing off the li
 MAX_PER_GAME = 2
 MAX_PER_STAT = 2
 N_PICKS = 5
-LOCK_HOUR = 15             # Eastern. The card locks at the first run at or after this hour.
+LOCK_HOUR = 16             # Eastern. The card locks at the first run at or after this hour.
 
 
 ALLOW_W = 4.0              # score points per 100 percent of allowance edge; matches pick_backtest.py

@@ -30,7 +30,7 @@ BOOK = os.environ.get("ODDS_BOOK", "draftkings").strip()
 BOOK_NAME = {"draftkings": "DraftKings", "fanduel": "FanDuel", "betmgm": "BetMGM"}.get(BOOK, BOOK)
 MARKETS = {"player_points": "pts", "player_rebounds": "reb", "player_threes": "fg3",
            "player_points_rebounds_assists": "pra"}
-LOCK_HOUR = 15
+LOCK_HOUR = 16
 
 
 def get(url):
