@@ -63,7 +63,7 @@ def build(data, frames, inj):
     a["opponent_team"] = a.opponent_team.replace(TEAM_FIX)
     a["t"] = a.season * 100 + a.week
     for c in ("completions", "attempts", "passing_yards", "carries", "rushing_yards",
-              "rushing_tds", "receptions", "targets", "receiving_yards", "receiving_tds"):
+              "rushing_tds", "receptions", "targets", "receiving_yards", "receiving_tds", "passing_tds"):
         a[c] = pd.to_numeric(a[c], errors="coerce").fillna(0)
     a["td"] = a.rushing_tds + a.receiving_tds
     # game_id is season_week_AWAY_HOME
@@ -124,7 +124,8 @@ def build(data, frames, inj):
             pos = pg.position.iloc[-1]
             rows = [[int(r.season), int(r.week), r.opponent_team, int(r.home), int(r.receiving_yards),
                      int(r.receptions), int(r.targets), int(r.rushing_yards), int(r.carries),
-                     int(r.passing_yards), int(r.completions), int(r.attempts), int(r.td)]
+                     int(r.passing_yards), int(r.completions), int(r.attempts), int(r.td),
+                     int(r.passing_tds), int(r.rushing_yards) + int(r.receiving_yards)]
                     for r in pg.itertuples()]
             players.append({"n": n, "pos": pos, "tm": team, "opp": opp, "h": home,
                             "st": status.get((n, team), ""), "g": rows})

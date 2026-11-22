@@ -99,7 +99,7 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
   const setCur = top === 'nfl' ? setSec : setNsec;
   const GRP = top === 'ncaa' ? [['Games', [['ncaa', 'Top 25 games']]]] : top === 'nfl' ? [
     ['Today', [['today', 'Daily board']]],
-    ['Picks', [['board', 'Anytime TD'], ['card', 'The Card'], ['preds', 'Game picks (ML & spread)'], ['mine', 'My game picks']]],
+    ['Picks', [['best', 'Best Bets'], ['board', 'Anytime TD'], ['card', 'The Card'], ['preds', 'Game picks (ML & spread)'], ['mine', 'My game picks']]],
     ['Games', [['slides', 'Matchups'], ['stats:matchups', 'Matchup table'], ['stats:games', 'Game stats'], ['dvp', 'Defense vs Position'], ['stats:team', 'Team stats']]],
     ['Players', [['research', 'Research Center'], ['stats:players', 'Player stats'], ['tools:sheets', 'Cheatsheets'], ['tools:pairs', 'Parlay builder'], ['tools:full', 'Full board + prices']]],
     ['News', [['news', 'Injuries & news'], ['inj', 'Injuries']]],
@@ -159,6 +159,7 @@ function Shell({ DATA, meta, CURVE, CALP, CAL, CALPP, CALP2 }) {
                 <PredictionsTab DATA={DATA} CURVE={CURVE} CALP={CALP} CAL={CAL} CALPP={CALPP} CALP2={CALP2} />
               </>)}
             </>)}
+            {top === 'nfl' && sec === 'best' && <NflBestBets DATA={DATA} />}
             {top === 'nfl' && sec === 'inj' && <InjuriesTab DATA={DATA} />}
             {top === 'nfl' && sec === 'about' && <Notes meta={meta} />}
             {top === 'nfl' && sec === 'preds' && <GamePreds sport="nfl" DATA={DATA} />}

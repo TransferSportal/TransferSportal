@@ -19,6 +19,8 @@ const PM = [
   { k: 'ra',  label: 'Rush attempts',   ix: 8,  pos: ['RB'],           from: 4,   to: 25,  step: 1, unit: 'carries' },
   { k: 'py',  label: 'Passing yards',   ix: 9,  pos: ['QB'],           from: 150, to: 350, step: 5, unit: 'pass yds' },
   { k: 'pc',  label: 'Completions',     ix: 10, pos: ['QB'],           from: 12,  to: 32,  step: 1, unit: 'cmp' },
+  { k: 'rr',  label: 'Rush + rec yards', ix: 14, pos: ['RB','WR','TE'], from: 20,  to: 170, step: 5, unit: 'rush+rec yds' },
+  { k: 'ptd', label: 'Passing TDs',     ix: 13, pos: ['QB'],           from: 1,   to: 4,   step: 1, unit: 'pass TD' },
   { k: 'td',  label: 'Anytime TD',      ix: 12, pos: ['RB','WR','TE','QB'], from: 1, to: 1, step: 1, unit: 'TD' },
 ];
 const PM_BY = Object.fromEntries(PM.map(m => [m.k, m]));

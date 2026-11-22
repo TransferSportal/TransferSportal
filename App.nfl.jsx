@@ -1,6 +1,6 @@
 // ============ NFL Research Center, injury and news flags, your own game picks ============
-const NR_STATS = [['ry', 'Receiving yds'], ['rc', 'Receptions'], ['ruy', 'Rushing yds'], ['py', 'Passing yds'], ['td', 'Anytime TD']];
-const NR_FLOOR = { ry: 8, rc: 1, ruy: 8, py: 25 };
+const NR_STATS = [['ry', 'Receiving yds'], ['rc', 'Receptions'], ['ruy', 'Rushing yds'], ['py', 'Passing yds'], ['pc', 'Completions'], ['ptd', 'Passing TDs'], ['rr', 'Rush + rec yds'], ['td', 'Anytime TD']];
+const NR_FLOOR = { ry: 8, rc: 1, ruy: 8, py: 25, pc: 2, ptd: 0.5, rr: 10 };
 function nrToday() { return rcEt(new Date().toISOString()); }
 function nrGame(DATA, tm) { return (DATA.games || []).find(g => g.home === tm || g.away === tm); }
 function nrAmerican(s) {
@@ -11,7 +11,7 @@ function nrAmerican(s) {
 // Yards a defense allows per game to each position, from the logged player games of this season.
 // Only the logged players are counted, so totals run under the real ones, but every team is cut the same way.
 // Each team is pulled toward the league average (3 games' worth) because the samples are small.
-const NR_DEF_STATS = { ry: 4, rc: 5, ruy: 7, py: 9 };
+const NR_DEF_STATS = { ry: 4, rc: 5, ruy: 7, py: 9, pc: 10, ptd: 13, rr: 14 };
 function nrDefense(P, season) {
   const out = {};
   Object.keys(NR_DEF_STATS).forEach(st => {
@@ -290,6 +290,52 @@ function MyGames({ DATA }) {
         {ok === false && <div className="rcSub">Saving picks works on your private link when you are signed in.</div>}
       </div>
       <BetsPanel only="games" />
+    </section>
+  );
+}
+
+// ============ Best Bets: the biggest model edges, ranked ============
+// Anytime TD: model probability against the DraftKings price on the board (same Play / Lean cutoffs as the
+// Research Center: 6+ points of edge is a Play, 3+ is a Lean). Game picks: how far the model's spread sits
+// from the posted line, in points. Games already started are left out. Prices are from the last daily build.
+function NflBestBets({ DATA }) {
+  const started = new Set((DATA.picks && DATA.picks.started) || []);
+  const flags = ((DATA.daily && DATA.daily.nfl && DATA.daily.nfl.flags) || []);
+  const outNames = new Set(flags.filter(f => /out|doubtful/i.test(f.status)).map(f => f.player));
+  const td = (DATA.players || [])
+    .filter(p => p.dk_odds != null && p.edge != null && p.prob != null && !p.out_reason && !outNames.has(p.name) && !started.has(p.team) && p.rostered !== false)
+    .sort((a, b) => b.edge - a.edge).slice(0, 10);
+  const gp = ((DATA.picks && DATA.picks.game_picks) || [])
+    .filter(g => !started.has(g.home) && !started.has(g.away) && g.proj_spread != null && g.spread_line != null)
+    .map(g => ({ ...g, pts: Math.abs(g.spread_line - g.proj_spread) }))
+    .sort((a, b) => b.pts - a.pts).slice(0, 6);
+  const tag = e => (e >= 0.06 ? ['Play', 'win'] : e >= 0.03 ? ['Lean', 'push'] : ['Thin', 'loss']);
+  const odds = o => (o > 0 ? '+' + o : '' + o);
+  return (
+    <section className="view on">
+      <h2 className="tsH">Best Bets<span className="pill on">highest model edges</span></h2>
+      <div className="dk" style={{ marginBottom: 10 }}>Ranked by how far the model sits from the price. Edge is in percentage points. Prices come from the last daily build, so check the live number before you bet.</div>
+      <div className="dbGrid">
+        <div className="dbCard">
+          <h4>Anytime TD edges</h4>
+          {td.length ? td.map((p, i) => { const [w, c] = tag(p.edge); return (
+            <div className="dbRow" key={p.name + p.team}>
+              <b>{i + 1}. {p.name}</b>
+              <span className="dbNote">{p.team} {p.pos} vs {p.next_opp} · model {Math.round(p.prob * 100)}% · {odds(p.dk_odds)}</span>
+              <span className={'dbRes ' + c}>{w} {p.edge >= 0 ? '+' : ''}{(p.edge * 100).toFixed(1)}</span>
+            </div>); }) : <div className="dbNote">No priced plays left on the slate.</div>}
+        </div>
+        <div className="dbCard">
+          <h4>Game edges (spread)</h4>
+          {gp.length ? gp.map((g, i) => (
+            <div className="dbRow" key={g.away + g.home}>
+              <b>{i + 1}. {g.ats_pick}</b>
+              <span className="dbNote">{g.away} @ {g.home} · model margin {g.proj_spread > 0 ? g.home : g.away} by {Math.abs(g.proj_spread).toFixed(1)}</span>
+              <span className={'dbRes ' + (g.pts >= 3 ? 'win' : g.pts >= 1.5 ? 'push' : 'loss')}>{g.pts.toFixed(1)} pts</span>
+            </div>)) : <div className="dbNote">No game picks left on the slate.</div>}
+        </div>
+      </div>
+      <div className="rcSub" style={{ marginTop: 10 }}>Prop markets without a posted line on the site (receptions, completions, passing TDs, rush + rec yards) live in the Research Center: type the DraftKings line and it gives the Over or Under verdict.</div>
     </section>
   );
 }
