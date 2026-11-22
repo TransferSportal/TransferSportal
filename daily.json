@@ -1,39 +1,114 @@
 {
- "date": "2026-11-21",
+ "date": "2026-11-22",
  "nfl": {
   "flags": [
-   {"player": "Kenneth Walker III", "team": "KC", "status": "Questionable", "note": "Groin. Did not practice Wednesday or Thursday. On the TD card."},
-   {"player": "Baker Mayfield", "team": "TB", "status": "Questionable", "note": "Foot and right thumb. Trending in the right direction for DET, will be re-evaluated."},
-   {"player": "Geno Smith", "team": "NYJ", "status": "Questionable", "note": "Ankle. Trending toward playing vs LAC."},
-   {"player": "Omar Cooper Jr.", "team": "NYJ", "status": "Out", "note": "Ankle and hip. Will not play vs LAC."},
-   {"player": "Kyler Murray", "team": "MIN", "status": "Questionable", "note": "Hamstring. Did not practice Wednesday or Thursday."},
-   {"player": "Jordan Addison", "team": "MIN", "status": "Out", "note": "Thumb surgery Monday. Did not practice Wednesday or Thursday."},
-   {"player": "Mike Evans", "team": "SF", "status": "Questionable", "note": "Achilles. Did not practice Wednesday."},
-   {"player": "Brock Bowers", "team": "LV", "status": "Questionable", "note": "Ankle and quad. Day to day, limited Thursday."},
-   {"player": "Dalton Kincaid", "team": "BUF", "status": "Questionable", "note": "Thumb and ankle. Sat out Wednesday."},
-   {"player": "De'Von Achane", "team": "MIA", "status": "Out", "note": "Torn ACL. Out for the season."},
-   {"player": "Malik Willis", "team": "MIA", "status": "Out", "note": "On injured reserve."},
-   {"player": "Lamar Jackson", "team": "BAL", "status": "Out", "note": "Thumb. Likely out the rest of the regular season. Henry is on the TD card."},
-   {"player": "Drake Maye", "team": "NE", "status": "Out", "note": "Fractured lower leg per NFL.com, extended absence. NE is on bye."},
-   {"player": "Puka Nacua", "team": "LA", "status": "Out", "note": "Knee surgery. Likely out for the season."},
-   {"player": "Gardner Minshew", "team": "ARI", "status": "Out", "note": "Out, carried from the prior report."},
-   {"player": "Carson Beck", "team": "ARI", "status": "Questionable", "note": "Back. Did not practice Friday, may not play vs KC."},
-   {"player": "Jonathon Brooks", "team": "CAR", "status": "Questionable", "note": "Groin."}
+   {
+    "player": "Kenneth Walker III",
+    "team": "KC",
+    "status": "Questionable",
+    "note": "Groin. Did not practice Wednesday or Thursday. On the TD card."
+   },
+   {
+    "player": "Baker Mayfield",
+    "team": "TB",
+    "status": "Questionable",
+    "note": "Foot and right thumb. Trending in the right direction for DET, will be re-evaluated."
+   },
+   {
+    "player": "Geno Smith",
+    "team": "NYJ",
+    "status": "Questionable",
+    "note": "Ankle. Trending toward playing vs LAC."
+   },
+   {
+    "player": "Omar Cooper Jr.",
+    "team": "NYJ",
+    "status": "Out",
+    "note": "Ankle and hip. Will not play vs LAC."
+   },
+   {
+    "player": "Kyler Murray",
+    "team": "MIN",
+    "status": "Questionable",
+    "note": "Hamstring. Did not practice Wednesday or Thursday."
+   },
+   {
+    "player": "Jordan Addison",
+    "team": "MIN",
+    "status": "Out",
+    "note": "Thumb surgery Monday. Did not practice Wednesday or Thursday."
+   },
+   {
+    "player": "Mike Evans",
+    "team": "SF",
+    "status": "Questionable",
+    "note": "Achilles. Did not practice Wednesday."
+   },
+   {
+    "player": "Brock Bowers",
+    "team": "LV",
+    "status": "Questionable",
+    "note": "Ankle and quad. Day to day, limited Thursday."
+   },
+   {
+    "player": "Dalton Kincaid",
+    "team": "BUF",
+    "status": "Questionable",
+    "note": "Thumb and ankle. Sat out Wednesday."
+   },
+   {
+    "player": "De'Von Achane",
+    "team": "MIA",
+    "status": "Out",
+    "note": "Torn ACL. Out for the season."
+   },
+   {
+    "player": "Malik Willis",
+    "team": "MIA",
+    "status": "Out",
+    "note": "On injured reserve."
+   },
+   {
+    "player": "Lamar Jackson",
+    "team": "BAL",
+    "status": "Out",
+    "note": "Thumb. Likely out the rest of the regular season. Henry is on the TD card."
+   },
+   {
+    "player": "Drake Maye",
+    "team": "NE",
+    "status": "Out",
+    "note": "Fractured lower leg per NFL.com, extended absence. NE is on bye."
+   },
+   {
+    "player": "Puka Nacua",
+    "team": "LA",
+    "status": "Out",
+    "note": "Knee surgery. Likely out for the season."
+   },
+   {
+    "player": "Gardner Minshew",
+    "team": "ARI",
+    "status": "Out",
+    "note": "Out, carried from the prior report."
+   },
+   {
+    "player": "Carson Beck",
+    "team": "ARI",
+    "status": "Questionable",
+    "note": "Back. Did not practice Friday, may not play vs KC."
+   },
+   {
+    "player": "Jonathon Brooks",
+    "team": "CAR",
+    "status": "Questionable",
+    "note": "Groin."
+   }
   ],
   "notes": "Report as of Saturday morning from Friday practice reports. Game tags and inactives can change any flag. Walker, Murray, Evans, Bowers and Kincaid are carried from Friday and not re-confirmed this morning."
  },
  "nba": {
-  "flags": [
-   {"player": "Anthony Edwards", "team": "MIN", "status": "Out", "note": "Right knee arthroscopic procedure. Out on the official NBA report for tonight vs MEM."},
-   {"player": "Cameron Boozer", "team": "MEM", "status": "Out", "note": "Right ankle sprain. Out on the official NBA report for tonight at MIN."},
-   {"player": "Trey Murphy III", "team": "NO", "status": "Out", "note": "Bilateral patellar tendinopathy, injury maintenance. Out on the official NBA report for tonight at SA."},
-   {"player": "Dylan Harper", "team": "SA", "status": "Out", "note": "Left hip external rotator strain. Out on the official NBA report for tonight vs NO."},
-   {"player": "OG Anunoby", "team": "NY", "status": "Doubtful", "note": "Left calf tightness. Downgraded to doubtful for tonight, reported by Fred Katz."},
-   {"player": "Karl-Anthony Towns", "team": "NY", "status": "Questionable", "note": "Illness. Questionable on the official NBA report for tonight vs POR."},
-   {"player": "Deni Avdija", "team": "POR", "status": "Questionable", "note": "Left foot contusion. Questionable on the official report, has missed two straight games."},
-   {"player": "Jayson Tatum", "team": "BOS", "status": "Questionable", "note": "Rest, back to back Sunday. Questionable on the official report. CBS Sports at 3:53 PM ET says he will also sit."},
-   {"player": "Derrick White", "team": "BOS", "status": "Questionable", "note": "Left AC joint contusion. Questionable on the official report. CBS Sports at 3:53 PM ET says he is ruled out."}
-  ],
-  "notes": "Built from the official NBA injury report and team reports dated Nov 21 (2 PM report plus later team updates). Only players with games tonight are flagged. Multi-week absences (Haliburton, Curry, Mobley, Duren, McCollum, Wilson) are not flagged because their teams are not playing tonight. PHI at 1 PM already tipped, so Maxey and Jaylen Brown are not flagged. Day-To-Day tags with no listed status for tonight were left unflagged."
+  "flags": [],
+  "notes": "No verified NBA injury report was available this morning. The 4 PM run refreshes this before the Best 5 locks."
  }
 }
