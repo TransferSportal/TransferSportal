@@ -45,8 +45,8 @@
    "p_hat": 0.537,
    "breakeven": 0.517,
    "edge": 0.02,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 1.0,
    "why": "Over 1.5 threes (DraftKings line, -107). Went over in 7 of his last 10 and 11 of his last 20. Season average 1.4, model has him at 1.7 tonight. Estimated win chance 54% against a 52% break-even. Picked from a game the model has within 8 (5.5 point margin). Teammates out: Anthony Edwards, Donte DiVincenzo. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -92,8 +92,8 @@
    "p_hat": 0.505,
    "breakeven": 0.519,
    "edge": -0.014,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 23.0,
    "why": "Over 26.5 pts+reb+ast (DraftKings line, -108). Went over in 7 of his last 10 and 10 of his last 20. Season average 23.9, model has him at 27.0 tonight. Estimated win chance 51% against a 52% break-even. Picked from a game the model has within 8 (5.5 point margin). Teammates out: Anthony Edwards, Donte DiVincenzo. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -135,8 +135,8 @@
    "p_hat": 0.494,
    "breakeven": 0.528,
    "edge": -0.035,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 16.0,
    "why": "Over 21.5 points (DraftKings line, -112). Went over in 6 of his last 10 and 9 of his last 20. Season average 19.4, model has him at 22.0 tonight. Estimated win chance 49% against a 53% break-even. Picked from a game the model has within 8 (2.8 point margin). Teammates out: Jordan Miller. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -182,8 +182,8 @@
    "p_hat": 0.524,
    "breakeven": 0.49,
    "edge": 0.034,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 11.0,
    "why": "Over 10.5 rebounds (DraftKings line, +104). Went over in 5 of his last 10 and 10 of his last 20. Season average 11.5, model has him at 11.4 tonight. Estimated win chance 52% against a 49% break-even. Picked from a game the model has within 8 (5.5 point margin). Teammates out: Anthony Edwards, Donte DiVincenzo. A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -223,8 +223,8 @@
    "p_hat": 0.556,
    "breakeven": 0.583,
    "edge": -0.027,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 6.0,
    "why": "Over 2.5 threes (DraftKings line, -140). Went over in 9 of his last 10 and 11 of his last 20. Season average 2.4, model has him at 2.9 tonight. Estimated win chance 56% against a 58% break-even. Picked from a game the model has within 8 (3.8 point margin). A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
