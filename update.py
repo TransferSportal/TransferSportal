@@ -684,6 +684,40 @@ def build():
                 p.update(keep); n += 1
         print(f"carried {n} existing prices into the rebuild")
 
+    # ---- matchup: how many rushing yards the opponent gives up (RBs only) ----
+    # Added Sunday of week 11 at the owner's request. Walk-forward check on 2024-2026 weeks 7+
+    # (backtest on 2,059 RB games, base rate = shrunk own TD rate): coefficient on
+    # ln(opponent rush yards allowed vs league) = 0.80 +/- 0.49, so the direction is right but it is
+    # noisy. Opponent rush TDs allowed was weaker (0.28 +/- 0.25) and WR/TE showed nothing, so only this
+    # one input is used, and at 0.6 rather than the fitted 0.8. The yards index is shrunk toward 1 with
+    # 6 games of league-average. Applied on log-odds BEFORE the team-sum step, so a team's total
+    # still matches its implied points and only the split between its players moves.
+    RB_RUSH_K, RB_RUSH_SHRINK = 0.6, 6
+    if have_current:
+        try:
+            import math as _mr
+            _ry = df.groupby(["opponent_team", "week"]).rushing_yards.sum().reset_index()
+            _ag = _ry.groupby("opponent_team").rushing_yards.agg(["mean", "count"])
+            _lg = float(_ag["mean"].mean())
+            _idx = {t: ((r["mean"] * r["count"] + _lg * RB_RUSH_SHRINK) / (r["count"] + RB_RUSH_SHRINK)) / _lg
+                    for t, r in _ag.iterrows()}
+            _n = 0
+            for p in players:
+                if p.get("pos") != "RB" or p.get("prob") is None:
+                    continue
+                ix = _idx.get(p.get("next_opp") or "")
+                if ix is None:
+                    continue
+                q = min(max(p["prob"], 1e-6), 1 - 1e-6)
+                lo = _mr.log(q / (1 - q)) + RB_RUSH_K * _mr.log(ix)
+                p["prob_pre_matchup"] = p["prob"]
+                p["rush_allowed_idx"] = round(ix, 3)
+                p["prob"] = round(1 / (1 + _mr.exp(-lo)), 3)
+                _n += 1
+            print(f"rush-yards-allowed matchup applied to {_n} running backs")
+        except Exception as e:
+            print("rush matchup step skipped:", e)
+
     # ---- team consistency: make each team's probabilities add up ----------
     # A prop asks "does this player score at least once", so the probabilities
     # on one team should sum to the number of DIFFERENT players expected to
