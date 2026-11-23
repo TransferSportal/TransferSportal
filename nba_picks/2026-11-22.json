@@ -44,8 +44,8 @@
    "p_hat": 0.66,
    "breakeven": 0.583,
    "edge": 0.077,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 2.0,
    "why": "Over 1.5 threes (DraftKings line, -140). Went over in 7 of his last 10 and 13 of his last 20. Season average 2.0, model has him at 1.9 tonight. Estimated win chance 66% against a 58% break-even. Teammates out: Tyrese Haliburton. Position matchup: 1.05 (opponent gives up 5 percent more threes than average to his position). A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -91,8 +91,8 @@
    "p_hat": 0.605,
    "breakeven": 0.571,
    "edge": 0.034,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 3.0,
    "why": "Over 3.5 threes (DraftKings line, -133). Went over in 7 of his last 10 and 10 of his last 20. Season average 3.3, model has him at 3.6 tonight. Estimated win chance 60% against a 57% break-even. Matchup helps this side. Position matchup: 1.17 (opponent gives up 17 percent more threes than average to his position). A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -133,8 +133,8 @@
    "p_hat": 0.591,
    "breakeven": 0.463,
    "edge": 0.128,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 5.0,
    "why": "Over 5.5 rebounds (DraftKings line, +116). Went over in 6 of his last 10 and 13 of his last 20. Season average 5.2, model has him at 5.7 tonight. Estimated win chance 59% against a 46% break-even. Position matchup: 1.06 (opponent gives up 6 percent more rebounds than average to his position). A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -179,8 +179,8 @@
    "p_hat": 0.543,
    "breakeven": 0.524,
    "edge": 0.019,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 17.0,
    "why": "Over 19.5 points (DraftKings line, -110). Went over in 6 of his last 10 and 9 of his last 20. Season average 20.6, model has him at 19.9 tonight. Estimated win chance 54% against a 52% break-even. Teammates out: Paolo Banchero. Position matchup: 1.08 (opponent gives up 8 percent more points than average to his position). A lean: the gap or the recent run is smaller than on a full pick."
   },
   {
@@ -228,8 +228,8 @@
    "p_hat": 0.569,
    "breakeven": 0.556,
    "edge": 0.013,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 30.0,
    "why": "Over 25.5 pts+reb+ast (DraftKings line, -125). Went over in 6 of his last 10 and 13 of his last 20. Season average 28.4, model has him at 27.6 tonight. Estimated win chance 57% against a 56% break-even. Teammates out: CJ McCollum, Jock Landale. Position matchup: 0.92 (opponent gives up 8 percent less pts+reb+ast than average to his position). A lean: the gap or the recent run is smaller than on a full pick."
   }
  ]
