@@ -68,6 +68,8 @@ FLOOR_FRAC = {"pts": 0.75, "reb": 0.70, "pra": 0.80, "fg3": 0.60}   # floor is t
 FLOOR_MIN = {"pts": 12, "reb": 5, "pra": 20, "fg3": 2}               # smallest floor worth showing
 FLOOR_H10 = 0.8            # cleared the floor in at least 8 of the last 10
 FLOOR_H20 = 0.7            # and at least 70 percent of the last 20
+FLOOR_MAX_SPREAD = 10     # games with a bigger spread than this are dropped
+FLOOR_CLOSE_SPREAD = 6     # at or under this the game is close and the pick gets a bonus
 FLOOR_MU = 1.0             # opponent must give up at least a league-average amount to his position
 LOCK_HOUR = 16             # Eastern. The card locks at the first run at or after this hour.
 
@@ -278,6 +280,7 @@ def floor_candidates(n, now, min_mu=FLOOR_MU):
     """Safe floors in soft matchups. No sportsbook lines are used."""
     today = now.astimezone(ET).date().isoformat()
     flagged = flagged_names(today)
+    adopt, gm = load_extras()
     out = []
     for p in n["players"]:
         if p["name"] in flagged:
@@ -294,10 +297,15 @@ def floor_candidates(n, now, min_mu=FLOOR_MU):
         log = p["log20"]
         if len(log) < 15:
             continue
+        # Game closeness. A posted spread is used when there is one, else the game model's own margin.
+        # Over 10 points: dropped (starters sit the fourth quarter). 7 to 10: allowed but marked down.
+        # 6 or less: marked up, because a close game keeps starters on the floor to the end.
         spread = nx.get("spread")
-        blow = spread is not None and spread >= 10 and (p.get("min_l10") or 0) >= 26
-        if spread is not None and spread >= 15:
-            continue                       # likely garbage time: minutes get cut
+        if spread is None:
+            spread = model_margin(gm, today, p["team"], nx["opp"])
+        if spread is not None and spread > FLOOR_MAX_SPREAD:
+            continue
+        blow = spread is not None and spread > FLOOR_CLOSE_SPREAD
         for s in STATS:
             proj = p["proj"].get(s)
             if proj is None:
@@ -318,8 +326,8 @@ def floor_candidates(n, now, min_mu=FLOOR_MU):
             cushion = (proj - floor) / max(proj, 1.0)
             # matchup first, then how far the floor sits under the projection, then the recent run
             score = 40.0 * (mu - 1.0) + 6.0 * cushion + 2.0 * (h10 - 0.8) + 1.0 * (h20 - 0.7)
-            if blow:
-                score -= 1.0
+            if spread is not None:
+                score += 1.5 if spread <= FLOOR_CLOSE_SPREAD else -1.5
             f = (p.get("factors") or {}).get(s) or {}
             out.append({
                 "pid": p["id"], "name": p["name"], "team": p["team"], "pos": p["pos"],
@@ -329,7 +337,7 @@ def floor_candidates(n, now, min_mu=FLOOR_MU):
                 "proj": round(proj, 1), "avg": round((p.get("avg60") or {}).get(s) or 0, 1),
                 "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
                 "sd10": (p.get("sd10") or {}).get(s), "z": None, "score": round(score, 3),
-                "spread": spread, "model_margin": None, "matchup": round(mu, 3), "allow_edge": None, "fav": nx.get("fav"),
+                "spread": nx.get("spread"), "model_margin": None if nx.get("spread") is not None else spread, "matchup": round(mu, 3), "allow_edge": None, "fav": nx.get("fav"),
                 "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
                 "opp_out": (n.get("injuries_out") or {}).get(nx["opp"], []),
                 "lean": False, "p_hat": None, "breakeven": None, "edge": None,
@@ -346,7 +354,9 @@ def floor_why(c):
             f"{c['opp']} gives up {abs(c['matchup'] - 1) * 100:.0f} percent {'more' if c['matchup'] >= 1 else 'less'} {t} than average to his position."]
     if c.get("teammates_out"): bits.append("Teammates out: " + ", ".join(c["teammates_out"]) + ".")
     if c.get("b2b"): bits.append("Back to back, so watch the minutes.")
-    if c.get("blowout"): bits.append(f"Spread is {c['spread']:g}, so blowout risk.")
+    sp = c.get("spread") if c.get("spread") is not None else c.get("model_margin")
+    if sp is not None:
+        bits.append(f"Close game, {sp:g} points either way, so he should play to the end." if sp <= FLOOR_CLOSE_SPREAD else f"Spread is {sp:g}, so some blowout risk.")
     return " ".join(bits)
 
 
