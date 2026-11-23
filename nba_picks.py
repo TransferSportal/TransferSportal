@@ -1,6 +1,13 @@
 """
 Best 5 NBA props of the day, locked once per day at the 4 PM Eastern run, graded the next morning.
 
+FLOOR MODE (from 2026-11-23, by request): no sportsbook lines. For each player the model finds a safe
+round "X or more" floor well under his projection, in a matchup where the opponent gives up a lot to his
+position, and ranks by the matchup first. Example: projected 32 points, card says 25+ points. Projected 11
+rebounds against a team that gives up rebounds, card says 8+ rebounds. A floor of 25+ is stored as an Over 24.5
+so grading, the record and the site keep working. These are the model's own floors, not sportsbook lines.
+Walk-forward test on last 10 games only (about 1,300 floors): 80 to 90 percent hit, before any matchup filter.
+
 Reads nba.json (built by nba.py a moment earlier). For every player with a game
 today and every stat, it sets a model line at his season-long average rounded to
 a half point, then looks for the spots where:
@@ -56,6 +63,12 @@ MIN_Z = 0.5                # projection must sit half a typical swing off the li
 MAX_PER_GAME = 2
 MAX_PER_STAT = 2
 N_PICKS = 5
+FLOOR_MODE = True
+FLOOR_FRAC = {"pts": 0.74, "reb": 0.72, "pra": 0.76, "fg3": 0.70}   # floor is at most this share of tonight's projection
+FLOOR_MIN = {"pts": 12, "reb": 5, "pra": 20, "fg3": 2}               # smallest floor worth showing
+FLOOR_H10 = 0.9            # cleared the floor in at least 9 of the last 10
+FLOOR_H20 = 0.85           # and at least 85 percent of the last 20
+FLOOR_MU = 1.0             # opponent must give up at least a league-average amount to his position
 LOCK_HOUR = 16             # Eastern. The card locks at the first run at or after this hour.
 
 
@@ -261,6 +274,84 @@ def candidates(n, now, min_z=MIN_Z, min_h=MIN_HIT10):
     return out
 
 
+def floor_candidates(n, now, min_mu=FLOOR_MU):
+    """Safe floors in soft matchups. No sportsbook lines are used."""
+    today = now.astimezone(ET).date().isoformat()
+    flagged = flagged_names(today)
+    out = []
+    for p in n["players"]:
+        if p["name"] in flagged:
+            continue
+        nx = p.get("next")
+        if not nx or not p.get("proj") or not p.get("log20"):
+            continue
+        if nba.et_date(nx["date"]) != today:
+            continue
+        if dt.datetime.fromisoformat(nx["date"].replace("Z", "+00:00")) <= now:
+            continue
+        if p["avail"] < 0.9 or (p.get("min_l10") or 0) < 24:
+            continue
+        log = p["log20"]
+        if len(log) < 15:
+            continue
+        spread = nx.get("spread")
+        blow = spread is not None and spread >= 10 and (p.get("min_l10") or 0) >= 26
+        if spread is not None and spread >= 15:
+            continue                       # likely garbage time: minutes get cut
+        for s in STATS:
+            proj = p["proj"].get(s)
+            if proj is None:
+                continue
+            mu = matchup_idx(n, nx["opp"], p.get("grp"), s)
+            if mu is None or mu < min_mu:
+                continue
+            v10 = [g[s] for g in log[-10:]]
+            v20 = [g[s] for g in log]
+            top = int(proj * FLOOR_FRAC[s])
+            floor = None
+            for T in range(top, FLOOR_MIN[s] - 1, -1):
+                if sum(1 for v in v10 if v >= T) / len(v10) >= FLOOR_H10 and sum(1 for v in v20 if v >= T) / len(v20) >= FLOOR_H20:
+                    floor = T
+                    break
+            if floor is None:
+                continue
+            h10 = sum(1 for v in v10 if v >= floor) / len(v10)
+            h20 = sum(1 for v in v20 if v >= floor) / len(v20)
+            cushion = (proj - floor) / max(proj, 1.0)
+            # matchup first, then how far the floor sits under the projection, then the recent run
+            score = 40.0 * (mu - 1.0) + 6.0 * cushion + 2.0 * (h10 - 0.9) + 1.0 * (h20 - 0.85)
+            if blow:
+                score -= 1.0
+            f = (p.get("factors") or {}).get(s) or {}
+            out.append({
+                "pid": p["id"], "name": p["name"], "team": p["team"], "pos": p["pos"],
+                "opp": nx["opp"], "home": nx["home"], "tip": nx["date"], "b2b": nx.get("b2b", False),
+                "stat": s, "line": floor - 0.5, "floor": floor, "side": "over", "line_src": "model", "floor_mode": True, "book": None, "price": None,
+                "hit10": round(h10, 2), "hit20": round(h20, 2), "n20": len(v20),
+                "proj": round(proj, 1), "avg": round((p.get("avg60") or {}).get(s) or 0, 1),
+                "l5": p["windows"]["5"].get(s), "l10": p["windows"]["10"].get(s),
+                "sd10": (p.get("sd10") or {}).get(s), "z": None, "score": round(score, 3),
+                "spread": spread, "model_margin": None, "matchup": round(mu, 3), "allow_edge": None, "fav": nx.get("fav"),
+                "blowout": bool(blow), "def": f.get("def"), "teammates_out": p.get("teammates_out") or [],
+                "opp_out": (n.get("injuries_out") or {}).get(nx["opp"], []),
+                "lean": False, "p_hat": None, "breakeven": None, "edge": None,
+                "result": None, "actual": None,
+            })
+    return out
+
+
+def floor_why(c):
+    t = {"pts": "points", "reb": "rebounds", "pra": "pts+reb+ast", "fg3": "threes"}[c["stat"]]
+    bits = [f"{c['floor']}+ {t}.",
+            f"Model has him at {c['proj']} tonight.",
+            f"Cleared {c['floor']} in {round(c['hit10'] * 10)} of his last 10 and {round(c['hit20'] * c['n20'])} of his last {c['n20']}.",
+            f"{c['opp']} gives up {abs(c['matchup'] - 1) * 100:.0f} percent {'more' if c['matchup'] >= 1 else 'less'} {t} than average to his position."]
+    if c.get("teammates_out"): bits.append("Teammates out: " + ", ".join(c["teammates_out"]) + ".")
+    if c.get("b2b"): bits.append("Back to back, so watch the minutes.")
+    if c.get("blowout"): bits.append(f"Spread is {c['spread']:g}, so blowout risk.")
+    return " ".join(bits)
+
+
 def choose(cands, picks=None):
     cands = sorted(cands, key=lambda c: -c["score"])
     picks = list(picks or [])
@@ -378,12 +469,17 @@ def main(now=None):
     if not path.exists() and now.astimezone(ET).hour < LOCK_HOUR:
         print(f"nba_picks: before {LOCK_HOUR}:00 Eastern, so today's card is not locked yet")
     elif not path.exists():
-        picks = choose(candidates(n, now))
-        if len(picks) < N_PICKS:
-            # Short on clean spots: fill with looser ones, marked as leans on the card.
-            picks = choose(candidates(n, now, 0.3, 0.6), picks)
-        for c in picks:
-            c["why"] = why(c)
+        if FLOOR_MODE:
+            picks = choose(floor_candidates(n, now))
+            for c in picks:
+                c["why"] = floor_why(c)
+        else:
+            picks = choose(candidates(n, now))
+            if len(picks) < N_PICKS:
+                # Short on clean spots: fill with looser ones, marked as leans on the card.
+                picks = choose(candidates(n, now, 0.3, 0.6), picks)
+            for c in picks:
+                c["why"] = why(c)
         if picks:
             path.write_text(json.dumps({"date": today, "made_at": now.strftime("%Y-%m-%d %H:%M UTC"),
                                         "picks": picks}, indent=1))
