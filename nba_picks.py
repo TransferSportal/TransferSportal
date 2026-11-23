@@ -6,7 +6,7 @@ round "X or more" floor well under his projection, in a matchup where the oppone
 position, and ranks by the matchup first. Example: projected 32 points, card says 25+ points. Projected 11
 rebounds against a team that gives up rebounds, card says 8+ rebounds. A floor of 25+ is stored as an Over 24.5
 so grading, the record and the site keep working. These are the model's own floors, not sportsbook lines.
-Walk-forward test on last 10 games only (about 1,300 floors): 80 to 90 percent hit, before any matchup filter.
+Walk-forward test on last 10 games only (about 1,500 floors): 76 to 79 percent hit, before any matchup filter.
 
 Reads nba.json (built by nba.py a moment earlier). For every player with a game
 today and every stat, it sets a model line at his season-long average rounded to
@@ -64,10 +64,10 @@ MAX_PER_GAME = 2
 MAX_PER_STAT = 2
 N_PICKS = 5
 FLOOR_MODE = True
-FLOOR_FRAC = {"pts": 0.74, "reb": 0.72, "pra": 0.76, "fg3": 0.70}   # floor is at most this share of tonight's projection
+FLOOR_FRAC = {"pts": 0.75, "reb": 0.70, "pra": 0.80, "fg3": 0.60}   # floor is this share of tonight's projection (rounded to a whole number first)
 FLOOR_MIN = {"pts": 12, "reb": 5, "pra": 20, "fg3": 2}               # smallest floor worth showing
-FLOOR_H10 = 0.9            # cleared the floor in at least 9 of the last 10
-FLOOR_H20 = 0.85           # and at least 85 percent of the last 20
+FLOOR_H10 = 0.8            # cleared the floor in at least 8 of the last 10
+FLOOR_H20 = 0.7            # and at least 70 percent of the last 20
 FLOOR_MU = 1.0             # opponent must give up at least a league-average amount to his position
 LOCK_HOUR = 16             # Eastern. The card locks at the first run at or after this hour.
 
@@ -307,19 +307,17 @@ def floor_candidates(n, now, min_mu=FLOOR_MU):
                 continue
             v10 = [g[s] for g in log[-10:]]
             v20 = [g[s] for g in log]
-            top = int(proj * FLOOR_FRAC[s])
-            floor = None
-            for T in range(top, FLOOR_MIN[s] - 1, -1):
-                if sum(1 for v in v10 if v >= T) / len(v10) >= FLOOR_H10 and sum(1 for v in v20 if v >= T) / len(v20) >= FLOOR_H20:
-                    floor = T
-                    break
-            if floor is None:
+            # Round the projection to a whole number (half rounds up), then take a set share of it.
+            floor = int(math.floor(proj + 0.5) * FLOOR_FRAC[s] + 0.5)
+            if floor < FLOOR_MIN[s]:
+                continue
+            if sum(1 for v in v10 if v >= floor) / len(v10) < FLOOR_H10 or sum(1 for v in v20 if v >= floor) / len(v20) < FLOOR_H20:
                 continue
             h10 = sum(1 for v in v10 if v >= floor) / len(v10)
             h20 = sum(1 for v in v20 if v >= floor) / len(v20)
             cushion = (proj - floor) / max(proj, 1.0)
             # matchup first, then how far the floor sits under the projection, then the recent run
-            score = 40.0 * (mu - 1.0) + 6.0 * cushion + 2.0 * (h10 - 0.9) + 1.0 * (h20 - 0.85)
+            score = 40.0 * (mu - 1.0) + 6.0 * cushion + 2.0 * (h10 - 0.8) + 1.0 * (h20 - 0.7)
             if blow:
                 score -= 1.0
             f = (p.get("factors") or {}).get(s) or {}
