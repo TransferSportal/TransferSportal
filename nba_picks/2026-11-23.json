@@ -51,8 +51,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 9.0,
    "why": "8+ rebounds. Model has him at 11.0 tonight. Cleared 8 in 9 of his last 10 and 14 of his last 20. IND gives up 11 percent more rebounds than average to his position. Teammates out: Chet Holmgren, Aday Mara, Alex Caruso, Jaylin Williams, Cason Wallace. Back to back, so watch the minutes. Close game, 5.5 points either way, so he should play to the end."
   },
   {
@@ -102,8 +102,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 10.0,
    "why": "8+ rebounds. Model has him at 11.5 tonight. Cleared 8 in 9 of his last 10 and 16 of his last 20. MEM gives up 9 percent more rebounds than average to his position. Teammates out: Kon Knueppel, Grayson Allen, Dennis Schroder. Close game, 2.5 points either way, so he should play to the end."
   },
   {
@@ -148,8 +148,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 22.0,
    "why": "20+ points. Model has him at 26.8 tonight. Cleared 20 in 8 of his last 10 and 17 of his last 20. NO gives up 7 percent more points than average to his position. Teammates out: Mark Williams. Close game, 3.5 points either way, so he should play to the end."
   },
   {
@@ -199,8 +199,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 33.0,
    "why": "22+ pts+reb+ast. Model has him at 28.2 tonight. Cleared 22 in 8 of his last 10 and 14 of his last 20. MEM gives up 7 percent more pts+reb+ast than average to his position. Teammates out: Kon Knueppel, Grayson Allen, Dennis Schroder. Close game, 2.5 points either way, so he should play to the end."
   },
   {
@@ -243,8 +243,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 31.0,
    "why": "19+ points. Model has him at 24.8 tonight. Cleared 19 in 9 of his last 10 and 18 of his last 20. PHI gives up 4 percent more points than average to his position. Close game, 2.5 points either way, so he should play to the end."
   }
  ]
