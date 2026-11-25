@@ -42,8 +42,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 24.0,
    "why": "18+ points. Model has him at 24.0 tonight. Cleared 18 in 8 of his last 10 and 14 of his last 20. DEN gives up 6 percent more points than average to his position. Spread is 8.5, so some blowout risk."
   },
   {
@@ -86,8 +86,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 34.0,
    "why": "41+ pts+reb+ast. Model has him at 50.8 tonight. Cleared 41 in 9 of his last 10 and 14 of his last 20. DAL gives up 5 percent more pts+reb+ast than average to his position. Spread is 8.5, so some blowout risk."
   }
  ]
