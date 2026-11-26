@@ -50,8 +50,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 5.0,
    "why": "2+ threes. Model has him at 3.8 tonight. Cleared 2 in 9 of his last 10 and 17 of his last 20. OKC gives up 20 percent more threes than average to his position. Teammates out: Anthony Edwards, Donte DiVincenzo. Close game, 1.5 points either way, so he should play to the end."
   },
   {
@@ -96,8 +96,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 2.0,
    "why": "2+ threes. Model has him at 3.1 tonight. Cleared 2 in 8 of his last 10 and 15 of his last 20. MIL gives up 17 percent more threes than average to his position. Teammates out: Nolan Traore. Close game, 1.5 points either way, so he should play to the end."
   },
   {
@@ -142,8 +142,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 10.0,
    "why": "5+ rebounds. Model has him at 6.8 tonight. Cleared 5 in 9 of his last 10 and 17 of his last 20. MIA gives up 7 percent more rebounds than average to his position. Teammates out: Joel Embiid. Close game, 1.5 points either way, so he should play to the end."
   },
   {
@@ -192,8 +192,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 14.0,
    "why": "7+ rebounds. Model has him at 10.1 tonight. Cleared 7 in 9 of his last 10 and 16 of his last 20. CHI gives up 6 percent more rebounds than average to his position. Teammates out: Kon Knueppel, Grayson Allen, Dennis Schroder. Close game, 3.5 points either way, so he should play to the end."
   },
   {
@@ -238,8 +238,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 40.0,
    "why": "26+ pts+reb+ast. Model has him at 33.4 tonight. Cleared 26 in 8 of his last 10 and 16 of his last 20. MIL gives up 5 percent more pts+reb+ast than average to his position. Teammates out: Nolan Traore. Close game, 1.5 points either way, so he should play to the end."
   }
  ]
