@@ -45,8 +45,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 2.0,
    "why": "2+ threes. Model has him at 3.3 tonight. Cleared 2 in 8 of his last 10 and 15 of his last 20. MIA gives up 18 percent more threes than average to his position. Teammates out: OG Anunoby, Andre Drummond. Close game, 2.5 points either way, so he should play to the end."
   },
   {
@@ -92,8 +92,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 1.0,
    "why": "2+ threes. Model has him at 2.9 tonight. Cleared 2 in 9 of his last 10 and 15 of his last 20. MIA gives up 18 percent more threes than average to his position. Teammates out: OG Anunoby, Andre Drummond. Close game, 2.5 points either way, so he should play to the end."
   },
   {
@@ -138,8 +138,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 19.0,
    "why": "15+ points. Model has him at 20.1 tonight. Cleared 15 in 8 of his last 10 and 17 of his last 20. NO gives up 7 percent more points than average to his position. Teammates out: Jordan Miller. Close game, 2.5 points either way, so he should play to the end."
   },
   {
@@ -186,8 +186,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "win",
+   "actual": 7.0,
    "why": "5+ rebounds. Model has him at 6.9 tonight. Cleared 5 in 9 of his last 10 and 17 of his last 20. IND gives up 4 percent more rebounds than average to his position. Teammates out: Jaylen Brown. Close game, 3.5 points either way, so he should play to the end."
   },
   {
@@ -234,8 +234,8 @@
    "p_hat": null,
    "breakeven": null,
    "edge": null,
-   "result": null,
-   "actual": null,
+   "result": "loss",
+   "actual": 11.0,
    "why": "19+ points. Model has him at 25.4 tonight. Cleared 19 in 10 of his last 10 and 18 of his last 20. PHI gives up 3 percent more points than average to his position. Teammates out: Tyrese Haliburton. Close game, 3.5 points either way, so he should play to the end."
   }
  ]
